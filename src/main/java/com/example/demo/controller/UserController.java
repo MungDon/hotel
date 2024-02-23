@@ -17,15 +17,15 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@GetMapping("") // RequsetMapping에 /user를 써놓은것을 그대로 사용
+	@GetMapping("") // RequsetMapping에 /user 를 써놓은것을 그대로 사용
 	public String userForm() { //회원가입 폼 페이지를 반환하는 메서드
 		return "join";
 	}
 	
-	@PostMapping("")// RequsetMapping에 /user를 써놓은것을 그대로 사용
+	@PostMapping("")// RequsetMapping에 /user 를 써놓은것을 그대로 사용
 	public String userAdd(ReqUserAdd add) {
-		userService.userAdd(add);
-		return "redirect:/user/login";
+		userService.userAdd(add);						// 사용자의 회원가입 입력데이터를 서비스에 넘겨줌 
+		return "redirect:/user/login";					// 입력데이터 insert 성공 시 = 회원가입 성공 시 로그인 페이지로 리다이렉트
 	}
 
 
