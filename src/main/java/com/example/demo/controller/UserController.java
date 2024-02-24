@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.dto.request.ReqUserLogin;
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.service.UserService;
 
@@ -31,10 +32,19 @@ public class UserController {
 		return "redirect:/user/login";					// 입력데이터 insert 성공 시 = 회원가입 성공 시 로그인 페이지로 리다이렉트
 	}
 
-	@GetMapping("/error")
+	@GetMapping("/error") // 에러페이지 반환 맵핑
 	public String errorForm(@RequestParam(value = "errorMessage")String errorMessage,Model model) { // 전역예외처리에서 보낸 errorMessge객체를 매개변수로 받음
 		model.addAttribute("errorMessage",errorMessage); // 매개변수로 받은 예외객체를 뷰로 errorMessage라는 이름으로 보내준다.
 		return "error";
 	}
-
+	
+	@GetMapping("/login")
+	public String userLoginForm() {
+		return "login";
+	}
+	@PostMapping("/login")
+	public String userLogin(ReqUserLogin login) {
+		userService.userLogin(login);
+		return "redirect:/hotel";
+	}
 }

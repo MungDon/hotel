@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.example.demo.dto.request.ReqUserLogin;
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.response.user.ResUserChk;
 
@@ -16,4 +17,9 @@ public interface UserMapper {
 		 
 		 /*회원명 중복 체크*/
 		 ResUserChk userNameChk(@Param(value = "user_name")String user_name);
+
+		 /*로그인*/
+		 ResUserChk userLogin(ReqUserLogin login);
+
+
 }

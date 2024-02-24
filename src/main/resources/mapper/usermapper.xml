@@ -34,4 +34,10 @@
 				user_name = #{user_name}
 </select>
 
+<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserChk">
+	SELECT user_email,password
+	FROM	tb_user
+	WHERE
+			user_email = #{user_email} 
+</select>
 </mapper>
