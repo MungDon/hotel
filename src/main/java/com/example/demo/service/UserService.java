@@ -1,13 +1,13 @@
 package com.example.demo.service;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Exception.CustomException;
 import com.example.demo.Exception.ErrorCode;
-import com.example.demo.dto.request.ReqUserLogin;
 import com.example.demo.dto.request.user.ReqUserAdd;
+import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserChk;
+import com.example.demo.dto.response.user.ResUserLogin;
 import com.example.demo.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -33,14 +33,14 @@ public class UserService {
 		userMapper.userAdd(add); // uesrMapper에 유저정보를 전달
 	}
 	
-	public void userLogin(ReqUserLogin login) {
+	public ResUserLogin userLogin(ReqUserLogin login) {
 		ResUserChk Chk = userMapper.userEmailChk(login.getUser_email());
 		if(Chk == null) {
 			throw new CustomException(ErrorCode.NO_ID);
 		} else if(!login.getPassword().equals(Chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);
 		}
-		userMapper.userLogin(login);
+		return userMapper.userLogin(login);
 	}
 
 }

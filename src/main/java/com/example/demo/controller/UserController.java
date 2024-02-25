@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.dto.request.ReqUserLogin;
 import com.example.demo.dto.request.user.ReqUserAdd;
+import com.example.demo.dto.request.user.ReqUserLogin;
+import com.example.demo.dto.response.user.ResUserLogin;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -43,8 +45,12 @@ public class UserController {
 		return "login";
 	}
 	@PostMapping("/login")
-	public String userLogin(ReqUserLogin login) {
-		userService.userLogin(login);
+	public String userLogin(ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
+		ResUserLogin resLogin =  userService.userLogin(reqLogin);
+		httpServletRequest.getSession().invalidate();
+		HttpSession session = httpServletRequest.getSession(true);
+		session.setAttribute("user_sid", resLogin.getUser_sid());
+		session.setMaxInactiveInterval(1800);
 		return "redirect:/hotel";
 	}
 }

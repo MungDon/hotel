@@ -1,7 +1,5 @@
 package com.example.demo.dto.request.user;
 
-import com.example.demo.dto.request.ReqUserLogin;
-
 import lombok.Getter;
 import lombok.Setter;
 

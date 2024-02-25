@@ -3,9 +3,10 @@ package com.example.demo.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.example.demo.dto.request.ReqUserLogin;
 import com.example.demo.dto.request.user.ReqUserAdd;
+import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserChk;
+import com.example.demo.dto.response.user.ResUserLogin;
 
 @Mapper
 public interface UserMapper {
@@ -19,7 +20,7 @@ public interface UserMapper {
 		 ResUserChk userNameChk(@Param(value = "user_name")String user_name);
 
 		 /*로그인*/
-		 ResUserChk userLogin(ReqUserLogin login);
+		 ResUserLogin userLogin(ReqUserLogin login);
 
 
 }
