@@ -1,7 +1,6 @@
 package com.example.demo.Exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

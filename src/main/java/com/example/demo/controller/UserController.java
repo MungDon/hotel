@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,11 +47,20 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public String userLogin(ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
-		ResUserLogin resLogin =  userService.userLogin(reqLogin);
-		httpServletRequest.getSession().invalidate();
-		HttpSession session = httpServletRequest.getSession(true);
-		session.setAttribute("user_sid", resLogin.getUser_sid());
-		session.setMaxInactiveInterval(1800);
+		ResUserLogin resLogin =  userService.userLogin(reqLogin); //서비스로 넘겨받은로그인정보 resLogin 대입
+		httpServletRequest.getSession().invalidate();	//세션생성전 세션파기
+		HttpSession session = httpServletRequest.getSession(true);		//세션없으면 생성 있으면 기존 세션반환
+		session.setAttribute("user_sid", resLogin.getUser_sid()); //세션에 해당 회원 고유번호 저장
+		session.setMaxInactiveInterval(1800);	//세션 30분 유지
 		return "redirect:/hotel";
 	}
+	
+	@DeleteMapping("/logout")
+	public void userLogout(HttpServletRequest httpServletRequest) {
+		HttpSession session = httpServletRequest.getSession(false); //세션이 없으면 생성 하지않음 아니라면 기존 세션반환 
+		if(session != null) {
+			session.invalidate(); //세션이있다면 삭제
+		}
+	}
+	
 }
