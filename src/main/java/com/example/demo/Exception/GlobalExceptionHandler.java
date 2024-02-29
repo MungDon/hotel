@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 		public ModelAndView validErrorException(MethodArgumentNotValidException e) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/user/error");
-			modelAndView.addObject("errorMessage",HttpStatus.BAD_REQUEST);
+			modelAndView.addObject("errorMessage",e.getBindingResult());
 			return modelAndView;
 	}
 	
