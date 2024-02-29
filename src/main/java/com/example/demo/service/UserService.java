@@ -34,13 +34,13 @@ public class UserService {
 	}
 	
 	public ResUserLogin userLogin(ReqUserLogin login) {
-		ResUserChk Chk = userMapper.userEmailChk(login.getUser_email());
-		if(Chk == null) {
-			throw new CustomException(ErrorCode.NO_ID); //입력한 이메일이 없으면 예외발생
-		} else if(!login.getPassword().equals(Chk.getPassword())) {
+		ResUserLogin chk =  userMapper.userLogin(login);
+		if(chk == null) {
+			throw new CustomException(ErrorCode.NO_ID); //입력한 로그인 정보가 없으면 예외발생
+		} else if(!login.getPassword().equals(chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
 		}
-		return userMapper.userLogin(login);	// 로그인정보 리턴
+		return chk;	// 로그인정보 리턴
 	}
 
 }

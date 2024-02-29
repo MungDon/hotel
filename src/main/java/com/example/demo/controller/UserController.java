@@ -15,6 +15,7 @@ import com.example.demo.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -30,7 +31,7 @@ public class UserController {
 	}
 	
 	@PostMapping("")// RequsetMapping에 /user 를 써놓은것을 그대로 사용
-	public String userAdd(ReqUserAdd add) {
+	public String userAdd(@Valid ReqUserAdd add) {
 		userService.userAdd(add);						// 사용자의 회원가입 입력데이터를 서비스에 넘겨줌 
 		return "redirect:/user/login";					// 입력데이터 insert 성공 시 = 회원가입 성공 시 로그인 페이지로 리다이렉트
 	}
@@ -51,6 +52,7 @@ public class UserController {
 		httpServletRequest.getSession().invalidate();	//세션생성전 세션파기
 		HttpSession session = httpServletRequest.getSession(true);		//세션없으면 생성 있으면 기존 세션반환
 		session.setAttribute("user_sid", resLogin.getUser_sid()); //세션에 해당 회원 고유번호 저장
+		session.setAttribute("user_name", resLogin.getUser_name()); //세션에 해당회원 회원명 저장
 		session.setMaxInactiveInterval(1800);	//세션 30분 유지
 		return "redirect:/hotel";
 	}

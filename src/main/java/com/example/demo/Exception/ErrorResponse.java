@@ -7,27 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 @AllArgsConstructor
-@Builder
 public class ErrorResponse {
 
 		private HttpStatus status;
 		private String  message;
-		
-		private ErrorResponse(final ErrorCode code) {
-	        this.message = code.getMessage();
-	        this.status = code.getStatus();
-	    }
-
-	    public static ErrorResponse of(final ErrorCode code) {
-	        return new ErrorResponse(code);
-	    }
-
-	    
-
-
 		
 }

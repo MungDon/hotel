@@ -1,7 +1,10 @@
 package com.example.demo.Exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,5 +19,15 @@ public class GlobalExceptionHandler {
 		modelAndView.addObject("errorMessage", e.getErrorCode().getMessage()); // 해당 에러코드 안에 에러메시지를 errorMessage라는 이름의 객체로 컨트롤러에 보내줌
 		return modelAndView;					// view의 이름과 객체를 리턴 = ModelAndView [view="redirect:/user/error"; model={errorMessage=해당 에러의 메시지}]																					
 	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+		public ModelAndView validErrorException(MethodArgumentNotValidException e) {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName("redirect:/user/error");
+			modelAndView.addObject("errorMessage",HttpStatus.BAD_REQUEST);
+			return modelAndView;
+	}
+	
+	
 
 }

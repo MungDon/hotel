@@ -35,7 +35,7 @@
 </select>
 
 <select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
-	SELECT user_email,password
+	SELECT user_sid,user_email,password,user_name
 	FROM	tb_user
 	WHERE
 			user_email = #{user_email} 
