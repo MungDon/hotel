@@ -53,6 +53,7 @@ public class UserController {
 		HttpSession session = httpServletRequest.getSession(true);		//세션없으면 생성 있으면 기존 세션반환
 		session.setAttribute("user_sid", resLogin.getUser_sid()); //세션에 해당 회원 고유번호 저장
 		session.setAttribute("user_name", resLogin.getUser_name()); //세션에 해당회원 회원명 저장
+		session.setAttribute("role_user", resLogin.getRole());
 		session.setMaxInactiveInterval(1800);	//세션 30분 유지
 		return "redirect:/hotel";
 	}

@@ -1,13 +1,9 @@
 package com.example.demo.Exception;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
-
-import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,7 +20,8 @@ public class GlobalExceptionHandler {
 		public ModelAndView validErrorException(MethodArgumentNotValidException e) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("redirect:/user/error");
-			modelAndView.addObject("errorMessage",e.getBindingResult());
+			final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,e.getBindingResult());
+			modelAndView.addObject("errorMessage", errorResponse.getMessage());
 			return modelAndView;
 	}
 	

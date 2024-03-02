@@ -8,4 +8,6 @@ public class ResUserLogin extends ResUserChk{
 	private Long user_sid;
 	
 	private String user_name;
+	
+	private String role;
 }

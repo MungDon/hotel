@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.Exception.CustomException;
 import com.example.demo.Exception.ErrorCode;
@@ -8,6 +9,7 @@ import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserChk;
 import com.example.demo.dto.response.user.ResUserLogin;
+import com.example.demo.enums.Role;
 import com.example.demo.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserMapper userMapper;
-
+	
+	@Transactional
 	public void userAdd(ReqUserAdd add) {
 		ResUserChk emailChk = userMapper.userEmailChk(add.getUser_email()); // mapper 에서 회원 email 정보를 가져온것을
 																															// emailChk 라는 이름으로 저장
@@ -33,6 +36,7 @@ public class UserService {
 		userMapper.userAdd(add); // uesrMapper에 유저정보를 전달
 	}
 	
+	@Transactional
 	public ResUserLogin userLogin(ReqUserLogin login) {
 		ResUserLogin chk =  userMapper.userLogin(login);
 		if(chk == null) {
@@ -40,6 +44,8 @@ public class UserService {
 		} else if(!login.getPassword().equals(chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
 		}
+		System.out.println(chk.getRole());
+		Role.fromString(chk.getRole(), Role.USER);
 		return chk;	// 로그인정보 리턴
 	}
 
