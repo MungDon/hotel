@@ -2,14 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Error</title>
+<meta charset="UTF-8">
+<title>Error</title>
 </head>
 
 <body>
-	<p th:text=${errorMessage}></p>
+	<p th:text="${errorMessage}"></p>
 	<button type="button" onclick="history.back()">이전</button>
-
+	<div th:if="${errorMessage == null}">
+	<p>없는 페이지 입니다</p>
+	</div>
 
 </body>
 

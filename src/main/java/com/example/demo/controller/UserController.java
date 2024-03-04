@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
@@ -25,9 +26,13 @@ public class UserController {
 	
 	private final UserService userService;
 	
+	@GetMapping("/choice")
+	public String choiceForm() {
+		return "choice";
+	}
 	@GetMapping("") // RequsetMapping에 /user 를 써놓은것을 그대로 사용
 	public String userForm() { //회원가입 폼 페이지를 반환하는 메서드
-		return "join";
+		return "userjoin";
 	}
 	
 	@PostMapping("")// RequsetMapping에 /user 를 써놓은것을 그대로 사용
@@ -59,6 +64,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/logout")
+	@ResponseBody
 	public void userLogout(HttpServletRequest httpServletRequest) {
 		HttpSession session = httpServletRequest.getSession(false); //세션이 없으면 생성 하지않음 아니라면 기존 세션반환 
 		if(session != null) {

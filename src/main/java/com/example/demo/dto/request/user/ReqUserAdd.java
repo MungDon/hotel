@@ -18,7 +18,7 @@ public class ReqUserAdd {
 	private String user_email;			// 유저 이메일 
 	
 	@ NotBlank(message = "회원명을 입력해주세요! (공백 불가능)")
-	@Pattern(regexp = "^[a-zA-Z0-9가-힣_-]{2,6}$",message = "2~6자리여야하고 숫자 한.영어 가능, 특수기호는 -, _만 사용가능합니다")
+	@Pattern(regexp = "^[a-zA-Z0-9가-힣_-]{2,6}$",message = "회원명은 2~6자리여야하고 숫자 한.영어 가능, 특수기호는 -, _만 사용가능합니다")
 	private String user_name;			// 유저명
 	
 	@NotBlank(message = "비밀번호는 필수입니다, 입력해주세요~!")
