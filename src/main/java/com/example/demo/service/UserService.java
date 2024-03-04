@@ -44,7 +44,6 @@ public class UserService {
 		} else if(!login.getPassword().equals(chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
 		}
-		System.out.println(chk.getRole());
 		Role.fromString(chk.getRole(), Role.USER);
 		return chk;	// 로그인정보 리턴
 	}

@@ -24,7 +24,7 @@ public class ErrorResponse {
 		
 		private int status;
 		private String  message;
-		private List<FieldError> errorss;
+		private List<FieldError> errors;
 		
 		
 		public static ErrorResponse of(final ErrorCode code, final BindingResult bindingResult) {
@@ -37,7 +37,7 @@ public class ErrorResponse {
 				 this.message += error.getMessage()+"\n";
 			 }
 			 this.status = code.getStatus().value();
-			 this.errorss = errors;
+			 this.errors = errors;
 		} 
 
 

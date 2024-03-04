@@ -64,6 +64,7 @@ public class UserController {
 		if(session != null) {
 			session.invalidate(); //세션이있다면 삭제
 		}
+		
 	}
 	
 }
