@@ -1,4 +1,4 @@
-package com.example.demo.dto.request.user;
+package com.example.demo.dto.request.seller;
 
 import com.example.demo.enums.Role;
 
@@ -9,8 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReqUserAdd {		
-	
+public class ReqSellerAdd {
 	
 	@NotBlank(message = "이메일은 필수입니다~!")
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "이메일 형식에 맞게 써주세요!")
@@ -27,5 +26,11 @@ public class ReqUserAdd {
 	@NotBlank(message = "비밀번호 재확인을 적지않았어요~!")
 	private String password2;			// 유저 비밀번호 재확인
 	
-	private final Role role = Role.USER; // 일반 회원 권한
+	private String business_number; 	// 판매자 사업자 번호
+	
+	private String resident_number;	// 판매자 주민등록번호
+	
+	private String product_type;			// 상품 종류
+	
+	private final Role role = Role.SELLER; // 판매자 회원 권한
 }

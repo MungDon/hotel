@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
-<!-- 회원 정보 저장 -->
-<insert id="userAdd" parameterType="ReqUserAdd" useGeneratedKeys="true" keyColumn="user_sid" keyProperty="user_sid">
-	INSERT INTO tb_user(
-	user_email,
-	user_name,
-	password,
-	delete_yn,
-	created_date,
-	modified_date,
-	role
-	) VALUES (
-	#{user_email},
-	#{user_name},
-	#{password},
-	'N',
-	now(),
-	now(),
-	#{role}
-	)
-</insert>
-<!-- 회원 이메일 중복 체크  -->
-<select id ="userEmailChk" parameterType = "String" resultType="ResUserChk">
-	SELECT user_email
-	FROM 	tb_user
-	WHERE	
-				user_email = #{user_email}
-</select>
-<!-- 회원명 중복 체크  -->
-<select id ="userNameChk" parameterType = "String" resultType="ResUserChk">
-	SELECT user_name
-	FROM 	tb_user
-	WHERE	
-				user_name = #{user_name}
-</select>
-
-<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
-	SELECT user_sid,user_email,password,user_name,role
-	FROM	tb_user
-	WHERE
-			user_email = #{user_email} 
-</select>
+	<!-- 회원 정보 저장 -->
+	<insert id="userAdd" parameterType="ReqUserAdd" useGeneratedKeys="true" keyColumn="user_sid" keyProperty="user_sid">
+		INSERT INTO tb_user(
+			user_email,
+			user_name,
+			password,
+			delete_yn,
+			created_date,
+			modified_date,
+			role
+		) VALUES (
+			#{user_email},
+			#{user_name},
+			#{password},
+			'N',
+			now(),
+			now(),
+			#{role}
+		)
+	</insert>
+	<!-- 회원 이메일 중복 체크  -->
+	<select id ="userEmailChk" parameterType = "String" resultType="ResUserChk">
+		SELECT user_email
+		FROM 	tb_user
+		WHERE	
+					user_email = #{user_email}
+	</select>
+	<!-- 회원명 중복 체크  -->
+	<select id ="userNameChk" parameterType = "String" resultType="ResUserChk">
+		SELECT	 user_name
+			FROM 	tb_user
+				WHERE	user_name = #{user_name}
+						
+	</select>
+	
+	<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
+		SELECT user_sid,user_email,password,user_name,role
+		FROM	tb_user
+		WHERE	user_email = #{user_email} 
+				
+	</select>
 </mapper>

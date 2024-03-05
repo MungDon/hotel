@@ -26,10 +26,12 @@ public class UserController {
 	
 	private final UserService userService;
 	
+	/*판매자/일반회원 회원가입 선택지 페이지 폼*/
 	@GetMapping("/choice")
 	public String choiceForm() {
 		return "choice";
 	}
+	
 	@GetMapping("") // RequsetMapping에 /user 를 써놓은것을 그대로 사용
 	public String userForm() { //회원가입 폼 페이지를 반환하는 메서드
 		return "userjoin";
@@ -53,13 +55,13 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public String userLogin(ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
-		ResUserLogin resLogin =  userService.userLogin(reqLogin); //서비스로 넘겨받은로그인정보 resLogin 대입
-		httpServletRequest.getSession().invalidate();	//세션생성전 세션파기
-		HttpSession session = httpServletRequest.getSession(true);		//세션없으면 생성 있으면 기존 세션반환
-		session.setAttribute("user_sid", resLogin.getUser_sid()); //세션에 해당 회원 고유번호 저장
-		session.setAttribute("user_name", resLogin.getUser_name()); //세션에 해당회원 회원명 저장
-		session.setAttribute("role_user", resLogin.getRole());
-		session.setMaxInactiveInterval(1800);	//세션 30분 유지
+		ResUserLogin resLogin =  userService.userLogin(reqLogin);			//서비스로 넘겨받은로그인정보 resLogin 대입
+		httpServletRequest.getSession().invalidate();								//세션생성전 세션파기
+		HttpSession session = httpServletRequest.getSession(true);			//세션없으면 생성 있으면 기존 세션반환
+		session.setAttribute("user_sid", resLogin.getUser_sid());				//세션에 해당 회원 고유번호 저장
+		session.setAttribute("user_name", resLogin.getUser_name());		//세션에 해당회원 회원명 저장
+		session.setAttribute("role_user", resLogin.getRole());					//세션에 해당회원 권한 저장
+		session.setMaxInactiveInterval(1800);											//세션 30분 유지
 		return "redirect:/hotel";
 	}
 	
