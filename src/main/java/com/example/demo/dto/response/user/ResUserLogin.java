@@ -1,5 +1,7 @@
 package com.example.demo.dto.response.user;
 
+import com.example.demo.enums.Role;
+
 import lombok.Getter;
 
 @Getter
@@ -13,5 +15,5 @@ public class ResUserLogin{
 	
 	private String user_name;
 	
-	private String role;
+	private Role role;
 }

@@ -11,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class ReqSellerAdd {
 	
+	private Long user_sid;
+	
 	@NotBlank(message = "이메일은 필수입니다~!")
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",message = "이메일 형식에 맞게 써주세요!")
 	private String user_email;			// 유저 이메일 
@@ -25,6 +27,7 @@ public class ReqSellerAdd {
 	
 	@NotBlank(message = "비밀번호 재확인을 적지않았어요~!")
 	private String password2;			// 유저 비밀번호 재확인
+	
 	
 	private String business_number; 	// 판매자 사업자 번호
 	

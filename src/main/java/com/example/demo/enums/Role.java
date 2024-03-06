@@ -14,12 +14,4 @@ public enum Role {
 	private String type;
 	private String name;
 	
-	public static Role fromString(String value ,Role roles) {
-		for(Role role : Role.values()) {
-			if(role.type.equals(value) && roles.getCode() <= role.getCode()) {
-				return role;
-			}
-		}
-		throw new IllegalArgumentException("다음 권한을 찾을 수 없습니다 : "+ value);
-	}
 }

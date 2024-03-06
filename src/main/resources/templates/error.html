@@ -7,11 +7,12 @@
 </head>
 
 <body>
-	<p th:text="${errorMessage}"></p>
-	<button type="button" onclick="history.back()">이전</button>
 	<div th:if="${errorMessage == null}">
 	<p>없는 페이지 입니다</p>
 	</div>
+	<p th:text="${errorMessage}"></p>
+	<button type="button" onclick="history.back()">이전</button>
+
 
 </body>
 

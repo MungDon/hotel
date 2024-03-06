@@ -14,6 +14,11 @@ public class HotelController {
 	
 	@GetMapping("")
 	public String hotelForm() {
-		return "/hotel";
+		return "hotel";
+	}
+	
+	@GetMapping("/seller")
+	public String hotelSellForm() {
+		return "seller";
 	}
 }

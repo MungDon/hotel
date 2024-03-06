@@ -9,7 +9,6 @@ import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserChk;
 import com.example.demo.dto.response.user.ResUserLogin;
-import com.example.demo.enums.Role;
 import com.example.demo.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -44,7 +43,6 @@ public class UserService {
 		} else if(!login.getPassword().equals(chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
 		}
-		Role.fromString(chk.getRole(), Role.USER);
 		return chk;	// 로그인정보 리턴
 	}
 

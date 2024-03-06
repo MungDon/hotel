@@ -39,5 +39,4 @@
 			FROM		tb_user
 				WHERE	user_name = #{user_name}	
 	</select>
-
 </mapper>

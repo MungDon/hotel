@@ -1,13 +1,13 @@
 package com.example.demo.dto.request.user;
 
-import com.example.demo.enums.Role;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class ReqUserLogin {
+	
+	private Long user_sid;
 
 	private String user_email;			// 유저 이메일 
 	
@@ -15,5 +15,5 @@ public class ReqUserLogin {
 	
 	private String user_name; 
 
-	private Role role;
+	private String role;
 }
