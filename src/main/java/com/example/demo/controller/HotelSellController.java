@@ -4,17 +4,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.service.HotelSellService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/hotel")
-public class HotelController {
-		
+@RequestMapping("/sell")
+public class HotelSellController {
+	
+	private final HotelSellService hotelSellService;
+	
 	
 	@GetMapping("")
-	public String hotelForm() {
-		return "hotel";
+	public String hotelSellForm() {
+		return "seller";
 	}
-
 }
