@@ -33,7 +33,7 @@ public class ReqSellerAdd {
 	
 	private String resident_number;	// 판매자 주민등록번호
 	
-	private String product_type;			// 상품 종류
+	private String hotel_name;	//  호텔명 
 	
 	private final Role role = Role.SELLER; // 판매자 회원 권한
 }

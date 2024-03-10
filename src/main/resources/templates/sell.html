@@ -2,9 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>hotel insert</title>
 </head>
 <body>
-<h1> 판매자 로그인 성공~</h1>
+		<form class="sellAddForm" action="/sell" method="post">
+			호텔 정보<textarea class = hotel_info name="hotel_info"></textarea></br>
+			호텔 이미지<input type="url" name="hotel_img"></br>
+			침대 유형<input type="text" name="bed_type"></br>
+			침대 수<input type="text" name="bed_count">개</br>
+			방 사이즈<input type="text" name="room_size">m²</br>
+			방 개수<input type="text" name="room_count">개</br>
+			방 가격<input type="text" name="room_price">원</br>
+			방 이미지<input type="url" name="room_img"></br>
+			전망 유형<input type="text" name="view_type">전망</br>
+			수용가능 인원<input type="text" name="people">명</br>
+			주차 여부<input type="text" name="parking"></br>
+			<input type="submit" value="등록">
+		</form>
 </body>
 </html>

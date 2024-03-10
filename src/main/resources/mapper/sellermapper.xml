@@ -12,7 +12,7 @@
 			modified_date,
 			business_number,
 			resident_number,
-			product_type,
+			hotel_name,
 			role
 		) VALUES (
 			#{user_email},
@@ -23,7 +23,7 @@
 			now(),
 			#{business_number},
 			#{resident_number},
-			#{product_type},
+			#{hotel_name},
 			#{role}
 		)
 	</insert>
