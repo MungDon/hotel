@@ -26,7 +26,6 @@ public class HotelSellController {
 	@PostMapping("")
 	public String hotelSellAdd(ReqHotelAdd add) {
 		hotelSellService.hotelSellAdd(add);
-		System.out.println(add.getOption_sid());
 		return "redirecr:/sell/list";
 	}
 }
