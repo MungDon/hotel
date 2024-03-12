@@ -16,7 +16,8 @@ import lombok.RequiredArgsConstructor;
 public class SellerService {
 
 	private final SellerMapper sellerMapper;
-	/*회원가입*/
+
+	/* 회원가입 */
 	@Transactional
 	public void sellerAdd(ReqSellerAdd add) {
 		ResEmailNameChk emailChk = sellerMapper.sellerEmailChk(add.getUser_email());

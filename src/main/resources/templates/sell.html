@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>hotel insert</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-		<form class="sellAddForm" action="/sell" method="post">
-			호텔 정보<textarea class = hotel_info name="hotel_info"></textarea></br>
-			호텔 이미지<input type="url" name="hotel_img"></br>
-			침대 유형<input type="text" name="bed_type"></br>
-			침대 수<input type="text" name="bed_count">개</br>
-			방 사이즈<input type="text" name="room_size">m²</br>
-			방 개수<input type="text" name="room_count">개</br>
-			방 가격<input type="text" name="room_price">원</br>
-			방 이미지<input type="url" name="room_img"></br>
-			전망 유형<input type="text" name="view_type">전망</br>
-			수용가능 인원<input type="text" name="people">명</br>
-			주차 여부<input type="text" name="parking"></br>
-			<input type="submit" value="등록">
-		</form>
+	<form class="sellAddForm" action="/sell" method="post">
+		호텔 정보<input type="text" name="hotel_info"><br> 
+		호텔 이미지<input type="url" name="hotel_img"><br>
+			
+		<h2>-옵션-</h2>
+		<input type="text" id="option[0].option_name" name="option[0].option_name"> <input
+			type="text" id="option[0].option_value" name="option[0].option_value">
+		<button type="button" onclick="addOption()">옵션 추가하기</button><br>
+		<button type="submit" >등록</button>	
+			
+		<script>
+		  function addOption() {
+	            optionCount++;
+	            let newOption = `
+	                <div class="option">
+	                    <input type="text" id="options[${optionCount}].optionName" name="options[${optionCount}].optionName"><br>
+	                    <input type="text" id="options[${optionCount}].optionValue" name="options[${optionCount}].optionValue"><br><br>
+	                </div>
+	                <button type="button" onclick="remove()">옵션 제거</button>
+	            `;
+	            $('#options').append(newOption);
+	        }
+	    </script>
+		
+		
+	</form>
 </body>
 </html>

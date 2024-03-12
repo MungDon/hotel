@@ -39,7 +39,7 @@ public class UserService {
 	public ResUserLogin userLogin(ReqUserLogin login) {
 		ResUserLogin chk =  userMapper.userLogin(login);
 		if(chk == null) {
-			throw new CustomException(ErrorCode.NO_ID); //입력한 로그인 정보가 없으면 예외발생
+			throw new CustomException(ErrorCode.NO_ACCOUNT); //입력한 로그인 정보가 없으면 예외발생
 		} else if(!login.getPassword().equals(chk.getPassword())) {
 			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
 		}

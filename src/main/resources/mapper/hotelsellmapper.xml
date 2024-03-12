@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.HotelSellMapper">
-	<insert id="hotelSellAdd" parameterType="ReqHotelAdd" useGeneratedKeys="true" keyProperty="hotel_sell_sid" keyColumn="hotel_sell_sid">
-		INSERT INTO tb_hotel_sell(
-			option_sid,
-			user_sid,
-			hotel_info,
-			hotel_img,
-			delete_yn,
-			created_date,
-			modified_date			
-		)	VALUES	(
-			#{option_sid},
-			#{user_sid},
-			#{hotel_info},
-			#{hotel_img},
-			'N',
-			now(),
-			now()
-		)
+	<insert id="hotelSellAdd" parameterType="ReqHotelAdd" useGeneratedKeys="true" keyColumn="hotel_sell_sid" keyProperty="hotel_sell_sid" >
+        INSERT INTO tb_hotel_sell (
+        hotel_info, 
+        hotel_img,
+        delete_yn,
+        created_date,
+        modified_date
+        ) VALUES (
+        #{hotel_info}, 
+        #{hotel_img},
+        'N',
+        now(),
+        now()
+        )
+    </insert>
 
-	</insert>
 </mapper> 

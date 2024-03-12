@@ -17,5 +17,7 @@ public class HotelSellService {
 	@Transactional
 	public void hotelSellAdd(ReqHotelAdd add) {
 		hotelSellMapper.hotelSellAdd(add);
+		
+		}
+		
 	}
-}
