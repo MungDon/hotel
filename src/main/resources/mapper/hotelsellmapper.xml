@@ -21,7 +21,7 @@
 			room_sid,
 			option_name,
 			option_value
-		) VALUE (
+		) VALUES (
 			#{room_sid},
 			#{option_name},
 			#{option_value}

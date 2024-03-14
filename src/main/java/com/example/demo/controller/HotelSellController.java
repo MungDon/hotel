@@ -29,6 +29,6 @@ public class HotelSellController {
 	@PostMapping("")
 	public String hotelSellAdd(@ModelAttribute ReqRoomAdd add) {
 		hotelSellService.hotelSellAdd(add);
-		return "redirecr:/sell/list";
+		return "redirect:/sell/list";
 	}
 }
