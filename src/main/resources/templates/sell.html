@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>hotel insert</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<form class="sellAddForm" action="/sell" method="post">
@@ -11,24 +11,35 @@
 		호텔 이미지<input type="url" name="hotel_img"><br>
 			
 		<h2>-옵션-</h2>
-		<input type="text" id="option[0].option_name" name="option[0].option_name"> <input
-			type="text" id="option[0].option_value" name="option[0].option_value">
-		<button type="button" onclick="addOption()">옵션 추가하기</button><br>
+			<div class="options">
+				옵션명<input type="text" id="options[0].option_name" name="option[0].option_name">
+				내용<input type="text" id="options[0].option_value" name="option[0].option_value">		
+				<button type="button" onclick="addOption()">옵션 추가하기</button><br>
+			</div>
 		<button type="submit" >등록</button>	
 			
-		<script>
-		  function addOption() {
-	            optionCount++;
-	            let newOption = `
-	                <div class="option">
-	                    <input type="text" id="options[${optionCount}].optionName" name="options[${optionCount}].optionName"><br>
-	                    <input type="text" id="options[${optionCount}].optionValue" name="options[${optionCount}].optionValue"><br><br>
-	                </div>
-	                <button type="button" onclick="remove()">옵션 제거</button>
-	            `;
-	            $('#options').append(newOption);
-	        }
-	    </script>
+<script th:inline="javascript">
+    let optionCount = 0;
+
+    function addOption(){
+        optionCount++;
+       	let html =""
+       		html += `
+            <div class="options">
+                옵션명<input type="text" id="options[${optionCount}].option_name" name="options[${optionCount}].option_name">
+                내용<input type="text" id="options[${optionCount}].option_value" name="options[${optionCount}].option_value">
+                <button type="button" onclick="addOption()">옵션 추가하기</button>
+                <button type="button" onclick="removeOption(this)">옵션 제거</button>
+            </div>
+        `;
+        $('.options').append(html);
+        console.log(optionCount);
+    }
+
+    function removeOption(button) {
+        $(button).parent().remove();
+    }
+</script>
 		
 		
 	</form>
