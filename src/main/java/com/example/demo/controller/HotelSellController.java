@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dto.request.hotelsell.ReqHotelAdd;
+import com.example.demo.dto.request.hotelsell.ReqRoomAdd;
 import com.example.demo.service.HotelSellService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +22,12 @@ public class HotelSellController {
 	
 	@GetMapping("")
 	public String hotelSellForm(Model model) {
-		model.addAttribute("options", new ReqHotelAdd());
+		model.addAttribute("options", new ReqRoomAdd());
 		return "sell";
 	}
 	
 	@PostMapping("")
-	public String hotelSellAdd(@ModelAttribute ReqHotelAdd add) {
+	public String hotelSellAdd(@ModelAttribute ReqRoomAdd add) {
 		hotelSellService.hotelSellAdd(add);
 		return "redirecr:/sell/list";
 	}

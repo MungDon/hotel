@@ -1,16 +1,14 @@
 package com.example.demo.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.demo.dto.request.hotelsell.ReqHotelAdd;
-import com.example.demo.dto.request.hotelsell.ReqHotelAdd.Options;
+import com.example.demo.dto.request.hotelsell.ReqRoomAdd;
 
 @Mapper
 public interface HotelSellMapper {
 	
 	/*호텔 판매 등록*/
-	void hotelSellAdd(ReqHotelAdd add);
+	void hotelSellAdd(ReqRoomAdd add);
 	
+	void addOptions(ReqRoomAdd.Options options);
 }

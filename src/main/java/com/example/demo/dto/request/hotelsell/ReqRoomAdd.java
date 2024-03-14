@@ -3,22 +3,28 @@ package com.example.demo.dto.request.hotelsell;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ReqHotelAdd {
+public class ReqRoomAdd {
 	
-	private String hotel_info; // 호텔정보
+	private Long room_sid;
+	
+	private String room_info; // 호텔정보
 	 
-	private String hotel_img;	// 이미지 주소 
+	private String room_img;	// 이미지 주소 
 	
 	private List<Options> options; 
 	
 	
 	@Getter
 	@Setter
-	public class Options{
+	@NoArgsConstructor
+	public static class Options{
+			
+			private Long room_sid;
 			
 			private String option_name; // 옵션 명	
 			
