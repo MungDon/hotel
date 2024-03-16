@@ -66,7 +66,7 @@ public class UserController {
 		System.out.println(resLogin.getRole());
 		System.out.println(session.getAttribute("role_user"));
 		if(session.getAttribute("role_user").equals(Role.SELLER)) {
-			return "redirect:/sell";
+			return "redirect:/room";
 		}
 		return "redirect:/hotel";
 	}

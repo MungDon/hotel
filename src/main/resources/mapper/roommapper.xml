@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RoomMapper">
+	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
+        INSERT INTO tb_room (
+        room_info, 
+        room_img,
+        delete_yn,
+        created_date,
+        modified_date
+        ) VALUES (
+        #{room_info}, 
+        #{room_img},
+        'N',
+        now(),
+        now()
+        )
+    </insert>
+	<insert id="addOptions" parameterType="com.example.demo.dto.request.room.ReqOptions">
+		INSERT INTO tb_options(
+			room_sid,
+			option_name,
+			option_value
+		) VALUES (
+			#{room_sid},
+			#{option_name},
+			#{option_value}
+		)
+	</insert>
+	
+	<resultMap type="ResRoomList" id="optionList">
+		<id property="room_sid" column="room_sid" />
+		<result property="room_info" column="room_info" />
+		<result property="room_img" column="room_img" />
+		<collection property="options" resultMap="optionsMap"></collection>
+	</resultMap>
+	
+	<resultMap type="ResOptions" id="optionsMap">
+		<result property="room_sid" column="room_sid" />
+		<result property="option_name" column="option_name" />
+		<result property="option_value" column="option_value" />
+	</resultMap>
+	
+	<select id="roomList" resultMap="optionList">
+		SELECT 	
+				TR.* ,
+				OP.option_name ,OP.option_value
+		FROM	
+				tb_room AS TR
+		LEFT OUTER JOIN 	
+				tb_options AS OP
+		ON 	
+				TR.room_sid = OP.room_sid
+		WHERE	
+				TR.delete_yn = 'N'
+		order BY
+				TR.room_sid DESC;
+	</select>
+</mapper> 

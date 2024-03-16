@@ -1,15 +1,9 @@
 package com.example.demo.Exception;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.apache.ibatis.javassist.expr.NewArray;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.ErrorResponseException;
-
-import com.fasterxml.jackson.databind.introspect.DefaultAccessorNamingStrategy.FirstCharBasedValidator;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
