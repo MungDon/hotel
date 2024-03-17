@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "file.Upfolder",
+    "type": "java.lang.String",
+    "description": "A description for 'file.Upfolder'"
+  },
+  {
+    "name": "file.Upimg",
+    "type": "java.lang.String",
+    "description": "A description for 'file.Upimg'"
+  },
+  {
+    "name": "file.upload-dir",
+    "type": "java.lang.String",
+    "description": "A description for 'file.upload-dir'"
+  }
+]}
