@@ -2,6 +2,8 @@ package com.example.demo.dto.request.room;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +18,7 @@ public class ReqRoomAdd {
 	private String room_info; // 방 정보
 	
 	
-	private String room_img;	// 이미지 주소 
+	private List<MultipartFile> images;	// 이미지 주소 
 	
 
 	private List<ReqOptions> options;	// 옵션 리스트 

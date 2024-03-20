@@ -27,12 +27,33 @@
 			#{option_value}
 		)
 	</insert>
+	<insert id ="uploadImg" parameterType="RoomImg">
+		INSERT INTO tb_room_img(
+			room_sid,
+			original_name,
+			img_name,
+			extension,
+		) VALUES (
+			#{room_sid},
+			#{original_name},
+			#{img_name},
+			#{extension}
+		)
+	</insert>
 	
 	<resultMap type="ResRoomList" id="optionList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_info" column="room_info" />
 		<result property="room_img" column="room_img" />
 		<collection property="options" resultMap="optionsMap"></collection>
+		<collection property="images" resultMap="imagesMap"></collection>
+	</resultMap>
+	
+	<resultMap type="RoomImg" id="imagesMap">
+		<result property="room_sid" column="room_sid"/>
+		<result property="original_name" column="original_name"/>
+		<result property="extension" column="extension"/>
+		<result property="img_name" column="img_name"/>
 	</resultMap>
 	
 	<resultMap type="ResOptions" id="optionsMap">

@@ -1,5 +1,7 @@
 package com.example.demo.Exception;
 
+import java.io.IOException;
+
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,15 +18,24 @@ public class GlobalExceptionHandler {
 		return modelAndView;					// view의 이름과 객체를 리턴 = ModelAndView [view="redirect:/user/error"; model={errorMessage=해당 에러의 메시지}]																					
 	}
 	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-		public ModelAndView validErrorException(MethodArgumentNotValidException e) {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("redirect:/user/error");
-			final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,e.getBindingResult());
-			modelAndView.addObject("errorMessage", errorResponse.getMessage());
-			return modelAndView;
+	@ExceptionHandler(MethodArgumentNotValidException.class)// 유효성검사에서 발생한 예외 처리 핸들러
+	public ModelAndView handleValidErrorException(MethodArgumentNotValidException e) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/user/error");
+		final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,e.getBindingResult());
+		modelAndView.addObject("errorMessage", errorResponse.getMessage());
+		return modelAndView;
 	}
 	
+	@ExceptionHandler(IOException.class)// 파일업로드 실패시 발생한 예외 처리 핸들러
+	public ModelAndView handleIOException(IOException e) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("redirect:/user/error");
+		modelAndView.addObject("errorMessage", ErrorCode.FILE_UPLOAD_FAILED);
+		return modelAndView; 
+		
+		
+	}
 	
 
 }

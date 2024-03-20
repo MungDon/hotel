@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class RoomController {
 	}
 	/*방 등록 기능*/
 	@PostMapping("/add")
-	public String roomAddAdd(@Valid @ModelAttribute ReqRoomAdd add) {
+	public String roomAddAdd(@Valid @ModelAttribute ReqRoomAdd add) throws IOException {
 		roomService.roomAdd(add);
 		return "redirect:/room/list";
 	}
