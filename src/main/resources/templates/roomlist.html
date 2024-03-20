@@ -8,14 +8,13 @@
 	<ul>
 		<li th:each="rooms : ${rooms}">
 			<h2 th:text ="${rooms.room_info}"></h2>
-			<div class="img_box"><img th:src="${rooms.room_img}"></div>
 			<ul>
 				<li th:each="options : ${rooms.options}">
 					<span th:text ="|${options.option_name} : |"> </span>
 					<span th:text ="${options.option_value}"></span>
 				</li>
 				<li>
-				<img th:src="|C:/img/${img.img_name}|" th:each="img : ${rooms.images}" />
+				<img th:src="|/img/${img.img_name}|" th:each="img : ${rooms.images}" />
 				</li>
 			</ul>
 		</li>

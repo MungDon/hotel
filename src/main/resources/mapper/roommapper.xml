@@ -46,10 +46,9 @@
 		<collection property="images" resultMap="imagesMap"></collection>
 	</resultMap>
 	
-	<resultMap type="RoomImg" id="imagesMap">
+	<resultMap type="ResRoomImg" id="imagesMap">
 		<result property="room_sid" column="room_sid"/>
 		<result property="original_name" column="original_name"/>
-		<result property="extension" column="extension"/>
 		<result property="img_name" column="img_name"/>
 	</resultMap>
 	

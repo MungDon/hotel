@@ -26,6 +26,7 @@ public class RoomController {
 	
 	@GetMapping("")
 	public String roomList(Model model) {
+		
 		List<ResRoomList> rooms = roomService.roomList();
 		model.addAttribute("rooms", rooms);
 		return "roomlist";
@@ -41,6 +42,6 @@ public class RoomController {
 	@PostMapping("/add")
 	public String roomAddAdd(@Valid @ModelAttribute ReqRoomAdd add) throws IOException {
 		roomService.roomAdd(add);
-		return "redirect:/room/list";
+		return "redirect:/room";
 	}
 }

@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RoomService {
 	
-	@Value("${file.upload-dir}")
+	@Value("${file.Upimg}")
 	private String path;
 	
 	private final RoomMapper roomMapper;
@@ -64,6 +64,7 @@ public class RoomService {
 	 
 	@Transactional
 	public List<ResRoomList> roomList(){
+		System.out.println("서비스");
 		return roomMapper.roomList();
 	}
 
