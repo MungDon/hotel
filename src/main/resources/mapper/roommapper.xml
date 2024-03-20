@@ -4,13 +4,11 @@
 	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
         INSERT INTO tb_room (
         room_info, 
-        room_img,
         delete_yn,
         created_date,
         modified_date
         ) VALUES (
         #{room_info}, 
-        #{room_img},
         'N',
         now(),
         now()
@@ -32,7 +30,7 @@
 			room_sid,
 			original_name,
 			img_name,
-			extension,
+			extension
 		) VALUES (
 			#{room_sid},
 			#{original_name},
@@ -41,10 +39,9 @@
 		)
 	</insert>
 	
-	<resultMap type="ResRoomList" id="optionList">
+	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_info" column="room_info" />
-		<result property="room_img" column="room_img" />
 		<collection property="options" resultMap="optionsMap"></collection>
 		<collection property="images" resultMap="imagesMap"></collection>
 	</resultMap>
@@ -62,19 +59,20 @@
 		<result property="option_value" column="option_value" />
 	</resultMap>
 	
-	<select id="roomList" resultMap="optionList">
+	<select id="roomList" resultMap="resultList">
 		SELECT 	
 				TR.* ,
-				OP.option_name ,OP.option_value
+				OP.option_name ,	OP.option_value,
+				TI.original_name,	TI.img_name
 		FROM	
 				tb_room AS TR
-		LEFT OUTER JOIN 	
-				tb_options AS OP
-		ON 	
-				TR.room_sid = OP.room_sid
+				
+		LEFT OUTER JOIN 	tb_options		AS	OP	ON 	TR.room_sid = OP.room_sid
+		LEFT OUTER JOIN 	tb_room_img	AS	TI		ON 	TR.room_sid = TI.room_sid
+		
 		WHERE	
 				TR.delete_yn = 'N'
-		order BY
+		ORDER BY
 				TR.room_sid DESC;
 	</select>
 </mapper> 

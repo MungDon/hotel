@@ -11,10 +11,8 @@ public class ResRoomList {
 	
 	private String room_info;
 	
-	private String room_img;
-	
 	private List<ResOptions> options;
 	
-	
+	private List<ResRoomImg> images;
 
 }
