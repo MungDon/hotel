@@ -18,7 +18,7 @@ public class ReqRoomAdd {
 	private String room_info; // 방 정보
 	
 	
-	private List<MultipartFile> images;	// 이미지 주소 
+	private List<MultipartFile> images;	// 이미지 파일
 	
 
 	private List<ReqOptions> options;	// 옵션 리스트 

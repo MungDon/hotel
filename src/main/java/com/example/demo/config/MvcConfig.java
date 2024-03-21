@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 		    @Override
 		    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		        registry.addResourceHandler("/img/**") 	//리소스 등록 및 핸들러를 관리하는 객체인 ResourceHandlerRegistry를 통해 리소스 위치와 이 리소스와 매칭될 url을 등록합니다.
-		                .addResourceLocations(folder); 		 	//projectimg로 시작하는url로 요청을 할경우
+		                .addResourceLocations(folder); 		 	//img로 시작하는url로 요청을 할경우
 		    }
 
 		}

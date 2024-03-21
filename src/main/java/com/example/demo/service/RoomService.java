@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
-import com.example.demo.dto.request.room.RoomImg;
+import com.example.demo.dto.request.room.ReqRoomImg;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.mapper.RoomMapper;
 
@@ -39,7 +39,7 @@ public class RoomService {
 			converFile.mkdirs();
 		}
 		file.transferTo(converFile);
-		RoomImg  upLoadImg = RoomImg.builder()
+		ReqRoomImg  upLoadImg = ReqRoomImg.builder()
 																.room_sid(room_sid)
 																.original_name(originalName)
 																.extension(extension)

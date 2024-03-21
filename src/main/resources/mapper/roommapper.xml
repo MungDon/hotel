@@ -14,7 +14,7 @@
         now()
         )
     </insert>
-	<insert id="addOptions" parameterType="com.example.demo.dto.request.room.ReqOptions">
+	<insert id="addOptions" parameterType="ReqOptions">
 		INSERT INTO tb_options(
 			room_sid,
 			option_name,
@@ -25,7 +25,7 @@
 			#{option_value}
 		)
 	</insert>
-	<insert id ="uploadImg" parameterType="RoomImg">
+	<insert id ="uploadImg" parameterType="ReqRoomImg">
 		INSERT INTO tb_room_img(
 			room_sid,
 			original_name,

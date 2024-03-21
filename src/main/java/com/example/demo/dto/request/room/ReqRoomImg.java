@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class RoomImg {
+public class ReqRoomImg {
 	
 	private Long room_sid;
 	

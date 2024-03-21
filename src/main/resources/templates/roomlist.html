@@ -5,19 +5,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<ul>
-		<li th:each="rooms : ${rooms}">
-			<h2 th:text ="${rooms.room_info}"></h2>
-			<ul>
-				<li th:each="options : ${rooms.options}">
-					<span th:text ="|${options.option_name} : |"> </span>
-					<span th:text ="${options.option_value}"></span>
-				</li>
-				<li>
-				<img th:src="|/img/${img.img_name}|" th:each="img : ${rooms.images}" />
-				</li>
-			</ul>
-		</li>
-	</ul>
+	<table>
+		<tbody th:each="rooms:${rooms}" th:if="${!#lists.isEmpty(rooms)}">
+			<tr>
+				<td><a th:href="|/room/detail/${rooms.room_sid}|" th:text="${rooms.room_info}"></a></td>
+			</tr>
+			<tr th:each="options:${rooms.options}">
+				<td th:text="${options.option_name}">
+				<td th:text="${options.option_value}">
+			</tr>
+			<tr th:each="img:${rooms.images}">
+				<td >
+					<img th:src="|/img/${img.img_name}|" style="margin-bottom : 20px;">
+				</td>
+			</tr>
+		
+		</tbody>
+			<tr th:if="${#lists.isEmpty(rooms)}">
+				<td>등록된 글이 없어요</td>
+			</tr>
+	</table>
+	<a href="/room/add">방 등록</a>
 </body>
 </html>
