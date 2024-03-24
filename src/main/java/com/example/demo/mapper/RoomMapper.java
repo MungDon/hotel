@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
+import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 
 @Mapper
@@ -23,4 +24,7 @@ public interface RoomMapper {
 	
 	/*방 목록*/
 	List<ResRoomList> roomList();
+	
+	/*방 상세보기*/
+	List<ResRoomDetail> roomDetail(Long room_sid);
 }

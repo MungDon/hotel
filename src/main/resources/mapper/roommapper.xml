@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.RoomMapper">
+	<!-- 방 정보 추가 -->
 	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
         INSERT INTO tb_room (
         room_info, 
@@ -14,6 +15,8 @@
         now()
         )
     </insert>
+    
+    <!-- 방 옵션추가 -->
 	<insert id="addOptions" parameterType="ReqOptions">
 		INSERT INTO tb_options(
 			room_sid,
@@ -25,6 +28,8 @@
 			#{option_value}
 		)
 	</insert>
+	
+	<!-- 방 이미지 추가 -->
 	<insert id ="uploadImg" parameterType="ReqRoomImg">
 		INSERT INTO tb_room_img(
 			room_sid,
@@ -37,8 +42,45 @@
 			#{img_name},
 			#{extension}
 		)
-	</insert>
+	</insert>	
+<!-- 
+	/방 목록/
+		방 테이블과 옵션테이블,방 이미지 테이블은 1:N 관계이기 때문에 resultMap 으로받음
+		이렇게 하지않으면 옵션이나 방이미지 등록 수만큼 방이름도 반복되어서 나옴 
+-->
+	<select id="roomList" resultMap="resultList">
+		SELECT 	
+				TR.* ,
+				OP.option_name ,	OP.option_value,
+				TI.img_name
+		FROM	
+				tb_room AS TR
+				
+		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
+		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
+		
+		WHERE	
+				TR.delete_yn = 'N'
+		ORDER BY
+				TR.room_sid DESC;
+	</select>
 	
+	<!-- 방 상세보기-->
+	<select id="roomDetail" parameterType="Long" resultMap="resultDetail">
+		SELECT
+				TR.*,
+				OP.option_name,	OP.option_value,
+				TI.img_name
+		FROM
+				tb_room	AS TR
+		LEFT OUTER JOIN		tb_options 	AS	OP	TR.room_sid = OP.room_sid		
+		LEFT OUTER JOIN 	tb_room_img AS	TI	TR.room_sid = TI.room_sid
+		
+		WHERE
+				TR.room_sid = #{room_sid}
+	</select>
+	
+		<!--  방목록 resultMap -->
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_info" column="room_info" />
@@ -46,32 +88,27 @@
 		<collection property="images" resultMap="imagesMap"></collection>
 	</resultMap>
 	
+	<!-- 방 상세보기 resultMap -->
+	<resultMap type="ResRoomDetail" id="resultDetail">
+		<id property="room_sid" column="room_sid" />
+		<result property="room_info" column="room_info" />
+		<result property="created_date" column="created_date"/>
+		<result property="modified_date" column="modified_date"/>
+		<collection property="options" resultMap="optionsMap"></collection>
+		<collection property="images" resultMap="imagesMap"></collection>
+	</resultMap>
+	
+	<!-- 이미지 resultMap -->
 	<resultMap type="ResRoomImg" id="imagesMap">
 		<result property="room_sid" column="room_sid"/>
 		<result property="original_name" column="original_name"/>
 		<result property="img_name" column="img_name"/>
 	</resultMap>
 	
+	<!-- 옵션 resultMap -->
 	<resultMap type="ResOptions" id="optionsMap">
 		<result property="room_sid" column="room_sid" />
 		<result property="option_name" column="option_name" />
 		<result property="option_value" column="option_value" />
 	</resultMap>
-	
-	<select id="roomList" resultMap="resultList">
-		SELECT 	
-				TR.* ,
-				OP.option_name ,	OP.option_value,
-				TI.original_name,	TI.img_name
-		FROM	
-				tb_room AS TR
-				
-		LEFT OUTER JOIN 	tb_options		AS	OP	ON 	TR.room_sid = OP.room_sid
-		LEFT OUTER JOIN 	tb_room_img	AS	TI		ON 	TR.room_sid = TI.room_sid
-		
-		WHERE	
-				TR.delete_yn = 'N'
-		ORDER BY
-				TR.room_sid DESC;
-	</select>
 </mapper> 

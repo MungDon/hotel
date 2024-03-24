@@ -8,5 +8,4 @@ public class ResRoomImg {
 	
 	private String img_name;
 	
-	private String original_name;
 }

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
+import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.mapper.RoomMapper;
 
@@ -26,7 +27,7 @@ public class RoomService {
 	private String path;
 	
 	private final RoomMapper roomMapper;
-
+		/*이미지 등록*/
 		@Transactional
 		private void fileUpload(MultipartFile file, Long room_sid) throws IOException{
 		String originalName = file.getOriginalFilename();	// 입력받은 파일의 원본 이름 저장
@@ -49,7 +50,7 @@ public class RoomService {
 																
 	}
 	
-	
+	/*방 등록*/
 	@Transactional
 	public void roomAdd(ReqRoomAdd add) throws IOException {
 		roomMapper.roomAdd(add);
@@ -61,11 +62,15 @@ public class RoomService {
 			fileUpload(images, add.getRoom_sid());
 		}
 	}
-	 
-	@Transactional
-	public List<ResRoomList> roomList(){
-		System.out.println("서비스");
+	 /*방 목록*/
+	@Transactional(readOnly = true)
+	public List<ResRoomList>roomList(){
 		return roomMapper.roomList();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<ResRoomDetail>roomDetail(Long room_sid){
+		return roomMapper.roomDetail(room_sid);
 	}
 
 }
