@@ -19,6 +19,7 @@
 			</div>
 		</div>
 		<button type="submit" >등록</button>	
+		<button type="button" onclick="backList()">목록으로</button>
 			
 <script th:inline="javascript">
     let optionCount = 1;
@@ -40,6 +41,10 @@
 
     function removeOption(button) {
         $(button).parent().remove();
+    }
+    
+    function backList(){
+    	location.href="/room"
     }
 </script>
 		

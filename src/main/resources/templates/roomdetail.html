@@ -5,14 +5,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table>
+	<table  th:each="detail : ${detail}">
 		<tr>
 			<th>방 정보</th>		
-			<td th:text="">	
-			<th></th>		
-			<th></th>		
+			<td th:text="${detail.room_info}"></td>
+			<th>생성 일시</th>
+			<td th:text="${#temporals.format(detail.created_date, 'yyyy-MM-dd HH:mm' ) }"></td>
+			<th>수정 일시</th>
+			<td th:text="${#temporals.format(detail.modified_date, 'yyyy-MM-dd HH:mm' ) }"></td>	
+		</tr>
+		<tr th:each="options:${detail.options}">
+			<th th:text="${options.option_name}"></th>
+			<td th:text="${options.option_value}"></td>
+		</tr>
+		<tr th:each="img : ${detail.images}">
+			<th>방이미지</th>
+			<td>
+			<img th:src="|/img/${img.img_name}|" width="400px">
+			</td>
 		</tr>
 	</table>
-	
+	<div class="btns" th:if="${session != null}">	
+		<button type="button">수정하기</button>
+		<button type="button">삭제하기</button>
+		<button type="button" onclick="backList()">목록으로</button>
+	</div>
+	<script>
+		function backList(){
+			location.href="/room";
+		}	
+	</script>
 </body>
 </html>

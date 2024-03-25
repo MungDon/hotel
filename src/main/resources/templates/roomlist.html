@@ -8,15 +8,15 @@
 	<table>
 		<tbody th:each="rooms:${rooms}" th:if="${!#lists.isEmpty(rooms)}">
 			<tr>
-				<td><a th:href="|/room/detail/${rooms.room_sid}|" th:text="${rooms.room_info}"></a></td>
+				<td><b><a th:href="|/room/detail/${rooms.room_sid}|" th:text="${rooms.room_info}"></a></b></td>
 			</tr>
 			<tr th:each="options:${rooms.options}">
-				<td th:text="${options.option_name}">
-				<td th:text="${options.option_value}">
+				<th th:text="${options.option_name}"></th>
+				<td th:text="${options.option_value}"></td>
 			</tr>
 			<tr th:each="img:${rooms.images}">
-				<td >
-					<img th:src="|/img/${img.img_name}|" style="margin-bottom : 20px;">
+				<td colspan="2">
+					<img th:src="|/img/${img.img_name}|" style="margin-bottom : 20px; width : 400px">
 				</td>
 			</tr>
 		

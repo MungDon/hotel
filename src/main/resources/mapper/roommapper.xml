@@ -73,8 +73,9 @@
 				TI.img_name
 		FROM
 				tb_room	AS TR
-		LEFT OUTER JOIN		tb_options 	AS	OP	TR.room_sid = OP.room_sid		
-		LEFT OUTER JOIN 	tb_room_img AS	TI	TR.room_sid = TI.room_sid
+				
+		LEFT OUTER JOIN		tb_options 	AS	OP ON	TR.room_sid = OP.room_sid		
+		LEFT OUTER JOIN 	tb_room_img AS	TI ON	TR.room_sid = TI.room_sid
 		
 		WHERE
 				TR.room_sid = #{room_sid}
@@ -101,7 +102,6 @@
 	<!-- 이미지 resultMap -->
 	<resultMap type="ResRoomImg" id="imagesMap">
 		<result property="room_sid" column="room_sid"/>
-		<result property="original_name" column="original_name"/>
 		<result property="img_name" column="img_name"/>
 	</resultMap>
 	

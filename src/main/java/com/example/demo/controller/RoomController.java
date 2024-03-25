@@ -16,6 +16,7 @@ import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.RoomService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
