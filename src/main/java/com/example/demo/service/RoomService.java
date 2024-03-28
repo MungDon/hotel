@@ -67,10 +67,15 @@ public class RoomService {
 	public List<ResRoomList>roomList(){
 		return roomMapper.roomList();
 	}
-	
+	/*방 상세보기*/
 	@Transactional(readOnly = true)
 	public List<ResRoomDetail>roomDetail(Long room_sid){
 		return roomMapper.roomDetail(room_sid);
+	}
+	/*방 이미지 삭제*/
+	@Transactional
+	public void roomImgRemove(Long room_img_sid) {
+		roomMapper.roomImgRemove(room_img_sid);
 	}
 
 }

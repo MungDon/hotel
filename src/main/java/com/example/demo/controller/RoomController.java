@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.response.room.ResRoomDetail;
@@ -65,5 +68,10 @@ public class RoomController {
 		return "roomupdate";
 	}
 	/*이미지 삭제*/
-
+	@DeleteMapping("/img/delete")
+	@ResponseBody
+	public String roomImgRemove( @RequestParam("room_img_sid")Long room_img_sid) {
+		roomService.roomImgRemove(room_img_sid);
+		return"삭제완료";
+	}
 }

@@ -11,7 +11,7 @@
 			방 이미지 추가하기<input type="file" name="images" multiple/><br>
 			<div th:each="img:${update.images}">
 				현재 등록된 이미지<img th:src="|/img/${img.img_name}|" width="300px"/>
-				<button type="button" onclick="removeImg(this)" th:value="${img.room_img_sid}">이미지 삭제</button>
+				<button type="button" class="removeImg" th:value="${img.room_img_sid}">이미지 삭제</button>
 			</div>
 		<h2>-옵션-</h2>
 		<div id="pulsOptions">
@@ -45,31 +45,36 @@
 				
 		    function removeOption(button) {
 		        $(button).parent().remove();
+		    }   
+		 	function backList(){
+			    	location.href="/room"
+			 }
+		    $(function(){
+		       $(document).on("click",".removeImg", function(){
+		    	   $(this).parent().remove();
 		        let room_img_sid = $(this).val();
 				console.log("체크");
 				$.ajax({
 					type: 'delete',
+					async : false,
 					url: '/room/img/delete',
 					data: {
 						room_img_sid : room_img_sid
 					},
 					success: function () {
-				   	 alret('이미지가 삭제되었습니다.')
+				   	 alert('이미지가 삭제되었습니다.');
+				   	
 					}, error: function () {
 						alert("삭제 실패 ㅋ!");
 					}
+					});
 				});
-		    }
-		   
-		 
 
+		    });
 
 			
 		    
-		    
-		    function backList(){
-		    	location.href="/room"
-		   	 }
+	
 	</script>
 	</form>
 </body>

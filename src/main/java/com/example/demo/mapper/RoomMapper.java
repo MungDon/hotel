@@ -27,4 +27,7 @@ public interface RoomMapper {
 	
 	/*방 상세보기*/
 	List<ResRoomDetail> roomDetail(Long room_sid);
+	
+	/*이미지 삭제*/
+	void roomImgRemove(Long room_img_sid);
 }

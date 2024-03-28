@@ -80,6 +80,10 @@
 		WHERE
 				TR.room_sid = #{room_sid}
 	</select>
+	<delete id="roomImgRemove" parameterType="Long">
+		DELETE FROM tb_room_img
+		WHERE room_img_sid = #{room_img_sid}
+	</delete>
 	
 		<!--  방목록 resultMap -->
 	<resultMap type="ResRoomList" id="resultList">
