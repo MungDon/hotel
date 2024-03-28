@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class ResRoomDetail extends ResRoomList{
 	
+	
 	private LocalDateTime created_date;		// 생성 일시
 	
 	private LocalDateTime modified_date;	// 수정 일시

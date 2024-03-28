@@ -1,9 +1,7 @@
 package com.example.demo.dto.request.room;
 
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;

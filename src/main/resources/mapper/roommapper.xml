@@ -52,7 +52,7 @@
 		SELECT 	
 				TR.* ,
 				OP.option_name ,	OP.option_value,
-				TI.img_name
+				TI.img_name,TI.original_name
 		FROM	
 				tb_room AS TR
 				
@@ -70,7 +70,7 @@
 		SELECT
 				TR.*,
 				OP.option_name,	OP.option_value,
-				TI.img_name
+				TI.img_name,TI.original_name,TI.room_img_sid  
 		FROM
 				tb_room	AS TR
 				
@@ -102,7 +102,9 @@
 	<!-- 이미지 resultMap -->
 	<resultMap type="ResRoomImg" id="imagesMap">
 		<result property="room_sid" column="room_sid"/>
+		<result property="room_img_sid" column="room_img_sid"/>
 		<result property="img_name" column="img_name"/>
+		<result property="original_name" column="img_name"/>
 	</resultMap>
 	
 	<!-- 옵션 resultMap -->

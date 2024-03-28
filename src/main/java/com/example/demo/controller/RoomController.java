@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.response.room.ResRoomDetail;
@@ -56,4 +57,13 @@ public class RoomController {
 		model.addAttribute("detail", detail);
 		return "roomdetail";
 	}
+	/*방 수정페이지 폼*/
+	@GetMapping("/update/{room_sid}")
+	public String roomUpdate(@PathVariable(value="room_sid")Long room_sid, Model model) {
+		List<ResRoomDetail> update = roomService.roomDetail(room_sid);
+		model.addAttribute("update", update);
+		return "roomupdate";
+	}
+	/*이미지 삭제*/
+
 }
