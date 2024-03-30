@@ -74,4 +74,10 @@ public class RoomController {
 		roomService.roomImgRemove(room_img_sid);
 		return"삭제완료";
 	}
+	
+	@DeleteMapping("/delete")
+	public String roomDelete(@RequestParam("room_sid")Long room_sid) {
+		roomService.roomDelete(room_sid);
+		return"삭제완";
+	}
 }

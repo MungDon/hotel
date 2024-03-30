@@ -76,6 +76,7 @@ public class RoomService {
 	@Transactional
 	public void roomImgRemove(Long room_img_sid) {
 		roomMapper.roomImgRemove(room_img_sid);
+		//TODO - 파일까지 삭제하는 로직 추가예정
 	}
 
 }
