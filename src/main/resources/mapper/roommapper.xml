@@ -55,10 +55,8 @@
 				TI.img_name,TI.original_name
 		FROM	
 				tb_room AS TR
-				
 		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
-		
 		WHERE	
 				TR.delete_yn = 'N'
 		ORDER BY
@@ -73,16 +71,23 @@
 				TI.img_name,TI.original_name,TI.room_img_sid  
 		FROM
 				tb_room	AS TR
-				
 		LEFT OUTER JOIN		tb_options 	AS	OP ON	TR.room_sid = OP.room_sid		
 		LEFT OUTER JOIN 	tb_room_img AS	TI ON	TR.room_sid = TI.room_sid
-		
 		WHERE
 				TR.room_sid = #{room_sid}
 	</select>
+	
+	<!-- 이미지삭제 -->
 	<delete id="roomImgRemove" parameterType="Long">
 		DELETE FROM tb_room_img
 		WHERE room_img_sid = #{room_img_sid}
+	</delete>
+	
+	<!-- 방 삭제 -->
+	<delete id ="roomDelete" parameterType="Long">
+		UPDATE tb_room
+		SET	delete_yn = 'Y'
+		WHERE	room_sid = #{room_sid}
 	</delete>
 	
 		<!--  방목록 resultMap -->

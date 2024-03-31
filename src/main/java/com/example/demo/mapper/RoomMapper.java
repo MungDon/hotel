@@ -31,5 +31,6 @@ public interface RoomMapper {
 	/*이미지 삭제*/
 	void roomImgRemove(Long room_img_sid);
 	
+	/*방 삭제*/
 	void roomDelete(Long room_sid);
 }

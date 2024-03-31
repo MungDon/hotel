@@ -70,14 +70,14 @@ public class RoomController {
 	/*이미지 삭제*/
 	@DeleteMapping("/img/delete")
 	@ResponseBody
-	public String roomImgRemove( @RequestParam("room_img_sid")Long room_img_sid) {
+	public void roomImgRemove( @RequestParam("room_img_sid")Long room_img_sid) {
 		roomService.roomImgRemove(room_img_sid);
-		return"삭제완료";
 	}
 	
+	/*방 삭제(논리)*/
 	@DeleteMapping("/delete")
-	public String roomDelete(@RequestParam("room_sid")Long room_sid) {
+	@ResponseBody
+	public void roomDelete(@RequestParam("room_sid")Long room_sid) {
 		roomService.roomDelete(room_sid);
-		return"삭제완";
 	}
 }

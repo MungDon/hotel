@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<input type="hidden" value="${detail.room_sid}" name="room_sid">
@@ -28,13 +29,38 @@
 	</table>
 	<div class="btns" th:if="${session != null}">	
 		<a th:href="|/room/update/${room_sid}|">수정하기</a>
-		<button type="button" th:value="${detail.room_sid}">삭제하기</button>
+		<button type="button" th:value="${room_sid}" class="removeRoom">삭제하기</button>
 		<button type="button" onclick="backList()">목록으로</button>
 	</div>
-	<script>
+	<script th:inline="javascript">
+	$(function(){
+		  $(document).on("click",".removeRoom", function(){
+	        let room_sid = $(this).val();
+	        if(!confirm("방을 삭제하시겠습니까?")){
+	        	return false;
+	        }
+			console.log("체크");
+			$.ajax({
+				type: 'delete',
+				async : false,
+				url: '/room/delete',
+				data: {
+					room_sid : room_sid
+				},
+				success: function () {
+			   	 alert('방이 삭제되었습니다.');
+			   	 location.href="/room";
+			   	
+				}, error: function () {
+					alert("방 삭제 실패");
+				}
+			});
+		  });
+	});
 		function backList(){
 			location.href="/room";
 		}	
+		
 	
 	</script>
 	
