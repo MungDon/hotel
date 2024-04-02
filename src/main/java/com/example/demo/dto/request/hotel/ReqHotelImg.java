@@ -13,5 +13,5 @@ public class ReqHotelImg {
 	
 	private String img_name;		// 이미지 명(uuid+확장자)
 	
-	private String extention;			// 확장자
+	private String extension;			// 확장자
 }

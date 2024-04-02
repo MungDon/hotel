@@ -13,7 +13,7 @@ import com.example.demo.dto.response.room.ResRoomList;
 @Mapper
 public interface RoomMapper {
 	
-	/*호텔 판매 등록*/
+	/*방 등록*/
 	void roomAdd(ReqRoomAdd add);
 	
 	/*옵션 등록*/
@@ -22,6 +22,14 @@ public interface RoomMapper {
 	/*이미지 파일 등록*/
 	void uploadImg(ReqRoomImg uploadImg);
 	
+	/*방 수정*/
+	void roomUpdate(ReqRoomAdd request);
+	
+	/*옵션 수정*/
+	void optionUpdate(ReqOptions options);
+	
+	/*이미지 수정*/
+	void imgUpdate(ReqRoomImg images);
 	/*방 목록*/
 	List<ResRoomList> roomList();
 	

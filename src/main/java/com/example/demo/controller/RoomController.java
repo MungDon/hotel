@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +20,6 @@ import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.RoomService;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -62,11 +61,19 @@ public class RoomController {
 	}
 	/*방 수정페이지 폼*/
 	@GetMapping("/update/{room_sid}")
-	public String roomUpdate(@PathVariable(value="room_sid")Long room_sid, Model model) {
+	public String roomUpdateForm(@PathVariable(value="room_sid")Long room_sid, Model model) {
 		List<ResRoomDetail> update = roomService.roomDetail(room_sid);
 		model.addAttribute("update", update);
 		return "roomupdate";
 	}
+	
+	@PutMapping("/update")
+	public String roomUpdate(@Valid @ModelAttribute ReqRoomAdd request) throws IOException {
+		roomService.roomUpdate(request);
+		return"redirect:/room";
+		
+	}
+	
 	/*이미지 삭제*/
 	@DeleteMapping("/img/delete")
 	@ResponseBody

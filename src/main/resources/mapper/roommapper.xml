@@ -90,6 +90,28 @@
 		WHERE	room_sid = #{room_sid}
 	</delete>
 	
+	<!-- 방 수정 -->
+	<update id="roomUpdate" parameterType="ReqRoomAdd">
+		UPDATE tb_room
+		SET	room_info = #{room_info},
+			modified_date = now()
+		WHERE	room_sid = #{room_sid}
+	</update>
+	<!-- 옵션 수정 -->
+	<update id="optionUpdate" parameterType="ReqOptions">
+		UPDATE tb_options
+		SET	option_name = {option_name},
+			option_value = #{option_value}
+		WHERE	room_sid = #{room_sid}
+	</update>
+	<!-- 이미지 수정 -->
+	<update id="imgUpdate" parameterType="ReqRoomImg">
+		UPDATE tb_room_img
+		SET	original_name = #{original_name},
+			extension = #{extension},
+			img_name = #{img_name}
+		WHERE	room_sid = #{room_sid}
+	</update>
 		<!--  방목록 resultMap -->
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
