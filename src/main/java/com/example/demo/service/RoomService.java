@@ -48,11 +48,8 @@ public class RoomService {
 			converFile.mkdirs();
 		}
 		file.transferTo(converFile);
-		ReqRoomImg uploadImg = ReqRoomImg.builder().room_sid(room_sid)
-																						.original_name(originalName)
-																						.extension(extension)
-																						.img_name(saveName)
-																						.build();
+		ReqRoomImg uploadImg = ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
+				.img_name(saveName).build();
 		return uploadImg;
 
 	}
