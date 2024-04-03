@@ -28,37 +28,26 @@ public class RoomService {
 
 	private final RoomMapper roomMapper;
 
-	/**
-	 * 이미지 등록과 수정시에 공통으로 쓰이는 이미지 등록메서드입니다
-	 * 
-	 * @param file
-	 * @param room_sid
-	 * @return
-	 * @throws IOException
-	 */
-	@Transactional
-	private ReqRoomImg uploadImg(MultipartFile file, Long room_sid) throws IOException {
-		String originalName = file.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
-		String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성
-		String extension = originalName.substring(originalName.lastIndexOf(".")); // . 뒤로 잘라서 저장(확장자만 저장)
-		String saveName = uuid + extension;// 랜덤으로 나온 uuid와 확장자를 더해서(연결해서) 저장
-		File converFile = new File(path, saveName); // 저장된것을 파일로 변환
 
-		if (!converFile.exists()) {
-			converFile.mkdirs();
+	/* 이미지 업로드 */
+	@Transactional
+	private ReqRoomImg fileUpload(List<MultipartFile> images, Long room_sid) throws IOException {
+		ReqRoomImg uploadImg = null;
+		for (MultipartFile img : images) {
+			String originalName = img.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
+			String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성
+			String extension = originalName.substring(originalName.lastIndexOf(".")); // . 뒤로 잘라서 저장(확장자만 저장)
+			String saveName = uuid + extension;// 랜덤으로 나온 uuid와 확장자를 더해서(연결해서) 저장
+			File converFile = new File(path, saveName); // 저장된것을 파일로 변환
+
+			if (!converFile.exists()) {
+				converFile.mkdirs();
+			}
+			img.transferTo(converFile);
+			uploadImg = ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
+					.img_name(saveName).build();
 		}
-		file.transferTo(converFile);
-		ReqRoomImg uploadImg = ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
-				.img_name(saveName).build();
 		return uploadImg;
-
-	}
-
-	/* 이미지 등록 */
-	@Transactional
-	private void fileUpload(MultipartFile file, Long room_sid) throws IOException {
-		ReqRoomImg uploadImg = uploadImg(file, room_sid);
-		roomMapper.uploadImg(uploadImg);
 	}
 
 	/* 방 등록 */
@@ -69,16 +58,8 @@ public class RoomService {
 			options.setRoom_sid(add.getRoom_sid());
 			roomMapper.addOptions(options);
 		}
-		for (MultipartFile images : add.getImages()) {
-			fileUpload(images, add.getRoom_sid());
-		}
-	}
-
-	/* 이미지수정 */
-	@Transactional
-	public void fileUpdate(MultipartFile file, Long room_sid) throws IOException {
-		ReqRoomImg uploadImg = uploadImg(file, room_sid);
-		roomMapper.imgUpdate(uploadImg);
+		ReqRoomImg img = fileUpload(add.getImages(),add.getRoom_sid());
+		roomMapper.uploadImg(img);
 	}
 
 	/* 방 수정 */
@@ -89,9 +70,8 @@ public class RoomService {
 			options.setRoom_sid(reqeust.getRoom_sid());
 			roomMapper.optionUpdate(options);
 		}
-		for (MultipartFile images : reqeust.getImages()) {
-			fileUpload(images, reqeust.getRoom_sid());
-		}
+		ReqRoomImg img = fileUpload(reqeust.getImages(),reqeust.getRoom_sid());
+		roomMapper.imgUpdate(img);
 	}
 
 	/* 방 목록 */
