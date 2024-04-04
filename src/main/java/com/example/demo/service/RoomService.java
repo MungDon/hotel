@@ -29,12 +29,10 @@ public class RoomService {
 	private final RoomMapper roomMapper;
 
 
-	/* 이미지 업로드 */
+	/* 이미지 실제 저장 */
 	@Transactional
-	private ReqRoomImg fileUpload(List<MultipartFile> images, Long room_sid) throws IOException {
-		ReqRoomImg uploadImg = null;
-		for (MultipartFile img : images) {
-			String originalName = img.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
+	private void saveFile(MultipartFile images, Long room_sid) throws IOException {
+			String originalName = images.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
 			String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성
 			String extension = originalName.substring(originalName.lastIndexOf(".")); // . 뒤로 잘라서 저장(확장자만 저장)
 			String saveName = uuid + extension;// 랜덤으로 나온 uuid와 확장자를 더해서(연결해서) 저장
@@ -43,11 +41,16 @@ public class RoomService {
 			if (!converFile.exists()) {
 				converFile.mkdirs();
 			}
-			img.transferTo(converFile);
-			uploadImg = ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
+			images.transferTo(converFile);
+			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
 					.img_name(saveName).build();
+			roomMapper.uploadImg(uploadImg);
+	}
+	/*이미지저장*/
+	private void fileUpload(List<MultipartFile> images, Long room_sid) throws IOException {
+		for (MultipartFile img : images) {
+			saveFile(img, room_sid);
 		}
-		return uploadImg;
 	}
 
 	/* 방 등록 */
@@ -58,8 +61,7 @@ public class RoomService {
 			options.setRoom_sid(add.getRoom_sid());
 			roomMapper.addOptions(options);
 		}
-		ReqRoomImg img = fileUpload(add.getImages(),add.getRoom_sid());
-		roomMapper.uploadImg(img);
+		fileUpload(add.getImages(),add.getRoom_sid());
 	}
 
 	/* 방 수정 */
@@ -70,8 +72,7 @@ public class RoomService {
 			options.setRoom_sid(reqeust.getRoom_sid());
 			roomMapper.optionUpdate(options);
 		}
-		ReqRoomImg img = fileUpload(reqeust.getImages(),reqeust.getRoom_sid());
-		roomMapper.imgUpdate(img);
+		 fileUpload(reqeust.getImages(),reqeust.getRoom_sid());
 	}
 
 	/* 방 목록 */
@@ -92,7 +93,7 @@ public class RoomService {
 		roomMapper.roomImgRemove(room_img_sid);
 		// TODO - 파일까지 삭제하는 로직 추가예정
 	}
-
+	/*방 삭제*/
 	@Transactional
 	public void roomDelete(Long room_sid) {
 		roomMapper.roomDelete(room_sid);

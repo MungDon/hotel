@@ -104,15 +104,7 @@
 			option_value = #{option_value}
 		WHERE	room_sid = #{room_sid}
 	</update>
-	<!-- 이미지 수정 -->
-	<update id="imgUpdate" parameterType="ReqRoomImg">
-		UPDATE tb_room_img
-		SET	original_name = #{original_name},
-			extension = #{extension},
-			img_name = #{img_name}
-		WHERE	room_sid = #{room_sid}
-	</update>
-		<!--  방목록 resultMap -->
+ 		<!--  방목록 resultMap -->
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_info" column="room_info" />
