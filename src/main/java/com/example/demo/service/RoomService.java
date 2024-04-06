@@ -98,5 +98,10 @@ public class RoomService {
 	public void roomDelete(Long room_sid) {
 		roomMapper.roomDelete(room_sid);
 	}
+	
+	@Transactional(readOnly = true)
+	public List<ResRoomList> deleteRooms(){
+		return roomMapper.deleteRooms();
+	}
 
 }

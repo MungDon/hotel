@@ -41,4 +41,6 @@ public interface RoomMapper {
 	
 	/*방 삭제*/
 	void roomDelete(Long room_sid);
+	
+	List<ResRoomList> deleteRooms();
 }

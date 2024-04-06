@@ -62,6 +62,20 @@
 		ORDER BY
 				TR.room_sid DESC;
 	</select>
+		<select id="deleteRooms" resultMap="resultList">
+		SELECT 	
+				TR.* ,
+				OP.option_name ,	OP.option_value,
+				TI.img_name,TI.original_name
+		FROM	
+				tb_room AS TR
+		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
+		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
+		WHERE	
+				TR.delete_yn = 'Y'
+		ORDER BY
+				TR.room_sid DESC;
+	</select>
 	
 	<!-- 방 상세보기-->
 	<select id="roomDetail" parameterType="Long" resultMap="resultDetail">

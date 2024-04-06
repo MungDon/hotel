@@ -87,4 +87,10 @@ public class RoomController {
 	public void roomDelete(@RequestParam("room_sid")Long room_sid) {
 		roomService.roomDelete(room_sid);
 	}
+	/*삭제된 방목록(휴지통)*/
+	@GetMapping("/delete/list")
+	public List<ResRoomList> deleteRooms (){
+		List<ResRoomList> deleteRooms = roomService.deleteRooms();
+		return deleteRooms;
+	}
 }
