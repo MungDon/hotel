@@ -62,7 +62,7 @@
 		ORDER BY
 				TR.room_sid DESC;
 	</select>
-		<select id="deleteRooms" resultMap="resultList">
+	<select id="deleteRooms" resultMap="resultList">
 		SELECT 	
 				TR.* ,
 				OP.option_name ,	OP.option_value,
@@ -103,6 +103,13 @@
 		SET	delete_yn = 'Y'
 		WHERE	room_sid = #{room_sid}
 	</delete>
+	
+	<!-- 방 복구 -->
+	<update id="restoreRoom" parameterType="Long">
+		UPDATE tb_room
+		SET delete_yn = 'N'
+		WHERE room_sid = #{room_sid}
+	</update>
 	
 	<!-- 방 수정 -->
 	<update id="roomUpdate" parameterType="ReqRoomAdd">

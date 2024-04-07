@@ -89,8 +89,16 @@ public class RoomController {
 	}
 	/*삭제된 방목록(휴지통)*/
 	@GetMapping("/delete/list")
+	@ResponseBody
 	public List<ResRoomList> deleteRooms (){
 		List<ResRoomList> deleteRooms = roomService.deleteRooms();
+		System.out.println(deleteRooms);
 		return deleteRooms;
+	}
+	/*방복구하기*/
+	@PutMapping("/restore")
+	@ResponseBody
+	public void restoreRoom(@RequestParam("room_sid") Long room_sid) {
+		roomService.restoreRoom(room_sid);
 	}
 }

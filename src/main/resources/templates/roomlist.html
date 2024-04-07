@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/roomlist.css">
 </head>
 <body>
 	<table>
@@ -26,10 +28,89 @@
 			</tr>
 	</table>
 	<a href="/room/add">방 등록</a>
-	<button type="button" onclick="deleteRooms()">휴지통</button>
+	<button type="button" class="deleteList">휴지통</button>
+	<div class="deleteRooms">
+	</div>
 </body>
 
-	<script>
+	<script th:inline = "javascript">
+	$(function(){
+		$(document).on("click", ".deleteList", function(){
+			$(".deleteRooms").toggle();
+            var buttonText = $(this).text();
+            if (buttonText === "휴지통") {
+                $(this).text("닫기");
+            } else {
+                $(this).text("휴지통");
+            }
+            $.ajax({
+				type: 'GET',
+				async : false,
+				url: '/room/delete/list',
+				success: function (deleteRooms){console.log(deleteRooms);
+					let html = "";
+	                  deleteRooms.forEach(function(room) {
+	                        html += `
+	                        	
+	                            <table class="dtable">
+	                                <tbody>
+	                                    <tr>
+	                                        <td>${room.room_info}</td>
+	                                    </tr>
+	                        `;
+	                        
+	                        // 옵션 이름과 내용을 반복하여 추가
+	                        room.options.forEach(function(option) {
+	                            html += `
+	                                <tr>
+	                                    <th>${option.option_name}</th>
+	                                    <td>${option.option_value}</td>
+	                                </tr>
+	                            `;
+	                        });
+	                        
+	                        html += `
+	                                    <tr>
+	                                        <td colspan="2">
+	                                            <img src="/img/${room.img_name}" style="margin-bottom: 20px; width: 400px">
+	                                        </td>
+	                                    </tr>
+	                                </tbody>
+	                            </table>
+	                            <button type="button" class="restore" value="${room.room_sid}">복구하기</button>
+	                        `;
+	                    });
+	                    $(".deleteRooms").html(html);
+	                },
+	                error: function () {
+	                    // 에러 처리
+	                }
+	            });
+	        });
+	    });
+	
+		$(document).on("click",".restore",function(){
+	        let room_sid = $(this).val();
+	        if(!confirm("방을 복구하시겠습니까?")){
+	        	return false;
+	        }
+			console.log("체크");
+			$.ajax({
+				type: 'put',
+				async : false,
+				url: '/room/restore',
+				data: {
+					room_sid : room_sid
+				},
+				success: function () {
+			   	 alert('방이 복구되었습니다.');
+			   	 location.href="/room";
+			   	
+				}, error: function () {
+					alert("방 복구 실패");
+				}
+			});
+		  });			
 		
 	</script>
 </html>
