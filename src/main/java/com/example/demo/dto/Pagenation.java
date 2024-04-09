@@ -36,5 +36,22 @@ public class Pagenation {
 		
 		// 시작 페이지 번호 계산 ex) 현재페이지 1, 페이지사이즈10 : (1-1)/10*10+1 = 1
 		startPage = (dto.getPage() -1) / dto.getPageSize() * dto.getPageSize() + 1;
+		
+		// 끝페이지 번호 계산 ex) 시작페이지 1, 페이지 사이즈 10 : 1+10 -1 = 10
+		endPage = startPage + dto.getPageSize() -1;
+	
+		// 끝 페이지가 전체 페이지 수보다 큰 경우, 끝 페이지 전체 페이지 수 저장
+		if(endPage > totalPageCount) {
+			endPage = totalPageCount;
+		}
+		
+		//LIMIT 시작 위치 계산
+		limitStart = (dto.getPage() - 1) *  dto.getRecordSize();
+		
+		//이전 페이지 존재여부 확인
+		existPrevPage = startPage != 1;
+		
+		// 다음페이지 존재 여부 확인
+		existNextPage = (endPage * dto.getRecordSize()) < totalRecordCount;
 	}
 }
