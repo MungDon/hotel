@@ -48,7 +48,7 @@
 		방 테이블과 옵션테이블,방 이미지 테이블은 1:N 관계이기 때문에 resultMap 으로받음
 		이렇게 하지않으면 옵션이나 방이미지 등록 수만큼 방이름도 반복되어서 나옴 
 -->
-	<select id="roomList" resultMap="resultList">
+	<select id="roomList" parameterType="com.example.demo.dto.SearchDto" resultMap="resultList">
 		SELECT 	
 				TR.* ,
 				OP.option_name ,	OP.option_value,
@@ -61,7 +61,20 @@
 				TR.delete_yn = 'N'
 		ORDER BY
 				TR.room_sid DESC;
+		LIMIT #{recordSize} offset #{offset}
 	</select>
+	
+	<!-- 방 수 카운트 -->
+	<select id="conut" parameterType="com.example.demo.dto.SearchDto" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			tb_room
+		WHERE
+			delete_yn = 'N'	
+	</select>
+	
+	<!-- 삭제된 글목록 -->
 	<select id="deleteRooms" resultMap="resultList">
 		SELECT 	
 				TR.* ,

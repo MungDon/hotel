@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
@@ -31,7 +32,7 @@ public interface RoomMapper {
 	/*이미지 수정*/
 	void imgUpdate(ReqRoomImg images);
 	/*방 목록*/
-	List<ResRoomList> roomList();
+	List<ResRoomList> roomList(SearchDto serach);
 	
 	/*방 상세보기*/
 	List<ResRoomDetail> roomDetail(Long room_sid);

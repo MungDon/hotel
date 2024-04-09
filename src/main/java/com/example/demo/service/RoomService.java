@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
@@ -77,8 +78,8 @@ public class RoomService {
 
 	/* 방 목록 */
 	@Transactional(readOnly = true)
-	public List<ResRoomList> roomList() {
-		return roomMapper.roomList();
+	public List<ResRoomList> roomList(SearchDto search) {
+		return roomMapper.roomList(search);
 	}
 
 	/* 방 상세보기 */

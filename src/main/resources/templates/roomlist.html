@@ -37,12 +37,8 @@
 	$(function(){
 		$(document).on("click", ".deleteList", function(){
 			$(".deleteRooms").toggle();
-            var buttonText = $(this).text();
-            if (buttonText === "휴지통") {
-                $(this).text("닫기");
-            } else {
-                $(this).text("휴지통");
-            }
+            let buttonText = $(this).text();
+
             $.ajax({
 				type: 'GET',
 				async : false,
@@ -85,6 +81,11 @@
 	                error: function () {
 	                }
 	            });
+            if (buttonText === "휴지통") {
+                $(this).text("닫기");
+            } else {
+                $(this).text("휴지통");
+            }
 	        });
 	    });
 	
