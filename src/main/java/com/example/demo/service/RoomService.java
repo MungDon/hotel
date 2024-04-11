@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.dto.Pagination;
+import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
@@ -78,8 +81,20 @@ public class RoomService {
 
 	/* 방 목록 */
 	@Transactional(readOnly = true)
-	public List<ResRoomList> roomList(SearchDto search) {
-		return roomMapper.roomList(search);
+	public ResPaging<ResRoomList> roomList(SearchDto search) {
+		
+		//조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와 null 을 담아 반환
+		int count = roomMapper.count(search);
+		if(count < 1) {
+			return new ResPaging<>(Collections.emptyList(), null);
+		}
+		
+		// Pagination 객체를 생성해서 페이지 정보 계산 후 SearchDto 타입의 객체인 search 에 계산된 페이지 정보 저장
+		Pagination Pagination = new Pagination(count, search);
+		
+		// 계산됨 페이지 정보의 일부()를 기준으로 리스트 데이터 조회 후 응답 데이터 반환
+		List<ResRoomList> list = roomMapper.roomList(search);
+		return new ResPaging<>(list, Pagination);
 	}
 
 	/* 방 상세보기 */

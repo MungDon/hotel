@@ -61,7 +61,7 @@
 				TR.delete_yn = 'N'
 		ORDER BY
 				TR.room_sid DESC;
-		LIMIT #{recordSize} offset #{offset}
+		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
 	
 	<!-- 방 수 카운트 -->

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.response.room.ResRoomDetail;
@@ -34,7 +35,7 @@ public class RoomController {
 	/*방 목록*/
 	@GetMapping("")
 	public String roomList(Model model,@ModelAttribute("search") SearchDto search) {
-		List<ResRoomList> rooms = roomService.roomList(search);
+		ResPaging<ResRoomList> rooms = roomService.roomList(search);
 		model.addAttribute("rooms", rooms);
 		return "roomlist";
 	}

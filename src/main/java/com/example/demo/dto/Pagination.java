@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import lombok.Getter;
 
 @Getter
-public class Pagenation {
+public class Pagination {
 	
 	private int totalRecordCount;		// 전체 데이터 수
 	
@@ -19,7 +19,7 @@ public class Pagenation {
 	
 	private boolean existNextPage;	// 다음 페이지 여부
 	
-	public Pagenation(int totalRecordCount, SearchDto dto) {
+	public Pagination(int totalRecordCount, SearchDto dto) {
 		this.totalRecordCount = totalRecordCount;
 		calculation(dto);
 	}
@@ -45,13 +45,13 @@ public class Pagenation {
 			endPage = totalPageCount;
 		}
 		
-		//LIMIT 시작 위치 계산
+		//LIMIT 시작 위치 계산 ex) 현재 페이지 1, 레코드 사이즈 10 : (1-1)*10 = 0
 		limitStart = (dto.getPage() - 1) *  dto.getRecordSize();
 		
-		//이전 페이지 존재여부 확인
+		//이전 페이지 존재여부 확인 / 현재페이지가 1이아니란것은 이전페이지가 있다는 말
 		existPrevPage = startPage != 1;
 		
-		// 다음페이지 존재 여부 확인
+		// 다음페이지 존재 여부 확인 / 끝 페이지 11, 레코드사이즈 10, 토탈 레코드 카운트 110 : (11*10) < 115 = 110< 115 즉 전체 데이터수가 많기에 다음이있다는말
 		existNextPage = (endPage * dto.getRecordSize()) < totalRecordCount;
 	}
 }

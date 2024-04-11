@@ -31,8 +31,12 @@ public interface RoomMapper {
 	
 	/*이미지 수정*/
 	void imgUpdate(ReqRoomImg images);
+
 	/*방 목록*/
 	List<ResRoomList> roomList(SearchDto serach);
+	
+	/*전체 레코드 수*/
+	int count(SearchDto dto);
 	
 	/*방 상세보기*/
 	List<ResRoomDetail> roomDetail(Long room_sid);
