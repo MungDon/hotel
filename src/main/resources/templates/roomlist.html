@@ -8,7 +8,7 @@
 </head>
 <body>
 	<table>
-		<tbody th:each="rooms:${rooms}" th:if="${!#lists.isEmpty(rooms)}">
+		<tbody th:each="rooms:${rooms.list}" th:if="${!#lists.isEmpty(rooms)}">
 			<tr>
 				<td><b><a th:href="|/room/detail/${rooms.room_sid}|" th:text="${rooms.room_info}"></a></b></td>
 			</tr>
@@ -43,10 +43,10 @@
 			const list = /*[[${rooms.list}]]*/[];
 			
 			// Respaging 의 멤버인 pagination을 의미
-			const pagination = /*[[${rooms.pagination}]]*/[];
+			const pagination = /*[[${rooms.pagination}]]*/{};
 			
 			// @ModelAttribute를 이용해서 뷰로 전달한 searchDto 타입의 객체인 search 를 의미
-			const search = /*[[${search}]]*/[];
+			const search = /*[[${search}]]*/{};
 			
 			// 리스트에 출력되는 게시글 번호를 처리하기 위해 사용되는 변수 (리스트에서 번호는 페이지 정보를 이용해서 계산해야함)
 			let num = pagination.totalRecordCount - ((search.page -1) * search.recordSize);
@@ -77,6 +77,24 @@
 			}
 			html+='</p>';
 			
+			if(pagination.existNextPage){
+				html += `
+					<a href="javascript:void(0);" onclick="movePage(${pagination.endPage+1});" class="page_bt_next">다음페이지</a>
+					<a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt_last">마지막 페이지</a>
+				`;
+			}
+			document.querySelector('.paging').innerHTML = html;
+		}
+		
+		function movePage(page){
+			
+			const queryParams = {
+					page: (page) ? page : 1,
+					recordSize:10,
+					pageSize:10
+			}
+			
+			location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
 		}
 		
 		$(document).on("click", ".deleteList", function(){

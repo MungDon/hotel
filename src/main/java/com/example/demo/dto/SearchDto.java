@@ -17,7 +17,7 @@ public class SearchDto {
 	
 	private String searchType;	// 검색 유형
 	
-	private Pagination pagenation; // 페이지네이션 정보
+	private Pagination pagination; // 페이지네이션 정보
 	
 	public SearchDto() {
 		this.page = 1;

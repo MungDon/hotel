@@ -10,10 +10,10 @@ public class ResPaging<T> {// 제네릭 클래스, 이 클래스 선언시 타�
 	
 	private List<T> list = new ArrayList<>();
 	
-	private Pagination pagenation;
+	private Pagination pagination;
 	
 	public ResPaging(List<T> list, Pagination pagination) {
 		this.list.addAll(list);
-		this.pagenation = pagination;
+		this.pagination = pagination;
 	}
 }

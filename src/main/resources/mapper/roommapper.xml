@@ -60,12 +60,12 @@
 		WHERE	
 				TR.delete_yn = 'N'
 		ORDER BY
-				TR.room_sid DESC;
+				TR.room_sid DESC
 		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
 	
 	<!-- 방 수 카운트 -->
-	<select id="conut" parameterType="com.example.demo.dto.SearchDto" resultType="int">
+	<select id="count" parameterType="com.example.demo.dto.SearchDto" resultType="int">
 		SELECT
 			count(*)
 		FROM
