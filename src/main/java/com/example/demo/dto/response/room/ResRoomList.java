@@ -7,12 +7,12 @@ import lombok.Getter;
 @Getter
 public class ResRoomList {
 	
-	private Long room_sid;
+	private Long room_sid;	// 방 고유번호
 	
-	private String room_info;
+	private String room_info;	// 방 정보
 	
-	private List<ResOptions> options;
+	private List<ResOptions> options;		// 옵션
 	
-	private List<ResRoomImg> images;
+	private List<ResRoomImg> images;	// 이미지
 
 }

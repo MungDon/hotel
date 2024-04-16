@@ -35,12 +35,14 @@
 			room_sid,
 			original_name,
 			img_name,
-			extension
+			extension,
+			img_type
 		) VALUES (
 			#{room_sid},
 			#{original_name},
 			#{img_name},
-			#{extension}
+			#{extension},
+			#{img_type}
 		)
 	</insert>	
 <!-- 
@@ -85,7 +87,7 @@
 		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
 		WHERE	
-				TR.delete_yn = 'Y'
+				TR.delete_yn = 'Y' AND TI.img_type = '대표이미지'
 		ORDER BY
 				TR.room_sid DESC;
 	</select>

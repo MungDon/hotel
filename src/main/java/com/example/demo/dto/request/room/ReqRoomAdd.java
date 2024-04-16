@@ -18,7 +18,8 @@ public class ReqRoomAdd {
 	
 	private List<MultipartFile> images;	// 이미지 파일
 	
-
+	private List<MultipartFile> thumbnail; // 썸네일
+	
 	private List<ReqOptions> options;	// 옵션 리스트 
 	
 }

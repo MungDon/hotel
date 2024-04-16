@@ -19,6 +19,7 @@ import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
+import com.example.demo.enums.ImgType;
 import com.example.demo.mapper.RoomMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,7 @@ public class RoomService {
 
 	/* 이미지 실제 저장 */
 	@Transactional
-	private void saveFile(MultipartFile images, Long room_sid) throws IOException {
+	private void saveFile(MultipartFile images, String img_type, Long room_sid) throws IOException {
 			String originalName = images.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
 			String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성
 			String extension = originalName.substring(originalName.lastIndexOf(".")); // . 뒤로 잘라서 저장(확장자만 저장)
@@ -47,13 +48,13 @@ public class RoomService {
 			}
 			images.transferTo(converFile);
 			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
-					.img_name(saveName).build();
+					.img_name(saveName).img_type(img_type).build();
 			roomMapper.uploadImg(uploadImg);
 	}
 	/*이미지저장*/
-	private void fileUpload(List<MultipartFile> images, Long room_sid) throws IOException {
+	private void fileUpload(List<MultipartFile> images, String img_type, Long room_sid) throws IOException {
 		for (MultipartFile img : images) {
-			saveFile(img, room_sid);
+			saveFile(img,  img_type, room_sid);
 		}
 	}
 
@@ -65,7 +66,8 @@ public class RoomService {
 			options.setRoom_sid(add.getRoom_sid());
 			roomMapper.addOptions(options);
 		}
-		fileUpload(add.getImages(),add.getRoom_sid());
+		fileUpload(add.getImages(), ImgType.roomImg.name(), add.getRoom_sid());
+		fileUpload(add.getThumbnail(), ImgType.thumbnail.name(), add.getRoom_sid());
 	}
 
 	/* 방 수정 */
@@ -76,7 +78,8 @@ public class RoomService {
 			options.setRoom_sid(reqeust.getRoom_sid());
 			roomMapper.optionUpdate(options);
 		}
-		 fileUpload(reqeust.getImages(),reqeust.getRoom_sid());
+		 fileUpload(reqeust.getImages(),  ImgType.roomImg.name() ,reqeust.getRoom_sid());
+		 fileUpload(reqeust.getThumbnail(), ImgType.thumbnail.name(), reqeust.getRoom_sid());
 	}
 
 	/* 방 목록 */
