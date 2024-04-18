@@ -66,8 +66,9 @@ public class RoomService {
 			}
 			images.transferTo(converFile); 
 			
-			if(img_type.equals("대표이미지")) {
+			if(img_type.equals("thumbnail")) {
 				convertThumbnail(converFile,saveName);
+				saveName = "s_"+saveName;
 			}
 			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
 					.img_name(saveName).img_type(img_type).build();
