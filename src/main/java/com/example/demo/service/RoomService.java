@@ -1,10 +1,13 @@
 package com.example.demo.service;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ import com.example.demo.enums.ImgType;
 import com.example.demo.mapper.RoomMapper;
 
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +37,21 @@ public class RoomService {
 
 	private final RoomMapper roomMapper;
 
-
+	private void convertThumbnail(File converFile, String saveName) throws IOException {
+		File thumbnailFile = new File(path,"s_"+saveName);
+		
+		BufferedImage bufferImg = ImageIO.read(converFile);
+		
+		double ratio  = 3;
+		
+		int width = (int)(bufferImg.getWidth()/ratio);
+		int height = (int)(bufferImg.getHeight()/ratio);
+		
+		Thumbnails.of(converFile)
+		.size(width, height)
+		.toFile(thumbnailFile);
+	}
+	
 	/* 이미지 실제 저장 */
 	@Transactional
 	private void saveFile(MultipartFile images, String img_type, Long room_sid) throws IOException {
@@ -43,10 +61,14 @@ public class RoomService {
 			String saveName = uuid + extension;// 랜덤으로 나온 uuid와 확장자를 더해서(연결해서) 저장
 			File converFile = new File(path, saveName); // 저장된것을 파일로 변환
 
-			if (!converFile.exists()) {
+			if (!converFile.exists()) {//폴더없으면 생성
 				converFile.mkdirs();
 			}
-			images.transferTo(converFile);
+			images.transferTo(converFile); 
+			
+			if(img_type.equals("대표이미지")) {
+				convertThumbnail(converFile,saveName);
+			}
 			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
 					.img_name(saveName).img_type(img_type).build();
 			roomMapper.uploadImg(uploadImg);

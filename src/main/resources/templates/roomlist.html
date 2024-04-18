@@ -18,7 +18,7 @@
 			</tr>
 			<tr th:each="img:${rooms.images}">
 				<td colspan="2">
-					<img th:src="|/img/${img.img_name}|" style="margin-bottom : 20px; width : 400px">
+					<img th:if="${img.img_name.startsWith('s_')}" th:src="|/img/${img.img_name}|" style="margin-bottom : 20px;">
 				</td>
 			</tr>
 		
