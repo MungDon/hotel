@@ -3,12 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>hotel insert</title>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
-		방 정보<input type="text" name="room_info"><br> 
-		방 이미지<input type="file" name="images" multiple><br>
+		방 정보<input type="text" name="room_info"><br>
+  	 <label class="label" id="label" for="input">
+     	<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
+  	 </label>
+  	 <p class="preview-title">preview</p>
+  	 <div class="preview" id="preview"></div>
+ 	 
+		방 이미지<input id="input" class="input" accept="image/*" type="file" name="images"   multiple><br>
 		대표 이미지<input type="file" name="thumbnail"/><br/>
 			
 		<h2>-옵션-</h2>
@@ -23,6 +31,118 @@
 		<button type="button" onclick="backList()">목록으로</button>
 			
 <script th:inline="javascript">
+	let input = document.getElementById("input");
+	let initLabel = document.getElementById("label");
+	
+	input.addEventListener("change",(event)=>{//change 이벤트는 사용자가 HTML 요소의 값을 변경할 때 발생하는 이벤트 ex) 파일 선택
+		const files = changeEvent(event);	//changeEvent 메서드에서 추출한 파일목록을 가져와서 files에 저장
+		handleUpdate(files);				// 파일 목록을 인자로넘김
+	});
+	
+	initLabel.addEventListener("mouseover",(event)=>{
+		event.preventDefault();
+		const label = document.getElementById("label");
+		label?.classList.add("label--hover");// ~?.~ -> nullish 병합 연산자로 ? 앞이 null 이나 undefined 인지 확인후 맞으면 이문장을 건너띄고 아니라면 문장 실행
+	});										 // null이 아니라면 클래스목록에 "label--hover"라는 클래스를 추가
+	
+	initLabel.addEventListener("mouseout", (event)=>{
+		event.preventDefault();  //위에 해당 이벤트의 기본 동작을 제한함-> 이벤트끼리 동작이 겹칠 수 있기 때문
+		const label = document.getElementById("label");
+		lable?.classList.remove("label--hover");// label이 null이 아니라면 클래스목록에서 "label--hover" 클래스삭제
+	});
+	
+	document.addEventListener("dragenter", (event)=>{// 끌 수 있는 요소가 드롭 타켓 위로 마우스커서가 처음 들어갈때 발생
+		event.preventDefault();
+		console.log("dragenter");
+		if(event.target.className==="inner"){// event.target(드롭타켓) 요소의 className 이 "inner" 라면
+			event.target.style.background="#616161";	// event.target 요소의 배경색을 밝은 회색으로 변경 
+		}
+	});
+	
+	document.addEventListener("dragover", (event)=>{ // 끌 수 있는 요소가 문서 경계 안(드롭해서 놓을곳)에 있을때 지속적으로 발생
+		console.log("dragover");
+		event.preventDafault();
+	});
+	
+	document.addEventListener("dragleave",(event)=>{ // 드래그 요소가 영역을 벗어나면 발생하는 이벤트
+		event.preventDafault();
+		console.log("dragleave");
+		if(event.target.className==="inner"){ // event.target(드롭타켓) 요소가 "inner"이면
+			event.target.style.background="#3a3a3a";// 색을 바꿈
+		}
+	});
+	
+	document.addEventListener("drop",(event)=>{// 드롭 이벤트 발생시 실행
+		event.preventDefault();
+		console.log("drop");
+		if(event.target.className === "inner"){// 드롭 타켓의 클래스명이 "inner" 라면 
+			const files = event.dataTransfer?.files;	// 드롭된 파일이 null 이아니면 files 에 파일목록을 저장
+			event.target.style.background = "#3a3a3a";	// 색을바꾼다
+			handleUpdate([...files]);					// 파일 목록을 인자로 넘김
+		}
+	});
+	
+	function changeEvent(event){
+		const{ target } = event;	// 구조 분해 할당 방식 = const { target } = event;와 같다
+									//event 객체의 속성 중 target이라는 이름의 속성을 찾고,
+									//찾은 target 속성의 값을 target이라는 변수에 할당함.
+		return [...target.files];	//target 요소에 files 속성으로부터 파일 목록을 추출하고 배열로 리턴
+	};
+	
+	
+	// 각 파일을 읽어서 이미지로 표시하고 그 이미지를 미리보기 div 에 추가함
+	function handleUpdate(fileList){// 파일목록을 매개변수로받음
+		const preview = document.getElementById("preview"); // id 가 "preview" 인 요소를 가져와서 저장
+		
+		fileList.forEach((file)=>{// 파일목록 배열을 반복하여 각각파일을 처리한다
+			const reader = new FileReader();	// 각 파일마다 FileReader 객체를 생성하고
+			reader.addEventListener("load",(event)=>{// load 이벤트를 등록
+				const img = el("img",{// 이미지 요소를 생성하고 , 
+					className: "embed-img",//클래스명을 "embed-img"로 지정하며
+					src: event.target.result,//이미지의 소스(src)를 FileReader의 결과로 설정
+				});
+				const imgContainer = el("div",{ 	// 이미지 요소를 포함하는 div 생성
+					className: "container-img"}, img);//클래스명을 "container-img"로 지정
+					preview.append(imgContainer);		// 미리보기 컨테이너(div)에  이미지 컨테이너(div)를 추가
+			});
+			reader.readAsDataURL(file);				//FileReader 객체로  데이터의 URL 파일을 읽는다, 
+		});
+	};
+	
+	function el(nodeName, attributes, ...children){
+		const node =
+			nodeName === "fragment"
+				? document.createDocumentFragment()
+				: document.createElement(nodeName);
+				
+		Object.entries(attributes).forEach(([key, value])=>{
+			if(key=== "events"){
+				Object.entries(value).forEach(([type,listener])=>{
+					node.addEventListener(tpye, listener);
+				});
+			} else if(key in node){
+				try{
+					node[key] = value;
+				} catch (err){
+					node.setAttribute(key, value);
+				}
+			} else {
+				node.setAttribute(key, value);
+			}
+		});
+	    children.forEach((childNode) => {
+	        if (typeof childNode === "string") {
+	           node.appendChild(document.createTextNode(childNode));
+	        } else {
+	           node.appendChild(childNode);
+	        }
+	     });
+
+	     return node;
+	}
+
+  
+
     let optionCount = 1;
 
     function addOption(){
@@ -47,6 +167,8 @@
     function backList(){
     	location.href="/room"
     }
+    
+
 </script>
 		
 		
