@@ -24,9 +24,11 @@ public class SellerService {
 		ResEmailNameChk nameChk = sellerMapper.sellerNameChk(add.getUser_name());
 		if (emailChk != null) {
 			throw new CustomException(ErrorCode.ID_DUPLICATE);
-		} else if (nameChk != null) {
+		} 
+		if (nameChk != null) {
 			throw new CustomException(ErrorCode.USER_NAME_DUPLICATE);
-		} else if (!add.getPassword().equals(add.getPassword2())) {
+		} 
+		if (!add.getPassword().equals(add.getPassword2())) {
 			throw new CustomException(ErrorCode.PASS_DONT_MATCH);
 		}
 		sellerMapper.sellerAdd(add);

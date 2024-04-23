@@ -26,7 +26,8 @@ public class UserService {
 		ResUserChk nameChk = userMapper.userNameChk(add.getUser_name()); // mapper 에서 회원명 정보를 가져온것을
 		if (emailChk != null) { // 입력한 이메일값이 null 이아니라면 = 이미 DB에 존재한다면
 			throw new CustomException(ErrorCode.ID_DUPLICATE); // 강제 예외 발생
-		} else if (nameChk != null) { // 입력한 회원명이 이미 DB에 존재한다면
+		}  
+		if (nameChk != null) { // 입력한 회원명이 이미 DB에 존재한다면
 			throw new CustomException(ErrorCode.USER_NAME_DUPLICATE); // 강제 예외 발생
 		}
 		if (!add.getPassword().equals(add.getPassword2())) { // 첫번째 비밀번호입력과 재확인 비밀번호 입력이 일치하지않다면

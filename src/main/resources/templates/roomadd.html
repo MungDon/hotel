@@ -10,17 +10,16 @@
 <body>
 	<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
 		방 정보<input type="text" name="room_info"><br>
-  	 <label class="label" id="label" for="input">
-     	<div class="inner" id="inner">드래그하거나 클릭해서 업로드</div>
-  	 </label>
-  	 <p class="preview-title">미리보기</p>
-  	 <div class="preview" id="preview"></div>
- 	 
-		방 이미지<input id="input" class="input" accept="image/*" type="file" name="images"  required="true" multiple><br>
+		방 이미지<br>
+		<div id="drop_zone">
+			<p>이미지를 드래그 앤 드롭 하거나 클릭ㄱㄱ</p>
+			<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
+		</div>
+		<div id="preview"></div>		
 		대표 이미지<input type="file" name="thumbnail"/><br/>
 			
 		<h2>-옵션-</h2>
-		<div id="pulsOptions">
+		<div id="plusOptions">
 			<div class="options">
 				옵션명<input type="text" id="options[0].option_name" name="options[0].option_name">
 				내용<input type="text" id="options[0].option_value" name="options[0].option_value">		
@@ -31,115 +30,52 @@
 		<button type="button" onclick="backList()">목록으로</button>
 			
 <script th:inline="javascript">
-	let input = document.getElementById("input");
-	let initLabel = document.getElementById("label");
-	
-	input.addEventListener("change", (event) => {
-	   const files = changeEvent(event);
-	   handleUpdate(files);
-	});
-	
-	initLabel.addEventListener("mouseover", (event) => {
-	   event.preventDefault();
-	   const label = document.getElementById("label");
-	   label?.classList.add("label--hover");
-	});
-	
-	initLabel.addEventListener("mouseout", (event) => {
-	   event.preventDefault();
-	   const label = document.getElementById("label");
-	   label?.classList.remove("label--hover");
-	});
-	
-	document.addEventListener("dragenter", (event) => {
-	   event.preventDefault();
-	   console.log("dragenter");
-	   if (event.target.className === "inner") {
-	      event.target.style.background = "#616161";
-	   }
-	});
-	
-	document.addEventListener("dragover", (event) => {
-	   console.log("dragover");
-	   event.preventDefault();
-	});
-	
-	document.addEventListener("dragleave", (event) => {
-	   event.preventDefault();
-	   console.log("dragleave");
-	   if (event.target.className === "inner") {
-	      event.target.style.background = "#3a3a3a";
-	   }
-	});
-	
-	document.addEventListener("drop", (event) => {
-	   event.preventDefault();
-	   console.log("drop");
-	   if (event.target.className === "inner") {
-	      const files = event.dataTransfer?.files;
-	      event.target.style.background = "#3a3a3a";
-	      handleUpdate([...files]);
-	      input.files = files;
-	   }
-	});
-	
-	function changeEvent(event) {
-	   const { target } = event;
-	   return [...target.files];
-	};
-	
-	function handleUpdate(fileList) {
-	   const preview = document.getElementById("preview");
-	
-	   fileList.forEach((file) => {
-	      const reader = new FileReader();
-	      reader.addEventListener("load", (event) => {
-	         const img = el("img", {
-	            className: "embed-img",
-	            src: event.target?.result,
-	         });
-	         const imgContainer = el("div", { className: "container-img" }, img);
-	         preview.append(imgContainer);
-	      });
-	      reader.readAsDataURL(file);
-	      
-	   });
-	};
-	
-	function el(nodeName, attributes, ...children) {
-	   const node =
-	      nodeName === "fragment"
-	         ? document.createDocumentFragment()
-	         : document.createElement(nodeName);
-	
-	   Object.entries(attributes).forEach(([key, value]) => {
-	      if (key === "events") {
-	         Object.entries(value).forEach(([type, listener]) => {
-	            node.addEventListener(type, listener);
-	         });
-	      } else if (key in node) {
-	         try {
-	            node[key] = value;
-	         } catch (err) {
-	            node.setAttribute(key, value);
-	         }
-	      } else {
-	         node.setAttribute(key, value);
-	      }
-	   });
-	
-	   children.forEach((childNode) => {
-	      if (typeof childNode === "string") {
-	         node.appendChild(document.createTextNode(childNode));
-	      } else {
-	         node.appendChild(childNode);
-	      }
-	   });
-	
-	   return node;
-	}
-    let optionCount = 1;
 
+	let optionCount = 1;
+	const dropZone = document.getElementById("drop_zone");
+	const input = document.getElementById("input");
+	const preview = document.getElementById("preview");
+
+	dropZone.addEventListener("dragover", (e) => {
+		e.preventDefault();
+	});
+
+	dropZone.addEventListener("drop", (e) => {
+	    e.preventDefault();
+
+	    const files = e.dataTransfer.files;
+	    if (files.length > 0) {
+	    	displayImage(files);
+	    	input.files = files;
+	    }
+	 });
+
+	 dropZone.addEventListener("click", () => {
+	    input.click();
+	 });
+
+	 input.addEventListener("change", () => {
+	    const files = input.files;
+	    if (files.length > 0) {
+	       displayImage(files);
+	    }
+	 });
+
+	    function displayImage(files) {
+	    	console.log(files)
+	    	 for (let i = 0; i < files.length; i++) {
+	    		 const file = files[i];
+	        	const reader = new FileReader();
+	        	reader.onload = () => {
+	        		const imgElement = document.createElement("img");
+	        		imgElement.src = reader.result;
+	        		imgElement.style.display = "block";
+	            	imgElement.classList.add("preview-image");
+	            	preview.appendChild(imgElement);
+	       	 	};
+	        	reader.readAsDataURL(file);
+	    	};
+	    };
     function addOption(){
         
        	let html =""
@@ -150,7 +86,7 @@
                 <button type="button" onclick="removeOption(this)">옵션 제거</button>
             </div>
         `;
-        $("#pulsOptions").append(html);
+        $("#plusOptions").append(html);
         optionCount++;
         console.log(optionCount);
     }
