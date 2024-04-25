@@ -63,7 +63,7 @@ public class UserController {
 		session.setAttribute("user_name", resLogin.getUser_name());		//세션에 해당회원 회원명 저장
 		session.setAttribute("role_user", resLogin.getRole());					//세션에 해당회원 권한 저장
 		session.setMaxInactiveInterval(1800);											//세션 30분 유지
-		if(session.getAttribute("role_user").equals(Role.SELLER)) {
+		if(session.getAttribute("role_user").equals(Role.SELLER)) {		// 로그인한 사람의 권한이 seller 라면 room 페이지로
 			return "redirect:/room";
 		}
 		return "redirect:/hotel";

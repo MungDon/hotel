@@ -2,4 +2,6 @@
 .deleteRooms{
 	display: none
 }
-
+.main{
+	display:flex;
+}
