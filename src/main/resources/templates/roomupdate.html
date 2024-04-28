@@ -8,7 +8,12 @@
 <body>
 	<form class="roomUpdateForm" th:action="|/room/update|" th:method="put" enctype="multipart/form-data" th:each="update:${update}">
 		방 정보<input type="text" name="room_info" th:value="${update.room_info}"><br> 
-			방 이미지 추가하기<input type="file" name="images" multiple/><br>
+		대표 이미지<input type="file" name="thumbnail"/><br/>
+			<div id="drop_zone">
+			<p>이미지를 드래그 앤 드롭 하거나 클릭ㄱㄱ</p>
+			<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
+		</div>
+		<div id="preview"></div>		
 			<div th:each="img:${update.images}">
 				현재 등록된 이미지<img th:src="|/img/${img.img_name}|" width="300px"/>
 				<button type="button" class="removeImg" th:value="${img.room_img_sid}">이미지 삭제</button>
@@ -25,57 +30,10 @@
 		</div>
 		<button type="submit">수정완료</button>
 		<button type="button" onclick="backList()">목록으로</button>
+<script src="/js/addOprion.js"></script>
+<script src="/js/dragAndDrop.js"></script>
+<script src="/js/roomUpdate.js"></script>
 
-		<script th:inline="javascript">
-    let optionCount = 1;
-
-    function addOption(){
-       	let html =""
-       		html += `
-            <div class="options">
-                옵션명<input type="text" id="options[${optionCount}].option_name" name="options[${optionCount}].option_name">
-                내용<input type="text" id="options[${optionCount}].option_value" name="options[${optionCount}].option_value">
-                <button type="button" onclick="removeOption(this)">옵션 제거</button>
-            </div>
-		        `;
-		        $("#pulsOptions").append(html);
-		        optionCount++;
-		        console.log(optionCount);
-			    }
-				
-		    function removeOption(button) {
-		        $(button).parent().remove();
-		    }   
-		 	function backList(){
-			    	location.href="/room"
-			 }
-		    $(function(){
-		       $(document).on("click",".removeImg", function(){
-		    	   $(this).parent().remove();
-		        let room_img_sid = $(this).val();
-				console.log("체크");
-				$.ajax({
-					type: 'delete',
-					async : false,
-					url: '/room/img/delete',
-					data: {
-						room_img_sid : room_img_sid
-					},
-					success: function () {
-				   	 alert('이미지가 삭제되었습니다.');
-				   	
-					}, error: function () {
-						alert("삭제 실패");
-					}
-					});
-				});
-
-		    });
-
-			
-		    
-	
-	</script>
 	</form>
 </body>
 </html>

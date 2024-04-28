@@ -11,12 +11,12 @@
 	<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
 		방 정보<input type="text" name="room_info"><br>
 		방 이미지<br>
+		대표 이미지<input type="file" name="thumbnail"/><br/>
 		<div id="drop_zone">
 			<p>이미지를 드래그 앤 드롭 하거나 클릭ㄱㄱ</p>
 			<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
 		</div>
 		<div id="preview"></div>		
-		대표 이미지<input type="file" name="thumbnail"/><br/>
 			
 		<h2>-옵션-</h2>
 		<div id="plusOptions">
@@ -28,81 +28,8 @@
 		</div>
 		<button type="submit" >등록</button>	
 		<button type="button" onclick="backList()">목록으로</button>
-			
-<script th:inline="javascript">
-
-	let optionCount = 1;
-	const dropZone = document.getElementById("drop_zone");
-	const input = document.getElementById("input");
-	const preview = document.getElementById("preview");
-
-	dropZone.addEventListener("dragover", (e) => {
-		e.preventDefault();
-	});
-
-	dropZone.addEventListener("drop", (e) => {
-	    e.preventDefault();
-
-	    const files = e.dataTransfer.files;
-	    if (files.length > 0) {
-	    	displayImage(files);
-	    	input.files = files;
-	    }
-	 });
-
-	 dropZone.addEventListener("click", () => {
-	    input.click();
-	 });
-
-	 input.addEventListener("change", () => {
-	    const files = input.files;
-	    if (files.length > 0) {
-	       displayImage(files);
-	    }
-	 });
-
-	    function displayImage(files) {
-	    	console.log(files)
-	    	 for (let i = 0; i < files.length; i++) {
-	    		 const file = files[i];
-	        	const reader = new FileReader();
-	        	reader.onload = () => {
-	        		const imgElement = document.createElement("img");
-	        		imgElement.src = reader.result;
-	        		imgElement.style.display = "block";
-	            	imgElement.classList.add("preview-image");
-	            	preview.appendChild(imgElement);
-	       	 	};
-	        	reader.readAsDataURL(file);
-	    	};
-	    };
-    function addOption(){
-        
-       	let html =""
-       		html += `
-            <div class="options">
-                옵션명<input type="text" id="options[${optionCount}].option_name" name="options[${optionCount}].option_name">
-                내용<input type="text" id="options[${optionCount}].option_value" name="options[${optionCount}].option_value">
-                <button type="button" onclick="removeOption(this)">옵션 제거</button>
-            </div>
-        `;
-        $("#plusOptions").append(html);
-        optionCount++;
-        console.log(optionCount);
-    }
-
-    function removeOption(button) {
-        $(button).parent().remove();
-    }
-    
-    function backList(){
-    	location.href="/room"
-    }
-    
-
-</script>
-		
-		
 	</form>
+		<script src="/js/addOprion.js"></script>
+		<script src="/js/dragAndDrop.js"></script>	
 </body>
 </html>
