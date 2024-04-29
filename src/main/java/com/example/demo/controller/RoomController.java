@@ -103,4 +103,11 @@ public class RoomController {
 	public void restoreRoom(@RequestParam("room_sid") Long room_sid) {
 		roomService.restoreRoom(room_sid);
 	}
+	
+	/*방 영구 삭제*/
+	@DeleteMapping("/remove")
+	@ResponseBody
+	public void removeRoom(@RequestParam("room_sid")Long room_sid) {
+		roomService.removeRoom(room_sid);
+	}
 }

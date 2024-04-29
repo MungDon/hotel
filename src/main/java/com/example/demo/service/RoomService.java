@@ -135,11 +135,19 @@ public class RoomService {
 		roomMapper.roomImgRemove(room_img_sid);
 		// TODO - 파일까지 삭제하는 로직 추가예정
 	}
-	/*방 삭제*/
+	/*방 삭제(논리)*/
 	@Transactional
 	public void roomDelete(Long room_sid) {
 		roomMapper.roomDelete(room_sid);
 	}
+	
+	/*방삭제 (물리)*/
+	@Transactional
+	public void removeRoom(Long room_sid) {
+		roomMapper.removeRoom(room_sid);
+	}
+	
+	
 	/*방 삭제 목록*/
 	@Transactional(readOnly = true)
 	public List<ResRoomList> deleteRooms(){

@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
@@ -39,17 +40,20 @@ public interface RoomMapper {
 	int count(SearchDto dto);
 	
 	/*방 상세보기*/
-	List<ResRoomDetail> roomDetail(Long room_sid);
+	List<ResRoomDetail> roomDetail(@Param(value="room_sid")Long room_sid);
 	
 	/*이미지 삭제*/
-	void roomImgRemove(Long room_img_sid);
+	void roomImgRemove(@Param(value="room_sid")Long room_img_sid);
 	
-	/*방 삭제*/
-	void roomDelete(Long room_sid);
+	/*방 삭제(논리)*/
+	void roomDelete(@Param(value="room_sid")Long room_sid);
+	
+	/*방 삭제 (물리)*/
+	void removeRoom(@Param(value="room_sid")Long room_sid);
 	
 	/*방 삭제 목록*/
 	List<ResRoomList> deleteRooms();
 	
 	/*방 복구하기*/
-	void restoreRoom(Long room_sid);
+	void restoreRoom(@Param(value="room_sid")Long room_sid);
 }

@@ -64,7 +64,7 @@ $(function() {
 		$(".deleteRooms").toggle();
 		let buttonText = $(this).text();
 
-		ajaxCall("/room/delete/list", "GET", null ,function(data) {
+		ajaxCall("/room/delete/list", "GET", null, function(data) {
 			let html = "";
 
 			data.forEach(function(room) {
@@ -99,7 +99,9 @@ $(function() {
 				});
 				html += `
 	                        <button type="button" class="restore" value="${room.room_sid}">복구하기</button>
-	                        `;
+	                        <button type="button" class="removeRoom" value="${room.room_sid}">삭제하기</button>
+	                         `;
+	                       
 			});
 			$(".deleteRooms").html(html);
 		},
@@ -120,10 +122,22 @@ $(document).on("click", ".restore", function() {
 	if (!confirm("방을 복구하시겠습니까?")) {
 		return false;
 	}
-	ajaxCall("/room/restore","PUT",{room_sid}, function() {
-			alert('방이 복구되었습니다.');
-			location.href = "/room";
-		},function() {
-			alert("방 복구 실패");
+	ajaxCall("/room/restore", "PUT", { room_sid }, function() {
+		alert('방이 복구되었습니다.');
+		location.href = "/room";
+	}, function() {
+		alert("방 복구 실패");
+	})
+});
+$(document).on("click", ".removeRoom", function()  {
+	let room_sid = $(this).val();
+	if (!confirm("방을 영구 삭제하시겠습니까?")) {
+		return false;
+	}
+	ajaxCall("/room/remove", "DELETE", { room_sid }, function() {
+		alert("방이 영구 삭제되었습니다.");
+		location.href = "/room";
+	}, function() {
+		alert("방 영구 삭제 실패 운영자에게 문의해주세요");
 	})
 });

@@ -1,4 +1,4 @@
-function ajaxCall(url,method,param,successFn,errorFn){
+ function ajaxCall(url,method,param,successFn,errorFn){
         $.ajax({
             url: url,
             method: method,
