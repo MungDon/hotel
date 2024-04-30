@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="/js/common.js"></script>
+
 <link rel="stylesheet" href="/css/roomlist.css">
 </head>
 <body>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="paging"></div>
 
-
+<script src="/js/common.js"></script>
 <script>
 $(function() {
 	
@@ -78,7 +78,7 @@ $(function() {
 			html += (i !== search.page)
 				? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
 				: `<span class="on">${i}</span>`
-				console.log(i);
+				
 		}
 		html += '</p>';
 		
