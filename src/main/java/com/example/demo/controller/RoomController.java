@@ -94,7 +94,6 @@ public class RoomController {
 	@ResponseBody
 	public List<ResRoomList> deleteRooms (){
 		List<ResRoomList> deleteRooms = roomService.deleteRooms();
-		System.out.println(deleteRooms);
 		return deleteRooms;
 	}
 	/*방복구하기*/

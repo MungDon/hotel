@@ -2,7 +2,7 @@
         $.ajax({
             url: url,
             method: method,
-            data: {param:param},
+            data: param,
             success: function (data) {
                 if(typeof successFn =="function"){
                     successFn(data);
