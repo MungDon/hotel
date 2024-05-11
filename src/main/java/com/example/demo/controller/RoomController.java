@@ -42,8 +42,7 @@ public class RoomController {
 	
 	/*방등록 페이지 폼*/
 	@GetMapping("/add")
-	public String roomAddForm(Model model) {
-		model.addAttribute("options", new ReqRoomAdd());
+	public String roomAddForm() {
 		return "roomadd";
 	}
 	

@@ -74,10 +74,19 @@ public class RoomService {
 					.img_name(saveName).img_type(img_type).build();
 			roomMapper.uploadImg(uploadImg);
 	}
+	
 	/*이미지저장*/
 	private void fileUpload(List<MultipartFile> images, String img_type, Long room_sid) throws IOException {
 		for (MultipartFile img : images) {
 			saveFile(img,  img_type, room_sid);
+		}
+	}
+	
+	/*옵션 저장*/
+	private void addOptions(List<ReqOptions> options, Long room_sid) {
+		for (ReqOptions option : options) {
+			option.setRoom_sid(room_sid);
+			roomMapper.addOptions(option);
 		}
 	}
 
@@ -85,10 +94,8 @@ public class RoomService {
 	@Transactional
 	public void roomAdd(ReqRoomAdd add) throws IOException {
 		roomMapper.roomAdd(add);
-		for (ReqOptions options : add.getOptions()) {
-			options.setRoom_sid(add.getRoom_sid());
-			roomMapper.addOptions(options);
-		}
+		addOptions(add.getOptions(), add.getRoom_sid());
+		addOptions(add.getUseOptions(), add.getRoom_sid());
 		fileUpload(add.getImages(), ImgType.roomImg.name(), add.getRoom_sid());
 		fileUpload(add.getThumbnail(), ImgType.thumbnail.name(), add.getRoom_sid());
 	}

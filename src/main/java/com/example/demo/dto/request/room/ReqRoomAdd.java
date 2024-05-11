@@ -22,4 +22,5 @@ public class ReqRoomAdd {
 	
 	private List<ReqOptions> options;	// 옵션 리스트 
 	
+	private List<ReqOptions> useOptions;
 }
