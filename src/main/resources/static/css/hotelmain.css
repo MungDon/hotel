@@ -1,0 +1,77 @@
+@charset "UTF-8";
+.hotelMain{
+	width : 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.banner{
+	width : 100%;
+	height: 500px;	
+}
+.img{
+	width: 100%;
+	height: 500px;
+}
+.reservationForm{
+	width : 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.rsvSearchTable{
+	width : 1000px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+}
+input[type=number]{
+	text-align:center;
+	width: 100px;	
+	border-style : none;
+	-webkit-appearance: none;
+    appearance: none;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+.searchBtn{
+	background-color : #ddd;
+	border-style : none;
+	border-radius : 8px;
+	width: 120px;
+	height: 50px;
+	margin-left: 50px;
+}
+input[type=date]{
+	text-align:center;
+	border-style : none;
+}
+.bakimg{
+	width: 30px;
+	height: 30px;
+}
+.packageTable{
+	margin-top : 30px;
+	width: 1160px;
+	height: 600px;
+	border-spacing: 20px;
+}
+.ptd1,.ptd2,.ptd3,.ptd4,.ptd5{
+	border : 1px solid black;
+	
+}
+.ptr1,.ptr2{
+	height: 30%;
+}
+.ptr3{
+	height: 40%;
+}
+.packageTitle{
+	margin-top:100px;
+}
+

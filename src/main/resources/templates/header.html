@@ -4,31 +4,50 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-	
+	<link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 	<header class="header" th:fragment="header">
 		<input type="hidden" th:value="${session.user_sid}">
 		<input type="hidden" th:value="${session.user_name}">
 		<input type="hidden" th:value="${session.role_user}">
-	<table>
+	<table class="headerTable">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td>
+			<td class="td1"></td>
+			<td class="td2"></td>
+			<td class="td3"></td>
+			<td class="td4"></td>
+			<td class="td5">
 				<div class="user_info" th:if="${session.user_sid != null}">
 					<span th:text="|${session.user_name} 님, 환영합니다.|"></span>
 					<button type="button" class="logout">로그아웃</button>
 				</div>
 			</td>
-			<td>
+			<td class="td6"></td>
+			<td class="td7">
 				<a href="/user/login" th:if="${session.user_sid == null}">로그인</a>
 			</td>
+			<td class="td8">
+				<a href="#">예약확인</a>
+			</td>
 		</tr>
-		<tr>
+		<tr class="tr2">
 			<td></td>
+			<td><a href="#">호텔 소개</a></td>
+			<td>
+				<a href="#">예약</a>
+			</td>
+			<td></td>
+			<td>
+				<a href="/hotel"><img class="hotelLogo" src="../images/hotelLogo.png"></a>
+			</td>
+			<td></td>
+			<td>
+				<a href="#">고객 문의</a>	
+			</td>
+			<td>
+				<a href="#">멤버십 패키지</a>
+			</td>
 		</tr>
 	</table>	 
 
