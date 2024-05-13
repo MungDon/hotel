@@ -35,5 +35,5 @@ public class ReqSellerAdd {
 	
 	private String hotel_name;	//  호텔명 
 	
-	private final Role role = Role.SELLER; // 판매자 회원 권한
+	private final Role role = Role.STAFF; // 판매자 회원 권한
 }

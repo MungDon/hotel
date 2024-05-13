@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Role {
 	USER(1, "USER","일반회원"),
-	SELLER(2,"SELLER","직원"),
+	STAFF(2, "STAFF","직원"),
 	ADMIN(3,"ADMIN","관리자");
 	
 	private int code;
