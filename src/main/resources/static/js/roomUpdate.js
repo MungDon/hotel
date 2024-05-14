@@ -1,4 +1,4 @@
-$(function() {
+  $(function() {
 	$(document).on("click", ".removeImg", function() {
 		$(this).parent().remove();
 		let room_img_sid = $(this).val();

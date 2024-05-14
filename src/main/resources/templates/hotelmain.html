@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/hotelmain.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	
@@ -88,7 +89,17 @@
 			<img class="membershipImg" src="../images/membership.png">
 			<img class="pointImg" src="../images/point.png">
 		</div>
-	
 </main>
+	<script src="/js/common.js"></script>
+	<script>
+		function logout() {
+			ajaxCall("/user/logout", "DELETE", null, function() {
+				alert('로그아웃 되었습니다.');
+				location.reload();
+			}, function() {
+				alert("로그아웃 실패");
+			});
+		};
+	</script>
 </body>
 </html>

@@ -27,7 +27,7 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	/*판매자/일반회원 회원가입 선택지 페이지 폼*/
+	/*직원/일반회원 회원가입 선택지 페이지 폼*/
 	@GetMapping("/choice")
 	public String choiceForm() {
 		return "choice";
