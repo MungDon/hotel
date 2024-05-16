@@ -9,16 +9,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReqHotelAdd {
+public class ReqIntroAdd {
 
 	private Long hotel_sid; 		//호텔PK
 	
 	private String hotel_info;	// 호텔정보
 	
-	private String hotel_address;		// 호텔주소
+	private String taskDetails;
 	
 	private List<MultipartFile> images;	// 이미지
 	
-	private List<ReqHotelOptions> options;	// 옵션
 	
 }

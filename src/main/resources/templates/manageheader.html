@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/header.css">
+</head>
+<body>
+	<header class="header" th:fragment="manageheader">
+		<input type="hidden" th:value="${session.user_sid}">
+		<input type="hidden" th:value="${session.user_name}">
+		<input type="hidden" th:value="${session.role_user}">
+		<table class="headerTable">
+			<tr class="tr2">
+				<td></td>
+				<td><a href="/hotel"><img class="hotelLogo"
+						src="../images/hotelLogo.png"></a></td>
+				<td>
+					<div class="dropdown">
+	      			<button class="dropbtn">호텔 전체 관리</button>
+				      <div class="dropdown-content">
+				        <a href="/hotel/management/add">호텔 소개</a>
+				        <a href="#">패키지 상품</a>
+				        <a href="/room">객실</a>
+				      </div>
+				    </div>	
+				</td>
+				<td></td>
+				<td>
+					<div class="dropdown">
+	      				<button class="dropbtn">전체문의</button>
+				     	<div class="dropdown-content">
+					        <a href="#">고객 문의</a>
+					        <a href="#">직원 문의</a>
+				      	</div>
+				    </div>	
+				</td>
+				<td></td>
+				<td>
+					<div class="dropdown">
+	      				<button class="dropbtn">전체 회원 관리</button>
+				     	<div class="dropdown-content">
+					        <a href="#">일반 고객</a>
+					        <a href="#">멤버십 고객</a>
+					        <a href="#">직원</a>
+				      	</div>
+				    </div>	
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</header>
+</body>
+</html>
