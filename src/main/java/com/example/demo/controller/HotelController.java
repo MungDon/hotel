@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
 import com.example.demo.service.HotelService;
@@ -48,7 +50,10 @@ public class HotelController {
 		return "redirect:/hotel/hotelmanage";
 	}
 	/*에디터 내 사진 업로드*/
-	@PostMapping("/file/upload")
-	public String uploadImg() {
+	@PostMapping("/file/uploadBase64")
+	@ResponseBody
+	public String uploadImg(String base64Code, String extension){
+		String fileName = hotelService.uploadImg(base64Code,extension);
+		return fileName;
 	}
 }

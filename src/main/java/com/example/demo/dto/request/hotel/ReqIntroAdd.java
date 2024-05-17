@@ -15,7 +15,7 @@ public class ReqIntroAdd {
 	
 	private String hotel_info;	// 호텔정보
 	
-	private String taskDetails;
+	private String taskDetails; // 에디터에서 작성한내용
 	
 	private List<MultipartFile> images;	// 이미지
 	

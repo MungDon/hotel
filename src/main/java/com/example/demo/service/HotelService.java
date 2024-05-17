@@ -17,7 +17,9 @@ public class HotelService {
 	 * 호텔등록
 	 * @param request
 	 */
-	public void hotelAdd(ReqIntroAdd request) {
-		hotelMapper.hotelAdd(request);
+	public String uploadImg(String base64Code, String extension) {
+		String fileName="";
+		// TODO - base64 -> 이미지 파일이름으로 변환작업
+		return fileName;
 	}
 }
