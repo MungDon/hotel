@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
 import com.example.demo.service.HotelService;
 
@@ -45,15 +46,26 @@ public class HotelController {
 		return "introadd";
 	}
 	
+	/*호텔 소개 등록*/
 	@PostMapping("/management/intro/add")
-	public String introAdd() {
+	public String introAdd(ReqIntroAdd req) {
+		hotelService.introAdd(req);
 		return "redirect:/hotel/hotelmanage";
 	}
-	/*에디터 내 사진 업로드*/
+	
+	
+	@PostMapping("/file/upload")
+	@ResponseBody
+	public String uploadImg(MultipartFile[] files) {
+		String uploadFile = hotelService.uplaodImg(files);
+		return uploadFile;
+	}
+	
+	/*에디터 내 사진 업로드(복사/붙여넣기)*/
 	@PostMapping("/file/uploadBase64")
 	@ResponseBody
-	public String uploadImg(String base64Code, String extension){
-		String fileName = hotelService.uploadImg(base64Code,extension);
+	public String uploadBase64Img(@RequestBody ReqEdtorImg req){
+		String fileName = hotelService.uploadBase64Img(req);
 		return fileName;
 	}
 }

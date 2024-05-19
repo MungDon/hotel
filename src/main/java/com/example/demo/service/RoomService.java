@@ -38,7 +38,7 @@ public class RoomService {
 	private final RoomMapper roomMapper;
 
 	private void convertThumbnail(File converFile, String saveName) throws IOException {
-		File thumbnailFile = new File(path,"s_"+saveName);
+		File thumbnailFile = new File(path,"s_"+saveName); // 실제 디렉토리에 S 붙여서 저장
 		
 		BufferedImage bufferImg = ImageIO.read(converFile);
 		
@@ -68,7 +68,7 @@ public class RoomService {
 			
 			if(img_type.equals("thumbnail")) {
 				convertThumbnail(converFile,saveName);
-				saveName = "s_"+saveName;
+				saveName = "s_"+saveName; // db 에 저장될때 s 붙여서 저장
 			}
 			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
 					.img_name(saveName).img_type(img_type).build();
