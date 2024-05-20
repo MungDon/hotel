@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -78,14 +79,14 @@ public class RoomController {
 	/*이미지 삭제*/
 	@DeleteMapping("/img/delete")
 	@ResponseBody
-	public void roomImgRemove( @RequestParam("room_img_sid")Long room_img_sid) {
+	public void roomImgRemove(@RequestBody Long room_img_sid) {
 		roomService.roomImgRemove(room_img_sid);
 	}
 	
 	/*방 삭제(논리)*/
 	@DeleteMapping("/delete")
 	@ResponseBody
-	public void roomDelete(@RequestParam("room_sid")Long room_sid) {
+	public void roomDelete(@RequestBody Long room_sid) {
 		roomService.roomDelete(room_sid);
 	}
 	/*삭제된 방목록(휴지통)*/
@@ -98,14 +99,14 @@ public class RoomController {
 	/*방복구하기*/
 	@PutMapping("/restore")
 	@ResponseBody
-	public void restoreRoom(Long room_sid) {
+	public void restoreRoom(@RequestBody Long room_sid) {
 		roomService.restoreRoom(room_sid);
 	}
 	
 	/*방 영구 삭제*/
 	@DeleteMapping("/remove")
 	@ResponseBody
-	public void removeRoom(Long room_sid) {
+	public void removeRoom(@RequestBody Long room_sid) {
 		roomService.removeRoom(room_sid);
 	}
 }

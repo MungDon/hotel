@@ -144,7 +144,7 @@
                             dataType: 'text',
                             async: false,// 모든 동작이 끝날때까지 코드가 흘러가지 않음
                             success: function (data) {
-                                img.setAttribute('src', "/file/display?fileName=" + data);
+                                img.setAttribute('src', "/hotel/display?fileName=" + data);
                             },
                             error: function (err) {
                                 console.log('ERROR!! ::');
