@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
@@ -92,12 +94,20 @@ public class HotelService {
 		String fileName= truncateAndAppendTimestamp(req.getBase64Code(), maxLength);
 		
 		filePath = path+fileName;
-		File file = new File(filePath);
 		
-		Decoder decoder = Base64.getMimeDecoder();
-		
+		try {
+			File file = new File(filePath);
+			Decoder decoder = Base64.getMimeDecoder();
+			byte[] decodedBytes = decoder.decode(req.getBase64Code());
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+			fileOutputStream.write(decodedBytes);
+			fileOutputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return fileName;
 	}
+	/*base64 이미지 이름 재정의*/
 	 public static String truncateAndAppendTimestamp(String base64Image, int maxLength) {
 	        // 제거할 특수문자 정규식
 	        String specialCharactersRegex = "[^a-zA-Z0-9]";
