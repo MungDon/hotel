@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.Hotelmapper">
+<mapper namespace="com.example.demo.mapper.HotelMapper">
 <insert id="introAdd" parameterType="ReqIntroAdd">
 </insert>
-
+<insert id="uploadFile" parameterType="ReqHotelImg">
+	INSERT INTO tb_hotel_img(
+		original_name,
+		img_name,
+		extension
+	) VALUES (
+		#{original_name},
+		#{img_name},
+		#{extension}
+	)
+	
+</insert>
 </mapper>

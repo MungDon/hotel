@@ -60,13 +60,13 @@ public class HotelController {
 	
 	@PostMapping("/file/upload")
 	@ResponseBody
-	public String uploadImg(MultipartFile files) throws IOException {
+	public String uploadImg(@RequestParam(value = "uploadFile") MultipartFile files) throws IOException {
 		String uploadFile = hotelService.uploadImg(files);
 		return uploadFile;
 	}
 	
 	/*이미지 미리보기*/
-	@GetMapping("/display")
+	@GetMapping("/file/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> showImg(@RequestParam(value = "fileName")String fileName){
 		ResponseEntity<byte[]> result = hotelService.showImg(fileName);

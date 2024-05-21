@@ -5,13 +5,15 @@
 <title>Insert title here</title>
 <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<form id="introForm" action="/management/intro/add" method="post">
 		
 		<div id="editor"></div>
-		<textarea name ="content" id="content" rows="16" class="hidden"></textarea>
+		<textarea name ="content" id="content" rows="16" class="hidden" style="display:none" ></textarea>
 		<button type="button" onclick="submit()">등록</button>
 	</form>
+<script src="/js/editor.js"></script>
 </body>
 </html>

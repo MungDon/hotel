@@ -1,3 +1,7 @@
+	document.addEventListener("DOMContentLoaded", function() {
+    	quilljsediterInit();
+ 	});
+	
 	// 에디터 옵션    
     let toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],
@@ -24,6 +28,7 @@
         quill.on('text-change', function() {
           document.getElementById("content").value = quill.root.innerHTML;
         });
+        
         quill.getModule('toolbar').addHandler('image', function () {
             selectLocalImage();
         });
@@ -75,7 +80,7 @@
                     dataType: 'text',
                     success: function (data) {
                         const range = quill.getSelection();
-                        quill.insertEmbed(range.index, 'image', "/file/display?fileName=" + data);
+                        quill.insertEmbed(range.index, 'image', "/hotel/file/display?fileName=" + data);
 
                     },
                     error: function (err) {
