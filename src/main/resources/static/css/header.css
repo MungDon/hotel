@@ -1,4 +1,8 @@
 @charset "UTF-8";
+a {
+  text-decoration-line: none;
+  color : #585858;
+}
 .headerTable{
 	text-align:center;
 	width: 100%;
@@ -12,23 +16,39 @@
 }
 
 .td1{
-	width: 3%;
+	width: 1%;
 }
 .td2{
 	width: 10%;
 }
+.td3{
+	width: 5%;
+}
 .td4{
 	width: 10%;
 }
+.td5{
+	width: 10%;
+}
 .td6{
-	width: 13%;
+	width: 21%;
 }
 .td7{
-	text-align : right;
-	width: 13%;
+	
+	width: 10%;
 }
 .td8{
-	width: 10%;
+	text-align : right;
+	width: 15%;
+}
+.td9{
+	font-size : 18px;
+	padding-left : 50px;
+	text-align : left;
+	width: 15%;
+}
+.utd1{
+	padding-bottom : 45px;
 }
 .dropdown{
   position : relative;

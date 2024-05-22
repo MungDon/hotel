@@ -8,12 +8,40 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<form id="introForm" action="/management/intro/add" method="post">
-		
+	<form id="introForm" action="/hotel/management/intro/add" method="post">
 		<div id="editor"></div>
 		<textarea name ="content" id="content" rows="16" class="hidden" style="display:none" ></textarea>
 		<button type="button" onclick="submit()">등록</button>
+		<button type="button" onclick="cancel()">취소</button>
 	</form>
 <script src="/js/editor.js"></script>
+<script>
+	function cancel(){
+		const imgElements = document.querySeletorAll('img');
+		
+		imgElements.forEach(imgElement => {
+			const src = imgElement.src;
+			
+			const url = new URL(src);
+			const params = new URLSearchParams(url.search);
+			
+			const fileName = params.get('fileName');
+			
+			$.ajax({
+                type: 'post',
+                url: '/hotel/file/cancel',
+                data: fileName,
+                success: function () {
+                    alert();
+                },
+                error: function (err) {
+                    console.log('ERROR!! ::');
+                    console.log(err);
+                }
+            });
+		});
+	}
+
+</script>
 </body>
 </html>

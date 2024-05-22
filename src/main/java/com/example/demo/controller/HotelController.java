@@ -16,6 +16,8 @@ import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
 import com.example.demo.service.HotelService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -52,12 +54,18 @@ public class HotelController {
 	
 	/*호텔 소개 등록*/
 	@PostMapping("/management/intro/add")
-	public String introAdd(ReqIntroAdd req) {
+	public String introAdd(ReqIntroAdd req, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+			return "redirect:/user/login";
+		}
+		Long user_sid = (Long)session.getAttribute("user_sid");
+		req.setUser_sid(user_sid);
 		hotelService.introAdd(req);
-		return "redirect:/hotel/hotelmanage";
+		return "redirect:/hotel";
 	}
 	
-	
+	/*에디터 사진 업로드*/
 	@PostMapping("/file/upload")
 	@ResponseBody
 	public String uploadImg(@RequestParam(value = "uploadFile") MultipartFile files) throws IOException {

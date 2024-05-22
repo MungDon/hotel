@@ -14,32 +14,30 @@
 		<table class="headerTable">
 			<tr>
 				<td class="td1"></td>
-				<td class="td2"></td>
+				<td class="td2" th:if="${session.role_user!=null && session.role_user.toString().equals('STAFF')}"><a
+					href="/hotel/management">호텔 관리</a></td>
 				<td class="td3"></td>
 				<td class="td4"></td>
 				<td class="td5"></td>
-				<td class="td6"></td>
-				<td class="td7">
+				<td class="td6" rowspan="2"><a href="/hotel"><img class="hotelLogo"
+						src="../images/hotelLogo.png"></a></td>
+				<td class="td7"></td>
+				<td class="td8">
 					<div class="user_info" th:if="${session.user_sid != null}">
 						<button type="button" class="logout" onclick="logout()">로그아웃</button>
 					</div>
 					<a href="/user/login" th:if="${session.user_sid == null}">로그인</a>
 				</td>
 
-				<td class="td8"><a href="#">예약확인</a></td>
+				<td class="td9"><a href="#">예약확인</a></td>
 			</tr>
 			<tr class="tr2">
-				<td></td>
-				<td
-					th:if="${session.role_user==null or session.role_user.toString().equals('USER')}"><a
+				<td class="utd1"></td>
+				<td><a
 					href="#">호텔 소개</a></td>
-				<td
-					th:if="${session.role_user!=null && session.role_user.toString().equals('STAFF')}"><a
-					href="/hotel/management">호텔 관리</a></td>
+				<td></td>
 				<td><a href="#">예약</a></td>
 				<td></td>
-				<td><a href="/hotel"><img class="hotelLogo"
-						src="../images/hotelLogo.png"></a></td>
 				<td></td>
 				<td><a href="#">고객 문의</a></td>
 				<td><a href="#">멤버십 패키지</a></td>
