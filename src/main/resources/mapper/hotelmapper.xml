@@ -27,4 +27,8 @@
 		now()
 	)
 </insert>
+<delete id="deleteFile" parameterType="String">
+	DELETE FROM tb_hotel_img
+	WHERE img_name = #{fileName}
+</delete>
 </mapper>

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Base64.Decoder;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Exception.CustomException;
+import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqHotelImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
@@ -64,6 +67,7 @@ public class HotelService {
 	}
 	
 	/*에디터 내 이미지 미리보기*/
+	
 	public ResponseEntity<byte[]> showImg(String fileName){
 		File file = new File(path+fileName);
 		ResponseEntity<byte[]> result = null;
@@ -82,8 +86,8 @@ public class HotelService {
 	
 	
 	/**
-	 * 에디터 이미지 디코딩 과 DB 등록(호텔 소개 등록)
-	 * @param 
+	 * 에디터 이미지 디코딩 & 파일 저장
+	 * @param base64Code, extension
 	 */
 	@Transactional
 	public String uploadBase64Img(ReqEdtorImg req) {
@@ -106,8 +110,9 @@ public class HotelService {
 		}
 		return fileName;
 	}
+	
 	/*base64 이미지 이름 재정의*/
-	 public static String truncateAndAppendTimestamp(String base64Image, int maxLength) {
+	 private static String truncateAndAppendTimestamp(String base64Image, int maxLength) {
 	        // 제거할 특수문자 정규식
 	        String specialCharactersRegex = "[^a-zA-Z0-9]";
 
@@ -125,4 +130,34 @@ public class HotelService {
 	                .add(timestamp)
 	                .toString();
 	    }
+	 
+	 /*에디터 작성취소 시 이미지 삭제*/
+	 @Transactional
+	 public int deleteImg(List<String> fileNames) {
+		 int result = 0;
+		 int count = 0;
+		 
+		 for(String fileName : fileNames) {
+			 result += hotelMapper.deleteFile(fileName);
+			 count++;
+		 }
+		 
+		 if(result == count) {
+			 removeImgFromPath(fileNames);
+			 result = 1;
+		 }else {
+			 throw new CustomException(ErrorCode.DB_DELETE_FAILED);
+		 }
+		 return result ;
+	 }
+	 
+	 /*실제 경로에서 이미지 삭제*/
+	 private void removeImgFromPath(List<String> fileNames) {
+		 for(String fileName : fileNames) {
+			 File file = new File(path, fileName);
+			 if(file != null) {
+				 file.delete();
+			 }
+		 }
+	 }
 }

@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,5 +91,13 @@ public class HotelController {
 		return fileName;
 	}
 	
-	
+	@PostMapping("/file/cancel")
+	@ResponseBody
+	public ResponseEntity<String> writeCancel(@RequestBody List<String>fileNames) {
+		int result = hotelService.deleteImg(fileNames);
+		if(result==1) {
+			return ResponseEntity.ok("성공");
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("실패");
+	}
 }
