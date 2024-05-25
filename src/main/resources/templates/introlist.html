@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/hotelintro.css"> 
+<link rel="stylesheet" href="/css/header.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<header th:replace="~{manageheader :: manageheader}"></header>
+	<main class="mainCon">		
+	<table>
+		<tr>
+			<th>No.</th>
+			<th>제목</th>
+			<th>등록일</th>
+			<th>대표 소개글 선택</th>
+		</tr>
+		<tr th:each="intro, loop : ${intros}">
+			<td th:text="${loop.count}"></td>
+			<td>
+				<a href="/hotel/intro/detail" th:text="${intro.title}"></a>
+			</td>
+			<td th:text="${intro.created_date}"></td>
+			<td>
+				<input type="radio" name="chk" onchange="select(this)" th:value="${intro.hotel_sid}" th:checked="${intro.status == '1'}" class="chk">
+			</td>
+		</tr>
+	</table>
+		<button type="button" onclick="location.href='/hotel/management/intro/add'">소개 등록하기</button>
+			
+	</main>
+	<script src="/js/common.js"></script>
+	<script>
+		$(function(){
+			$(document).on("change", ".chk", function(){
+				if(!confirm('해당 소개글을 대표소개글로 선택하시겠습니까?')){
+					return false;
+				}
+				const chkBoxValue = $(this).val();
+				console.log(chkBoxValue);
+				ajaxCall("/hotel/select/intro", "post", {chkBoxValue}, 
+					function (data){
+						if(data == '성공'){
+							alert('해당 소개글이 대표소개글로 등록되었습니다.');
+							location.reload();
+						}
+					},
+					function (){
+						alert('대표소개글 등록이 실패하였습니다.');
+					}
+				);
+			});
+	});
+	</script>
+</body>
+</html>

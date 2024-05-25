@@ -14,8 +14,9 @@
 		<table class="headerTable">
 			<tr>
 				<td class="td1"></td>
-				<td class="td2" th:if="${session.role_user!=null && session.role_user.toString().equals('STAFF')}"><a
+				<td class="td2" th:if="${session.user_sid!=null && session.role_user.toString().equals('STAFF')}"><a
 					href="/hotel/management">호텔 관리</a></td>
+				<td th:if="${session.user_sid == null}"></td>
 				<td class="td3"></td>
 				<td class="td4"></td>
 				<td class="td5"></td>

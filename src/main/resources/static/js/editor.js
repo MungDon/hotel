@@ -111,6 +111,7 @@
 	};
 	
    	function submit(){
+		   
 		   	const form = document.getElementById("introForm");
 		   	
 		   	// 이미지 태그들을 모두 가져옴(에디터에 추가한 모든 사진들)
@@ -164,7 +165,8 @@
             });
 			// ajaxRequests 이 배열이 0이라는것은 이미지가 없는 에디터라는것
             if (ajaxRequests.length===0){
-                form.onsubmit();
+					alert('등록되었습니다');
+	                form.onsubmit();
             }
             // 모든 AJAX 요청이 완료된 후에 폼 제출
             //$.when은 AJAX 요청과 같은 Deferred 객체의 완료를 기다리는데에 사용
@@ -175,4 +177,5 @@
             }).fail(function () {
                 alert("이미지 처리 실패");
             });
+            
 	   }

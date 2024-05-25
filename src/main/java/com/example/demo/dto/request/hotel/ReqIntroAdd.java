@@ -9,7 +9,9 @@ public class ReqIntroAdd {
 
 	private Long user_sid; 		//호텔PK
 	
-	private String content; // 에디터에서 작성한내용
+	private String title;			// 소개글 제목 
+	
+	private String content; 	// 에디터에서 작성한내용
 	
 	
 	

@@ -15,14 +15,18 @@
 <insert id="introAdd" parameterType="ReqIntroAdd">
 	INSERT INTO tb_hotel(
 		user_sid,
+		title,
 		content,
 		delete_yn,
+		status,
 		created_date,
 		modified_date
 	) VALUES (
 		#{user_sid},
+		#{title},
 		#{content},
 		'N',
+		'0',
 		now(),
 		now()
 	)
@@ -31,4 +35,20 @@
 	DELETE FROM tb_hotel_img
 	WHERE img_name = #{fileName}
 </delete>
+
+<select id="findByIntro" resultType="ResIntroList">
+	SELECT 		*
+	FROM		tb_hotel
+	WHERE		delete_yn = 'N'
+	ORDER BY	created_date DESC
+</select>
+<update id="resetStatus">
+	UPDATE	tb_hotel
+	SET		status = '0'
+</update>
+<update id="changeStatus" parameterType="Long">
+	UPDATE	tb_hotel
+	SET		status = '1'
+	WHERE	hotel_sid = #{hotel_sid}
+</update>
 </mapper>

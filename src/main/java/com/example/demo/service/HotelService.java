@@ -26,6 +26,7 @@ import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqHotelImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
+import com.example.demo.dto.response.hotel.ResIntroList;
 import com.example.demo.mapper.HotelMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -67,7 +68,6 @@ public class HotelService {
 	}
 	
 	/*에디터 내 이미지 미리보기*/
-	
 	public ResponseEntity<byte[]> showImg(String fileName){
 		File file = new File(path+fileName);
 		ResponseEntity<byte[]> result = null;
@@ -144,7 +144,7 @@ public class HotelService {
 		 
 		 if(result == count) {
 			 removeImgFromPath(fileNames);
-			 result = 1;
+			 
 		 }else {
 			 throw new CustomException(ErrorCode.DB_DELETE_FAILED);
 		 }
@@ -160,4 +160,19 @@ public class HotelService {
 			 }
 		 }
 	 }
+	 
+	 /*에디터 내용 불러오기*/
+	 @Transactional(readOnly = true)
+	 public List<ResIntroList> findByIntro() {
+		 List<ResIntroList> intros =  hotelMapper.findByIntro();
+		 return intros;
+	 }
+	 
+	 @Transactional
+	 public int changeStatus(Long hotel_sid) {
+		 hotelMapper.resetStatus();
+		 int result = hotelMapper.changeStatus(hotel_sid);
+		 return result;
+	 }
+	 
 }
