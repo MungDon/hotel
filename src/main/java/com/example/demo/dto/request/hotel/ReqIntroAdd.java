@@ -11,6 +11,8 @@ public class ReqIntroAdd {
 	
 	private String title;			// 소개글 제목 
 	
+	private String status;		// 대표글 상태
+	
 	private String content; 	// 에디터에서 작성한내용
 	
 	

@@ -27,6 +27,7 @@ import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqHotelImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
 import com.example.demo.dto.response.hotel.ResIntroList;
+import com.example.demo.enums.IntroStatus;
 import com.example.demo.mapper.HotelMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,9 @@ public class HotelService {
 	 */
 	@Transactional
 	public void introAdd(ReqIntroAdd req) {
+		if(req.getStatus().equals(IntroStatus.SELECTED_INTRODUCTION.getCode())) {
+			hotelMapper.resetStatus();
+		}
 		hotelMapper.introAdd(req);
 	}
 	
@@ -168,6 +172,7 @@ public class HotelService {
 		 return intros;
 	 }
 	 
+	 /*대표 소개글 설정*/
 	 @Transactional
 	 public int changeStatus(Long hotel_sid) {
 		 hotelMapper.resetStatus();

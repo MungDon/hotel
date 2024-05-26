@@ -13,7 +13,7 @@
 	)
 </insert>
 <insert id="introAdd" parameterType="ReqIntroAdd">
-	INSERT INTO tb_hotel(
+	INSERT INTO tb_hotel( 
 		user_sid,
 		title,
 		content,
@@ -26,7 +26,7 @@
 		#{title},
 		#{content},
 		'N',
-		'0',
+		#{status},
 		now(),
 		now()
 	)
