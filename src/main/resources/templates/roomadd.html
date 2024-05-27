@@ -29,14 +29,19 @@
 			<option value="063">063</option>
 			<option value="064">064</option>
 		</select> 
-		-<input type="text" name="middle_num">
-		-<input type="text" name="last_num"><br/>
+		- <input type="text" name="middle_num">
+		- <input type="text" name="last_num"><br/>
+		방가격(1박) : <input type="number" name="price" min="0"/><br/>
+		객실 수	:	<input type="number" name="room_count" min="0"/><br/>
+		객실 인원 제한 <input type="number" name="person_limit" min="0"/><br/>
+		예약가능기간 : <input type="date" name="start_date"/>
+					~ <input type="date" name="end_date"/>
 		<h2>-옵션-</h2>
 		<h3>방 정보 옵션</h3>
 		<div id="plusOptions">
 			<div class="options">
-				방 정보 옵션명<input type="text" id="options[0].option_name" name="options[0].option_name">
-				내용<input type="text" id="options[0].option_value" name="options[0].option_value">		
+				방 정보 옵션명<input type="text" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">
+				내용<input type="text" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">		
 				<button type="button" onclick="addOption()">옵션 추가하기</button><br>
 			</div>
 		</div>
@@ -44,8 +49,8 @@
 		<h3>방 이용 옵션</h3>
 		<div id="plusUseOptions">
 			<div class="UseOptions">
-				방이용 옵션명<input type="text" id="useOptions[0].option_name" name="useOptions[0].option_name">
-				내용<textarea id="useOptions[0].option_value" name="useOptions[0].option_value"></textarea>		
+				방이용 옵션명<input type="text" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">
+				내용<textarea id="useOptions[0].option_value" name="useOptions[0].option_value" placeholder="ex)커피 차 티백 무료제공"></textarea>		
 				<button type="button" onclick="addUseOption()">옵션 추가하기</button><br>
 			</div>
 		</div>

@@ -85,6 +85,9 @@ public class RoomService {
 	/*옵션 저장*/
 	private void addOptions(List<ReqOptions> options, Long room_sid) {
 		for (ReqOptions option : options) {
+			if(option.getOption_name() == null && option.getOption_value() ==null) {
+				continue;
+			}
 			option.setRoom_sid(room_sid);
 			roomMapper.addOptions(option);
 		}
