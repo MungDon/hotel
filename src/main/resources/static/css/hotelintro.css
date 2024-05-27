@@ -9,3 +9,34 @@
 .contentBox{
 	margin-top : 50px;
 }
+.introTable{
+	border-collapse : collapse;
+	border-top : 2px solid black;
+	border-bottom : 1px solid #ddd;
+	margin-top : 50px;
+	margin-bottom : 50px;
+	text-align: center;
+	width : 1000px;
+	height: 400px;
+}
+.introTable >.introTr,.introTd{
+	border-top:1px solid #ddd;
+}
+.introTh{
+	border-bottom: 2px solid black;
+}
+.btn{
+	text-align : right;
+	width : 1000px;
+}
+.btn >.introButton{
+	font-size : 20px;
+	border-radius : 10px;
+	background-color : #ddd;
+	border-style : none;
+	width: 150px;
+	height: 60px;
+	font-weight: bold;
+	color : white;
+	
+}

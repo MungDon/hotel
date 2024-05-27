@@ -12,8 +12,14 @@ import com.example.demo.dto.response.hotel.ResIntroList;
 @Mapper
 public interface HotelMapper {
 	
-	/*호텔등록 */
+	/*호텔 소개 등록 */
 	void introAdd(ReqIntroAdd req);
+	
+	/*소개등록 내용 가져오기*/
+	String findByContent(@Param(value = "hotel_sid")Long hotel_sid) ;
+	
+	/*소개글 시퀀스삽입*/
+	void insertHotelSid(@Param(value = "imgFileName")String imgFileName, @Param(value = "hotel_sid")Long hotel_sid);
 	
 	/*에디터 이미지 등록*/
 	void uploadFile(ReqHotelImg img);
@@ -26,6 +32,7 @@ public interface HotelMapper {
 	
 	/*상태 리셋*/
 	void resetStatus();
+	
 	/*대표 소개글 설정*/
 	int changeStatus(@Param(value = "hotel_sid")Long hotel_sid);
 }

@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum IntroStatus {
 	
-	SELECTED_INTRODUCTION("1", "선택 소개글"),
-	UNSELECTED_INTRODUCTION("0", "비선택 소개글");
+	SELECTED_INTRODUCTION("1", "공개"),
+	UNSELECTED_INTRODUCTION("0", "비공개");
 	
 	private String code;
 	

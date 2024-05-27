@@ -20,7 +20,7 @@ public class ReqRoomAdd {
 	
 	private List<MultipartFile> thumbnail; // 썸네일
 	
-	private List<ReqOptions> options;	// 옵션 리스트 
+	private List<ReqOptions> options;			// 옵션 리스트 
 	
-	private List<ReqOptions> useOptions;
+	private List<ReqOptions> useOptions;	//객실이용 옵션
 }

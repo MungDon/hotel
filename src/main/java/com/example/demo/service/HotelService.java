@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -41,16 +44,42 @@ public class HotelService {
 	
 	private final HotelMapper hotelMapper;
 	
-	/**
-	 *  호텔 소개 등록
-	 * @param req
-	 */
+
+	 /*호텔 소개 등록*/
 	@Transactional
 	public void introAdd(ReqIntroAdd req) {
 		if(req.getStatus().equals(IntroStatus.SELECTED_INTRODUCTION.getCode())) {
 			hotelMapper.resetStatus();
 		}
+		String statusName = IntroStatus.statusCodeToName(req.getStatus());
+		req.setStatus(statusName);
 		hotelMapper.introAdd(req);
+		insertHotelSid(req.getHotel_sid());
+	}
+	/*이미지 테이블에 호텔소개 시퀀스 삽입*/
+	private void insertHotelSid(Long hotel_sid) {
+		// 저장된 소개글 내용중 이미지 파일명만 가져옴
+		List<String> imgFileNames = extractImgFileName(hotel_sid);
+		for(String imgFileName : imgFileNames) {
+			hotelMapper.insertHotelSid(imgFileName, hotel_sid);
+		}
+	}
+	
+	
+	/*소개 등록 내용중 파일명 추출 */
+	private List<String> extractImgFileName(Long hotel_sid) {
+		String content = hotelMapper.findByContent(hotel_sid);
+		   List<String> imgFileNames = new ArrayList<String>();
+	        // 정규 표현식을 사용하여 이미지 파일 이름 추출
+	        String imgPattern = "fileName=([^\"]+)";
+	        Pattern pattern = Pattern.compile(imgPattern);
+	        Matcher matcher = pattern.matcher(content);
+
+	        while (matcher.find()) {
+	            imgFileNames.add(matcher.group(1)); // 첫 번째 캡처 그룹이 이미지 파일 이름
+	        }
+
+	        return imgFileNames;
 	}
 	
 	/*에디터 이미지 등록*/
@@ -145,7 +174,6 @@ public class HotelService {
 			 result += hotelMapper.deleteFile(fileName);
 			 count++;
 		 }
-		 
 		 if(result == count) {
 			 removeImgFromPath(fileNames);
 			 

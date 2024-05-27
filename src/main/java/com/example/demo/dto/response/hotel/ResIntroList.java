@@ -13,7 +13,7 @@ public class ResIntroList {
 	
 	private String content; // 에디터로 등록된 내용
 	
-	private String status;
+	private String status;	// 소개글 공개/비공개 상태
 	
-	private LocalDateTime created_date;
+	private LocalDateTime created_date;	// 소개글 등록일시
 }

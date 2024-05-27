@@ -12,7 +12,7 @@
 		#{extension}
 	)
 </insert>
-<insert id="introAdd" parameterType="ReqIntroAdd">
+<insert id="introAdd" parameterType="ReqIntroAdd" useGeneratedKeys="true" keyColumn="hotel_sid" keyProperty="hotel_sid">
 	INSERT INTO tb_hotel( 
 		user_sid,
 		title,
@@ -42,13 +42,27 @@
 	WHERE		delete_yn = 'N'
 	ORDER BY	created_date DESC
 </select>
+
+<select id="findByContent" parameterType="Long" resultType="String">
+	SELECT	content
+	FROM	tb_hotel
+	WHERE	hotel_sid = #{hotel_sid}
+</select>
+
+<update id="insertHotelSid">
+	UPDATE 	tb_hotel_img
+	SET		hotel_sid = #{hotel_sid}
+	WHERE	img_name = #{imgFileName}
+</update>
+
 <update id="resetStatus">
 	UPDATE	tb_hotel
-	SET		status = '0'
+	SET		status = '비공개'
 </update>
+
 <update id="changeStatus" parameterType="Long">
 	UPDATE	tb_hotel
-	SET		status = '1'
+	SET		status = '공개'
 	WHERE	hotel_sid = #{hotel_sid}
 </update>
 </mapper>

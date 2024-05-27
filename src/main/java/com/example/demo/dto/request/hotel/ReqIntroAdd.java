@@ -6,8 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReqIntroAdd {
+	
+	private Long hotel_sid; 	// 호텔PK
 
-	private Long user_sid; 		//호텔PK
+	private Long user_sid; 	// 회원 FK	
 	
 	private String title;			// 소개글 제목 
 	
