@@ -10,7 +10,7 @@
 	<table  th:each="detail : ${detail}">
 		<tr>
 			<th>방 정보</th>		
-			<td th:text="${detail.room_info}"></td>
+			<td th:text="${detail.room_name}"></td>
 			<th>생성 일시</th>
 			<td th:text="${#temporals.format(detail.created_date, 'yyyy-MM-dd HH:mm' )}"></td>
 			<th>수정 일시</th>

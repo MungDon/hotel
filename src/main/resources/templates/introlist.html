@@ -10,6 +10,7 @@
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
 	<main class="mainCon">		
+	<input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
 	<table class="introTable">
 		<tr class="introTr">
 			<th class="introTh">No.</th>
@@ -26,7 +27,7 @@
 			<td class="introTd" th:text="${#temporals.format(intro.created_date, 'yyyy-MM-dd HH:mm')}"></td>
 			<td class="introTd" th:text="${intro.status}"></td>
 			<td class="introTd">
-				<input type="radio" name="chk" onchange="select(this)" th:value="${intro.hotel_sid}" th:checked="${intro.status == '공개'}" class="chk">
+				<input type="radio" name="chk" th:value="${intro.hotel_sid}" th:checked="${intro.status == '공개'}" class="chk">
 			</td>
 		</tr>
 	</table>
@@ -34,11 +35,14 @@
 		<button type="button" class="introButton" onclick="location.href='/hotel/management/intro/add'">소개 등록하기</button>
 	</div>		
 	</main>
+	
 	<script src="/js/common.js"></script>
 	<script>
 		$(function(){
 			$(document).on("change", ".chk", function(){
 				if(!confirm('해당 소개글을 대표소개글로 선택하시겠습니까?')){
+					this.checked = false;
+					location.reload();
 					return false;
 				}
 				const chkBoxValue = $(this).val();

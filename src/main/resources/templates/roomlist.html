@@ -4,39 +4,48 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/roomlist.css">
 </head>
 <body>
+
+<header th:replace="~{header :: header}"></header>
 <main class="main">
 	<div class="container">
-		<table>
-			<tbody th:each="rooms:${rooms.list}" th:if="${!#lists.isEmpty(rooms)}">
-				<tr>
-					<td><b><a th:href="|/room/detail/${rooms.room_sid}|" th:text="${rooms.room_info}"></a></b></td>
-				</tr>
-				<tr th:each="options:${rooms.options}">
-					<th th:text="${options.option_name}"></th>
-					<td th:text="${options.option_value}"></td>
-				</tr>
-				<tr th:each="img:${rooms.images}">
-					<td colspan="2">
-						<img  th:src="|/img/${img.img_name}|" style="margin-bottom : 20px;">
-					</td>
-				</tr>
-			
-			</tbody>
-			
+		<input type="hidden" th:value="${session.user_sid}" id="user_sid"/>
+		<a href="/room/add" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">방 등록</a>
+		<table class="listTable" th:if="${!#lists.isEmpty(rooms)}" th:each="rooms:${rooms.list}" >
+			<tr>
+				<td class="listTd0" rowspan="3"> 
+					<img class="thumbnail" th:src="@{|/img/${rooms.thumbnail.img_name}|}">
+				</td>
+				<td class="listTd1">1</td>
+				<td class="listTd3">2</td>
+				<td class="listTd2" rowspan="2">3</td>
+			</tr>
+			<tr>
+				<td class="listTd1">4</td>
+				<td class="listTd3">5</td>
+			</tr>
+			<tr>
+				<td class="listTd1">6</td>
+				<td class="listTd3">7</td>
+				<td class="listTd2">8</td>
+			</tr>
 		</table>
+		<button type="button" class="deleteList" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">휴지통</button>
+		<div th:if="${#lists.isEmpty(rooms.list)}">
+			<span>객실이 등록되지 않았습니다.</span>
+		</div>
 	</div>
 </main> 
-	<a href="/room/add">방 등록</a>
-	<button type="button" class="deleteList">휴지통</button>
+	
 	<div class="deleteRooms">
 	</div>
 	<div class="paging"></div>
 
 <script src="/js/common.js"></script>
+<script src="/js/sessionChk.js"></script>
 <script>
 $(function() {
 	
@@ -117,6 +126,11 @@ $(function() {
 	                                    <tr>
 	                                        <td>${room.room_info}</td>
 	                                    </tr>
+	                                    <tr>
+	                                        <td colspan="2">
+	                                            <img src="/img/${room.thumbnail.img_name}" style="margin-bottom: 20px; width: 400px">
+	                                        </td>
+                                   		</tr>
 	                        `;
 
 				room.options.forEach(function(option) {
@@ -125,20 +139,14 @@ $(function() {
 	                                    <th>${option.option_name}</th>
 	                                    <td>${option.option_value}</td>
 	                                </tr>
-	                            `;
-				});
-				room.images.forEach(function(img) {
-
-					html += `
-	                                    <tr>
-	                                        <td colspan="2">
-	                                            <img src="/img/${img.img_name}" style="margin-bottom: 20px; width: 400px">
-	                                        </td>
-	                                    </tr>
 	                                </tbody>
 	                                </table>
-	                        `;
+	                            `;
 				});
+				
+
+	                             
+	                          
 				html += `
 	            			<button type="button" class="removeRoom" value="${room.room_sid}">삭제하기</button>
 	                        <button type="button" class="restore" value="${room.room_sid}">복구하기</button>

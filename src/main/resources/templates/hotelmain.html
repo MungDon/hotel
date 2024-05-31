@@ -93,15 +93,5 @@
 </main>
 <footer th:replace="~{footer :: footer}"></footer>
 	<script src="/js/common.js"></script>
-	<script>
-		function logout() {
-			ajaxCall("/user/logout", "DELETE", null, function() {
-				alert('로그아웃 되었습니다.');
-				location.reload();
-			}, function() {
-				alert("로그아웃 실패");
-			});
-		};
-	</script>
 </body>
 </html>

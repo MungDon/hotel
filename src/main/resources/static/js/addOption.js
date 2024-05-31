@@ -31,8 +31,7 @@ function addUseOption() {
 
 
 function removeOption(button) {
-	useOptionCount--;
-	$(button).parent().remove();
+   	$(button).parent().remove();
   }	
 	
 function backList() {

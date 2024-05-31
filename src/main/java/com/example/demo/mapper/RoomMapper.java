@@ -43,7 +43,7 @@ public interface RoomMapper {
 	List<ResRoomDetail> roomDetail(@Param(value="room_sid")Long room_sid);
 	
 	/*이미지 삭제*/
-	void roomImgRemove(@Param(value="room_sid")Long room_img_sid);
+	void roomImgRemove(@Param(value="room_img_sid")Long room_img_sid);
 	
 	/*방 삭제(논리)*/
 	void roomDelete(@Param(value="room_sid")Long room_sid);

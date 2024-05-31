@@ -32,6 +32,7 @@
 		</div>
 	</form>
 <script src="/js/editor.js"></script>
+<script src="/js/sessionChk.js"></script>
 <script>
 	function cancel(){
 		if(!confirm('취소하면 내용이 사라집니다. 취소하시겠습니까?')){
@@ -62,18 +63,11 @@
                     
                 },
                 error: function (err) {
+                	alert('이미지삭제 실패');
                 	location.href='/hotel/management/intro';
                 }
             });
 		
-	}
-	window.onload =
-		function sessionChk(){
-		const user_sid = document.getElementById('user_sid').value;
-		if(user_sid == null || user_sid == ''){
-			alert('로그인이 필요합니다.');
-			location.href="/user/login";
-		}
 	}
 </script>
 </body>

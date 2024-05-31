@@ -4,12 +4,28 @@
 	<!-- 방 정보 추가 -->
 	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
         INSERT INTO tb_room (
-        room_info, 
+        room_name,
+        local_num,
+        middle_num,
+        last_num,
+        price,
+        room_count,
+        person_limit,
+        start_date,
+        end_date,
         delete_yn,
         created_date,
         modified_date
         ) VALUES (
-        #{room_info}, 
+        #{room_name},
+        #{local_num},
+        #{middle_num},
+        #{last_num},
+        #{price},
+        #{room_count},
+        #{person_limit},
+        #{start_date},
+        #{end_date},
         'N',
         now(),
         now()
@@ -118,6 +134,7 @@
 		SET	delete_yn = 'Y'
 		WHERE	room_sid = #{room_sid}
 	</delete>
+	
 	<!-- 방삭제 (영구) -->
 	<delete id="removeRoom" parameterType="Long">
 		DELETE FROM	tb_room 	WHERE	room_sid = #{room_sid}
@@ -133,10 +150,11 @@
 	<!-- 방 수정 -->
 	<update id="roomUpdate" parameterType="ReqRoomAdd">
 		UPDATE tb_room
-		SET	room_info = #{room_info},
+		SET	room_name = #{room_name},
 			modified_date = now()
 		WHERE	room_sid = #{room_sid}
 	</update>
+	
 	<!-- 옵션 수정 -->
 	<update id="optionUpdate" parameterType="ReqOptions">
 		UPDATE tb_options
@@ -144,18 +162,19 @@
 			option_value = #{option_value}
 		WHERE	room_sid = #{room_sid}
 	</update>
+	
  		<!--  방목록 resultMap -->
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
-		<result property="room_info" column="room_info" />
+		<result property="room_name" column="room_name" />
 		<collection property="options" resultMap="optionsMap"></collection>
-		<collection property="images" resultMap="imagesMap"></collection>
+		<collection property="thumbnail" resultMap="imagesMap"></collection>
 	</resultMap>
 	
 	<!-- 방 상세보기 resultMap -->
 	<resultMap type="ResRoomDetail" id="resultDetail">
 		<id property="room_sid" column="room_sid" />
-		<result property="room_info" column="room_info" />
+		<result property="room_name" column="room_name" />
 		<result property="created_date" column="created_date"/>
 		<result property="modified_date" column="modified_date"/>
 		<collection property="options" resultMap="optionsMap"></collection>

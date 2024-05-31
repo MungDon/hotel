@@ -1,7 +1,49 @@
 @charset "UTF-8";
+.main{
+	margin-top : 70px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+.container{
+	display:flex;
+	flex-direction: column;
+}
 .deleteRooms{
 	display: none
 }
-.main{
-	display:flex;
+.listTable{
+	margin-top : 30px;
+	width: 1000px;
+	height: 200px;	
+	border-collapse: collapse;
+	border : 1px solid black;
 }
+.listTable>.listTd0,.listTd1,.listTd2,.listTd3{
+	border : 1px solid black;
+}
+.listTd0{
+	width: 30%;
+	text-align: center;
+}
+.listTd1{
+	width: 40%;
+}
+.listTd2{
+	text-align: center;
+	width: 15%;
+}
+.listTd3{
+	width: 15%;
+}
+
+.thumbnail{
+	width: 150px;
+	height: 150px;
+}
+.deleteList{
+	margin-top : 30px;
+	width: 200px;
+	height: 50px;
+}
+

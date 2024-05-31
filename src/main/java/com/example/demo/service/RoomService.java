@@ -85,6 +85,8 @@ public class RoomService {
 	/*옵션 저장*/
 	private void addOptions(List<ReqOptions> options, Long room_sid) {
 		for (ReqOptions option : options) {
+			System.out.println(option.getOption_name());
+			System.out.println(option.getOption_value());
 			if(option.getOption_name() == null && option.getOption_value() ==null) {
 				continue;
 			}
