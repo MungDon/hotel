@@ -8,6 +8,7 @@
 <body>
 	<header th:replace="~{manageheader :: manageheader}"></header>
 	<input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
+	<input type="hidden" id="user_role" th:value="${session.role_user}"/>
 	<script src="/js/sessionChk.js"></script>
 </body>
 </html>

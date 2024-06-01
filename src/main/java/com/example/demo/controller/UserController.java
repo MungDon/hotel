@@ -62,6 +62,8 @@ public class UserController {
 		session.setAttribute("user_sid", resLogin.getUser_sid());				//세션에 해당 회원 고유번호 저장
 		session.setAttribute("user_name", resLogin.getUser_name());		//세션에 해당회원 회원명 저장
 		session.setAttribute("role_user", resLogin.getRole());					//세션에 해당회원 권한 저장
+		//다음에는 그냥 회원 로그인 정보 객체로 세션생성하는게 코드수 줄이고 좋을듯
+		//뷰에서 session.resLogin.user_sid 이런식으로 꺼내면 그만이니...
 		session.setMaxInactiveInterval(1800);											//세션 30분 유지
 		return "redirect:/hotel";
 	}

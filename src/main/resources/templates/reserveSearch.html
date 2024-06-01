@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="reserveSearch">
+	<form class="reservationForm" action="/room" method="get">
+		<table class="rsvSearchTable">
+			<tr>
+				<th>체크인</th>	
+				<td><img class="bakimg" src="../images/bak.png"></td>	
+				<th>체크아웃</th>	
+				<th>성인</th>	
+				<th>소아</th>	
+			</tr>
+			<tr>
+				<td>
+					<input type="date" name="start_date">
+				</td>
+				<th>
+				<span>박</span>
+				</th>
+				<td>
+					<input type="date" name="end_date">
+				</td>
+				<td>
+					<input type="number" name="adult_cnt" value="2">
+				</td>
+				<td>
+					<input type="number" name="child_cnt" value="0">
+				</td>
+			</tr>
+		</table>
+		<input type="submit" class="searchBtn" value="검색">
+	</form>
+</div>	
+</body>
+</html>

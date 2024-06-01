@@ -11,6 +11,7 @@
 <header th:replace="~{manageheader :: manageheader}"></header>
 	<main class="mainCon">		
 	<input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
+	<input type="hidden" id="user_role" th:value="${session.role_user}"/>
 	<table class="introTable">
 		<tr class="introTr">
 			<th class="introTh">No.</th>

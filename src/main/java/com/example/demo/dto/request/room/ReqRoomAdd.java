@@ -28,7 +28,9 @@ public class ReqRoomAdd {
 	
 	private int room_count;			// 등록 객실 수
 	
-	private int person_limit;			// 객실당 제한인원
+	private int adult_limit;			// 성인 제한인원
+	
+	private int child_limit;				// 소아 제한 인원
 	
 	private LocalDate start_date;		// 예약가능기간(시작)
 	

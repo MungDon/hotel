@@ -3,49 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/roomlist.css">
+<link rel="stylesheet" href="/css/hotelmain.css">
 </head>
 <body>
-
-<header th:replace="~{header :: header}"></header>
-<main class="main">
-	<div class="container">
-		<input type="hidden" th:value="${session.user_sid}" id="user_sid"/>
-		<a href="/room/add" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">방 등록</a>
-		<table class="listTable" th:if="${!#lists.isEmpty(rooms)}" th:each="rooms:${rooms.list}" >
-			<tr>
-				<td class="listTd0" rowspan="3"> 
-					<img class="thumbnail" th:src="@{|/img/${rooms.thumbnail.img_name}|}">
-				</td>
-				<td class="listTd1">1</td>
-				<td class="listTd3">2</td>
-				<td class="listTd2" rowspan="2">3</td>
-			</tr>
-			<tr>
-				<td class="listTd1">4</td>
-				<td class="listTd3">5</td>
-			</tr>
-			<tr>
-				<td class="listTd1">6</td>
-				<td class="listTd3">7</td>
-				<td class="listTd2">8</td>
-			</tr>
-		</table>
-		<button type="button" class="deleteList" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">휴지통</button>
-		<div th:if="${#lists.isEmpty(rooms.list)}">
-			<span>객실이 등록되지 않았습니다.</span>
+	<!-- 세션체크 -->
+	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
+	<!-- 헤더 -->
+	<div th:if="${session.user_sid == null ||session.role_user.getType().equals('USER')}">
+		<header th:replace="~{header :: header}"></header>
+	</div>
+	<div th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">
+		<header th:replace="~{manageheader :: manageheader}"></header>
+	</div>
+	<br>
+	<br>
+	<br>
+	<!-- 객실 검색 -->
+	<div th:replace="~{reserveSearch :: reserveSearch}"></div>
+	<!-- 메인 -->
+	<main class="main">
+		<div class="container">
+			<div class="manageBtns">
+				<div class="roomAdd" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">
+					<a href="/room/add">방 등록</a>
+				</div>
+				<div>
+					<button type="button" class="deleteList"th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">휴지통</button>
+				</div>
+			</div>
+				<table class="listTable" th:if="${!#lists.isEmpty(rooms)}"
+					th:each="rooms:${rooms.list}">
+					<tr class="listTr1">
+						<td class="listTd0" rowspan="3">
+							<a th:href="@{|/room/detail/${rooms.room_sid}|}">
+								<img class="thumbnail" th:src="@{|/img/${rooms.thumbnail.img_name}|}">
+							</a>
+						</td>
+						<td class="listTd1">
+							<h3 th:text="${rooms.room_name}"></h3>
+						</td>
+						<td class="listTd3"></td>
+						<td class="listTd2" rowspan="2"></td>
+					</tr>
+					<tr class="listTr2">
+						<td class="listTd1" rowspan="2">
+							<div th:each="option : ${rooms.options}">
+								<div th:if="${option.option_name.indexOf('객실크기') != -1}">
+									<span  th:text="${option.option_name} +' : '"></span>
+									<span  th:text="${option.option_value} + '㎡'"></span>
+								</div>
+								<div th:if="${option.option_name.indexOf('침대') != -1}">	
+									<span th:text="${option.option_name} +' : '"></span>
+									<span th:text="${option.option_value}"></span>
+								</div>
+							</div>
+							<br>
+							<div class="detilText">
+								<a th:href="@{|/room/detail/${rooms.room_sid}|}">객실 자세히 보기<img class="plusImg" src="/images/plus.png"></a>
+							</div>
+						</td>
+						<td class="listTd3"></td>
+					</tr>
+					<tr class="listTr3">
+						<td class="listTd3" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
+						<td class="listTd2">
+							<button type="button" class="reserveBtn">예약하기</button>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4"><br></td>
+					</tr>
+				</table>
+			<div th:if="${#lists.isEmpty(rooms.list)}">
+				<h1>조건에 맞는 객실이 없습니다.</h1>
+			</div>
 		</div>
-	</div>
-</main> 
+	</main>
 	
-	<div class="deleteRooms">
-	</div>
+	<!-- 휴지통 목록 -->
+	<div class="deleteRooms"></div>
+	
+	<!-- 페이징 -->
 	<div class="paging"></div>
+	
+	<!-- 스크립트 -->
+	<script src="/js/common.js"></script>
 
-<script src="/js/common.js"></script>
-<script src="/js/sessionChk.js"></script>
 <script>
 $(function() {
 	
@@ -195,5 +242,6 @@ $(function() {
 	});
 });
 </script>
+<script src="/js/sessionChk.js"></script>
 </body>
 </html>

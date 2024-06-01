@@ -65,6 +65,9 @@
 	/방 목록/
 		방 테이블과 옵션테이블,방 이미지 테이블은 1:N 관계이기 때문에 resultMap 으로받음
 		이렇게 하지않으면 옵션이나 방이미지 등록 수만큼 방이름도 반복되어서 나옴 
+		&lt;=  ===  <=,   
+		&gt;=  ===  >=,
+		&amp;  ===  &
 -->
 	<select id="roomList" parameterType="com.example.demo.dto.SearchDto" resultMap="resultList">
 		SELECT 	
@@ -76,9 +79,14 @@
 		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
 		WHERE	
-				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail'
+				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail' AND (OP.option_name like '%객실크%' OR OP.option_name like '%침대%')
+	 	<if test="start_date != null and start_date != ''">
+                	AND TR.start_date &lt;= #{end_date} AND TR.end_date &gt;= #{start_date}
+                    AND TR.adult_limit &gt;= #{adult_cnt}
+                    AND TR.child_limit &gt;= #{child_cnt}
+     	</if>
 		ORDER BY
-				TR.room_sid DESC
+				TR.room_sid DESC , OP.option_name ASC
 		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
 	
@@ -167,6 +175,7 @@
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_name" column="room_name" />
+		<result property="price" column="price" />
 		<collection property="options" resultMap="optionsMap"></collection>
 		<collection property="thumbnail" resultMap="imagesMap"></collection>
 	</resultMap>

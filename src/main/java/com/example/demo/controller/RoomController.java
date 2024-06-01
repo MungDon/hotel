@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqRoomAdd;
+import com.example.demo.dto.response.room.ResOptions;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.RoomService;
@@ -40,7 +40,7 @@ public class RoomController {
 		model.addAttribute("rooms", rooms);
 		return "roomlist";
 	}
-	
+
 	/*방등록 페이지 폼*/
 	@GetMapping("/add")
 	public String roomAddForm() {

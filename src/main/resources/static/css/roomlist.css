@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .main{
-	margin-top : 70px;
+	margin-top : 60px;
 	display:flex;
 	align-items: center;
 	justify-content: center;
@@ -10,23 +10,21 @@
 	flex-direction: column;
 }
 .deleteRooms{
-	display: none
+	display: none;
 }
 .listTable{
 	margin-top : 30px;
 	width: 1000px;
 	height: 200px;	
 	border-collapse: collapse;
-	border : 1px solid black;
-}
-.listTable>.listTd0,.listTd1,.listTd2,.listTd3{
-	border : 1px solid black;
+	border-bottom: 1px solid darkgray;
 }
 .listTd0{
 	width: 30%;
 	text-align: center;
 }
 .listTd1{
+	padding-left:15px;
 	width: 40%;
 }
 .listTd2{
@@ -34,16 +32,76 @@
 	width: 15%;
 }
 .listTd3{
+	text-align :right;
+	padding-right : 10px;
 	width: 15%;
 }
+.listTd3 > b{
+	font-size: 25px;
+}
+.listTr1{height: 20%;}
+.listTr2{height: 50%;}
+.listTr3{height: 20%;}
 
 .thumbnail{
-	width: 150px;
-	height: 150px;
+	width: 230px;
+	height: 200px;
 }
 .deleteList{
-	margin-top : 30px;
-	width: 200px;
+	background-color: #feb602;
+	font-size : 20px;
+	color : white;
+	border-radius : 10px;
+	border-style : none;
+	width: 100px;
 	height: 50px;
 }
-
+.manageBtns{
+	width : 210px;
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.reserveBtn{
+	color : white;
+	background-color :#feb602;
+	font-size : 17px;
+	font-weight : bold;
+	border-radius : 10px;
+	border-style : none;
+	width: 130px;
+	height: 50px;
+}
+.plusImg{
+	margin-left : 5px;
+	width: 10px;
+	height: 10px;	
+}
+.detilText{
+	height : 10px;
+	display : flex;
+	flex-direction :row;
+	align-items : center;
+	justify-content :flex-start;
+	font-size: 13px;
+}
+.roomAdd{
+	font-size : 20px;
+	display : flex;
+	align-items : center;
+	justify-content : center;
+	width: 100px;
+	height: 50px;
+	background-color: #feb602;
+	border-radius: 10px;
+}
+.roomAdd > a{
+	color : white;
+}
+.coverListTable{
+	border-bottom : 1px solid darkgray; 
+	padding-bottom : 30px;
+	width: 1000px;
+	height: 230px;	
+}

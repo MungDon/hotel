@@ -16,7 +16,7 @@
 				<td class="td1"></td>
 				<td class="td2" th:if="${session.user_sid!=null && session.role_user.getType().equals('STAFF')}"><a
 					href="/hotel/management">호텔 관리</a></td>
-				<td th:if="${session.user_sid == null}"></td>
+				<td class="td2" th:if="${session.user_sid == null || session.role_user.getType().equals('USER')}"></td>
 				<td class="td3"></td>
 				<td class="td4"></td>
 				<td class="td5"></td>
@@ -25,7 +25,7 @@
 				<td class="td7"></td>
 				<td class="td8">
 					<div class="user_info" th:if="${session.user_sid != null}">
-						<button type="button" class="logout" onclick="logout()">로그아웃</button>
+						<a href="#" type="button" class="logout" onclick="logout()">로그아웃</a>
 					</div>
 					<a href="/user/login" th:if="${session.user_sid == null}">로그인</a>
 				</td>
@@ -37,7 +37,7 @@
 				<td><a
 					href="#">호텔 소개</a></td>
 				<td></td>
-				<td><a href="#">예약</a></td>
+				<td><a href="/room">객실예약</a></td>
 				<td></td>
 				<td></td>
 				<td><a href="#">고객 문의</a></td>

@@ -18,42 +18,7 @@
 	</div>
 	
 	<!-- 예약검색 -->
-	<form class="reservationForm" action="#" method="post">
-		<table class="rsvSearchTable">
-			<tr>
-				<td>체크인</td>	
-				<td><img class="bakimg" src="../images/bak.png"></td>	
-				<td>체크아웃</td>	
-				<td>객실</td>	
-				<td>성인</td>	
-				<td>어린이</td>	
-				<td>유아</td>	
-			</tr>
-			<tr>
-				<td>
-					<input type="date" name="chk_in">
-				</td>
-				<td>박</td>
-				<td>
-					<input type="date" name="chk_out">
-				</td>
-				<td>
-					<input type="number" name="room_cnt" value="1">
-				</td>
-				<td>
-					<input type="number" name="adult_cnt" value="2">
-				</td>
-				<td>
-					<input type="number" name="child_cnt" value="0">
-				</td>
-				<td>
-					<input type="number" name="Baby_cnt" value="0">
-				</td>
-			</tr>
-		</table>
-		<input type="submit" class="searchBtn" value="검색">
-	</form>
-	
+	<div th:replace="~{reserveSearch :: reserveSearch}"></div>
 	<!-- 패키지상품들 -->
 	<div class="packageTitleBox">
 		<h1 class="packageTitle">이달의 패키지</h1>
