@@ -6,3 +6,80 @@
 	width : 200px;
 	height :200px;
 }
+.roomAddMain{
+	height : auto;
+	margin-top : 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.roomAddForm{
+	height : auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.roomAddTable{
+	border-collapse : collapse;
+	height :400px;
+	width: 1000px;	
+}
+.i1{
+	font-size : 17px;
+	width : 25%;
+	border : 1px solid darkgray;
+	border-radius : 8px;
+	height: 50%;
+}
+.i2{
+	width : 10%;
+	border : 1px solid darkgray;
+	border-radius : 8px;
+	height: 50%;	
+}
+.i3{
+	text-align:center;
+	font-size : 17px;
+	width : 25%;
+	border : 1px solid darkgray;
+	border-radius : 8px;
+	height: 50%;
+}
+.s1,.s2,.s3,.s4,.s5,.s6,.s7{
+	border-bottom: 1px solid darkgray;
+}
+.s1{
+	border-top : 2px solid black;
+}
+.infoText,.optionText{
+	width : 1000px;
+	text-align: left;
+}
+.roomInfo{
+	margin-top : 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height :auto;
+	width: 1000px;		
+}
+.optionText{
+	border-bottom : 2px solid black;
+}
+#plusOptions{
+	display: flex;
+	flex-direction: column;
+	width : 100%;
+	padding-bottom : 20px;
+	border-bottom : 1px solid darkgray;
+}
+.options{
+	margin-bottom : 5px;
+}
+.o1,.o2{
+	border : 1px solid darkgray;
+	border-radius : 8px;
+	height: 30px;
+}

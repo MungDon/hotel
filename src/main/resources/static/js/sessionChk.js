@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = '/user/login';
               }, 0);
     }
-    if(user_role != null || user_sid != null && user_role === 'USER'){
+    if(user_role=='USER'){
 		 alert('권한이 없습니다.');
              setTimeout(() => {
                     window.location.href = '/hotel';

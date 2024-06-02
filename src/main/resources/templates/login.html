@@ -3,14 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/header.css">
+<link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-	<form class="loginForm" action="/user/login" method="post">
-	이메일<input type="email" name="user_email">
-		비밀번호<input type="password" name="password">
-		<input type="submit" value="로그인">
-		<a href="/user/choice">회원가입</a>
-		
-	</form>
+	<header th:replace="~{header :: header}"></header>
+	<main class="loginMain">
+		<div class="loginFormBox">
+			<div class="loginText">
+				<h2>로그인</h2>
+			</div>
+			<form class="loginForm" action="/user/login" method="post">
+				<input type="email" name="user_email" placeholder=" 이메일 주소">
+				<input type="password" name="password" placeholder=" 비밀번호">
+				<div class="btns">
+					<button type="submit">로그인</button>
+					<button type="button" onclick="location.href='/user/choice'">회원가입</button>
+				</div>
+			</form>
+		</div>
+	</main>
 </body>
 </html>

@@ -4,69 +4,118 @@
 <meta charset="UTF-8">
 <title>hotel insert</title>
 <link rel="stylesheet" href="/css/roomAdd.css">
+<link rel="stylesheet" href="/css/header.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
-		방 이름<input type="text" name="room_name"><br>
-		문의 전화<br>
-		<select name="local_num">
-			<option value="02">02</option>
-			<option value="031">031</option>
-			<option value="032">032</option>
-			<option value="033">033</option>
-			<option value="041">041</option>
-			<option value="042">042</option>
-			<option value="043">043</option>
-			<option value="044">044</option>
-			<option value="051">051</option>
-			<option value="052">052</option>
-			<option value="053">053</option>
-			<option value="054">054</option>
-			<option value="055">055</option>
-			<option value="061">061</option>
-			<option value="062">062</option>
-			<option value="063">063</option>
-			<option value="064">064</option>
-		</select> 
-		- <input type="text" name="middle_num">
-		- <input type="text" name="last_num"><br/>
-		방가격(1박) : <input type="number" name="price" min="0"/><br/>
-		객실 수	:	<input type="number" name="room_count" min="0"/><br/>
-		객실 인원 제한(성인) <input type="number" name="adult_limit" min="0"/><br/>
-		객실 인원 제한(소아) <input type="number" name="child_limit" min="0"/><br/>
-		예약가능기간 : <input type="date" name="start_date"/>
-					~ <input type="date" name="end_date"/>
-		<h2>-옵션-</h2>
-		<h3>방 정보 옵션</h3>
-		<div id="plusOptions">
-			<div class="options">
-				방 정보 옵션명<input type="text" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">
-				내용<input type="text" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">		
-				<button type="button" onclick="addOption()">옵션 추가하기</button><br>
-			</div>
-		</div>
-		
-		<h3>방 이용 옵션</h3>
-		<div id="plusUseOptions">
-			<div class="UseOptions">
-				방이용 옵션명<input type="text" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">
-				내용<textarea id="useOptions[0].option_value" name="useOptions[0].option_value" placeholder="ex)커피 차 티백 무료제공"></textarea>		
-				<button type="button" onclick="addUseOption()">옵션 추가하기</button><br>
-			</div>
-		</div>
-		
-		
-		방 이미지<br>
-		대표 이미지<input type="file" name="thumbnail"/><br/>
-		<div id="drop_zone">
-			<p>이미지를 드래그 앤 드롭 하거나 클릭해주세요</p>
-			<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
-		</div>
-		<div id="preview"></div>		
-		<button type="submit" >등록</button>	
-		<button type="button" onclick="backList()">목록으로</button>
-	</form>
+	<header th:replace="~{manageheader :: manageheader}"></header>
+	<main class="roomAddMain">
+			<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
+				<div class="infoText">
+					<h2>기본정보</h2>
+				</div>
+				<table class="roomAddTable">
+					<tr>
+						<th class="s1">방 이름</th>
+						<td class="s1">
+							<input class="i1" type="text" name="room_name">
+						</td>
+					</tr>
+					<tr>
+						<th class="s2">문의 전화</th>
+						<td class="s2">
+							<select name="local_num"  class="i2" >
+								<option value="02">02</option>
+								<option value="031">031</option>
+								<option value="032">032</option>
+								<option value="033">033</option>
+								<option value="041">041</option>
+								<option value="042">042</option>
+								<option value="043">043</option>
+								<option value="044">044</option>
+								<option value="051">051</option>
+								<option value="052">052</option>
+								<option value="053">053</option>
+								<option value="054">054</option>
+								<option value="055">055</option>
+								<option value="061">061</option>
+								<option value="062">062</option>
+								<option value="063">063</option>
+								<option value="064">064</option>
+							</select> 
+							- <input  class="i2"  type="text" name="middle_num">
+							- <input  class="i2"  type="text" name="last_num">
+						</td>
+					</tr>
+					<tr>
+						<th class="s3">방가격(1박)</th>
+						<td class="s3">
+							 <input class="i1" type="number" name="price" min="0"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="s4">객실 수</th>
+						<td class="s4">
+							<input class="i1" type="number" name="room_count" min="0"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="s5">객실 인원 제한(성인)</th>
+						<td class="s5">
+							 <input class="i1" type="number" name="adult_limit" min="0"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="s6">객실 인원 제한(소아)</th>
+						<td class="s6">
+							<input class="i1"  type="number" name="child_limit" min="0"/>
+						</td>
+					</tr>
+					<tr>
+						<th class="s7">예약가능기간</th>
+						<td class="s7">
+							<input  class="i3"  type="date" name="start_date"/>
+							~ <input  class="i3"  type="date" name="end_date"/>
+						</td>
+					</tr>
+				</table>
+				<div class="roomInfo">
+				<div class="optionText">
+					<h2>옵션</h2>
+				</div>
+					<h3>방 정보 옵션</h3>
+					<div id="plusOptions">
+						<div class="options">
+							옵션명 <input type="text" class="o1" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">
+							내용 <input type="text" class="o1" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">		
+							<button class="addOption" type="button" onclick="addOption()">옵션 추가하기</button><br>
+						</div>
+					</div>
+					
+					<h3>방 이용 옵션</h3>
+					<div id="plusUseOptions">
+						<div class="UseOptions">
+							옵션명<input type="text" class="o2" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">
+							내용<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value" placeholder="ex)커피 차 티백 무료제공"></textarea>		
+							<button type="button" onclick="addUseOption()">옵션 추가하기</button><br>
+						</div>
+					</div>
+					
+					
+					방 이미지<br>
+					대표 이미지<input type="file" name="thumbnail"/><br/>
+					<div id="drop_zone">
+						<p>이미지를 드래그 앤 드롭 하거나 클릭해주세요</p>
+						<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
+					</div>
+					<div id="preview"></div>		
+				</div>
+				<div class="">
+					<button type="submit" >등록</button>	
+					<button type="button" onclick="backList()">목록으로</button>
+				</div>
+			</form>
+	</main>
 		<script src="/js/addOption.js"></script>
 		<script src="/js/dragAndDrop.js"></script>	
 		<script src="/js/common.js"></script>	
