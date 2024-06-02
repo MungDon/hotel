@@ -19,8 +19,8 @@ function addUseOption() {
 	let html = ""
 	html += `
             <div class="UseOptions">
-                옵션명 <input type="text" id="useOptions[${useOptionCount}].option_name" name="useOptions[${optionCount}].option_name">
-                내용 <textarea id="useOptions[${useOptionCount}].option_value" name="useOptions[${optionCount}].option_value"></textarea>
+                옵션명 <input type="text" class="o2 id="useOptions[${useOptionCount}].option_name" name="useOptions[${optionCount}].option_name">
+                내용 <textarea  class="o2 id="useOptions[${useOptionCount}].option_value" name="useOptions[${optionCount}].option_value"></textarea>
                 <button type="button" onclick="removeOption(this)">옵션 제거</button>
             </div>
         `;
