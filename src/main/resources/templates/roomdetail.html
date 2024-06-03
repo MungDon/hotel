@@ -28,8 +28,8 @@
 		</tr>
 	</table>
 	<div class="btns" th:if="${session != null}">	
-		<a th:href="|/room/update/${room_sid}|">수정하기</a>
-		<button type="button" th:value="${room_sid}" class="removeRoom">삭제하기</button>
+		<a th:if="${session.role_user.getType()equals('STAFF')|| session.role_user.getType()equals('ADMIN')}" th:href="|/room/update/${room_sid}|">수정하기</a>
+		<button type="button" th:if="${session.role_user.getType()equals('STAFF')|| session.role_user.getType()equals('ADMIN')}" th:value="${room_sid}" class="removeRoom">삭제하기</button>
 		<button type="button" onclick="backList()">목록으로</button>
 	</div>
 	<script th:inline="javascript">

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.ResPaging;
@@ -86,7 +87,7 @@ public class RoomController {
 	/*방 삭제(논리)*/
 	@DeleteMapping("/delete")
 	@ResponseBody
-	public void roomDelete(@RequestBody Long room_sid) {
+	public void roomDelete(@RequestParam(value = "room_sid") Long room_sid) {
 		roomService.roomDelete(room_sid);
 	}
 	/*삭제된 방목록(휴지통)*/

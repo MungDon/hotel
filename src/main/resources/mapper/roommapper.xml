@@ -10,7 +10,8 @@
         last_num,
         price,
         room_count,
-        person_limit,
+        adult_limit,
+        child_limit,
         start_date,
         end_date,
         delete_yn,
@@ -23,7 +24,8 @@
         #{last_num},
         #{price},
         #{room_count},
-        #{person_limit},
+        #{adult_limit},
+        #{child_limit},
         #{start_date},
         #{end_date},
         'N',
@@ -80,7 +82,7 @@
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
 		WHERE	
 				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail' AND (OP.option_name like '%객실크%' OR OP.option_name like '%침대%')
-	 	<if test="start_date != null and start_date != ''">
+	 	<if test="start_date != null">
                 	AND TR.start_date &lt;= #{end_date} AND TR.end_date &gt;= #{start_date}
                     AND TR.adult_limit &gt;= #{adult_cnt}
                     AND TR.child_limit &gt;= #{child_cnt}

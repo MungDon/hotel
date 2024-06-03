@@ -10,7 +10,7 @@
 <body>
 	<header th:replace="~{manageheader :: manageheader}"></header>
 	<main class="roomAddMain">
-			<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
+			<form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
 				<div class="infoText">
 					<h2>기본정보</h2>
 				</div>
@@ -18,7 +18,7 @@
 					<tr>
 						<th class="s1">방 이름</th>
 						<td class="s1">
-							<input class="i1" type="text" name="room_name">
+							<input class="i1" type="text" name="room_name" required="required">
 						</td>
 					</tr>
 					<tr>
@@ -43,39 +43,39 @@
 								<option value="063">063</option>
 								<option value="064">064</option>
 							</select> 
-							- <input  class="i2"  type="text" name="middle_num">
-							- <input  class="i2"  type="text" name="last_num">
+							- <input  class="i2"  type="text" name="middle_num" required="required">
+							- <input  class="i2"  type="text" name="last_num" required="required">
 						</td>
 					</tr>
 					<tr>
 						<th class="s3">방가격(1박)</th>
 						<td class="s3">
-							 <input class="i1" type="number" name="price" min="0"/>
+							 <input class="i1" type="number" name="price" min="0" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s4">객실 수</th>
 						<td class="s4">
-							<input class="i1" type="number" name="room_count" min="0"/>
+							<input class="i1" type="number" name="room_count" min="0" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s5">객실 인원 제한(성인)</th>
 						<td class="s5">
-							 <input class="i1" type="number" name="adult_limit" min="0"/>
+							 <input class="i1" type="number" name="adult_limit" min="0" max="4" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s6">객실 인원 제한(소아)</th>
 						<td class="s6">
-							<input class="i1"  type="number" name="child_limit" min="0"/>
+							<input class="i1"  type="number" name="child_limit" min="0" max="4" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s7">예약가능기간</th>
 						<td class="s7">
-							<input  class="i3"  type="date" name="start_date"/>
-							~ <input  class="i3"  type="date" name="end_date"/>
+							<input  class="i3" id="startDate" type="date" name="start_date" required="required"/>
+							~ <input  class="i3" id="endDate"  type="date" name="end_date" required="required"/>
 						</td>
 					</tr>
 				</table>
@@ -83,34 +83,44 @@
 				<div class="optionText">
 					<h2>옵션</h2>
 				</div>
-					<h3>방 정보 옵션</h3>
+					<h3>방 정보 옵션</h3>※ 객실크기, 침대타입 필수 입력! ※<br><br>
 					<div id="plusOptions">
 						<div class="options">
-							옵션명 <input type="text" class="o1" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">
-							내용 <input type="text" class="o1" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">		
-							<button class="addOption" type="button" onclick="addOption()">옵션 추가하기</button><br>
+							옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">&nbsp;
+							내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">&nbsp;	
+							<button class="addoptionBtn" type="button" onclick="addOption()">옵션 추가하기</button><br>
 						</div>
 					</div>
 					
 					<h3>방 이용 옵션</h3>
 					<div id="plusUseOptions">
 						<div class="UseOptions">
-							옵션명 <input type="text" class="o2" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">
-							내용 <textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value" placeholder="ex)커피 차 티백 무료제공"></textarea>		
-							<button type="button" onclick="addUseOption()">옵션 추가하기</button><br>
+							옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
+							내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
+							<button type="button" class="addoptionBtn" onclick="addUseOption()">옵션 추가하기</button><br>
 						</div>
 					</div>
 					
 					
-					방 이미지<br>
-					대표 이미지<input type="file" name="thumbnail"/><br/>
-					<div id="drop_zone">
-						<p>이미지를 드래그 앤 드롭 하거나 클릭해주세요</p>
-						<input id="input" class="input"  type="file" accept="image/*" name="images"   multiple>
-					</div>
-					<div id="preview"></div>		
+					<h3>객실 이미지</h3>
+					<div class="imgInfo">
+						<div>
+							<b>대표 이미지</b>
+							<br>
+							<input type="file" name="thumbnail"/><br/>
+						</div>
+						<div>
+							<b>방 이미지</b>
+							<br>
+							<div id="drop_zone">
+								<p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
+								<input id="input" class="input"  type="file" accept="image/*" name="images"  hidden="hidden" multiple>
+							</div>
+							<div id="preview"></div>
+						</div>
+					</div>		
 				</div>
-				<div class="">
+				<div class="addBtns">
 					<button type="submit" >등록</button>	
 					<button type="button" onclick="backList()">목록으로</button>
 				</div>
@@ -118,6 +128,6 @@
 	</main>
 		<script src="/js/addOption.js"></script>
 		<script src="/js/dragAndDrop.js"></script>	
-		<script src="/js/common.js"></script>	
+		<script src="/js/common.js"></script>
 </body>
 </html>

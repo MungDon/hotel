@@ -1,6 +1,7 @@
 #preview{
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 }
 #preview > img{
 	width : 200px;
@@ -68,12 +69,19 @@
 .optionText{
 	border-bottom : 2px solid black;
 }
-#plusOptions{
+#plusOptions,#plusUseOptions{
 	display: flex;
 	flex-direction: column;
+	justify-content : center;
 	width : 100%;
 	padding-bottom : 20px;
 	border-bottom : 1px solid darkgray;
+}
+.UseOptions,.options{
+	padding-bottom : 20px;
+	display: flex;
+	
+	justify-content : flex-start;
 }
 .options{
 	margin-bottom : 5px;
@@ -82,4 +90,29 @@
 	border : 1px solid darkgray;
 	border-radius : 8px;
 	height: 30px;
+}
+.addoptionBtn,.addBtns>button{
+	color : white;
+	font-size : 17px;
+	font-weight : bold;
+	width: 120px;
+	height: 40px;
+	background-color: #feb602;
+	border-radius: 10px;
+	border-style : none;
+}
+#drop_zone{
+	display: flex;
+	align-items : center;	
+	justify-content : center;
+	width : 250px;
+	height :150px;
+	border : 1px dashed darkgray;
+	border-radius : 10px;
+}
+.imgInfo{
+	margin-bottom : 50px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
