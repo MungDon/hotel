@@ -92,7 +92,7 @@
 	
 	<!-- 스크립트 -->
 	<script src="/js/common.js"></script>
-
+	<script src="/js/sessionChk.js"></script>
 <script>
 $(function() {
 	
@@ -240,8 +240,12 @@ $(function() {
 			alert("방 영구 삭제 실패 운영자에게 문의해주세요");
 		})
 	});
+	
+	$(document).on("click", ".reserveBtn", function (){
+		  const options = 'width=700, height=600, top=50, left=50, scrollbars=no'
+			  window.open('','_self',options);
+	});
 });
 </script>
-<script src="/js/sessionChk.js"></script>
 </body>
 </html>
