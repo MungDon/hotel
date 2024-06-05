@@ -1,0 +1,22 @@
+package com.example.demo.dto.request.reservation;
+
+import java.time.LocalDate;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ReqReservationAdd {
+	
+	private Long room_sid;				// 객실 번호
+	
+	private LocalDate start_date;		// 체크인 일자
+	
+	private LocalDate end_date;		// 체크 아웃일자
+	
+	private int adult_cnt;				// 성인 수
+	
+	private int child_cnt;				// 어린이 수
+	
+}

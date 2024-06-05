@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserLogin;
-import com.example.demo.enums.Role;
 import com.example.demo.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;

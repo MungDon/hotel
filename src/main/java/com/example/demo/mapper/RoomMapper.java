@@ -40,7 +40,7 @@ public interface RoomMapper {
 	int count(SearchDto dto);
 	
 	/*방 상세보기*/
-	List<ResRoomDetail> roomDetail(@Param(value="room_sid")Long room_sid);
+	ResRoomDetail roomDetail(@Param(value="room_sid")Long room_sid);
 	
 	/*이미지 삭제*/
 	void roomImgRemove(@Param(value="room_img_sid")Long room_img_sid);

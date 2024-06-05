@@ -137,7 +137,7 @@ public class RoomService {
 
 	/* 방 상세보기 */
 	@Transactional(readOnly = true)
-	public List<ResRoomDetail> roomDetail(Long room_sid) {
+	public ResRoomDetail roomDetail(Long room_sid) {
 		return roomMapper.roomDetail(room_sid);
 	}
 

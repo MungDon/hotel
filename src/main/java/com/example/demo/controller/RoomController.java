@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqRoomAdd;
-import com.example.demo.dto.response.room.ResOptions;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.RoomService;
@@ -58,14 +57,14 @@ public class RoomController {
 	/*방 상세보기*/
 	@GetMapping("/detail/{room_sid}")
 	public String roomDetail(@PathVariable(value = "room_sid")Long room_sid, Model model) {
-		List<ResRoomDetail> detail = roomService.roomDetail(room_sid);
+		ResRoomDetail detail = roomService.roomDetail(room_sid);
 		model.addAttribute("detail", detail);
 		return "roomdetail";
 	}
 	/*방 수정페이지 폼*/
 	@GetMapping("/update/{room_sid}")
 	public String roomUpdateForm(@PathVariable(value="room_sid")Long room_sid, Model model) {
-		List<ResRoomDetail> update = roomService.roomDetail(room_sid);
+		ResRoomDetail update = roomService.roomDetail(room_sid);
 		model.addAttribute("update", update);
 		return "roomupdate";
 	}
