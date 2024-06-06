@@ -99,7 +99,7 @@ public class RoomController {
 	/*방복구하기*/
 	@PutMapping("/restore")
 	@ResponseBody
-	public void restoreRoom(@RequestBody Long room_sid) {
+	public void restoreRoom(@RequestParam(value = "room_sid")  Long room_sid) {
 		roomService.restoreRoom(room_sid);
 	}
 	
