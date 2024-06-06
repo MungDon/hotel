@@ -10,6 +10,13 @@
 <link rel="stylesheet" href="/css/hotelmain.css">
 </head>
 <body>
+	<!-- 검색(예약) 데이터 hidden -->
+	<input type="hidden" name="start_date" th:value="${search.start_date}"/>
+	<input type="hidden" name="end_date" th:value="${search.end_date}"/>
+	<input type="hidden" name="adult_cnt" th:value="${search.adult_cnt}"/>
+	<input type="hidden" name="child_cnt" th:if="${search.child_cnt != null}" th:value="${search.child_cnt}"/>
+
+
 	<!-- 세션체크 -->
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
 	<!-- 헤더 -->
@@ -71,7 +78,7 @@
 					<tr class="listTr3">
 						<td class="listTd3" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
 						<td class="listTd2">
-							<button type="button" class="reserveBtn">예약하기</button>
+							<button type="button" th:value="${rooms.room_sid}" class="reserveBtn">예약하기</button>
 						</td>
 					</tr>
 					<tr>
@@ -95,7 +102,6 @@
 	<script src="/js/sessionChk.js"></script>
 <script>
 $(function() {
-	
 	pagination();
 	function pagination() {
 
@@ -246,6 +252,8 @@ $(function() {
 			  window.open('','_self',options);
 	});
 });
+
+
 </script>
 </body>
 </html>

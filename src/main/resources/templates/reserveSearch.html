@@ -18,24 +18,25 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 			</tr>
 			<tr>
 				<td>
-					<input type="date" name="start_date">
+					<input type="date" name="start_date"  th:value="${search.start_date}">
 				</td>
 				<th>
 				<span>박</span>
 				</th>
 				<td>
-					<input type="date" name="end_date">
+					<input type="date" name="end_date"  th:value="${search.end_date}">
 				</td>
 				<td>
-					<input type="number" name="adult_cnt" value="2">
+					<input type="number" name="adult_cnt" id="adult_cnt" th:value="${search.adult_cnt}">
 				</td>
 				<td>
-					<input type="number" name="child_cnt" value="0">
+					<input type="number" name="child_cnt" id="child_cnt" th:value="${search.child_cnt}">
 				</td>
 			</tr>
 		</table>
 		<input type="submit" class="searchBtn" value="검색">
 	</form>
 </div>	
+
 </body>
 </html>
