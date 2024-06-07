@@ -3,19 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/header.css">
 <link rel="stylesheet" href="/css/roomlist.css">
 <link rel="stylesheet" href="/css/hotelmain.css">
 </head>
 <body>
-	<!-- 검색(예약) 데이터 hidden -->
-	<input type="hidden" name="start_date" th:value="${search.start_date}"/>
-	<input type="hidden" name="end_date" th:value="${search.end_date}"/>
-	<input type="hidden" name="adult_cnt" th:value="${search.adult_cnt}"/>
-	<input type="hidden" name="child_cnt" th:if="${search.child_cnt != null}" th:value="${search.child_cnt}"/>
-
 
 	<!-- 세션체크 -->
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
@@ -46,9 +39,8 @@
 					th:each="rooms:${rooms.list}">
 					<tr class="listTr1">
 						<td class="listTd0" rowspan="3">
-							<a th:href="@{|/room/detail/${rooms.room_sid}|}">
-								<img class="thumbnail" th:src="@{|/img/${rooms.thumbnail.img_name}|}">
-							</a>
+								<img class="thumbnail roomDetail" th:src="@{|/img/${rooms.thumbnail.img_name}|}" th:attr="data-room-sid=${rooms.room_sid}">
+								<input type="hidden" id="room_sid" th:value="${rooms.room_sid}">
 						</td>
 						<td class="listTd1">
 							<h3 th:text="${rooms.room_name}"></h3>
@@ -102,8 +94,15 @@
 	<script src="/js/sessionChk.js"></script>
 	<script src="/js/roomList.js"></script>
 	<script src="/js/reserveSearch.js"></script>
-<script>
+<script th:inline="javascript">
 $(function() {
+	$(document).ready(function() {
+	    $('.roomDetail').click(function() {
+	        var room_sid = $(this).data('room-sid');
+	        var url = '/room/detail/' + room_sid;
+	        window.open(url, 'Room Details', 'width=600,height=400');
+	    });
+	});
 	pagination();
 	function pagination() {
 

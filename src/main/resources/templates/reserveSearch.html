@@ -6,6 +6,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 검색(예약) 데이터 hidden -->
+	<input type="hidden" name="start_date" th:value="${search.start_date}"/>
+	<input type="hidden" name="end_date" th:value="${search.end_date}"/>
+	<input type="hidden" name="adult_cnt" th:value="${search.adult_cnt}"/>
+	<input type="hidden" name="child_cnt" th:if="${search.child_cnt != null}" th:value="${search.child_cnt}"/>
+
 <div th:fragment="reserveSearch">
 	<form class="reservationForm" action="/room" method="get" onsubmit="return reserveValidate()">
 		<table class="rsvSearchTable">
@@ -18,16 +24,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 			</tr>
 			<tr>
 				<td>
-					<input type="date" name="start_date" id="start_date"  th:value="${search.start_date}">
+					<input type="date" name="start_date" id="start_date" >
 				</td>
 				<th>
 				<span id="result">박</span>
 				</th>
 				<td>
-					<input type="date" name="end_date" id="end_date" th:value="${search.end_date}">
+					<input type="date" name="end_date" id="end_date">
 				</td>
 				<td>
-					<input type="number" name="adult_cnt" id="adult_cnt" th:value="${search.adult_cnt}">
+					<input type="number" name="adult_cnt" id="adult_cnt"  th:value="${search.adult_cnt}">
 				</td>
 				<td>
 					<input type="number" name="child_cnt" id="child_cnt" th:value="${search.child_cnt}">
@@ -37,6 +43,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		<input type="submit" class="searchBtn" value="검색">
 	</form>
 </div>	
-
+  
 </body>
 </html>
