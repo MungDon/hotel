@@ -1,4 +1,4 @@
-	
+
     // 휴지통에 있는 객실 복구
     $(document).on("click", ".restore", function() {
 		let room_sid = $(this).val();

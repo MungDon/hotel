@@ -4,34 +4,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" href="/css/imgsilde.css">
 </head>
 <body>
-	<input type="hidden" value="${detail.room_sid}" name="room_sid">
-	<table>
-		<tr>
-			<th>방 정보</th>		
-			<td th:text="${detail.room_name}"></td>
-			<th>생성 일시</th>
-			<td th:text="${#temporals.format(detail.created_date, 'yyyy-MM-dd HH:mm' )}"></td>
-			<th>수정 일시</th>
-			<td th:text="${#temporals.format(detail.modified_date, 'yyyy-MM-dd HH:mm' )}"></td>	
-		</tr>
-		<tr th:each="options:${detail.options}">
-			<th th:text="${options.option_name}"></th>
-			<td th:text="${options.option_value}"></td>
-		</tr>
-		<tr th:each="img : ${detail.images}">
-			<th>방이미지</th>
-			<td>
-			<img th:src="|/img/${img.img_name}|" width="400px">
-			</td>
-		</tr>
-	</table>
-	<div class="btns">	
-		<a th:if="${session.role_user != null && (session.role_user.getType().equals('STAFF') || session.role_user.getType().equals('ADMIN'))}" th:href="@{|/room/update/${room_sid}|}">수정하기</a>
-		<button type="button" th:if="${session.role_user != null && (session.role_user.getType().equals('STAFF')|| session.role_user.getType().equals('ADMIN'))}" th:value="${room_sid}" class="removeRoom">삭제하기</button>
-		<button type="button" onclick="backList()">목록으로</button>
-	</div>
+<main id="main">
+	<!-- 이미지 슬라이드 -->
+    <section id="sliderType01">
+        <div class="slider_wrap">
+            <div class="slider_img">
+                <div class="slider_inner">
+                    <div class="slider" role="group" aria-label="5/5" th:each="img : ${detail.images}">
+                    	<img th:src="@{|/img/${img.img_name}|}">
+                    </div>
+                </div>
+            </div>
+            <div class="slider_btn">
+                <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
+                <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+            </div>
+        </div>
+    </section>
+</main>
+	<script src="/js/imgslide.js"></script>
 	<script th:inline="javascript">
 	$(function(){
 		  $(document).on("click",".removeRoom", function(){

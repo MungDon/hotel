@@ -40,7 +40,6 @@
 					<tr class="listTr1">
 						<td class="listTd0" rowspan="3">
 								<img class="thumbnail roomDetail" th:src="@{|/img/${rooms.thumbnail.img_name}|}" th:attr="data-room-sid=${rooms.room_sid}">
-								<input type="hidden" id="room_sid" th:value="${rooms.room_sid}">
 						</td>
 						<td class="listTd1">
 							<h3 th:text="${rooms.room_name}"></h3>
@@ -62,7 +61,7 @@
 							</div>
 							<br>
 							<div class="detilText">
-								<a th:href="@{|/room/detail/${rooms.room_sid}|}">객실 자세히 보기<img class="plusImg" src="/images/plus.png"></a>
+								<a  class="roomDetail"  th:attr="data-room-sid=${rooms.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${rooms.room_sid}" src="/images/plus.png"></a>
 							</div>
 						</td>
 						<td class="listTd3"></td>
@@ -96,11 +95,21 @@
 	<script src="/js/reserveSearch.js"></script>
 <script th:inline="javascript">
 $(function() {
+	let roomDetailWindow;
 	$(document).ready(function() {
-	    $('.roomDetail').click(function() {
-	        var room_sid = $(this).data('room-sid');
-	        var url = '/room/detail/' + room_sid;
-	        window.open(url, 'Room Details', 'width=600,height=400');
+	    $('.roomDetail').click(function() { // 클래스가 roomDetail인것을 클릭하면
+	        let room_sid = $(this).data('room-sid'); // 해당 요소의 data 를가져옴
+	        let url = '/room/detail/' + room_sid;
+	        let popupWidth = 700;
+	        let popupHeight = 600;
+	        let popupX = Math.round(window.screenX + (window.outerWidth/2) - (popupWidth/2));
+	        let popupY = Math.round(window.screenY + (window.outerHeight/2) - (popupHeight/2));
+	       
+	        if (roomDetailWindow && !roomDetailWindow.closed) {
+	            roomDetailWindow.close();
+	        }
+	        
+	        roomDetailWindow = window.open(url, 'Room Details', ' width='+popupWidth+', height='+popupHeight+', top='+popupY+', left='+popupX);
 	    });
 	});
 	pagination();

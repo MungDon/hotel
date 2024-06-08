@@ -7,12 +7,20 @@
 </head>
 
 <body>
-	<div th:if="${errorMessage == null}">
-	<p>없는 페이지 입니다</p>
+	<div th:if="${errorMessage != null}">
+		<input type="hidden" id="errorMessage" th:value="${errorMessage}"/>
 	</div>
-	<p th:text="${errorMessage}"></p>
-	<button type="button" onclick="history.back()">이전</button>
-
+	<div th:unless="${errorMessage != null}">
+		<input type="hidden" id="errorMessage" th:value="'없는 페이지입니다.'"/>
+	</div>
+<script>
+	const errMsg = document.getElementById("errorMessage");
+	if(errMsg != null){
+		alert(errMsg.value);
+		history.go(-1);
+	}
+	
+</script>
 
 </body>
 
