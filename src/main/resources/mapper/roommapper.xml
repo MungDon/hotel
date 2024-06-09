@@ -39,11 +39,13 @@
 		INSERT INTO tb_options(
 			room_sid,
 			option_name,
-			option_value
+			option_value,
+			option_type
 		) VALUES (
 			#{room_sid},
 			#{option_name},
-			#{option_value}
+			#{option_value},
+			#{option_type}
 		)
 	</insert>
 	
@@ -82,11 +84,9 @@
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
 		WHERE	
 				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail' AND (OP.option_name like '%객실크%' OR OP.option_name like '%침대%')
-	 	<if test="start_date != null">
                 	AND TR.start_date &lt;= #{end_date} AND TR.end_date &gt;= #{start_date}
                     AND TR.adult_limit &gt;= #{adult_cnt}
                     AND TR.child_limit &gt;= #{child_cnt}
-     	</if>
 		ORDER BY
 				TR.room_sid DESC , OP.option_name ASC
 		LIMIT #{recordSize} offset #{pagination.limitStart}
@@ -122,7 +122,7 @@
 	<select id="roomDetail" parameterType="Long" resultMap="resultDetail">
 		SELECT
 				TR.*,
-				OP.option_name,	OP.option_value,
+				OP.option_name,	OP.option_value,OP.option_type,
 				TI.img_name,TI.original_name,TI.room_img_sid  
 		FROM
 				tb_room	AS TR
@@ -186,6 +186,9 @@
 	<resultMap type="ResRoomDetail" id="resultDetail">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_name" column="room_name" />
+		<result property="price" column="price" />
+		<result property="adult_limit" column="adult_limit" />
+		<result property="child_limit" column="child_limit" />
 		<result property="created_date" column="created_date"/>
 		<result property="modified_date" column="modified_date"/>
 		<collection property="options" resultMap="optionsMap"></collection>
@@ -205,5 +208,6 @@
 		<result property="room_sid" column="room_sid" />
 		<result property="option_name" column="option_name" />
 		<result property="option_value" column="option_value" />
+		<result property="option_type" column="option_type" />
 	</resultMap>
 </mapper> 

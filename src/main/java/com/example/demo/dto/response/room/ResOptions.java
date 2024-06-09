@@ -10,4 +10,6 @@ public class ResOptions {
 	private String option_name;
 	
 	private String option_value;
+	
+	private String option_type;
 }

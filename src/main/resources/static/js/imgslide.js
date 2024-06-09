@@ -22,6 +22,7 @@
     document.querySelectorAll(".slider_btn a").forEach((btn, index) => {
         btn.addEventListener("click", () => {
             let prevIndex = (currentIndex + (sliderCount -1)) % sliderCount;
+            					//2				3	//2				3 = 4%3
             let nextIndex = (currentIndex + 1) % sliderCount;
 
             if(btn.classList.contains("prev")){

@@ -3,60 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <link rel="stylesheet" href="/css/imgsilde.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/imgsilde.css">
+<link rel="stylesheet" href="/css/roomdetail.css">
 </head>
 <body>
-<main id="main">
-	<!-- 이미지 슬라이드 -->
-    <section id="sliderType01">
-        <div class="slider_wrap">
-            <div class="slider_img">
-                <div class="slider_inner">
-                    <div class="slider" role="group" aria-label="5/5" th:each="img : ${detail.images}">
-                    	<img th:src="@{|/img/${img.img_name}|}">
-                    </div>
-                </div>
-            </div>
-            <div class="slider_btn">
-                <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
-                <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
-            </div>
-        </div>
-    </section>
-</main>
+<!-- 검색(예약) 데이터 hidden -->
+	<input type="hidden" name="start_date" th:value="${search.start_date}"/>
+	<input type="hidden" name="end_date" th:value="${search.end_date}"/>
+	<input type="hidden" name="adult_cnt" th:value="${search.adult_cnt}"/>
+	<input type="hidden" name="child_cnt" th:value="${search.child_cnt}"/>
+	<input type="hidden" name="room_sid" th:value="${detail.room_sid}"/>
+	<main class="main">
+		<div class="roomName">
+			<span th:text="${detail.room_name}"></span>
+		</div>
+		<!-- 이미지 슬라이드 -->
+		<section class="sliderType">
+			<div class="slider_wrap">
+				<div class="slider_img">
+					<div class="slider_inner">
+						<div class="slider" role="group" aria-label="5/5"
+							th:each="img : ${detail.images}">
+							<img th:src="@{|/img/${img.img_name}|}">
+						</div>
+					</div>
+				</div>
+				<div class="slider_btn">
+					<a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
+					<a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+				</div>
+			</div>
+		</section>
+		<h2>객실 상세 정보</h2>
+		<div class="roomDetailInfo">
+			<div class="options" th:each="option : ${detail.options}">
+				<div class="roomInfo" th:if="${option.option_type.equals('객실정보')}">
+					<span><b class="optionName" th:text="${option.option_name}"></b></span> 
+					<span class="optionValue" th:text="${option.option_value}"></span>
+				</div>
+				<div class="roomUse" th:if="${option.option_type.equals('객실이용')}">
+					<span><b th:text="${option.option_name}"></b></span>
+						<span th:text="'○ '+${option.option_value}"></span>
+				</div>
+			</div>
+		</div>
+		<div class="personLimit">
+			<div class="totalLimit">
+				<h3>최대 투숙 가능인원</h3>
+				<span th:text="${detail.adult_limit + detail.child_limit} + '명'"></span>
+			</div>
+			<div class="detailLimit">
+				<div class="adultLimit">
+					<h3>최대 성인</h3>
+					<span th:text="${detail.adult_limit}+'명'"></span>
+				</div>
+				<div class="childLimit">
+					<h3>최대 소아</h3>
+					<span th:text="${detail.child_limit}+'명'"></span>
+				</div>
+			</div>
+		</div>
+		<div class="price">
+			<h3>객실 요금(1박기준)</h3>
+			<span th:text="${#numbers.formatInteger(detail.price, 3, 'COMMA')+' 원'}"></span>
+		</div>
+		<div class="detailBtns">
+			<button type="button" class="removeRoom" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}" th:value="${detail.room_sid}">삭제하기</button>
+			<button type="button" class="updateRoom" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}" th:value="${detail.room_sid}">수정하기</button>
+			<button type="button" class="closeBtn" onclick="backList()">닫기</button>
+			<button type="button" class="reserveBtn" th:value="${session.user_sid}">예약하기</button>
+		</div>
+	</main>
 	<script src="/js/imgslide.js"></script>
-	<script th:inline="javascript">
-	$(function(){
-		  $(document).on("click",".removeRoom", function(){
-	        let room_sid = $(this).val();
-	        if(!confirm("방을 삭제하시겠습니까?")){
-	        	return false;
-	        }
-			console.log("체크");
-			$.ajax({
-				type: 'delete',
-				async : false,
-				url: '/room/delete',
-				data: {
-					room_sid : room_sid
-				},
-				success: function () {
-			   	 alert('방이 삭제되었습니다.');
-			   	 location.href="/room";
-			   	
-				}, error: function () {
-					alert("방 삭제 실패");
-				}
-			});
-		  });
-	});
-		function backList(){
-			location.href="/room";
-		}	
-		
-	
-	</script>
-	
+	<script src="/js/roomDetail.js"></script>
+
 </body>
 </html>

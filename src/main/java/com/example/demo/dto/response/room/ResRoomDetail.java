@@ -20,5 +20,4 @@ public class ResRoomDetail extends ResRoomList{
 	
 	private LocalDateTime modified_date;	// 수정 일시
 	
-	
 }

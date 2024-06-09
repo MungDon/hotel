@@ -23,6 +23,7 @@ import com.example.demo.dto.request.room.ReqRoomImg;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.enums.ImgType;
+import com.example.demo.enums.OptionType;
 import com.example.demo.mapper.RoomMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -83,13 +84,12 @@ public class RoomService {
 	}
 	
 	/*옵션 저장*/
-	private void addOptions(List<ReqOptions> options, Long room_sid) {
+	private void addOptions(List<ReqOptions> options, Long room_sid,String optionType) {
 		for (ReqOptions option : options) {
-			System.out.println(option.getOption_name());
-			System.out.println(option.getOption_value());
 			if(option.getOption_name() == null && option.getOption_value() ==null) {
 				continue;
 			}
+			option.setOption_type(optionType);
 			option.setRoom_sid(room_sid);
 			roomMapper.addOptions(option);
 		}
@@ -99,8 +99,8 @@ public class RoomService {
 	@Transactional
 	public void roomAdd(ReqRoomAdd add) throws IOException {
 		roomMapper.roomAdd(add);
-		addOptions(add.getOptions(), add.getRoom_sid());
-		addOptions(add.getUseOptions(), add.getRoom_sid());
+		addOptions(add.getOptions(), add.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
+		addOptions(add.getUseOptions(), add.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
 		fileUpload(add.getImages(), ImgType.roomImg.name(), add.getRoom_sid());
 		fileUpload(add.getThumbnail(), ImgType.thumbnail.name(), add.getRoom_sid());
 	}

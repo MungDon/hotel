@@ -1,4 +1,28 @@
-
+	let roomDetailWindow;
+	$(document).ready(function() {
+	    $('.roomDetail').click(function() { // 클래스가 roomDetail인것을 클릭하면
+	        //필요한 데이터
+	        let room_sid = $(this).data('room-sid'); // 해당 요소의 data 를가져옴
+            let startDate = $('input[name="start_date"]').val();
+            let endDate = $('input[name="end_date"]').val();
+            let adultCnt = $('input[name="adult_cnt"]').val();
+            let childCnt = $('input[name="child_cnt"]').val();
+            
+            // 팝업창 옵션
+	        let popupWidth = 600;
+	        let popupHeight = 500;
+	        let popupX = Math.round(window.screenX + (window.outerWidth/2) - (popupWidth/2));
+	        let popupY = Math.round(window.screenY + (window.outerHeight/2) - (popupHeight/2));
+	        
+	        let url = '/room/detail/'+room_sid+'?start_date='+startDate +'&end_date='+endDate+'&adult_cnt='+adultCnt+'&child_cnt='+childCnt;
+	       	let options = 'width='+popupWidth+', height='+popupHeight+', top='+popupY+', left='+popupX;
+	        if (roomDetailWindow && !roomDetailWindow.closed) {
+	            roomDetailWindow.close();
+	        }
+	        
+	        roomDetailWindow = window.open(url, 'Room Details', options);
+	    });
+	});
     // 휴지통에 있는 객실 복구
     $(document).on("click", ".restore", function() {
 		let room_sid = $(this).val();

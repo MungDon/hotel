@@ -5,9 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.reservation.ReqReservationAdd;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.service.ReservationService;
@@ -26,6 +24,7 @@ public class ReservationController {
 	/*예약 폼*/
 	@GetMapping("")
 	public String reserveForm(@ModelAttribute("reserve")ReqReservationAdd req,Model model) {
+		reservationService.pencilIn(req);
 		ResRoomDetail roomDetail = roomService.roomDetail(req.getRoom_sid());
 		model.addAttribute("roomDetail", roomDetail);
 		return "reserve";

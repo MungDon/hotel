@@ -56,7 +56,7 @@ public class RoomController {
 	
 	/*방 상세보기*/
 	@GetMapping("/detail/{room_sid}")
-	public String roomDetail(@PathVariable(value = "room_sid")Long room_sid, Model model) {
+	public String roomDetail(@PathVariable(value = "room_sid")Long room_sid ,Model model,@ModelAttribute("search") SearchDto search) {
 		ResRoomDetail detail = roomService.roomDetail(room_sid);
 		model.addAttribute("detail", detail);
 		return "roomdetail";

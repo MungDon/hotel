@@ -19,4 +19,6 @@ public class ReqReservationAdd {
 	
 	private int child_cnt;					// 어린이 수
 	
+	private String reserve_status;		// 예약상태
+	
 }
