@@ -189,6 +189,9 @@
 		<result property="price" column="price" />
 		<result property="adult_limit" column="adult_limit" />
 		<result property="child_limit" column="child_limit" />
+		<result property="local_num" column="local_num" />
+		<result property="middle_num" column="middle_num" />
+		<result property="last_num" column="last_num" />
 		<result property="created_date" column="created_date"/>
 		<result property="modified_date" column="modified_date"/>
 		<collection property="options" resultMap="optionsMap"></collection>
