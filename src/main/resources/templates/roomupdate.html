@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -44,39 +44,39 @@
 								<option value="063">063</option>
 								<option value="064">064</option>
 							</select> 
-							- <input  class="i2"  type="text" name="middle_num" required="required">
-							- <input  class="i2"  type="text" name="last_num" required="required">
+							- <input  class="i2"  type="text" name="middle_num" th:value="${update.middle_num}" required="required">
+							- <input  class="i2"  type="text" name="last_num" th:value="${update.last_num}" required="required">
 						</td>
 					</tr>
 					<tr>
 						<th class="s3">방가격(1박)</th>
 						<td class="s3">
-							 <input class="i1" type="number" name="price" min="0" required="required"/>
+							 <input class="i1" type="number" name="price" min="0" th:value="${update.price}" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s4">객실 수</th>
 						<td class="s4">
-							<input class="i1" type="number" name="room_count" min="0" required="required"/>
+							<input class="i1" type="number" name="room_count" min="0" th:value="${update.room_count}" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s5">객실 인원 제한(성인)</th>
 						<td class="s5">
-							 <input class="i1" type="number" name="adult_limit" min="0" max="4" required="required"/>
+							 <input class="i1" type="number" name="adult_limit" min="0" max="4" th:value="${update.adult_limit}" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s6">객실 인원 제한(소아)</th>
 						<td class="s6">
-							<input class="i1"  type="number" name="child_limit" min="0" max="4" required="required"/>
+							<input class="i1"  type="number" name="child_limit" min="0" max="4" th:value="${update.child_limit}" required="required"/>
 						</td>
 					</tr>
 					<tr>
 						<th class="s7">예약가능기간</th>
 						<td class="s7">
-							<input  class="i3" id="startDate" type="date" name="start_date" required="required"/>
-							~ <input  class="i3" id="endDate"  type="date" name="end_date" required="required"/>
+							<input  class="i3" id="startDate" type="date" name="start_date" th:value="${update.start_date}" required="required"/>
+							~ <input  class="i3" id="endDate"  type="date" name="end_date" th:value="${update.end_date}" required="required"/>
 						</td>
 					</tr>
 				</table>
@@ -85,23 +85,25 @@
 					<h2>옵션</h2>
 				</div>
 					<h3>방 정보 옵션</h3>※ 객실크기, 침대타입 필수 입력! ※<br><br>
-					<div id="plusOptions">
-						<div class="options">
-							옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">&nbsp;
-							내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value" placeholder="ex)시티뷰">&nbsp;	
-							<button class="addoptionBtn" type="button" onclick="addOption()">옵션 추가하기</button><br>
+					<div class="option" th:each="option : ${update.options}">
+						<div id="plusOption">
+							<div class="options" th:if="${option.option_type.equals('객실정보')}">
+								옵션명&nbsp;<input type="text" class="o1" th:value="${option.option_name}"  id="options[0].option_name" name="options[0].option_name"placeholder="ex)전망">&nbsp;
+								내용&nbsp;<input type="text" class="o1" th:value="${option.option_value}" id="options[0].option_value" name="options[0].option_value"  placeholder="ex)시티뷰">&nbsp;	
+								<button class="addoptionBtn" type="button"  onclick="removeOption(this)">옵션 제거</button>
+							</div>
 						</div>
 					</div>
-					
 					<h3>방 이용 옵션</h3>
-					<div id="plusUseOptions">
-						<div class="UseOptions">
-							옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
-							내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
-							<button type="button" class="addoptionBtn" onclick="addUseOption()">옵션 추가하기</button><br>
+					<div class="option" th:each="option : ${update.options}">
+						<div id="plusUseOption">
+							<div class="UseOptions" th:if="${option.option_type.equals('객실이용')}">
+								옵션명&nbsp;<input type="text" class="o2" th:value="${option.option_name}" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
+								내용&nbsp;<textarea class="o2" th:text="${option.option_value}" id="useOptions[0].option_value" name="useOptions[0].option_value" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
+								<button type="button" class="addoptionBtn"  onclick="removeOption(this)">옵션 제거</button>
+							</div>
 						</div>
-					</div>
-					
+					</div>	
 					
 					<h3>객실 이미지</h3>
 					<div class="imgInfo">

@@ -1,5 +1,6 @@
 package com.example.demo.dto.response.room;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,6 +20,12 @@ public class ResRoomDetail extends ResRoomList{
 	private String middle_num;		// 중간번호
 	
 	private String last_num;			// 끝번호
+	
+	private int room_count;			// 방개수
+	
+	private LocalDate start_date;	// 예약가능날짜 시작일
+	
+	private LocalDate end_date;	// 예약가능 날짜 끝
 	
 	private List<ResRoomImg>images;		// 객실이미지
 	
