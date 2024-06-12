@@ -56,6 +56,7 @@ public class RoomService {
 	/* 이미지 실제 저장 */
 	@Transactional
 	private void saveFile(MultipartFile images, String img_type, Long room_sid) throws IOException {
+		if(images != null && !images.isEmpty()) {
 			String originalName = images.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
 			String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성
 			String extension = originalName.substring(originalName.lastIndexOf(".")); // . 뒤로 잘라서 저장(확장자만 저장)
@@ -74,6 +75,7 @@ public class RoomService {
 			ReqRoomImg uploadImg= ReqRoomImg.builder().room_sid(room_sid).original_name(originalName).extension(extension)
 					.img_name(saveName).img_type(img_type).build();
 			roomMapper.uploadImg(uploadImg);
+		}
 	}
 	
 	/*이미지저장*/
@@ -85,6 +87,17 @@ public class RoomService {
 	
 	/*옵션 저장*/
 	private void addOptions(List<ReqOptions> options, Long room_sid,String optionType) {
+		for (ReqOptions option : options) {
+			if(option.getOption_name() == null && option.getOption_value() ==null) {
+				continue;
+			}
+			option.setOption_type(optionType);
+			option.setRoom_sid(room_sid);
+			roomMapper.addOptions(option);
+		}
+	}
+	/*옵션 수정*/
+	private void updateOptions(List<ReqOptions> options, Long room_sid,String optionType) {
 		for (ReqOptions option : options) {
 			if(option.getOption_name() == null && option.getOption_value() ==null) {
 				continue;
@@ -109,12 +122,12 @@ public class RoomService {
 	@Transactional
 	public void roomUpdate(ReqRoomAdd reqeust) throws IOException {
 		roomMapper.roomUpdate(reqeust);
-		for (ReqOptions options : reqeust.getOptions()) {
-			options.setRoom_sid(reqeust.getRoom_sid());
-			roomMapper.optionUpdate(options);
-		}
-		 fileUpload(reqeust.getImages(),  ImgType.roomImg.name() ,reqeust.getRoom_sid());
-		 fileUpload(reqeust.getThumbnail(), ImgType.thumbnail.name(), reqeust.getRoom_sid());
+		
+		addOptions(reqeust.getOptions(), reqeust.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
+		addOptions(reqeust.getUseOptions(), reqeust.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
+		
+	 	fileUpload(reqeust.getImages(),  ImgType.roomImg.name() ,reqeust.getRoom_sid());
+	 	fileUpload(reqeust.getThumbnail(), ImgType.thumbnail.name(), reqeust.getRoom_sid());
 	}
 
 	/* 방 목록 */

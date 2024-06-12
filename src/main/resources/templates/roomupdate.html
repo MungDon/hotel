@@ -10,7 +10,8 @@
 <body>
 	<header th:replace="~{manageheader :: manageheader}"></header>
 	<main class="roomAddMain">
-			<form class="roomUpdateForm" action="/room/update" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+			<form class="roomUpdateForm" action="/room/update" th:method="put" enctype="multipart/form-data" onsubmit="return validateForm()">
+			<input type="hidden" name="room_sid" th:value="${update.room_sid}"/>
 				<div class="infoText">
 					<h2>기본정보</h2>
 				</div>
@@ -85,21 +86,21 @@
 					<h2>옵션</h2>
 				</div>
 					<h3>방 정보 옵션</h3>※ 객실크기, 침대타입 필수 입력! ※<br><br>
-					<div class="option" th:each="option : ${update.options}">
+					<div class="option" th:each="option,loop : ${update.options}">
 						<div id="plusOption">
 							<div class="options" th:if="${option.option_type.equals('객실정보')}">
-								옵션명&nbsp;<input type="text" class="o1" th:value="${option.option_name}"  id="options[0].option_name" name="options[0].option_name"placeholder="ex)전망">&nbsp;
-								내용&nbsp;<input type="text" class="o1" th:value="${option.option_value}" id="options[0].option_value" name="options[0].option_value"  placeholder="ex)시티뷰">&nbsp;	
+								옵션명&nbsp;<input type="text" class="o1" th:value="${option.option_name}"  th:id="|options[${loop.index}].option_name|" th:name="|options[${loop.index}].option_name|" placeholder="ex)전망">&nbsp;
+								내용&nbsp;<input type="text" class="o1" th:value="${option.option_value}" th:id="|options[${loop.index}].option_value|" th:name="|options[${loop.index}].option_value|"  placeholder="ex)시티뷰">&nbsp;	
 								<button class="addoptionBtn" type="button"  onclick="removeOption(this)">옵션 제거</button>
 							</div>
 						</div>
 					</div>
 					<h3>방 이용 옵션</h3>
-					<div class="option" th:each="option : ${update.options}">
+					<div class="option" th:each="option, loop: ${update.options}">
 						<div id="plusUseOption">
 							<div class="UseOptions" th:if="${option.option_type.equals('객실이용')}">
-								옵션명&nbsp;<input type="text" class="o2" th:value="${option.option_name}" id="useOptions[0].option_name" name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
-								내용&nbsp;<textarea class="o2" th:text="${option.option_value}" id="useOptions[0].option_value" name="useOptions[0].option_value" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
+								옵션명&nbsp;<input type="text" class="o2" th:value="${option.option_name}" th:id="|useOptions[${loop.index}].option_name|" th:name="|useOptions[${loop.index}].option_name|" placeholder="ex)객실이용">&nbsp;
+								내용&nbsp;<textarea class="o2" th:text="${option.option_value}" th:id="|useOptions[${loop.index}].option_value|" th:name="|useOptions[${loop.index}].option_value|" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
 								<button type="button" class="addoptionBtn"  onclick="removeOption(this)">옵션 제거</button>
 							</div>
 						</div>
@@ -129,7 +130,7 @@
 					</div>		
 				</div>
 				<div class="addBtns">
-					<button type="submit" >등록</button>	
+					<button type="submit" >수정</button>	
 					<button type="button" onclick="backList()">목록으로</button>
 				</div>
 			</form>
@@ -137,5 +138,6 @@
 		<script src="/js/addOption.js"></script>
 		<script src="/js/dragAndDrop.js"></script>	
 		<script src="/js/common.js"></script>
+		<script src="/js/update.js"></script>
 </body>
 </html>

@@ -168,7 +168,7 @@
 	<!-- 옵션 수정 -->
 	<update id="optionUpdate" parameterType="ReqOptions">
 		UPDATE tb_options
-		SET	option_name = {option_name},
+		SET	option_name = #{option_name},
 			option_value = #{option_value}
 		WHERE	room_sid = #{room_sid}
 	</update>
