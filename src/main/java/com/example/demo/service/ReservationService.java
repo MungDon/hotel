@@ -16,7 +16,8 @@ public class ReservationService {
 	private final ReservationMapper reservationMapper; 
 	
 	@Transactional
-	public void pencilIn(ReqReservationAdd req) {
+	public void pencilIn(ReqReservationAdd req, Long user_sid) {
+		req.setUser_sid(user_sid);
 		req.setReserve_status(ReservationType.TEMPORARY.getName());
 		reservationMapper.pencilIn(req);
 	}

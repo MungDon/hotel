@@ -1,4 +1,20 @@
+function getNextIndex() {
+    // Find all elements with id starting with "options["
+    const optionElements = document.querySelectorAll('[id^="options["]');
+    let maxIndex = -1;
 
+    optionElements.forEach(element => {
+        const match = element.id.match(/options\[(\d+)\]/);
+        if (match) {
+            const index = parseInt(match[1]);
+            if (index > maxIndex) {
+                maxIndex = index;
+            }
+        }
+    });
+
+    return maxIndex + 1;
+}
 let optionCount = 1;
 let useOptionCount = 1;
 function addOption() {
@@ -19,8 +35,8 @@ function addUseOption() {
 	let html = ""
 	html += `
             <div class="UseOptions">
-                옵션명&nbsp;<input type="text" class="o2 id="useOptions[${useOptionCount}].option_name" name="useOptions[${optionCount}].option_name">&nbsp;
-                내용&nbsp;<textarea  class="o2 id="useOptions[${useOptionCount}].option_value" name="useOptions[${optionCount}].option_value"></textarea>&nbsp;
+                옵션명&nbsp;<input type="text" class="o2 id="useOptions[${useOptionCount}].option_name" name="useOptions[${useOptionCount}].option_name">&nbsp;
+                내용&nbsp;<textarea  class="o2 id="useOptions[${useOptionCount}].option_value" name="useOptions[${useOptionCount}].option_value"></textarea>&nbsp;
                 <button type="button" class="addoptionBtn" onclick="removeOption(this)">옵션 제거</button>
             </div>
         `;

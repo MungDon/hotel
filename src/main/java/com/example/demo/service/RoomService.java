@@ -104,7 +104,7 @@ public class RoomService {
 			}
 			option.setOption_type(optionType);
 			option.setRoom_sid(room_sid);
-			roomMapper.addOptions(option);
+			roomMapper.optionUpdate(option);
 		}
 	}
 

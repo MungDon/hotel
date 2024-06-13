@@ -11,6 +11,8 @@ public class ReqReservationAdd {
 	
 	private Long room_sid;				// 객실 번호
 	
+	private Long user_sid;				// 유저 정보
+	
 	private LocalDate start_date;		// 체크인 일자
 	
 	private LocalDate end_date;		// 체크 아웃일자

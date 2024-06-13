@@ -11,6 +11,8 @@ import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.service.ReservationService;
 import com.example.demo.service.RoomService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -23,8 +25,12 @@ public class ReservationController {
 	
 	/*예약 폼*/
 	@GetMapping("")
-	public String reserveForm(@ModelAttribute("reserve")ReqReservationAdd req,Model model) {
-		reservationService.pencilIn(req);
+	public String reserveForm(@ModelAttribute("reserve")ReqReservationAdd req,Model model,HttpServletRequest httpServletRequest) {
+		HttpSession session = httpServletRequest.getSession();
+		Long user_sid = (Long)session.getAttribute("user_sid");
+		
+		reservationService.pencilIn(req,user_sid);
+		
 		ResRoomDetail roomDetail = roomService.roomDetail(req.getRoom_sid());
 		model.addAttribute("roomDetail", roomDetail);
 		return "reserve";
