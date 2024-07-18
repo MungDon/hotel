@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.example.demo.util.CommonUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -62,9 +63,7 @@ public class HotelController {
 	/* 호텔 소개 등록 */
 	@PostMapping("/management/intro/add")
 	public String introAdd(ReqIntroAdd req, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		Long user_sid = (Long) session.getAttribute("user_sid");
-		req.setUser_sid(user_sid);
+		req.setUser_sid(CommonUtils.getSession(request));
 		hotelService.introAdd(req);
 		return "redirect:/hotel/management/intro";
 	}
