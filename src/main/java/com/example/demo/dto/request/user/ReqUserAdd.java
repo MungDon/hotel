@@ -27,5 +27,5 @@ public class ReqUserAdd {
 	@NotBlank(message = "비밀번호 재확인을 적지않았어요~!")
 	private String password2;			// 유저 비밀번호 재확인
 	
-	private final Role role = Role.USER; // 일반 회원 권한
+	private String role;				// 유저 권한
 }

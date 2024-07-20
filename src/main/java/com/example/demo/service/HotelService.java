@@ -120,7 +120,8 @@ public class HotelService {
 	
 	/**
 	 * 에디터 이미지 디코딩 & 파일 저장
-	 * @param base64Code, extension
+	 * @param req
+	 * req = base64Code, imgExtension
 	 */
 	@Transactional
 	public String uploadBase64Img(ReqEdtorImg req) {

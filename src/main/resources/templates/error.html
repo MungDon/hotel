@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<hml xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8">
 <title>Error</title>
 </head>
-
 <body>
-	<div th:if="${errorMessage != null}">
 		<input type="hidden" id="errorMessage" th:value="${errorMessage}"/>
-	</div>
-	<div th:unless="${errorMessage != null}">
-		<input type="hidden" id="errorMessage" th:value="'없는 페이지입니다.'"/>
-	</div>
 <script>
 	const errMsg = document.getElementById("errorMessage");
 	if(errMsg != null){
 		alert(errMsg.value);
 		history.go(-1);
 	}
-	
 </script>
-
 </body>
-
-</html>
+</hml>
