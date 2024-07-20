@@ -4,17 +4,27 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원가입 페이지</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
 	<form class="userJoinForm" action="/user" method="post">
-			이메일<input type="text" name="user_email"></br>
+			이메일<input type="email" id="email" name="user_email"></br>
+			<button type="button" class="emailAuthBtn">이메일 인증</button>
+			<input type="number" id="authCode" placeholder="인증코드를 입력해주세요">
+			<button type="button" class="authCodeChk">인증완료</button>
 			회원명<input type="text" name="user_name"></br>
 			비밀번호<input type="password" name="password"></br>
 			비밀번호 확인<input type="password" name="password2"></br>
 		<input type="submit" value="회원가입">
 		<a href="/user/login">로그인</a>
 	</form>
+
+<script src="/js/common.js"></script>
+<script src="/js/email_auth_chk.js"></script>
+<script src="/js/user_join.js"></script>
 </body>
 
 </html>

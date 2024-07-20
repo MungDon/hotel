@@ -25,7 +25,7 @@
 				<td class="td7"></td>
 				<td class="td8">
 					<div class="user_info" th:if="${session.user_sid != null}">
-						<a href="#" type="button" class="logout" onclick="logout()">로그아웃</a>
+						<a href="#" type="button" class="logout">로그아웃</a>
 					</div>
 					<a href="/user/login" th:if="${session.user_sid == null}">로그인</a>
 				</td>

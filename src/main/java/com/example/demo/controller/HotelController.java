@@ -63,7 +63,7 @@ public class HotelController {
 	/* 호텔 소개 등록 */
 	@PostMapping("/management/intro/add")
 	public String introAdd(ReqIntroAdd req, HttpServletRequest request) {
-		req.setUser_sid(CommonUtils.getSession(request));
+		req.setUser_sid(CommonUtils.getUserSid(request));
 		hotelService.introAdd(req);
 		return "redirect:/hotel/management/intro";
 	}

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.util.CommonUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class UserService {
 	
 	@Transactional
 	public void userAdd(ReqUserAdd add) {
+		CommonUtils.throwCustomExceptionIf(!add.getPassword().equals(add.getPassword2()),ErrorCode.PASS_DONT_MATCH);
 		ResUserChk emailChk = userMapper.userEmailChk(add.getUser_email()); // mapper 에서 회원 email 정보를 가져온것을
 																															// emailChk 라는 이름으로 저장
 		ResUserChk nameChk = userMapper.userNameChk(add.getUser_name()); // mapper 에서 회원명 정보를 가져온것을
@@ -30,20 +32,13 @@ public class UserService {
 		if (nameChk != null) { // 입력한 회원명이 이미 DB에 존재한다면
 			throw new CustomException(ErrorCode.USER_NAME_DUPLICATE); // 강제 예외 발생
 		}
-		if (!add.getPassword().equals(add.getPassword2())) { // 첫번째 비밀번호입력과 재확인 비밀번호 입력이 일치하지않다면
-			throw new CustomException(ErrorCode.PASS_DONT_MATCH); // 강제 예외 발생
-		}
 		userMapper.userAdd(add); // uesrMapper에 유저정보를 전달
 	}
 	
 	@Transactional
 	public ResUserLogin userLogin(ReqUserLogin login) {
 		ResUserLogin chk =  userMapper.userLogin(login);
-		if(chk == null) {
-			throw new CustomException(ErrorCode.NO_ACCOUNT); //입력한 로그인 정보가 없으면 예외발생
-		} else if(!login.getPassword().equals(chk.getPassword())) {
-			throw new CustomException(ErrorCode.NO_PASSWORD);//입력한 비밀번호와 DB의 저장된 비밀번호다 다를시 예외발생
-		}
+		CommonUtils.throwCustomExceptionIf(chk==null, ErrorCode.NO_ACCOUNT);
 		return chk;	// 로그인정보 리턴
 	}
 

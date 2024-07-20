@@ -15,5 +15,5 @@ public class ResUserLogin{
 	
 	private String user_name;
 	
-	private Role role;
+	private String role;
 }

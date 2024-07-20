@@ -10,7 +10,8 @@
 			delete_yn,
 			created_date,
 			modified_date,
-			role
+			role,
+		    emp_number
 		) VALUES (
 			#{user_email},
 			#{user_name},
@@ -18,7 +19,8 @@
 			'N',
 			now(),
 			now(),
-			#{role}
+			#{role},
+		    #{emp_number}
 		)
 	</insert>
 	<!-- 회원 이메일 중복 체크  -->
@@ -39,7 +41,6 @@
 	<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
 		SELECT user_sid,user_email,password,user_name,role
 		FROM	tb_user
-		WHERE	user_email = #{user_email} 
-				
+		WHERE	user_email = #{user_email} AND password = #{password}
 	</select>
 </mapper>
