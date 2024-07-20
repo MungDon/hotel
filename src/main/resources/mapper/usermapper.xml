@@ -23,16 +23,9 @@
 		    #{emp_number}
 		)
 	</insert>
-	<!-- 회원 이메일 중복 체크  -->
-	<select id ="userEmailChk" parameterType = "String" resultType="ResUserChk">
-		SELECT user_email
-		FROM 	tb_user
-		WHERE	
-					user_email = #{user_email}
-	</select>
 	<!-- 회원명 중복 체크  -->
-	<select id ="userNameChk" parameterType = "String" resultType="ResUserChk">
-		SELECT	 user_name
+	<select id ="userNameChk" resultType="int">
+		SELECT	 count(*)
 			FROM 	tb_user
 				WHERE	user_name = #{user_name}
 						

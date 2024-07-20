@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +21,13 @@ public class UserController {
 	private final UserService userService;
 	private final EmailService emailService;
 
+	/*회원가입 폼*/
 	@GetMapping("") // RequsetMapping에 /user 를 써놓은것을 그대로 사용
-	public String userForm() { //회원가입 폼 페이지를 반환하는 메서드
+	public String userAddForm() { //회원가입 폼 페이지를 반환하는 메서드
 		return "userjoin";
 	}
 
+	/*회원가입*/
 	@PostMapping("")// RequsetMapping에 /user 를 써놓은것을 그대로 사용
 	public String userAdd(@Valid ReqUserAdd add) {
 		userService.userAdd(add);						// 사용자의 회원가입 입력데이터를 서비스에 넘겨줌 
@@ -52,7 +55,14 @@ public class UserController {
 		if(session != null) {
 			session.invalidate(); //세션이있다면 삭제
 		}
-		
+	}
+
+	@PostMapping("/send/code")
+	@ResponseBody
+	public ResponseEntity<String> sendEmail(@RequestParam(value = "email")String email){
+		userService.isUser(email);
+		emailService.sendEmail(email);
+		return ResponseEntity.ok("ok");
 	}
 	
 }
