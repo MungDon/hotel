@@ -32,8 +32,14 @@
 	</select>
 	
 	<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
-		SELECT user_sid,user_email,password,user_name,role
+		SELECT *
 		FROM	tb_user
 		WHERE	user_email = #{user_email} AND password = #{password}
+	</select>
+
+	<select id="findUserByEmail" resultType="ResUserInfo">
+		SELECT *
+		FROM	tb_user
+		WHERE	user_email = #{email}
 	</select>
 </mapper>

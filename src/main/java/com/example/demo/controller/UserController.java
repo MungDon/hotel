@@ -5,6 +5,8 @@ import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserLogin;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.UserService;
+import com.example.demo.user.UserValidateStrategy;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -13,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -20,6 +25,7 @@ public class UserController {
 	
 	private final UserService userService;
 	private final EmailService emailService;
+	private final Map<String, UserValidateStrategy> userValidateStrategy;
 
 	/*회원가입 폼*/
 	@GetMapping("") // RequsetMapping에 /user 를 써놓은것을 그대로 사용
@@ -59,8 +65,9 @@ public class UserController {
 
 	@PostMapping("/send/code")
 	@ResponseBody
-	public ResponseEntity<String> sendEmail(@RequestParam(value = "email")String email){
-		userService.isUser(email);
+	public ResponseEntity<String> sendEmail(@RequestParam(value = "email")String email,@RequestParam(value = "action")String action) throws MessagingException, UnsupportedEncodingException {
+		UserValidateStrategy strategy = userValidateStrategy.get(action);
+		strategy.memberChk(email);
 		emailService.sendEmail(email);
 		return ResponseEntity.ok("ok");
 	}

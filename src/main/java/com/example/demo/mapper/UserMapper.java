@@ -1,11 +1,11 @@
 package com.example.demo.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
+import com.example.demo.dto.response.user.ResUserInfo;
 import com.example.demo.dto.response.user.ResUserLogin;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface UserMapper {
@@ -18,6 +18,8 @@ public interface UserMapper {
 
 		 /*로그인*/
 		 ResUserLogin userLogin(ReqUserLogin login);
+
+		 ResUserInfo findUserByEmail(@Param(value = "email")String email);
 
 
 }

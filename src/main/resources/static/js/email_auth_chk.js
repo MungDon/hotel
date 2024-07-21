@@ -1,6 +1,7 @@
 $(function(){
     $(".emailAuthBtn").click(()=>{
         const email = $("#email").val();
+        const action =$("#action").val();
         sendAuthCode(email);
     });
 

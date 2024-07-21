@@ -11,6 +11,7 @@
 
 <body>
 	<form class="userJoinForm" action="/user" method="post">
+			<input type="hidden" id="action" value="signup">
 			이메일<input type="email" id="email" name="user_email"></br>
 			<button type="button" class="emailAuthBtn">이메일 인증</button>
 			<input type="number" id="authCode" placeholder="인증코드를 입력해주세요">
