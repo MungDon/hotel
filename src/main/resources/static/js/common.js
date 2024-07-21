@@ -12,6 +12,7 @@ const isNull = (chkData,errorText) => {
 // ajaxCall에서 사용할 api 주소를 상수로 관리
 const API_LIST = {
     SEND_AUTH_CODE : "/user/send/code",
+    USERNAME_VALIDATE : "/user/name/valid"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

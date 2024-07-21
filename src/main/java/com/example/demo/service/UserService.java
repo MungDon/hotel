@@ -38,7 +38,13 @@ public class UserService {
 	public ResUserInfo findUserByEmail(String email){
 		return userMapper.findUserByEmail(email);
 	}
-
+	
+	/*회원명 중복체크*/
+	@Transactional(readOnly = true)
+	public void userNameValid(String name){
+		int result = userMapper.userNameChk(name);
+		CommonUtils.throwRestCustomExceptionIf(result > 0,ErrorCode.USER_NAME_DUPLICATE);
+	}
 
 
 }

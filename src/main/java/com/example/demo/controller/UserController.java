@@ -71,5 +71,13 @@ public class UserController {
 		emailService.sendEmail(email);
 		return ResponseEntity.ok("ok");
 	}
-	
+
+	/*회원명 중복검사*/
+	@PostMapping("/name/valid")
+	@ResponseBody
+	public ResponseEntity<String> nameValidate(@RequestParam(value = "name")String name){
+		userService.userNameValid(name);
+		return ResponseEntity.ok("사용가능한 회원명입니다.");
+
+	}
 }
