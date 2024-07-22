@@ -78,6 +78,5 @@ public class UserController {
 	public ResponseEntity<String> nameValidate(@RequestParam(value = "name")String name){
 		userService.userNameValid(name);
 		return ResponseEntity.ok("사용가능한 회원명입니다.");
-
 	}
 }

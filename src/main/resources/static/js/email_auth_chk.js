@@ -20,4 +20,8 @@ $(function(){
         };
         ajaxCall(ajaxObj);
     }
+
+    $(".authCodeChk").click(() =>{
+
+    });
 });

@@ -20,10 +20,9 @@ const PAGE_LIST = {
 };
 
 const defaultErrorFn = (errorResponse) => {
-    const error = errorResponse.responseJSON;
-    swalCall("경고",error.message,"error");
+    swalCall("경고",errorResponse.message,"error");
 }
-const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorFn()}) => {
+const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorFn}) => {
     $.ajax({
         url: url,
         method: method,
