@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const user_sid = document.getElementById('user_sid').value;
      const user_role = document.getElementById('user_role').value;
     if (user_sid == null || user_sid == '') {

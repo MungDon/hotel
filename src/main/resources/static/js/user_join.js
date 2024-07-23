@@ -11,8 +11,7 @@ $(function(){
                 $(".nameValidText").text(successText);
             },
             errorFn : (errorResponse) =>{
-                const error = errorResponse.responseJSON;
-                $(".nameValidText").text(error.message);
+                $(".nameValidText").text(errorResponse.message);
             }
         };
         ajaxCall(ajaxObj);

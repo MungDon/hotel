@@ -13,13 +13,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -86,6 +87,7 @@ public class UserController {
 	@PostMapping("/code/valid")
 	@ResponseBody
 	public ResponseEntity<String> codeValid(ReqAuthCodeChk req){
+		log.info("오냐");
 		emailService.validateAuthCode(req);
 		return ResponseEntity.ok("인증되었습니다.");
 	}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link ref="stylesheet" href="/css/modal.css">
+<head>
+    <meta charset="UTF-8">
+    <title>modal</title>
+</head>
+<body>
+    <div id="modalCon" th:fragment="modal">
+        <div class="modalBox">
+            <div class="innerTop">
+                <button type="button" class="cancelBtn">X</button>
+            </div>
+            <div class="innerElement"></div>
+        </div>
+    </div>
+</body>
+</html>
