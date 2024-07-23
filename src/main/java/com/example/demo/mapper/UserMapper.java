@@ -19,7 +19,11 @@ public interface UserMapper {
 		 /*로그인*/
 		 ResUserLogin userLogin(ReqUserLogin login);
 
+		 /*이메일로 회원정보 찾기*/
 		 ResUserInfo findUserByEmail(@Param(value = "email")String email);
 
+		 /*인증 후 상태 변경*/
+		 void changeAuthStatus(@Param(value = "authStatus")String authStatus,@Param(value = "userEmail")String userEmail);
 
+		 
 }

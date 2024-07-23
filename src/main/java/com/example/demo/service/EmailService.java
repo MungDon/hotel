@@ -2,7 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.user.ReqAuthCodeChk;
-import com.example.demo.mapper.EmailMapper;
+import com.example.demo.enums.UserAuthStatus;
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.util.CommonUtils;
 import com.example.demo.util.RedisUtil;
 import jakarta.mail.MessagingException;
@@ -20,9 +21,9 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final EmailMapper emailMapper;
     private final JavaMailSender javaMailSender;
     private final RedisUtil redisUtil;
+    private final UserMapper userMapper;
 
     @Value("${spring.mail.username}")
     private String senderEmail;     // 구글 SMTP 에 등록된 내이메일
@@ -67,6 +68,7 @@ public class EmailService {
     public void validateAuthCode(ReqAuthCodeChk req){
         String findAuthCodeByEmail = redisUtil.getData(req.getEmail());
         CommonUtils.throwRestCustomExceptionIf(!findAuthCodeByEmail.equals(req.getAuthCode()), ErrorCode.FAIL_AUTHENTICATION);
+        userMapper.changeAuthStatus(UserAuthStatus.CODE_CHECKED.getStatus(),req.getEmail());
     }
 
 }

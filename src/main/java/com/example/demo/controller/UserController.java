@@ -87,7 +87,6 @@ public class UserController {
 	@PostMapping("/code/valid")
 	@ResponseBody
 	public ResponseEntity<String> codeValid(ReqAuthCodeChk req){
-		log.info("오냐");
 		emailService.validateAuthCode(req);
 		return ResponseEntity.ok("인증되었습니다.");
 	}

@@ -1,0 +1,71 @@
+.joinMainCon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.joinBox{
+    width: 40%;
+    border-style: none;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.userJoinForm{
+    border-radius: 20px;
+    padding: 50px;
+    border-style: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    box-shadow: 7px 7px 5px #ddd;
+}
+.innerBox > input {
+    width: 60%;
+    border-radius: 20px;
+    background-color: #F8F9FA;
+    padding: 20px;
+    border-style: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+}
+#pw{
+    margin-right: 10px;
+}
+.innerBox{
+    flex-direction: row;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.userJoinForm>.innerBox >input::placeholder {
+    font-size: 15px;
+}
+.userJoinForm>.innerBox >input:focus {
+    outline: none;
+    border-bottom: 2px solid skyblue;
+}
+.emailAuthBtn,.duplicateTestBTn {
+    cursor : pointer;
+    font-size: 13px;
+    margin-left: 40px;
+    width: 30%;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+}
+.joinBtn{
+    margin-top : 20px;
+    cursor : pointer;
+    font-size: 15px;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+}
+.nameValidText{
+    margin-bottom: 15px;
+}

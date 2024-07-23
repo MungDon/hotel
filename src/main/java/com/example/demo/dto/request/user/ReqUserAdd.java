@@ -1,7 +1,5 @@
 package com.example.demo.dto.request.user;
 
-import com.example.demo.enums.Role;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -28,4 +26,6 @@ public class ReqUserAdd {
 	private String password2;			// 유저 비밀번호 재확인
 	
 	private String role;				// 유저 권한
+
+	private String authStatus;
 }

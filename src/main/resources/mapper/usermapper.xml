@@ -11,7 +11,8 @@
 			created_date,
 			modified_date,
 			role,
-		    emp_number
+		    emp_number,
+		    auth_status
 		) VALUES (
 			#{user_email},
 			#{user_name},
@@ -20,9 +21,18 @@
 			now(),
 			now(),
 			#{role},
-		    #{emp_number}
+		    #{emp_number},
+		    #{authStatus}
 		)
 	</insert>
+
+	<!-- 인증코드 인증후 상태변경 -->
+	<update id="changeAuthStatus" >
+		UPDATE 	tb_user
+		SET 	auth_status = #{authStatus}
+		WHERE	user_email = #{userEmail}
+	</update>
+
 	<!-- 회원명 중복 체크  -->
 	<select id ="userNameChk" resultType="int">
 		SELECT	 count(*)
