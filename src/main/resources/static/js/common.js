@@ -12,7 +12,8 @@ const isNull = (chkData,errorText) => {
 // ajaxCall에서 사용할 api 주소를 상수로 관리
 const API_LIST = {
     SEND_AUTH_CODE : "/user/send/code",
-    USERNAME_VALIDATE : "/user/name/valid"
+    USERNAME_VALIDATE : "/user/name/valid",
+    AUTH_CODE_VALIDATE : "/user/code/valid"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
@@ -39,9 +40,11 @@ const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorF
         }
     });
 };
-
+const defaultThenFn = () =>{
+    return;
+}
 /*스윗 알러트 공통*/
-const swalCall = (title, text, icon, thenFn, confirmButtonText = "확인", showCancelButton = false, cancelButtonText = "아니요") => {
+const swalCall = (title, text, icon, thenFn=defaultThenFn, confirmButtonText = "확인", showCancelButton = false, cancelButtonText = "아니요") => {
     Swal.fire({
         title: title,
         html: text,

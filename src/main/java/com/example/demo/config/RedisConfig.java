@@ -32,7 +32,7 @@ public class RedisConfig {
         // redisTemplate 객체를 반환하여 Spring 컨테이너가 이를 관리
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        // Key    로 들어가는 값을 직렬화 시킴
+        // Key 로 들어가는 값을 직렬화 시킴
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         // value 로 들어가는 값을 직렬화 시킴
         return redisTemplate;

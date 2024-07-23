@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.request.user.ReqAuthCodeChk;
+import com.example.demo.dto.request.user.ReqSendAuthCode;
 import com.example.demo.dto.request.user.ReqUserAdd;
 import com.example.demo.dto.request.user.ReqUserLogin;
 import com.example.demo.dto.response.user.ResUserLogin;
@@ -65,11 +67,11 @@ public class UserController {
 
 	@PostMapping("/send/code")
 	@ResponseBody
-	public ResponseEntity<String> sendEmail(@RequestParam(value = "email")String email,@RequestParam(value = "action")String action) throws MessagingException, UnsupportedEncodingException {
-		UserValidateStrategy strategy = userValidateStrategy.get(action);
-		strategy.memberChk(email);
-		emailService.sendEmail(email);
-		return ResponseEntity.ok("ok");
+	public ResponseEntity<String> sendEmail(ReqSendAuthCode req) throws MessagingException, UnsupportedEncodingException {
+		UserValidateStrategy strategy = userValidateStrategy.get(req.getAction());
+		strategy.memberChk(req.getEmail());
+		emailService.sendEmail(req.getEmail());
+		return ResponseEntity.ok("인증코드가 전송되었습니다.");
 	}
 
 	/*회원명 중복검사*/
@@ -78,5 +80,13 @@ public class UserController {
 	public ResponseEntity<String> nameValidate(@RequestParam(value = "name")String name){
 		userService.userNameValid(name);
 		return ResponseEntity.ok("사용가능한 회원명입니다.");
+	}
+
+	/*인증 코드 검사*/
+	@PostMapping("/code/valid")
+	@ResponseBody
+	public ResponseEntity<String> codeValid(ReqAuthCodeChk req){
+		emailService.validateAuthCode(req);
+		return ResponseEntity.ok("인증되었습니다.");
 	}
 }

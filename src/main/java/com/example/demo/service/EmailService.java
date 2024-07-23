@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.Exception.ErrorCode;
+import com.example.demo.dto.request.user.ReqAuthCodeChk;
 import com.example.demo.mapper.EmailMapper;
 import com.example.demo.util.CommonUtils;
 import com.example.demo.util.RedisUtil;
@@ -55,17 +56,17 @@ public class EmailService {
     /*인증코드 생성*/
     public String createAuthCode(){
         StringBuilder authCode = new StringBuilder();
-        Random ramdom = new Random();
+        Random random = new Random();
         for(int i  = 0; i<7; i++) {
-            authCode.append(ramdom.nextInt(10)); //각자리마다  0~9 까지 랜덤숫자로 7자리 생성
+            authCode.append(random.nextInt(10)); //각자리마다  0~9 까지 랜덤숫자로 7자리 생성
         }
         return authCode.toString();
     }
 
     /*인증코드 검증*/
-    public void validateAuthCode(String email, String authCode){
-        String findAuthCodeByEmail = redisUtil.getData(email);
-        CommonUtils.throwRestCustomExceptionIf(!findAuthCodeByEmail.equals(authCode), ErrorCode.FAIL_AUTHENTICATION);
+    public void validateAuthCode(ReqAuthCodeChk req){
+        String findAuthCodeByEmail = redisUtil.getData(req.getEmail());
+        CommonUtils.throwRestCustomExceptionIf(!findAuthCodeByEmail.equals(req.getAuthCode()), ErrorCode.FAIL_AUTHENTICATION);
     }
 
 }
