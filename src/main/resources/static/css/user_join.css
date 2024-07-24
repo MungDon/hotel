@@ -19,9 +19,9 @@
     display: flex;
     flex-direction: column;
     margin: 10px 0;
-    box-shadow: 7px 7px 5px #ddd;
+    box-shadow: 7px 7px 4px #ddd;
 }
-.innerBox > input {
+.innerBox > input ,.empOnlyBox>input{
     width: 60%;
     border-radius: 20px;
     background-color: #F8F9FA;
@@ -40,6 +40,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.emailValidText,.nameValidText,.pwValidText{
     margin-bottom: 15px;
 }
 .userJoinForm>.innerBox >input::placeholder {
@@ -49,7 +51,7 @@
     outline: none;
     border-bottom: 2px solid skyblue;
 }
-.emailAuthBtn,.duplicateTestBTn {
+.emailAuthBtn,.duplicateTestBtn {
     cursor : pointer;
     font-size: 13px;
     margin-left: 40px;
@@ -68,4 +70,36 @@
 }
 .nameValidText{
     margin-bottom: 15px;
+}
+/*모달창*/
+.innerElement{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.innerElement > input {
+    font-size: 20px;
+    width: 100%;
+    margin: 15px 0 15px 0;
+    border-style: none;
+    border-bottom: 2px solid #ddd;
+}
+.authBtnBox{
+    width: 100%;
+}
+.resendBtn, .authCodeChk{
+    cursor : pointer;
+    font-size: 13px;
+    margin-left: 40px;
+    width: 40%;
+    padding: 10px;
+    border-style: none;
+    border-radius: 10px;
+}
+.empChkBox{
+    margin-top  : 15px;
+}
+.empOnlyBox{
+    display: none;
 }

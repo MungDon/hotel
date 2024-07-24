@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
 	<!-- 회원 정보 저장 -->
-	<insert id="userAdd" parameterType="ReqUserAdd" useGeneratedKeys="true" keyColumn="user_sid" keyProperty="user_sid">
+	<insert id="userAdd" parameterType="ReqUserAdd">
 		INSERT INTO tb_user(
 			user_email,
 			user_name,

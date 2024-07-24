@@ -6,6 +6,9 @@ import com.example.demo.Exception.RestCustomException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Collection;
+import java.util.Map;
+
 public class CommonUtils {
 
     /*foreign key 로 이용되는 user 시퀀스 가져오기*/
@@ -27,4 +30,25 @@ public class CommonUtils {
             throw new RestCustomException(errorCode);
         }
     }
+
+    /* null 체크 메서드 */
+    public static boolean isEmpty(Object data) {
+        if (data == null) {
+            return true;
+        }
+        if (data instanceof String && "".equals(data)) {
+            return true;
+        }
+        if (data instanceof Collection && ((Collection<?>) data).isEmpty()) {
+            return true;
+        }
+        if (data instanceof Map && ((Map<?, ?>) data).isEmpty()) {
+            return true;
+        }
+        if (data instanceof Object[] && ((Object[]) data).length == 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

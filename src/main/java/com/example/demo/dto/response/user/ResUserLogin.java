@@ -14,4 +14,5 @@ public class ResUserLogin{
 	private String user_name;
 	
 	private String role;
+
 }

@@ -49,11 +49,13 @@ public class UserController {
 	}
 	@PostMapping("/login")
 	public String userLogin(ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
-		ResUserLogin resLogin =  userService.userLogin(reqLogin);			//서비스로 넘겨받은로그인정보 resLogin 대입
+		ResUserLogin resLogin = userService.userLogin(reqLogin);			//서비스로 넘겨받은로그인정보 resLogin 대입
 		httpServletRequest.getSession().invalidate();						//세션생성전 세션파기
 		HttpSession session = httpServletRequest.getSession(true);	//기존 세션반환
-		session.setAttribute("user_info", resLogin);					//세션에 해당 회원 정보 저장
-		session.setMaxInactiveInterval(1800);								//세션 30분 유지
+		session.setAttribute("user_sid", resLogin.getUser_sid());					//세션에 해당 회원 정보 저장
+		session.setAttribute("user_name", resLogin.getUser_name());					//세션에 해당 회원 정보 저장
+		session.setAttribute("role_user", resLogin.getRole());					//세션에 해당 회원 정보 저장
+		session.setMaxInactiveInterval(1800);							//세션 30분 유지
 		return "redirect:/hotel";
 	}
 	

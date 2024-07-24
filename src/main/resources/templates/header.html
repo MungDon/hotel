@@ -14,9 +14,9 @@
 		<table class="headerTable">
 			<tr>
 				<td class="td1"></td>
-				<td class="td2" th:if="${session.user_sid!=null && session.role_user.getType().equals('STAFF')}"><a
+				<td class="td2" th:if="${session.user_sid!=null && session.role_user =='STAFF'}"><a
 					href="/hotel/management">호텔 관리</a></td>
-				<td class="td2" th:if="${session.user_sid == null || session.role_user.getType().equals('USER')}"></td>
+				<td class="td2" th:if="${session.user_sid == null || session.role_user =='USER'}"></td>
 				<td class="td3"></td>
 				<td class="td4"></td>
 				<td class="td5"></td>
@@ -25,9 +25,9 @@
 				<td class="td7"></td>
 				<td class="td8">
 					<div class="user_info" th:if="${session.user_sid != null}">
-						<a href="#" type="button" class="logout">로그아웃</a>
+						<a href="javascript:void(0)" type="button" class="logout">로그아웃</a>
 					</div>
-					<a href="/user/login" th:if="${session.user_sid == null}">로그인</a>
+					<a href="/user/login" class="login" th:if="${session.user_sid == null}">로그인</a>
 				</td>
 
 				<td class="td9"><a href="#">예약확인</a></td>

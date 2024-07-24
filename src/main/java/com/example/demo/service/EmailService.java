@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -29,6 +30,7 @@ public class EmailService {
     private String senderEmail;     // 구글 SMTP 에 등록된 내이메일
 
     /*이메일 전송*/
+    @Transactional
     public void sendEmail(String email) throws MessagingException, UnsupportedEncodingException {
         if(redisUtil.existData(email)){
             redisUtil.deleteData(email);
@@ -37,13 +39,14 @@ public class EmailService {
     }
 
     /*이메일 폼 생성*/
+    @Transactional
     public MimeMessage createEmail(String email) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         String authCode = createAuthCode();
         String msg = "";
         msg += "<div><h1>MUNG LA HOTEL AUTH CODE</h1>";
         msg += "<h3>아래에 인증코드를 홈페이지에 작성하세요</h3>";
-        msg += "<h5>인증코드 : "+authCode+"</h5>";
+        msg += "<h4>인증코드 : "+authCode+"</h4>";
         message.addRecipients(MimeMessage.RecipientType.TO, email);
         message.setFrom(new InternetAddress(senderEmail,"MUNG LA 운영진"));
         message.setSubject("MUNG LA HOTEL AUTH CODE");
@@ -65,6 +68,7 @@ public class EmailService {
     }
 
     /*인증코드 검증*/
+    @Transactional
     public void validateAuthCode(ReqAuthCodeChk req){
         String findAuthCodeByEmail = redisUtil.getData(req.getEmail());
         CommonUtils.throwRestCustomExceptionIf(!findAuthCodeByEmail.equals(req.getAuthCode()), ErrorCode.FAIL_AUTHENTICATION);

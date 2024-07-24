@@ -1,10 +1,15 @@
 // null 체크공동 메서드
-const isNull = (chkData, errorText) => {
+const isNullAlert = (chkData, errorText) => {
     if (chkData == null || chkData == "") {
         swalCall("경고", errorText, "warning");
     }
 }
-
+const isNull = (chkData) => {
+    if (chkData == null || chkData == "") {
+        return true;
+    }
+    return false;
+}
 // ajaxCall에서 사용할 api 주소를 상수로 관리
 const API_LIST = {
     SEND_AUTH_CODE: "/user/send/code",
@@ -18,6 +23,18 @@ const defaultErrorFn = (errorResponse) => {
     const error = errorResponse.responseJSON;
     swalCall("경고", error.message, "error");
 }
+
+//경고 텍스트 삽입
+const isValidData = (conditionalStatement, TextElement, warningText) => {
+    return new Promise((resolve,reject)=>{
+        if (conditionalStatement) {
+            TextElement.text(warningText).css("color", "red");
+            reject(new Error("is not ValidData"));
+        }
+        resolve();
+    });
+}
+
 const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorFn}) => {
     $.ajax({
         url: url,
