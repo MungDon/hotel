@@ -15,6 +15,7 @@ $(function () {
             },
             successFn: (successText) => {
                 nameValidText.text(successText).css("color", "skyblue");
+                $("#name").prop("readonly",true);
                 nameValidate = true;
             },
             errorFn: (errorResponse) => {
@@ -28,10 +29,13 @@ $(function () {
 
     // 회원가입 폼 유효성 검사
     $(".joinBtn").click(async () => {
+        const empInput = $("#empNum");
+        const empChkBox = $("#empChk");
         const joinForm = $("#joinForm");
         const emailValidText = $(".emailValidText");
         const nameValidText = $(".nameValidText");
         const pwValidText = $(".pwValidText");
+        const empValidText = $(".empValidText");
         const email = $("#email").val();
         const name = $("#name").val();
         const pw = $("#pw").val();
@@ -46,6 +50,7 @@ $(function () {
             await isValidData(pw !== pw2, pwValidText, "비밀번호와 비밀번호재확인이 일치하지 않습니다.");
             await isValidData(!emailPattern.test(email), emailValidText, "이메일 형식에 맞게 작성해주세요.");
             await isValidData(!passwordPattern.test(pw), pwValidText, "비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
+            await isValidData(empChkBox.is(":checked")&&isNull(empInput),empValidText,"사원번호를 입력하세요");
         } catch (error) {
             return;
         }
@@ -58,6 +63,7 @@ $(function () {
             $(".empOnlyBox").css("display","block");
         }else{
             $(".empOnlyBox").css("display","none");
+            $(".empValidText").empty();
         }
     });
 

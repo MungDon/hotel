@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.user.ReqAuthCodeChk;
-import com.example.demo.enums.UserAuthStatus;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.util.CommonUtils;
 import com.example.demo.util.RedisUtil;
@@ -10,6 +9,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -68,11 +68,10 @@ public class EmailService {
     }
 
     /*인증코드 검증*/
-    @Transactional
+    @Transactional(readOnly = true)
     public void validateAuthCode(ReqAuthCodeChk req){
         String findAuthCodeByEmail = redisUtil.getData(req.getEmail());
         CommonUtils.throwRestCustomExceptionIf(!findAuthCodeByEmail.equals(req.getAuthCode()), ErrorCode.FAIL_AUTHENTICATION);
-        userMapper.changeAuthStatus(UserAuthStatus.CODE_CHECKED.getStatus(),req.getEmail());
     }
 
 }

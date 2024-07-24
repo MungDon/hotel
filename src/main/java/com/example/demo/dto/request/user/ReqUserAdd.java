@@ -30,12 +30,13 @@ public class ReqUserAdd {
 	
 	private String role;				// 유저 권한
 
-	private String authStatus;			// 인증 상태
+	private String auth_status;			// 인증 상태
 
-	private String emp_number;
+	private String emp_number;			// 사원 번호
 
-	public void setUserState(String emp_number){
-		this.role =  CommonUtils.isEmpty(emp_number) ? Role.USER.getType() : Role.STAFF_SIGNUP_AWAITING.getType();
-		this.authStatus =UserAuthStatus.CODE_UNCHECKED.getStatus();
+	// 회원가입시 하드 삽입 데이터
+	public void setUserState(){
+		this.role =  CommonUtils.isEmpty(this.emp_number) ? Role.USER.getType() : Role.STAFF_SIGNUP_AWAITING.getType();
+		this.auth_status = UserAuthStatus.CODE_CHECKED.getStatus().equals(this.auth_status) ? UserAuthStatus.CODE_CHECKED.getStatus() : UserAuthStatus.CODE_UNCHECKED.getStatus();
 	}
 }

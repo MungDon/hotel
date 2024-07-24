@@ -63,6 +63,7 @@ $(function () {
                 const thenFn = () => {
                     closeModal(modal);
                     authStatus = true;
+                    $("#authStatus").val("인증됨");
                     emailValidText.text("이메일 인증 완료!").css("color", "skyblue");
                 }
                 swalCall("성공", "인증되었습니다.", "success", thenFn);

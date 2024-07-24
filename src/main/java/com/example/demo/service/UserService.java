@@ -21,7 +21,7 @@ public class UserService {
 	@Transactional
 	public void userAdd(ReqUserAdd add) {
 		CommonUtils.throwCustomExceptionIf(!add.getPassword().equals(add.getPassword2()),ErrorCode.PASS_DONT_MATCH);
-		add.setUserState(add.getEmp_number());
+		add.setUserState();
 		userMapper.userAdd(add); // userMapper 에 유저정보를 전달
 	}
 	

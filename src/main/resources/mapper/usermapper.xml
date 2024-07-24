@@ -22,7 +22,7 @@
 			now(),
 			#{role},
 		    #{emp_number},
-		    #{authStatus}
+		    #{auth_status}
 		)
 	</insert>
 
@@ -41,13 +41,13 @@
 						
 	</select>
 	
-	<select id="userLogin" parameterType = "ReqUserLogin" resultType ="ResUserLogin">
+	<select id="userLogin" parameterType = "ReqUserLogin" resultType ="com.example.demo.dto.response.user.ResUserLogin">
 		SELECT *
 		FROM	tb_user
 		WHERE	user_email = #{user_email} AND password = #{password}
 	</select>
 
-	<select id="findUserByEmail" resultType="ResUserInfo">
+	<select id="findUserByEmail" resultType="com.example.demo.dto.response.user.ResUserInfo">
 		SELECT *
 		FROM	tb_user
 		WHERE	user_email = #{email}
