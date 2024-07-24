@@ -3,38 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/header.css">
-<link rel="stylesheet" href="/css/roomlist.css">
-<link rel="stylesheet" href="/css/hotelmain.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/roomlist.css">
+	<link rel="stylesheet" href="/css/hotelmain.css">
+	<link rel="stylesheet" href="/css/imgsilde.css">
+	<link rel="stylesheet" href="/css/roomdetail.css">
 </head>
 <body>
 	<!-- 검색(예약) 데이터 hidden -->
-	<input type="hidden" name="start_date" th:value="${search.start_date}"/>
-	<input type="hidden" name="end_date" th:value="${search.end_date}"/>
-	<input type="hidden" name="adult_cnt" th:value="${search.adult_cnt}"/>
-	<input type="hidden" name="child_cnt" th:value="${search.child_cnt}"/>
+	<input type="hidden" class="start_date" th:value="${search.start_date}"/>
+	<input type="hidden" class="end_date" th:value="${search.end_date}"/>
+	<input type="hidden" class="adult_cnt" th:value="${search.adult_cnt}"/>
+	<input type="hidden" class="child_cnt" th:value="${search.child_cnt}"/>
 	<!-- 세션체크 -->
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
+	<input type="hidden" th:value="${session.role_user}" id="role_user" />
 	<!-- 헤더 -->
-	<div th:if="${session.user_sid == null ||session.role_user.getType().equals('USER')}">
+	<div th:if="${session.user_sid == null ||session.role_user == 'USER'}">
 		<header th:replace="~{header :: header}"></header>
 	</div>
-	<div th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">
+	<div th:if="${session.user_sid != null && (session.role_user =='STAFF'||session.role_user =='ADMIN')}">
 		<header th:replace="~{manageheader :: manageheader}"></header>
 	</div>
-	<br><br><br>
 	<!-- 객실 검색 -->
 	<div th:replace="~{reserveSearch :: reserveSearch}"></div>
 	<!-- 메인 -->
 	<main class="main">
 		<div class="container">
 			<div class="manageBtns">
-				<div class="roomAdd" th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">
-					<a href="/room/add">방 등록</a>
-				</div>
 				<div>
-					<button type="button" class="deleteList"th:if="${session.user_sid != null && session.role_user.getType().equals('STAFF')}">휴지통</button>
+					<button type="button" class="deleteList"th:if="${session.user_sid != null && (session.role_user == 'STAFF'||session.role_user == 'ADMIN')}">휴지통</button>
 				</div>
 			</div>
 				<table class="listTable" th:if="${!#lists.isEmpty(rooms)}"
@@ -62,7 +64,7 @@
 								</div>
 							</div>
 							<br>
-							<div class="detilText">
+							<div class="detailText">
 								<a  class="roomDetail"  th:attr="data-room-sid=${rooms.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${rooms.room_sid}" src="/images/plus.png"></a>
 							</div>
 						</td>
@@ -83,7 +85,8 @@
 			</div>
 		</div>
 			<!-- 페이징 -->
-	<div class="paging"></div>
+		<div class="paging"></div>
+		<div th:replace="~{modal :: modal}"></div>
 	</main>
 	
 	<!-- 휴지통 목록 -->
@@ -91,9 +94,12 @@
 	
 	<!-- 스크립트 -->
 	<script src="/js/common.js"></script>
+	<script src="/js/modal.js"></script>
 	<script src="/js/sessionChk.js"></script>
 	<script src="/js/roomList.js"></script>
 	<script src="/js/reserveSearch.js"></script>
+	<script src="/js/imgslide.js"></script>
+	<script src="/js/roomDetail.js"></script>
 <script th:inline="javascript">
 $(function() {
 	pagination();

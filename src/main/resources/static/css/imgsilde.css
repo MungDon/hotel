@@ -27,7 +27,7 @@
     height: 500px;
 }
 .slider img{
-    width: 600px;
+    width: 500px;
     height: 500px;
 }
 .slider::before {
@@ -41,7 +41,7 @@
 
 .slider_btn a {
     position: absolute;
-    top: 55%;
+    top: 65%;
     transform: translateY(-50%);
     width: 40px;
     height: 40px;

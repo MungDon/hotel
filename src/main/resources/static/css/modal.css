@@ -14,6 +14,7 @@
 .modalBox{
     position: relative;
     width: 500px;
+    height: 500px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -21,6 +22,8 @@
     background: #ffffff;
     border-radius: 20px;
     top: 50%;
+    overflow: auto;
+    scrollbar-width : none;
 }
 .innerTop{
     width: 100%;

@@ -1,31 +1,20 @@
 package com.example.demo.controller;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.RoomService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,10 +46,10 @@ public class RoomController {
 	
 	/*방 상세보기*/
 	@GetMapping("/detail/{room_sid}")
-	public String roomDetail(@PathVariable(value = "room_sid")Long room_sid ,Model model,@ModelAttribute("search") SearchDto search) {
+	@ResponseBody
+	public ResponseEntity<ResRoomDetail> roomDetail(@PathVariable(value = "room_sid")Long room_sid) {
 		ResRoomDetail detail = roomService.roomDetail(room_sid);
-		model.addAttribute("detail", detail);
-		return "roomdetail";
+		return ResponseEntity.ok(detail);
 	}
 	/*방 수정페이지 폼*/
 	@GetMapping("/update/{room_sid}")

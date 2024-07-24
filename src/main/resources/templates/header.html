@@ -14,7 +14,7 @@
 		<table class="headerTable">
 			<tr>
 				<td class="td1"></td>
-				<td class="td2" th:if="${session.user_sid!=null && session.role_user =='STAFF'}"><a
+				<td class="td2" th:if="${session.user_sid!=null && (session.role_user =='STAFF'||session.role_user =='ADMIN')}"><a
 					href="/hotel/management">호텔 관리</a></td>
 				<td class="td2" th:if="${session.user_sid == null || session.role_user =='USER'}"></td>
 				<td class="td3"></td>

@@ -5,13 +5,14 @@
 	<title>회원가입 페이지</title>
 	<link rel="stylesheet" href="/css/modal.css">
 	<link rel="stylesheet" href="/css/user_join.css">
+	<link rel="stylesheet" href="/css/header.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body>
-	<header></header>
+	<header th:replace="~{header :: header}"></header>
 	<main class="joinMainCon">
 		<div class="joinBox">
 			<form class="userJoinForm" action="/user" method="post" id="joinForm">
