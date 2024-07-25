@@ -1,15 +1,19 @@
-$(function () {
+$(document).ready(function () {
     const innerElement = $(".innerElement"); // 모달 내용박스
     const modal = $("#modalCon");     // 모달창
     const user_sid = $("#user_sid");
     const role_user = $("#role_user");
+
+    let reserveObj = {};
     $(".roomDetail").click((event) => { // 클래스가 roomDetail인것을 클릭하면     //필요한 데이터
+        console.log("상세보기동작");
         const room_sid = $(event.target).data('room-sid'); // 해당 요소의 data 를가져옴
         const startDate = $(".start_date").val();
         const endDate = $(".end_date").val();
         const adultCnt = $(".adult_cnt").val();
         const childCnt = $(".child_cnt").val();
-        const reserveObj = {
+        reserveObj = {
+            user_sid : user_sid,
             startDate: startDate,
             endDate: endDate,
             adultCnt: adultCnt,
@@ -19,13 +23,13 @@ $(function () {
             url: API_LIST.ROOM_DETAIL + room_sid,
             method: "get",
             successFn: (detailData) => {
-                createRoomDetailModal(detailData, reserveObj);
+                createRoomDetailModal(detailData);
             }
         }
         ajaxCall(ajaxObj);
     });
 
-    const createRoomDetailModal = (detailData, reserveData) => {
+    const createRoomDetailModal = (detailData) => {
         innerElement.empty();
         innerElement.append(
             `<div class='roomName'>
@@ -62,8 +66,8 @@ $(function () {
                     </div>
                 </div>
                 <div class="slider_btn">
-                    <a href="#" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
-                    <a href="#" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+                    <a href="javascript:void(0);" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
+                    <a href="javascript:void(0);" class="next" role="button" aria-label="오른쪽 이미지">next</a>
                 </div>
             </div>
         </section>
@@ -96,30 +100,32 @@ $(function () {
             `<button type="button" class="removeRoom" value="${detailData.room_sid}">삭제하기</button>
                 <button type="button" class="updateRoom" value="${detailData.room_sid}">수정하기</button>` :
             ''}
-            <button type="button" class="closeBtn" onclick="backList()">닫기</button>
-            <button type="button" class="reserveBtn" value="${user_sid}">예약하기</button>
+            <button type="button" class="closeBtn">닫기</button>
+            <button type="button" class="reserveBtn" value="${detailData.room_sid}">예약하기</button>
         </div>
     `;
         innerElement.append(modalContent);
         openModal(modal);
-    }
+    };
 
-    // 이벤트 위임으로 동적 요소에 이벤트 핸들러 적용
-    $(document).on("click", ".slider_btn a", function(event) {
-        event.preventDefault();
+    $("document").on("click", ".slider_btn a", (event)=> {
+        console.log("이미지 슬라이드");
+        block_btn();
         const sliders = $(".slider");
         const sliderCount = sliders.length;
         const slideWidth = sliders.first().outerWidth();
-        let currentIndex = Math.abs(parseInt($(".slider_inner").css('transform').split(',')[4]) / slideWidth);
+        const sliderInner = $(".slider_inner");
+        const currentTransform = sliderInner.css('transform');
+        const currentIndex = currentTransform === 'none' ? 0 : Math.abs(parseInt(currentTransform.split(',')[4]) / slideWidth);
 
-
-        if ($(this).hasClass("prev")) {
-            currentIndex = (currentIndex - 1 + sliderCount) % sliderCount;
+        let newIndex = 0;
+        if ($(event.target).hasClass("prev")) {
+            newIndex = (currentIndex - 1 + sliderCount) % sliderCount;
         } else {
-            currentIndex = (currentIndex + 1) % sliderCount;
+            newIndex = (currentIndex + 1) % sliderCount;
         }
 
-        gotoSlider(currentIndex);
+        gotoSlider(newIndex);
     });
 
     const gotoSlider = (index) => {
@@ -130,46 +136,65 @@ $(function () {
         sliderInner.css('transform', newTransform);
     };
 
-// 휴지통에 있는 객실 복구
-    $(document).on("click", ".slider_btn a", function(event) {
-        event.preventDefault();
-        const sliders = $(".slider");
-        const sliderCount = sliders.length;
-        const slideWidth = sliders.first().outerWidth();
-        const sliderInner = $(".slider_inner");
-        const currentTransform = sliderInner.css('transform');
-        const currentIndex = currentTransform === 'none' ? 0 : Math.abs(parseInt(currentTransform.split(',')[4]) / slideWidth);
+    const block_btn = () => {
+        $('.slider_btn a').css({pointerEvents: 'none'});
+        setTimeout(function () {
+            $('.slider_btn a').css({pointerEvents: 'auto'});
+        }, 800);
+    };
 
-        let newIndex = 0;
-        if ($(this).hasClass("prev")) {
-            newIndex = (currentIndex - 1 + sliderCount) % sliderCount;
-        } else {
-            newIndex = (currentIndex + 1) % sliderCount;
-        }
-
-        gotoSlider(newIndex);
+    $(document).on("click", ".closeBtn, .cancelBtn", () => {
+        innerElement.empty();
+        closeModal(modal);
     });
 
-// 휴지통에 있는 객실 영구 삭제
-    $(document).on("click", ".removeRoom", function () {
-        let room_sid = $(this).val();
-        if (!confirm("방을 영구 삭제하시겠습니까?")) {
-            return false;
-        }
-        ajaxCall("/room/remove", "DELETE", {room_sid}, function () {
-            alert("방이 영구 삭제되었습니다.");
-            location.href = "/room";
-        }, function () {
-            alert("방 영구 삭제 실패 운영자에게 문의해주세요");
-        })
+    $(document).on("click", ".removeRoom", (event) => {
+        let room_sid = $(event.target).val();
+        const thenFn = (result) => {
+            if (result.isConfirmed) {
+                const ajaxObj = {
+                    url: API_LIST.PERMANENTLY_DELETE,
+                    method: "delete",
+                    param: { room_sid },
+                    successFn: () => {
+                        swalCall("성공", "객실이 영구 삭제되었습니다.", "success");
+                    }
+                };
+                ajaxCall(ajaxObj);
+            }
+        };
+        swalCall("경고", "지금 삭제하면 영구 삭제됩니다<br>삭제하시겠습니까?", "warning", thenFn, "예", true);
     });
 
-// 예약하기 버튼
-    $(document).on("click", ".reserveBtn", function () {
-        const options = 'width=700, height=600, top=50, left=50, scrollbars=no';
-        window.open('', '_self', options);
+    $(document).on("click", ".reserveBtn", (event) => {
+        reserveObj.user_sid = user_sid.val(); // 값을 할당
+        reserveObj.room_sid = $(event.target).val();
+        const ajaxObj = {
+            url: API_LIST.RESERVE_ROOM_FORM,
+            method: "get",
+            param: reserveObj,
+            successFn: () => {
+                createReserveForm(reserveObj);
+            }
+        };
+        ajaxCall(ajaxObj); // AJAX 요청 호출 추가
     });
-
+    const createReserveForm = (reserveObj) => {
+        const personCntHTML =
+            `<div className="personCount">
+                ${reserveObj.adultCnt != null ? `<span>${reserveObj.adultCnt} 성인</span>` : ''}
+                ${reserveObj.childCnt != null ? `<span>${reserveObj.childCnt} 소아</span>` : ''}
+            </div>`;
+        innerElement.append(
+            `<div class="reserveInfo">
+                <div class="reserveDate">
+                    <span>${reserveObj.start_date}</span>
+                    <span>${reserveObj.end_date}</span>
+                </div>
+                ${personCntHTML}
+            </div>`
+        )
+    }
 // 휴지통
     $(document).on("click", ".deleteList", function () {
         $(".deleteRooms").toggle();

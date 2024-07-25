@@ -7,5 +7,5 @@ import com.example.demo.dto.request.reservation.ReqReservationAdd;
 @Mapper
 public interface ReservationMapper {
 
-	void pencilIn(ReqReservationAdd req);
+	int pencilIn(ReqReservationAdd req);
 }

@@ -1,19 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.request.reservation.ReqReservationAdd;
+import com.example.demo.service.ReservationService;
+import com.example.demo.service.RoomService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.example.demo.dto.request.reservation.ReqReservationAdd;
-import com.example.demo.dto.response.room.ResRoomDetail;
-import com.example.demo.service.ReservationService;
-import com.example.demo.service.RoomService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/reserve")
@@ -25,15 +21,10 @@ public class ReservationController {
 	
 	/*예약 폼*/
 	@GetMapping("")
-	public String reserveForm(@ModelAttribute("reserve")ReqReservationAdd req,Model model,HttpServletRequest httpServletRequest) {
-		HttpSession session = httpServletRequest.getSession();
-		Long user_sid = (Long)session.getAttribute("user_sid");
-		
-		reservationService.pencilIn(req,user_sid);
-		
-		ResRoomDetail roomDetail = roomService.roomDetail(req.getRoom_sid());
-		model.addAttribute("roomDetail", roomDetail);
-		return "reserve";
+	@ResponseBody
+	public ResponseEntity<String> reserveForm(@ModelAttribute ReqReservationAdd req) {
+		reservationService.pencilIn(req);
+		return ResponseEntity.ok("ok");
 		
 	}
 }

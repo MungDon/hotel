@@ -1,9 +1,9 @@
 package com.example.demo.dto.request.reservation;
 
-import java.time.LocalDate;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -22,5 +22,5 @@ public class ReqReservationAdd {
 	private int child_cnt;					// 어린이 수
 	
 	private String reserve_status;		// 예약상태
-	
+
 }

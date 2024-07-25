@@ -13,7 +13,7 @@ public class CommonUtils {
 
     /*foreign key 로 이용되는 user 시퀀스 가져오기*/
     public static Long getUserSid(HttpServletRequest request){
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Long user_sid = (Long) session.getAttribute("user_sid");
         return user_sid;
     }
