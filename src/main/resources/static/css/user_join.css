@@ -73,26 +73,33 @@
 }
 /*모달창*/
 .innerElement{
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .innerElement > input {
-    font-size: 20px;
+    font-size: 27px;
     width: 100%;
+    height: 10%;
     margin: 15px 0 15px 0;
     border-style: none;
     border-bottom: 2px solid #ddd;
 }
+.innerElement > input::placeholder {
+    font-size: 20px;
+}
 .authBtnBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
 }
 .resendBtn, .authCodeChk{
     cursor : pointer;
     font-size: 13px;
-    margin-left: 40px;
-    width: 40%;
+    width: 49%;
     padding: 10px;
     border-style: none;
     border-radius: 10px;

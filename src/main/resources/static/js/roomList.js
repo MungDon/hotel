@@ -1,4 +1,4 @@
-    $(function(){
+$(function(){
     const innerElement = $(".innerElement"); // 모달 내용박스
     const modal = $("#modalCon");     // 모달창
     const user_sid = $("#user_sid");
@@ -107,7 +107,7 @@
         openModal(modal);
     };
 
-    $(document).off("click").on("click", ".next", (event)=> {
+    $(document).on("click", ".moveBtn", (event)=> {
         console.log("이미지 슬라이드");
         block_btn();
         const sliders = $(".slider");
@@ -136,116 +136,116 @@
     };
 
     const block_btn = () => {
-        $('.moveBtn').css({pointerEvents: 'none'});
+        $('.slider_btn button').css({pointerEvents: 'none'});
         setTimeout(function () {
-            $('.moveBtn').css({pointerEvents: 'auto'});
+            $('.slider_btn button').css({pointerEvents: 'auto'});
         }, 800);
     };
 
-   /* $(document).on("click", ".closeBtn, .cancelBtn", () => {
-        innerElement.empty();
-        closeModal(modal);
-    });
+     $(document).on("click", ".closeBtn, .cancelBtn", () => {
+         innerElement.empty();
+         closeModal(modal);
+     });
 
-    $(document).on("click", ".removeRoom", (event) => {
-        let room_sid = $(event.target).val();
-        const thenFn = (result) => {
-            if (result.isConfirmed) {
-                const ajaxObj = {
-                    url: API_LIST.PERMANENTLY_DELETE,
-                    method: "delete",
-                    param: { room_sid },
-                    successFn: () => {
-                        swalCall("성공", "객실이 영구 삭제되었습니다.", "success");
-                    }
-                };
-                ajaxCall(ajaxObj);
-            }
-        };
-        swalCall("경고", "지금 삭제하면 영구 삭제됩니다<br>삭제하시겠습니까?", "warning", thenFn, "예", true);
-    });
+     $(document).on("click", ".removeRoom", (event) => {
+         let room_sid = $(event.target).val();
+         const thenFn = (result) => {
+             if (result.isConfirmed) {
+                 const ajaxObj = {
+                     url: API_LIST.PERMANENTLY_DELETE,
+                     method: "delete",
+                     param: { room_sid },
+                     successFn: () => {
+                         swalCall("성공", "객실이 영구 삭제되었습니다.", "success");
+                     }
+                 };
+                 ajaxCall(ajaxObj);
+             }
+         };
+         swalCall("경고", "지금 삭제하면 영구 삭제됩니다<br>삭제하시겠습니까?", "warning", thenFn, "예", true);
+     });
 
-    $(document).on("click", ".reserveBtn", (event) => {
-        reserveObj.user_sid = user_sid.val(); // 값을 할당
-        reserveObj.room_sid = $(event.target).val();
-        const ajaxObj = {
-            url: API_LIST.RESERVE_ROOM_FORM,
-            method: "get",
-            param: reserveObj,
-            successFn: () => {
-                createReserveForm(reserveObj);
-            }
-        };
-        ajaxCall(ajaxObj); // AJAX 요청 호출 추가
-    });
-    const createReserveForm = (reserveObj) => {
-        const personCntHTML =
-            `<div className="personCount">
-                ${reserveObj.adultCnt != null ? `<span>${reserveObj.adultCnt} 성인</span>` : ''}
-                ${reserveObj.childCnt != null ? `<span>${reserveObj.childCnt} 소아</span>` : ''}
-            </div>`;
-        innerElement.append(
-            `<div class="reserveInfo">
-                <div class="reserveDate">
-                    <span>${reserveObj.start_date}</span>
-                    <span>${reserveObj.end_date}</span>
-                </div>
-                ${personCntHTML}
-            </div>`
-        )
-    }
-// 휴지통
-    $(document).on("click", ".deleteList", function () {
-        $(".deleteRooms").toggle();
-        let buttonText = $(this).text();
-
-
-        ajaxCall("/room/delete/list", "GET", null, function (data) {
-                let html = "";
-
-                data.forEach(function (room) {
-                    html += `
-	                            <table class="dtable">
-	                                <tbody>
-	                                    <tr>
-	                                        <td>${room.room_info}</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td colspan="2">
-	                                            <img src="/img/${room.thumbnail.img_name}" style="margin-bottom: 20px; width: 400px">
-	                                        </td>
-                                   		</tr>
-	                        `;
-
-                    room.options.forEach(function (option) {
-                        html += `
-	                                <tr>
-	                                    <th>${option.option_name}</th>
-	                                    <td>${option.option_value}</td>
-	                                </tr>
-	                                </tbody>
-	                                </table>
-	                            `;
-                    });
+     $(document).on("click", ".reserveBtn", (event) => {
+         reserveObj.user_sid = user_sid.val(); // 값을 할당
+         reserveObj.room_sid = $(event.target).val();
+         const ajaxObj = {
+             url: API_LIST.RESERVE_ROOM_FORM,
+             method: "get",
+             param: reserveObj,
+             successFn: () => {
+                 createReserveForm(reserveObj);
+             }
+         };
+         ajaxCall(ajaxObj); // AJAX 요청 호출 추가
+     });
+     const createReserveForm = (reserveObj) => {
+         const personCntHTML =
+             `<div className="personCount">
+                 ${reserveObj.adultCnt != null ? `<span>${reserveObj.adultCnt} 성인</span>` : ''}
+                 ${reserveObj.childCnt != null ? `<span>${reserveObj.childCnt} 소아</span>` : ''}
+             </div>`;
+         innerElement.append(
+             `<div class="reserveInfo">
+                 <div class="reserveDate">
+                     <span>${reserveObj.start_date}</span>
+                     <span>${reserveObj.end_date}</span>
+                 </div>
+                 ${personCntHTML}
+             </div>`
+         )
+     }
+ // 휴지통
+     $(document).on("click", ".deleteList", function () {
+         $(".deleteRooms").toggle();
+         let buttonText = $(this).text();
 
 
-                    html += `
-	            			<button type="button" class="removeRoom" value="${room.room_sid}">삭제하기</button>
-	                        <button type="button" class="restore" value="${room.room_sid}">복구하기</button>
-	                           
-	                         `;
+         ajaxCall("/room/delete/list", "GET", null, function (data) {
+                 let html = "";
 
-                });
-                $(".deleteRooms").html(html);
-            },
-            function () {
-                alert("삭제 리스트 조회실패");
-            });
+                 data.forEach(function (room) {
+                     html += `
+                                 <table class="dtable">
+                                     <tbody>
+                                         <tr>
+                                             <td>${room.room_info}</td>
+                                         </tr>
+                                         <tr>
+                                             <td colspan="2">
+                                                 <img src="/img/${room.thumbnail.img_name}" style="margin-bottom: 20px; width: 400px">
+                                             </td>
+                                            </tr>
+                             `;
 
-        if (buttonText === "휴지통") {
-            $(this).text("닫기");
-        } else {
-            $(this).text("휴지통");
-        }
-    });*/
-    });
+                     room.options.forEach(function (option) {
+                         html += `
+                                     <tr>
+                                         <th>${option.option_name}</th>
+                                         <td>${option.option_value}</td>
+                                     </tr>
+                                     </tbody>
+                                     </table>
+                                 `;
+                     });
+
+
+                     html += `
+                             <button type="button" class="removeRoom" value="${room.room_sid}">삭제하기</button>
+                             <button type="button" class="restore" value="${room.room_sid}">복구하기</button>
+
+                              `;
+
+                 });
+                 $(".deleteRooms").html(html);
+             },
+             function () {
+                 alert("삭제 리스트 조회실패");
+             });
+
+         if (buttonText === "휴지통") {
+             $(this).text("닫기");
+         } else {
+             $(this).text("휴지통");
+         }
+     });
+});
