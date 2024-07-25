@@ -1,4 +1,4 @@
-$(document).ready(function () {
+    $(function(){
     const innerElement = $(".innerElement"); // 모달 내용박스
     const modal = $("#modalCon");     // 모달창
     const user_sid = $("#user_sid");
@@ -6,14 +6,13 @@ $(document).ready(function () {
 
     let reserveObj = {};
     $(".roomDetail").click((event) => { // 클래스가 roomDetail인것을 클릭하면     //필요한 데이터
-        console.log("상세보기동작");
+
         const room_sid = $(event.target).data('room-sid'); // 해당 요소의 data 를가져옴
         const startDate = $(".start_date").val();
         const endDate = $(".end_date").val();
         const adultCnt = $(".adult_cnt").val();
         const childCnt = $(".child_cnt").val();
         reserveObj = {
-            user_sid : user_sid,
             startDate: startDate,
             endDate: endDate,
             adultCnt: adultCnt,
@@ -66,8 +65,8 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="slider_btn">
-                    <a href="javascript:void(0);" class="prev" role="button" aria-label="왼쪽 이미지">prev</a>
-                    <a href="javascript:void(0);" class="next" role="button" aria-label="오른쪽 이미지">next</a>
+                    <button type="button" class="prev moveBtn" >prev</button>
+                    <button type="button" class="next moveBtn" >next</button>
                 </div>
             </div>
         </section>
@@ -108,7 +107,7 @@ $(document).ready(function () {
         openModal(modal);
     };
 
-    $("document").on("click", ".slider_btn a", (event)=> {
+    $(document).off("click").on("click", ".next", (event)=> {
         console.log("이미지 슬라이드");
         block_btn();
         const sliders = $(".slider");
@@ -137,13 +136,13 @@ $(document).ready(function () {
     };
 
     const block_btn = () => {
-        $('.slider_btn a').css({pointerEvents: 'none'});
+        $('.moveBtn').css({pointerEvents: 'none'});
         setTimeout(function () {
-            $('.slider_btn a').css({pointerEvents: 'auto'});
+            $('.moveBtn').css({pointerEvents: 'auto'});
         }, 800);
     };
 
-    $(document).on("click", ".closeBtn, .cancelBtn", () => {
+   /* $(document).on("click", ".closeBtn, .cancelBtn", () => {
         innerElement.empty();
         closeModal(modal);
     });
@@ -248,5 +247,5 @@ $(document).ready(function () {
         } else {
             $(this).text("휴지통");
         }
+    });*/
     });
-});
