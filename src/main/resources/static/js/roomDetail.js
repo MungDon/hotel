@@ -64,6 +64,3 @@ $(document).on("click", ".updateRoom", function() {
 		window.opener.location.href = "/room/update/"+room_sid;
 		window.close();
 });
-function backList() {
-	window.close();
-}
