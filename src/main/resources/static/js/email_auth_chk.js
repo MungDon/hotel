@@ -1,6 +1,6 @@
+    let authStatus = false;  // 인증상태
 $(function () {
 
-    let authStatus = false;  // 인증상태
     const modal = $("#modalCon");     // 모달창
     const innerElement = $(".innerElement"); // 모달 내용박스
     const emailValidText = $(".emailValidText"); // 이메일 경고텍스트 박스

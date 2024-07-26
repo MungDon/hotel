@@ -27,17 +27,6 @@ const defaultErrorFn = (errorResponse) => {
     swalCall("경고", error.message, "error");
 }
 
-//경고 텍스트 삽입
-const isValidData = (conditionalStatement, TextElement, warningText) => {
-    return new Promise((resolve,reject)=>{
-        if (conditionalStatement) {
-            TextElement.text(warningText).css("color", "red");
-            reject(new Error("is not ValidData"));
-        }
-        resolve();
-    });
-}
-
 const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorFn}) => {
     $.ajax({
         url: url,

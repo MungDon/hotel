@@ -32,6 +32,7 @@ public class ReqUserAdd {
 
 	private String auth_status;			// 인증 상태
 
+	@Pattern(regexp = "^([0-9]{10})$",message = "사원번호는 10자리 숫자로 입력하세요.")
 	private String emp_number;			// 사원 번호
 
 	// 회원가입시 하드 삽입 데이터
