@@ -13,10 +13,10 @@ $(function(){
         const adultCnt = $(".adult_cnt").val();
         const childCnt = $(".child_cnt").val();
         reserveObj = {
-            startDate: startDate,
-            endDate: endDate,
-            adultCnt: adultCnt,
-            childCnt: childCnt
+            start_date: startDate,
+            end_date: endDate,
+            adult_cnt: adultCnt,
+            child_cnt: childCnt
         }
         const ajaxObj = {
             url: API_LIST.ROOM_DETAIL + room_sid,
@@ -30,11 +30,6 @@ $(function(){
 
     const createRoomDetailModal = (detailData) => {
         innerElement.empty();
-        innerElement.append(
-            `<div class='roomName'>
-					<span>${detailData.room_name}</span>
-				</div>`
-        );
         const imagesHTML = detailData.images.map(img =>
             `<div class="slider" role="group" aria-label="5/5">
             <img src="/img/${img.img_name}">
@@ -57,6 +52,9 @@ $(function(){
         }).join("");
 
         const modalContent = `
+        <div class='roomName'>
+        <span>${detailData.room_name}</span>
+        </div>
         <section class="sliderType">
             <div class="slider_wrap">
                 <div class="slider_img">
@@ -95,8 +93,8 @@ $(function(){
             <span>${detailData.price.toLocaleString()} 원</span>
         </div>
         <div class="detailBtns">
-            ${user_sid != null && role_user == 'STAFF' ?
-            `<button type="button" class="removeRoom" value="${detailData.room_sid}">삭제하기</button>
+            ${user_sid.val() != null &&(role_user.val() == 'STAFF' || role_user.val() == 'ADMIN') ?
+            `<button type="button" class="deleteRoom" value="${detailData.room_sid}">삭제하기</button>
                 <button type="button" class="updateRoom" value="${detailData.room_sid}">수정하기</button>` :
             ''}
             <button type="button" class="closeBtn">닫기</button>
@@ -105,41 +103,6 @@ $(function(){
     `;
         innerElement.append(modalContent);
         openModal(modal);
-    };
-
-    $(document).on("click", ".moveBtn", (event)=> {
-        console.log("이미지 슬라이드");
-        block_btn();
-        const sliders = $(".slider");
-        const sliderCount = sliders.length;
-        const slideWidth = sliders.first().outerWidth();
-        const sliderInner = $(".slider_inner");
-        const currentTransform = sliderInner.css('transform');
-        const currentIndex = currentTransform === 'none' ? 0 : Math.abs(parseInt(currentTransform.split(',')[4]) / slideWidth);
-
-        let newIndex = 0;
-        if ($(event.target).hasClass("prev")) {
-            newIndex = (currentIndex - 1 + sliderCount) % sliderCount;
-        } else {
-            newIndex = (currentIndex + 1) % sliderCount;
-        }
-
-        gotoSlider(newIndex);
-    });
-
-    const gotoSlider = (index) => {
-        const sliders = $(".slider");
-        const sliderInner = $(".slider_inner");
-        const slideWidth = sliders.first().outerWidth();
-        const newTransform = `translateX(-${index * slideWidth}px)`;
-        sliderInner.css('transform', newTransform);
-    };
-
-    const block_btn = () => {
-        $('.slider_btn button').css({pointerEvents: 'none'});
-        setTimeout(function () {
-            $('.slider_btn button').css({pointerEvents: 'auto'});
-        }, 800);
     };
 
      $(document).on("click", ".closeBtn, .cancelBtn", () => {
@@ -166,6 +129,13 @@ $(function(){
      });
 
      $(document).on("click", ".reserveBtn", (event) => {
+         if(isNull(user_sid.val())){
+             const thenFn = () => {
+                 location.href ="/user/login"
+             }
+             swalCall("경고","로그인이 필요한 서비스입니다","warning");
+             return;
+         }
          reserveObj.user_sid = user_sid.val(); // 값을 할당
          reserveObj.room_sid = $(event.target).val();
          const ajaxObj = {
@@ -173,6 +143,7 @@ $(function(){
              method: "get",
              param: reserveObj,
              successFn: () => {
+                 $(".detailBtns").remove();
                  createReserveForm(reserveObj);
              }
          };
@@ -181,19 +152,43 @@ $(function(){
      const createReserveForm = (reserveObj) => {
          const personCntHTML =
              `<div className="personCount">
-                 ${reserveObj.adultCnt != null ? `<span>${reserveObj.adultCnt} 성인</span>` : ''}
-                 ${reserveObj.childCnt != null ? `<span>${reserveObj.childCnt} 소아</span>` : ''}
+                 <span>예약 인원</span>
+                 ${reserveObj.adult_cnt != null ? `<span>${reserveObj.adult_cnt} 성인</span>` : ''}
+                 ${reserveObj.child_cnt != null ? `<span>${reserveObj.child_cnt} 소아</span>` : ''}
              </div>`;
          innerElement.append(
              `<div class="reserveInfo">
+                <h2>예약 정보</h2>
                  <div class="reserveDate">
+                 <span class="StayPeriod">숙박 기간</span>
                      <span>${reserveObj.start_date}</span>
                      <span>${reserveObj.end_date}</span>
                  </div>
                  ${personCntHTML}
+                 <span>위 예약정보로 예약하시겠습니까?</span>
+                 <div class="reserveBtnBox">
+                    <button type="button" class="cancelReserveBtn">취소</button>
+                    <button type="button" class="reserveCompleteBtn" value="${reserveObj.user_sid}">예약완료</button>
+                 </div>
              </div>`
          )
      }
+     $(document).on("click",".cancelReserveBtn", () =>{
+         $(".reserveInfo").remove();
+         innerElement.append(
+             `
+           <div class="detailBtns">
+              ${user_sid.val() != null && (role_user.val() == 'STAFF' || role_user.val() == 'ADMIN') ?
+             `<button type="button" class="deleteRoom" value="${reserveObj.room_sid}">삭제하기</button>
+              <button type="button" class="updateRoom" value="${reserveObj.room_sid}">수정하기</button>` :
+              ''}
+              <button type="button" class="closeBtn">닫기</button>
+              <button type="button" class="reserveBtn" value="${reserveObj.room_sid}">예약하기</button>
+           </div>
+             `
+
+         )
+     });
  // 휴지통
      $(document).on("click", ".deleteList", function () {
          $(".deleteRooms").toggle();

@@ -17,7 +17,8 @@
 			#{end_date},
 			#{adult_cnt},
 			#{child_cnt},
-			#{reserve_stauts})
+			#{reserve_status}
+			)
 	</insert>
 	
 </mapper>

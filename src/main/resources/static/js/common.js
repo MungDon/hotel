@@ -17,7 +17,8 @@ const API_LIST = {
     AUTH_CODE_VALIDATE: "/user/code/valid",
     ROOM_DETAIL : "/room/detail/",
     PERMANENTLY_DELETE : "/room/remove",
-    RESERVE_ROOM_FORM : "/reserve"
+    RESERVE_ROOM_FORM : "/reserve",
+    DELETE_ROOM : "/room/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {};

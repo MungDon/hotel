@@ -1,66 +1,65 @@
-let reserveFormWindow;
-$(document).ready(function() {
-	$('.roomInfo').each(function() {
-		var optionName = $(this).find('.optionName').text().trim();
-		var valueCell = $(this).find('.optionValue');
-		if (optionName === '객실크기') {
-			valueCell.text(valueCell.text().trim() + " ㎡");
-		}
-	});
+$(function () {
+    $(document).on("click", ".moveBtn", (event)=> {
+        console.log("이미지 슬라이드");
+        block_btn();
+        const sliders = $(".slider");
+        const sliderCount = sliders.length;
+        const slideWidth = sliders.first().outerWidth();
+        const sliderInner = $(".slider_inner");
+        const currentTransform = sliderInner.css('transform');
+        const currentIndex = currentTransform === 'none' ? 0 : Math.abs(parseInt(currentTransform.split(',')[4]) / slideWidth);
 
-	$('.reserveBtn').click(function() { 
-		let user_sid = $(this).val();
-		if(user_sid == null || user_sid === ""){
-			alert("로그인이 필요한 서비스입니다.");
-			window.opener.location.href = "/user/login";
-			window.close();
-		}
-		let room_sid = $('input[name="room_sid"]').val();
-		let startDate = $('input[name="start_date"]').val();
-		let endDate = $('input[name="end_date"]').val();
-		let adultCnt = $('input[name="adult_cnt"]').val();
-		let childCnt = $('input[name="child_cnt"]').val();
+        let newIndex = 0;
+        if ($(event.target).hasClass("prev")) {
+            newIndex = (currentIndex - 1 + sliderCount) % sliderCount;
+        } else {
+            newIndex = (currentIndex + 1) % sliderCount;
+        }
 
-		let url = '/reserve?room_sid=' + room_sid + '&start_date=' + startDate + '&end_date=' + endDate + '&adult_cnt=' + adultCnt + '&child_cnt=' + childCnt;
-		let popupWidth = 600;
-		let popupHeight = 500;
-		let popupX = Math.round(window.screenX + (window.outerWidth / 2) - (popupWidth / 2));
-		let popupY = Math.round(window.screenY + (window.outerHeight / 2) - (popupHeight / 2));
-		let options = 'width=' + popupWidth + ', height=' + popupHeight + ', top=' + popupY + ', left=' + popupX;
-		if (reserveFormWindow && !reserveFormWindow.closed) {
-			reserveFormWindow.close();
-		}
+        gotoSlider(newIndex);
+    });
 
-		reserveFormWindow = window.open(url, 'Room Details', options);
-	});
-});
+    const gotoSlider = (index) => {
+        const sliders = $(".slider");
+        const sliderInner = $(".slider_inner");
+        const slideWidth = sliders.first().outerWidth();
+        const newTransform = `translateX(-${index * slideWidth}px)`;
+        sliderInner.css('transform', newTransform);
+    };
 
-$(document).on("click", ".removeRoom", function() {
-	let room_sid = $(this).val();
-	if (!confirm("방을 삭제하시겠습니까?")) {
-		return false;
-	}
-	console.log("체크");
-	$.ajax({
-		type: 'delete',
-		async: false,
-		url: '/room/delete',
-		data: {
-			room_sid: room_sid
-		},
-		success: function() {
-			alert('방이 삭제되었습니다.');
-			window.opener.location.href = "/room";
-			window.close();
+    const block_btn = () => {
+        $('.slider_btn button').css({pointerEvents: 'none'});
+        setTimeout(function () {
+            $('.slider_btn button').css({pointerEvents: 'auto'});
+        }, 800);
+    };
 
-		},
-		error: function() {
-			alert("방 삭제 실패");
-		}
-	});
-});
-$(document).on("click", ".updateRoom", function() {
-		let room_sid = $(this).val();
-		window.opener.location.href = "/room/update/"+room_sid;
-		window.close();
+
+    $(document).on("click", ".deleteRoom", () => {
+        const room_sid = $(this).val();
+        const thenFn = (result) => {
+            if (result.isConfirmed) {
+                const ajaxObj = {
+                    url: API_LIST.DELETE_ROOM,
+                    method: "delete",
+                    param: room_sid,
+                    successFn: () => {
+                        const thenFn = () => {
+                            location.reload();
+                        }
+                        swalCall("성공","삭제되었습니다, <br>삭제된 객실은 휴지통에서 복구가능합니다","success", thenFn);
+                    }
+                }
+                ajaxCall(ajaxObj);
+            } else {
+                return;
+            }
+        };
+        swalCall("경고", "객실을 삭제 하시겠습니까?", "warning", thenFn);
+    });
+    $(document).on("click", ".updateRoom",  () => {
+        let room_sid = $(this).val();
+        location.href = "/room/update/" + room_sid;
+    });
+
 });
