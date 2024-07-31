@@ -151,21 +151,23 @@ $(function(){
      });
      const createReserveForm = (reserveObj) => {
          const personCntHTML =
-             `<div className="personCount">
-                 <span>예약 인원</span>
+             `<div class ="personCount">
+                 <span class="personText">예약 인원</span>
                  ${reserveObj.adult_cnt != null ? `<span>${reserveObj.adult_cnt} 성인</span>` : ''}
                  ${reserveObj.child_cnt != null ? `<span>${reserveObj.child_cnt} 소아</span>` : ''}
              </div>`;
          innerElement.append(
              `<div class="reserveInfo">
                 <h2>예약 정보</h2>
-                 <div class="reserveDate">
-                 <span class="StayPeriod">숙박 기간</span>
-                     <span>${reserveObj.start_date}</span>
+                 <div class="stayPeriodBox">
+                 <span class="stayPeriod">숙박 기간</span>
+                    <div class="reserveDate">
+                     <span>${reserveObj.start_date} ~ </span>
                      <span>${reserveObj.end_date}</span>
+                    </div>
                  </div>
                  ${personCntHTML}
-                 <span>위 예약정보로 예약하시겠습니까?</span>
+                 <span class="askText">위 예약정보로 예약하시겠습니까?</span>
                  <div class="reserveBtnBox">
                     <button type="button" class="cancelReserveBtn">취소</button>
                     <button type="button" class="reserveCompleteBtn" value="${reserveObj.user_sid}">예약완료</button>

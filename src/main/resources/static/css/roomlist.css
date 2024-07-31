@@ -6,6 +6,9 @@
 	justify-content: center;
 	flex-direction: column;
 }
+.reservationForm{
+	margin-top : 80px;
+}
 .container{
 	display:flex;
 	flex-direction: column;
@@ -47,6 +50,7 @@
 .thumbnail{
 	width: 230px;
 	height: 200px;
+	cursor : pointer;
 }
 .deleteList{
 	background-color: #feb602;
@@ -56,6 +60,7 @@
 	border-style : none;
 	width: 100px;
 	height: 50px;
+	cursor : pointer;
 }
 .manageBtns{
 	width : 210px;
@@ -86,6 +91,7 @@
 	align-items : center;
 	justify-content :flex-start;
 	font-size: 13px;
+	cursor : pointer;
 }
 .roomAdd{
 	font-size : 20px;

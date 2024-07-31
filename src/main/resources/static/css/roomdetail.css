@@ -63,7 +63,7 @@
 	justify-content: space-between;
 	align-items: center;
 }
-.detailBtns{
+.detailBtns,.reserveBtnBox{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -78,4 +78,24 @@
 	background-color: #feb602;
 	border-radius: 10px;
 	border-style: none;
+}
+.stayPeriodBox{
+	display: flex;
+	flex-direction: column;
+}
+.stayPeriod,.personText{
+	font-weight: bold;
+}
+.askText{
+	font-size: 20px;
+	font-weight: bold;
+}
+.reserveDate{
+	margin-bottom : 15px;
+}
+.personCount{
+	margin-bottom: 15px;
+}
+.reserveBtnBox{
+	margin-top : 15px;
 }
