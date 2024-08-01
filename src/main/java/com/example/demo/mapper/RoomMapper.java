@@ -1,16 +1,15 @@
 package com.example.demo.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface RoomMapper {
@@ -29,9 +28,6 @@ public interface RoomMapper {
 	
 	/*옵션 수정*/
 	void optionUpdate(ReqOptions options);
-	
-	/*이미지 수정*/
-	void imgUpdate(ReqRoomImg images);
 
 	/*방 목록*/
 	List<ResRoomList> roomList(SearchDto serach);

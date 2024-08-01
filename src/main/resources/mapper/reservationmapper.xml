@@ -20,5 +20,10 @@
 			#{reserve_status}
 			)
 	</insert>
-	
+	<delete id="deleteTemporaryReserve">
+		DELETE
+		FROM tb_reservation
+		WHERE
+		    user_sid = user_sid
+	</delete>
 </mapper>

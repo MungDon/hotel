@@ -35,6 +35,7 @@ $(function () {
     };
 
 
+    // 객실 삭제 (논리) - 객실 상세보기 연결
     $(document).on("click", ".deleteRoom", () => {
         const room_sid = $(this).val();
         const thenFn = (result) => {

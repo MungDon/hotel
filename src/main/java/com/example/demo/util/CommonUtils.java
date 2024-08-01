@@ -3,8 +3,10 @@ package com.example.demo.util;
 import com.example.demo.Exception.CustomException;
 import com.example.demo.Exception.ErrorCode;
 import com.example.demo.Exception.RestCustomException;
+import com.example.demo.dto.response.ResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 
 import java.util.Collection;
 import java.util.Map;
@@ -49,6 +51,13 @@ public class CommonUtils {
             return true;
         }
         return false;
+    }
+    /*ResponseEntity Insert, Delete, Update 작업시 성공 반환*/
+    public static ResponseDTO successResponse(int result, String message, ErrorCode errorCode){
+        if(result != 1){
+            throw new RestCustomException(errorCode);
+        }
+        return ResponseDTO.builder().status(HttpStatus.OK).message(message).build();
     }
 
 }

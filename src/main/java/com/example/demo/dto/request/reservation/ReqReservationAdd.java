@@ -8,7 +8,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ReqReservationAdd {
-	
+
+
 	private Long room_sid;				// 객실 번호
 	
 	private Long user_sid;				// 유저 정보
