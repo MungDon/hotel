@@ -20,6 +20,14 @@
 			#{reserve_status}
 			)
 	</insert>
+
+	<update id="changeReserveStatus">
+		UPDATE 	tb_reservation
+		SET		reserve_status = #{reserveStatus}
+		WHERE
+		    	user_sid = ${user_sid}
+	</update>
+
 	<delete id="deleteTemporaryReserve">
 		DELETE
 		FROM tb_reservation

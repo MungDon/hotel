@@ -77,7 +77,8 @@
 						<td class="listTd3"></td>
 					</tr>
 					<tr class="listTr3">
-						<td class="listTd3" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
+						<td class="listTd3" th:if="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
+						<td class="listTd3" th:unless="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${rooms.price+' 원</b>'}"></td>
 						<td class="listTd2">
 							<button type="button" th:value="${rooms.room_sid}" class="reserveBtn">예약하기</button>
 						</td>

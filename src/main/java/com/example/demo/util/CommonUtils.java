@@ -54,7 +54,7 @@ public class CommonUtils {
     }
     /*ResponseEntity Insert, Delete, Update 작업시 성공 반환*/
     public static ResponseDTO successResponse(int result, String message, ErrorCode errorCode){
-        if(result != 1){
+        if(result < 1){
             throw new RestCustomException(errorCode);
         }
         return ResponseDTO.builder().status(HttpStatus.OK).message(message).build();

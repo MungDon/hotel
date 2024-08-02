@@ -1,19 +1,5 @@
 package com.example.demo.service;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.demo.dto.Pagination;
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
@@ -25,9 +11,20 @@ import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.enums.ImgType;
 import com.example.demo.enums.OptionType;
 import com.example.demo.mapper.RoomMapper;
-
 import lombok.RequiredArgsConstructor;
 import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +52,7 @@ public class RoomService {
 	
 	/* 이미지 실제 저장 */
 	@Transactional
-	private void saveFile(MultipartFile images, String img_type, Long room_sid) throws IOException {
+	public void saveFile(MultipartFile images, String img_type, Long room_sid) throws IOException {
 		if(images != null && !images.isEmpty()) {
 			String originalName = images.getOriginalFilename(); // 입력받은 파일의 원본 이름 저장
 			String uuid = String.valueOf(UUID.randomUUID()); // uuid 생성

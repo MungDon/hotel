@@ -13,4 +13,7 @@ public interface ReservationMapper {
 
 	/*임시예약 삭제*/
 	int deleteTemporaryReserve(@Param(value = "user_sid")Long user_sid);
+	
+	/*예약 상태 변경*/
+	int changeReserveStatus(@Param(value = "user_sid")Long user_sid,@Param(value = "reserveStatus")String reserveStatus);
 }

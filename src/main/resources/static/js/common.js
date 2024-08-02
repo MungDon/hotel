@@ -20,20 +20,27 @@ const API_LIST = {
     RESERVE_ROOM_FORM : "/reserve",
     DELETE_ROOM : "/room/delete",
     DELETE_ROOM_LIST : "/room/delete/list",
-    CANCEL_RESERVATION : "/reserve/cancel"
+    CANCEL_RESERVATION : "/reserve/cancel",
+    PAYMENT_VALID : "/payment/valid",
+    PAYMENT : "/reserve/payment",
+    MAIN_PAGE : "/hotel"
 }
 // 단순 페이지 이동 url 상수
-const PAGE_LIST = {};
+const PAGE_LIST = {
+    LOGIN_PAGE : "/user/login"
+
+};
 
 const defaultErrorFn = (errorResponse) => {
     const error = errorResponse.responseJSON;
     swalCall("경고", error.message, "error");
 }
 
-const ajaxCall = ({url, method, successFn, param = null, errorFn = defaultErrorFn}) => {
+const ajaxCall = ({url, method, successFn,contentType = "application/x-www-form-urlencoded; charset=UTF-8", param = null, errorFn = defaultErrorFn}) => {
     $.ajax({
         url: url,
         method: method,
+        contentType:contentType ,
         data: param,
         success: (data) => {
             if (typeof successFn == "function") {

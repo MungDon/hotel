@@ -25,6 +25,7 @@ public enum ErrorCode {
 	INSERT_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"저장 작업 실패"),
 	UPDATE_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"수정 작업 실패"),
 	DELETE_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"삭제 작업 실패"),
+	RESERVATION_STATUS_CHANGE_FAIL(HttpStatus.INTERNAL_SERVER_ERROR,"예약 상태 변경 실패"),
 	FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"파일 업로드에 실패하였습니다, 다시 시도해도 안될 시 운영자에게 문의 해주세요");
 	
 	private final  HttpStatus status;

@@ -13,12 +13,16 @@ $(function () {
         const endDate = $(".end_date").val();
         const adultCnt = $(".adult_cnt").val();
         const childCnt = $(".child_cnt").val();
+
         reserveObj = {
             start_date: startDate,
             end_date: endDate,
             adult_cnt: adultCnt,
-            child_cnt: childCnt
+            child_cnt: childCnt,
+            room_sid: room_sid,
+            user_sid: user_sid.val()
         }
+
         const ajaxObj = {
             url: API_LIST.ROOM_DETAIL + room_sid,
             method: "get",
@@ -55,7 +59,7 @@ $(function () {
 
         const modalContent = `
         <div class='roomName'>
-        <span>${detailData.room_name}</span>
+          <span>${detailData.room_name}</span>
         </div>
         <section class="sliderType">
             <div class="slider_wrap">
@@ -121,7 +125,9 @@ $(function () {
                 const ajaxObj = {
                     url: API_LIST.PERMANENTLY_DELETE,
                     method: "delete",
-                    param: {room_sid},
+                    param: {
+                        room_sid: room_sid
+                    },
                     successFn: () => {
                         swalCall("성공", "객실이 영구 삭제되었습니다.", "success");
                     }
@@ -136,13 +142,13 @@ $(function () {
     $(document).on("click", ".reserveBtn", (event) => {
         if (isNull(user_sid.val())) {
             const thenFn = () => {
-                location.href = "/user/login"
+                location.href = PAGE_LIST.LOGIN_PAGE
             }
-            swalCall("경고", "로그인이 필요한 서비스입니다", "warning");
+            swalCall("경고", "로그인이 필요한 서비스입니다", "warning", thenFn);
             return;
         }
-        reserveObj.user_sid = user_sid.val(); // 값을 할당
-        reserveObj.room_sid = $(event.target).val();
+
+
         const ajaxObj = {
             url: API_LIST.RESERVE_ROOM_FORM,
             method: "post",
@@ -174,11 +180,15 @@ $(function () {
                     </div>
                  </div>
                  ${personCntHTML}
+                 <div class="buyerName">
+                    <span>예약자 명</span>
+                    <input type="text" id="buyerName">
+                 </div>
                  <div class="phoneNumberBox">
                     <span>핸드폰</span>
                     <span>010</span>
-                    <input type="number" id="firstNum">
-                    <input type="number" id="secondNum">
+                    <input type="text" id="firstNum">
+                    <input type="text" id="secondNum">
                  </div>
                  <span class="askText">위 예약정보로 진행하시겠습니까?</span>
                  <div class="reserveBtnBox">
@@ -189,31 +199,103 @@ $(function () {
         )
     }
 
+    // 주문번호 생성
+    function createReserveNum() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        let orderNum = year + month + day;
+        for (let i = 0; i < 5; i++) {
+            orderNum += Math.floor(Math.random() * 8);
+        }
+        orderNum += user_sid.val();
+        return parseInt(orderNum);
+    }
+
     //예약 진행
-    $(document).on("click",".reserveCompleteBtn", () => {
+    $(document).on("click", ".reserveCompleteBtn", () => {
         const reserveNumber = createReserveNum();
-        const roomName = $(".roomName").text();
-        const price = $(".price span").text();
-        const phone = "010-"+$("#firstNum").val()+"-"+$("#secondNum").val();
+        const roomName = $(".roomName").text().trim();
+        const priceText = $(".price span").text();
+        const price = priceText.replace("원","").trim();
+        const phone = "010-" + $("#firstNum").val() + "-" + $("#secondNum").val();
+        const buyerName = $("#buyerName").val();
+        console.log(reserveNumber);
+        let paymentObj = {
+            reserveNumber: reserveNumber,
+            roomName: roomName,
+            price: price,
+            phone: phone,
+            user_sid: user_sid.val()
+        }
+
         IMP.init("imp41837584");
         IMP.request_pay({
-            pg : "html5_inicis",
-            pay_method : "card",
-            merchant_uid : reserveNumber,
-            name :roomName,
-            amount : price,
-            buyer_tel : phone
+                pg: "html5_inicis.INIpayTest",
+                pay_method: "card",
+                merchant_uid: reserveNumber,
+                name: roomName,
+                amount: price,
+                buyer_name: buyerName,
+                buyer_email: "",
+                buyer_tel: phone,
+                buyer_addr: "서울특별시 강남구 신사동",
+                buyer_postcode: "01181"
+            }, function(response) {
+                alert("콜백 작동함?");
+                console.log("콜백 작동함?");
+                console.log(response);
+                console.log(response.error);
+                console.log(response.success);
+                if (response.success) {
+                    console.log("결제 성공 후 검사 진행");
 
-        });
+                    const imp_uid = response.imp_uid;
+                    const ajaxObj = {
+                        url: API_LIST.PAYMENT_VALID,
+                        method: "post",
+                        param: {
+                            imp_uid: imp_uid
+                        },
+                        successFn: (impData) => {
+                                console.log(impData.response.amount);
+                                console.log(price);
+                            if (price == impData.response.amount) {
+                                console.log("결제 검사 후 결제내역 저장 진행");
+                                const ajaxObj = {
+                                    url: API_LIST.PAYMENT,
+                                    method: "post",
+                                    param: paymentObj,
+                                    successFn: (resultResponse) => {
+                                        const thenFn = () => {
+                                            location.href = PAGE_LIST.MAIN_PAGE;
+                                        }
+                                        swalCall("결제 성공", resultResponse.message, "success", thenFn);
+                                    }
+                                }
+                                ajaxCall(ajaxObj);
+                            } else {
+                                console.log("결제 실패 진행");
+                                swalCall("결제 실패", "결제가 실패되었습니다.", "error");
+                                return;
+                            }
+                        }
+                    }
+                    ajaxCall(ajaxObj);
+                }
+            }
+        );
     });
     // 예약취소
     $(document).on("click", ".cancelReserveBtn", () => {
-        const user_sid = $(this).val();
+        console.log(user_sid.val());
         const ajaxObj = {
             url: API_LIST.CANCEL_RESERVATION,
             method: "delete",
             param: {
-                user_sid: user_sid
+                user_sid: user_sid.val()
             },
             successFn: (response) => {
                 console.log(response.message);
@@ -221,15 +303,16 @@ $(function () {
                 innerElement.append(
                     `<div class="detailBtns">
                         ${user_sid.val() != null && (role_user.val() == 'STAFF' || role_user.val() == 'ADMIN') ?
-                                `<button type="button" class="deleteRoom" value="${reserveObj.room_sid}">삭제하기</button>
+                        `<button type="button" class="deleteRoom" value="${reserveObj.room_sid}">삭제하기</button>
                         <button type="button" class="updateRoom" value="${reserveObj.room_sid}">수정하기</button>` :
-                                ''}
+                        ''}
                         <button type="button" class="closeBtn">닫기</button>
                         <button type="button" class="reserveBtn" value="${reserveObj.room_sid}">예약하기</button>
                     </div>`
                 )
             }
         }
+        ajaxCall(ajaxObj);
     });
 
     // 휴지통

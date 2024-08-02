@@ -7,9 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ReservationType {
 
-	TEMPORARY("1","임시예약"),
-	COMPLETED("2","예약완료");
+	TEMPORARY("임시예약"),
+	COMPLETED("예약완료");
 	
-	private String code;
-	private String name;
+	private String status;
 }
