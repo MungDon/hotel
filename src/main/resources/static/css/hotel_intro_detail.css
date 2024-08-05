@@ -1,0 +1,48 @@
+.introDetailMain{
+    margin-top : 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.introDetailBox{
+    padding: 20px;
+    width: 40%;
+    background-color: #F8F9FA;
+    border-radius: 10px;
+    border-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.detailTop {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.detailInfo,.detailDate{
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.detailBtnBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.detailBtnBox> button{
+    cursor: pointer;
+    color: #8D94A2;
+    border-style: none;
+    border-radius: 10px;
+    background-color: #E9ECEF;
+    font-size : 20px;
+    font-weight  : bold;
+    width: 20%;
+    height: 50px;
+}
+.detailBtnBox> button:hover{
+    background-color: white;
+}

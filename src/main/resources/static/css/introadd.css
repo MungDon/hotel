@@ -25,3 +25,23 @@
 	height: 40px;
 	border-radius: 10px;
 }
+.introTitle{
+	margin-top : 40px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.introTitle > input{
+	width: 66%;
+	border : 1px solid #ddd;
+	height: 40px;
+	font-size: 25px;
+	border-radius: 8px;
+}
+.introTitle > input::placeholder{
+	font-size: 20px;
+}
+.introTitle > input:focus{
+	outline: none;
+	border : 2px solid skyblue;
+}

@@ -36,17 +36,26 @@
 	WHERE img_name = #{fileName}
 </delete>
 
-<select id="findByIntro" resultType="ResIntroList">
+<select id="findByIntro" resultType="com.example.demo.dto.response.hotel.ResIntroList">
 	SELECT 		*
 	FROM		tb_hotel
 	WHERE		delete_yn = 'N'
 	ORDER BY	created_date DESC
 </select>
 
-<select id="findByContent" parameterType="Long" resultType="String">
-	SELECT	content
-	FROM	tb_hotel
+<select id="findIntroDetailByHotelSid" parameterType="Long" resultType="ResIntroDetail">
+	SELECT	TH.*, TU.user_name
+	FROM	tb_hotel as TH
+	left outer join tb_user as TU
+	on TH.user_sid = TU.user_sid
 	WHERE	hotel_sid = #{hotel_sid}
+</select>
+	
+<select id="hotelIntro" resultType="com.example.demo.dto.response.hotel.ResHotelIntro">
+	SELECT 	*
+	FROM	tb_hotel
+	WHERE 	status = '공개'
+
 </select>
 
 <update id="insertHotelSid">

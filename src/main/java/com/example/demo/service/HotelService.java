@@ -5,9 +5,13 @@
  import com.example.demo.dto.request.hotel.ReqEdtorImg;
  import com.example.demo.dto.request.hotel.ReqHotelImg;
  import com.example.demo.dto.request.hotel.ReqIntroAdd;
+ import com.example.demo.dto.response.ResponseDTO;
+ import com.example.demo.dto.response.hotel.ResHotelIntro;
+ import com.example.demo.dto.response.hotel.ResIntroDetail;
  import com.example.demo.dto.response.hotel.ResIntroList;
  import com.example.demo.enums.IntroStatus;
  import com.example.demo.mapper.HotelMapper;
+ import com.example.demo.util.CommonUtils;
  import lombok.RequiredArgsConstructor;
  import org.springframework.beans.factory.annotation.Value;
  import org.springframework.http.HttpHeaders;
@@ -51,6 +55,11 @@ public class HotelService {
 		insertHotelSid(req.getHotel_sid());
 	}
 
+	@Transactional(readOnly = true)
+	public ResIntroDetail introDetail(Long hotel_sid){
+		return hotelMapper.findIntroDetailByHotelSid(hotel_sid);
+	}
+
 	/*이미지 테이블에 호텔소개 시퀀스 삽입*/
 	private void insertHotelSid(Long hotel_sid) {
 		// 저장된 소개글 내용중 이미지 파일명만 가져옴
@@ -63,12 +72,12 @@ public class HotelService {
 	
 	/*소개 등록 내용중 파일명 추출 */
 	private List<String> extractImgFileName(Long hotel_sid) {
-		String content = hotelMapper.findByContent(hotel_sid);
+		ResIntroDetail detail = hotelMapper.findIntroDetailByHotelSid(hotel_sid);
 		   List<String> imgFileNames = new ArrayList<String>();
 	        // 정규 표현식을 사용하여 이미지 파일 이름 추출
 	        String imgPattern = "fileName=([^\"]+)";
 	        Pattern pattern = Pattern.compile(imgPattern);
-	        Matcher matcher = pattern.matcher(content);
+	        Matcher matcher = pattern.matcher(detail.getContent());
 
 	        while (matcher.find()) {
 	            imgFileNames.add(matcher.group(1)); // 첫 번째 캡처 그룹이 이미지 파일 이름
@@ -198,10 +207,15 @@ public class HotelService {
 	 
 	 /*대표 소개글 설정*/
 	 @Transactional
-	 public int changeStatus(Long hotel_sid) {
+	 public ResponseDTO changeStatus(Long hotel_sid) {
 		 hotelMapper.resetStatus();
 		 int result = hotelMapper.changeStatus(hotel_sid);
-		 return result;
+		 return CommonUtils.successResponse(result,"대표글이 설정되었습니다.",ErrorCode.UPDATE_OPERATION_FAILED);
 	 }
-	 
+
+	 @Transactional(readOnly = true)
+	 public ResHotelIntro hotelIntro(){
+		 return hotelMapper.hotelIntro();
+
+	 }
 }

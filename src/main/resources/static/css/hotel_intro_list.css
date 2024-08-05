@@ -21,9 +21,12 @@
 }
 .introTable >.introTr,.introTd{
 	border-top:1px solid #ddd;
+
 }
+
 .introTh{
 	border-bottom: 2px solid black;
+	height: 20%;
 }
 .btn{
 	text-align : right;
@@ -39,4 +42,8 @@
 	font-weight: bold;
 	color : white;
 	
+}
+.introListTitle{
+	font-weight: bolder;
+	cursor : pointer;
 }

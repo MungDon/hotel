@@ -244,11 +244,6 @@ $(function () {
                 buyer_addr: "서울특별시 강남구 신사동",
                 buyer_postcode: "01181"
             }, function(response) {
-                alert("콜백 작동함?");
-                console.log("콜백 작동함?");
-                console.log(response);
-                console.log(response.error);
-                console.log(response.success);
                 if (response.success) {
                     console.log("결제 성공 후 검사 진행");
 
@@ -260,19 +255,20 @@ $(function () {
                             imp_uid: imp_uid
                         },
                         successFn: (impData) => {
-                                console.log(impData.response.amount);
-                                console.log(price);
                             if (price == impData.response.amount) {
                                 console.log("결제 검사 후 결제내역 저장 진행");
+
                                 const ajaxObj = {
                                     url: API_LIST.PAYMENT,
                                     method: "post",
                                     param: paymentObj,
                                     successFn: (resultResponse) => {
-                                        const thenFn = () => {
-                                            location.href = PAGE_LIST.MAIN_PAGE;
+                                        if(resultResponse.isSuccess){
+                                            const thenFn = () => {
+                                                location.href = PAGE_LIST.MAIN_PAGE;
+                                            }
+                                            swalCall("결제 성공", resultResponse.message, "success", thenFn);
                                         }
-                                        swalCall("결제 성공", resultResponse.message, "success", thenFn);
                                     }
                                 }
                                 ajaxCall(ajaxObj);

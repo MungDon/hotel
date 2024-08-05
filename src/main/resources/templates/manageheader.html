@@ -1,52 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/header.css">
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-	<header class="header" th:fragment="manageheader">
-		<table class="headerTable">
-			<tr class="tr2">
-				<td></td>
-				<td><a href="/hotel"><img class="hotelLogo"	th:src="@{/images/hotelLogo.png}"></a></td>
-				<td>
-					<div class="dropdown">
-	      			<button class="dropbtn" style="text-align: center;">호텔 전체 관리</button>
-				      <div class="dropdown-content">
-				        <a th:href="@{/hotel/management/intro}">호텔 소개</a>
-				        <a href="#">패키지 상품</a>
-				        <a href="/room">객실</a>
-						<a href="/room/add">방 등록</a>
-				      </div>
-				    </div>	
-				</td>
-				<td></td>
-				<td>
-					<div class="dropdown">
-	      				<button class="dropbtn"  style="text-align: center;">전체문의</button>
-				     	<div class="dropdown-content">
-					        <a href="#">고객 문의</a>
-					        <a href="#">직원 문의</a>
-				      	</div>
-				    </div>	
-				</td>
-				<td></td>
-				<td>
-					<div class="dropdown">
-	      				<button class="dropbtn"  style="text-align: center;">전체 회원 관리</button>
-				     	<div class="dropdown-content">
-					        <a href="#">일반 고객</a>
-					        <a href="#">멤버십 고객</a>
-					        <a href="#">직원</a>
-				      	</div>
-				    </div>	
-				</td>
-				<td></td>
-			</tr>
-		</table>
-	</header>
+<header class="header" th:fragment="manageheader">
+    <table class="headerTable">
+        <tr class="tr2">
+            <td></td>
+            <td><a href="/hotel/management"><img class="hotelLogo" th:src="@{/images/adminLogo.png}"></a></td>
+            <td>
+                <div class="dropdown">
+                    <button class="dropbtn" style="text-align: center;">호텔 관리</button>
+                    <div class="dropdown-content">
+                        <a href="/hotel">유저 호텔 페이지</a>
+                        <a href="/hotel/management/intro">호텔 소개 목록</a>
+                        <a href="/hotel/management/intro/add">호텔 소개 작성</a>
+                        <a href="#">호텔 배너 관리</a>
+                        <a href="#">호텔 객실 타입 관리</a>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <div class="dropdown">
+                    <button class="dropbtn" style="text-align: center;">객실 관리</button>
+                    <div class="dropdown-content">
+                        <a href="#">객실 목록</a>
+                        <a href="/room/add">객실 등록</a>
+                        <a href="#">예약(객실) 현황</a>
+                        <a href="#">휴지통</a>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <div class="dropdown">
+                    <button class="dropbtn" style="text-align: center;">전체 문의 관리</button>
+                    <div class="dropdown-content">
+                        <a href="#">고객 문의</a>
+                        <a href="#">직원 문의</a>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+            <td>
+                <div class="dropdown">
+                    <button class="dropbtn" style="text-align: center;">전체 회원 관리</button>
+                    <div class="dropdown-content">
+                        <a href="#">고객</a>
+                        <a href="#">직원</a>
+                    </div>
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</header>
 </body>
 </html>

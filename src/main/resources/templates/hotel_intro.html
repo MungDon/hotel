@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>호텔소개</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/hotel_intro.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header th:replace="~{header :: header}"></header>
+    <main class="hotelIntroMain">
+        <div class="hotelIntroTop">
+            <span class="hotelIntroText">MUNG LA HOTEL 소개</span>
+            <hr class="underLine">
+        </div>
+        <div class="hotelIntroBox" th:utext="${intro.content}"></div>
+    </main>
+    <footer th:replace="~{footer :: footer}"></footer>
+</body>
+</html>

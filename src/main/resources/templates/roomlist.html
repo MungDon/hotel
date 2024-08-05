@@ -35,16 +35,11 @@
 	<div th:if="${session.user_sid != null && (session.role_user =='STAFF'||session.role_user =='ADMIN')}">
 		<header th:replace="~{manageheader :: manageheader}"></header>
 	</div>
+	<main class="main">
 	<!-- 객실 검색 -->
 	<div class="searchBox" th:replace="~{reserveSearch :: reserveSearch}"></div>
 	<!-- 메인 -->
-	<main class="main">
 		<div class="container">
-			<div class="manageBtns">
-				<div>
-					<button type="button" class="deleteList"th:if="${session.user_sid != null && (session.role_user == 'STAFF'||session.role_user == 'ADMIN')}">휴지통</button>
-				</div>
-			</div>
 				<table class="listTable" th:if="${!#lists.isEmpty(rooms)}"
 					th:each="rooms:${rooms.list}">
 					<tr class="listTr1">
@@ -55,7 +50,6 @@
 							<h3 th:text="${rooms.room_name}"></h3>
 						</td>
 						<td class="listTd3"></td>
-						<td class="listTd2" rowspan="2"></td>
 					</tr>
 					<tr class="listTr2">
 						<td class="listTd1" rowspan="2">
@@ -79,12 +73,9 @@
 					<tr class="listTr3">
 						<td class="listTd3" th:if="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
 						<td class="listTd3" th:unless="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${rooms.price+' 원</b>'}"></td>
-						<td class="listTd2">
-							<button type="button" th:value="${rooms.room_sid}" class="reserveBtn">예약하기</button>
-						</td>
 					</tr>
 					<tr>
-						<td colspan="4"><br></td>
+						<td colspan="3"><br></td>
 					</tr>
 				</table>
 			<div th:if="${#lists.isEmpty(rooms.list)}">
@@ -95,10 +86,7 @@
 		<div class="paging"></div>
 		<div th:replace="~{modal :: modal}"></div>
 	</main>
-	
-	<!-- 휴지통 목록 -->
-	<div class="deleteRooms"></div>
-	
+
 	<!-- 스크립트 -->
 
 <script th:inline="javascript">

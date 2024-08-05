@@ -1,31 +1,25 @@
 package com.example.demo.controller;
 
-import java.io.IOException;
-import java.util.List;
-
+import com.example.demo.dto.SearchDto;
+import com.example.demo.dto.request.hotel.ReqEdtorImg;
+import com.example.demo.dto.request.hotel.ReqIntroAdd;
+import com.example.demo.dto.response.ResponseDTO;
+import com.example.demo.dto.response.hotel.ResHotelIntro;
+import com.example.demo.dto.response.hotel.ResIntroDetail;
+import com.example.demo.dto.response.hotel.ResIntroList;
+import com.example.demo.service.HotelService;
 import com.example.demo.util.CommonUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.dto.SearchDto;
-import com.example.demo.dto.request.hotel.ReqEdtorImg;
-import com.example.demo.dto.request.hotel.ReqIntroAdd;
-import com.example.demo.dto.response.hotel.ResIntroList;
-import com.example.demo.service.HotelService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,7 +42,7 @@ public class HotelController {
 
 	/* 호텔소개 등록 현황 목록 */
 	@GetMapping("/management/intro")
-	public String hotelIntro(Model model) {
+	public String hotelIntroManagement(Model model) {
 		List<ResIntroList> intros = hotelService.findByIntro();
 		model.addAttribute("intros", intros);
 		return "introlist";
@@ -56,7 +50,7 @@ public class HotelController {
 
 	/* 호텔 소개 등록 폼 */
 	@GetMapping("/management/intro/add")
-	public String introAddForm() {
+	public String introManagementAddForm() {
 		return "introadd";
 	}
 
@@ -66,6 +60,13 @@ public class HotelController {
 		req.setUser_sid(CommonUtils.getUserSid(request));
 		hotelService.introAdd(req);
 		return "redirect:/hotel/management/intro";
+	}
+	/*호텔 소개 상세보기*/
+	@GetMapping("/management/intro/detail/{hotel_sid}")
+	public String introDetail(@PathVariable(value = "hotel_sid")Long hotel_sid,Model model){
+		ResIntroDetail detail =  hotelService.introDetail(hotel_sid);
+		model.addAttribute("detail", detail);
+		return "intro_detail";
 	}
 
 	/* 에디터 사진 업로드 */
@@ -104,12 +105,15 @@ public class HotelController {
 
 	@PostMapping("/select/intro")
 	@ResponseBody
-	public ResponseEntity<String> selectIntro(@RequestParam(value = "chkBoxValue") Long hotel_sid) {
-		int result = hotelService.changeStatus(hotel_sid);
-		if (result == 1) {
-			return ResponseEntity.ok("성공");
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("실패");
+	public ResponseEntity<ResponseDTO> selectIntro(@RequestParam(value = "chkBoxValue") Long hotel_sid) {
+		ResponseDTO response = hotelService.changeStatus(hotel_sid);
+		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping("/intro")
+	public String hotelIntro(Model model){
+		ResHotelIntro intro = hotelService.hotelIntro();
+		model.addAttribute("intro",intro);
+		return "hotel_intro";
+	}
 }

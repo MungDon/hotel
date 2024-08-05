@@ -15,18 +15,27 @@
 	height: 500px;
 }
 .reservationForm{
-	width : 100%;
+	padding: 20px;
+	background-color: #F8F9FA;
+	border-radius: 10px;
+	border-style: none;
+	width : 1210px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
 .rsvSearchTable{
+	padding: 10px;
+	background-color: white;
+	border-radius: 10px;
+	border-style: none;
 	width : 1000px;
 	text-align: center;
-	border-bottom: 1px solid #ddd;
+	box-shadow: 5px 5px 3px #ddd;
 }
 input[type=number]{
+	cursor : pointer;
 	text-align:center;
 	width: 100px;	
 	border-style : none;
@@ -40,20 +49,25 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 .searchBtn{
+	cursor: pointer;
+	color: #8D94A2;
+	border-style: none;
+	border-radius: 10px;
+	background-color: #E9ECEF;
 	font-size : 20px;
 	font-weight  : bold;
-	color : white;
-	background-color: #feb602;
-	border-style : none;
-	border-radius : 8px;
 	width: 120px;
 	height: 50px;
 	margin-left: 50px;
-	cursor : pointer;
+}
+.searchBtn:hover{
+	background-color: white;
 }
 input[type=date]{
+	cursor : pointer;
 	text-align:center;
 	border-style : none;
+
 }
 .bakimg{
 	width: 30px;
@@ -75,7 +89,10 @@ input[type=date]{
 .ptr3{
 	height: 40%;
 }
-.packageTitle{
+.roomTypeTitleBox{
+	width: 1120px;
+}
+.roomTypeTitle{
 	margin-top:100px;
 }
 .membershipImg{

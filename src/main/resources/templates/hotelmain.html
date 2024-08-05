@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="css/footer.css">
-	<link rel="stylesheet" href="css/hotelmain.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/footer.css">
+	<link rel="stylesheet" href="/css/hotelmain.css">
  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/reserveSearch.js"></script>
@@ -21,8 +21,9 @@
 	<!-- 예약검색 -->
 	<div th:replace="~{reserveSearch :: reserveSearch}"></div>
 	<!-- 패키지상품들 -->
-	<div class="packageTitleBox">
-		<h1 class="packageTitle">이달의 패키지</h1>
+	<div class="roomTypeTitleBox">
+		<h1 class="roomTypeTitle">ROOM TYPE</h1>
+		<span class="roomIntroText">고객 모두의 만족을 위한 객실 종류</span>
 	</div>
 	<table class="packageTable">
 		<tr class="ptr1">
@@ -47,15 +48,6 @@
 			</td>
 		</tr>
 	</table>
-	
-	<!-- 멤버쉽 소개 -->
-	<div class="membership">
-		<h1>멤버십 소개</h1>
-	</div>
-		<div class="membershipBox">
-			<img class="membershipImg" src="../images/membership.png">
-			<img class="pointImg" src="../images/point.png">
-		</div>
 </main>
 <footer th:replace="~{footer :: footer}"></footer>
 	<script type="text/javascript" src="/js/common.js"></script>

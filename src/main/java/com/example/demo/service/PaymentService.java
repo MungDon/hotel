@@ -19,6 +19,7 @@ public class PaymentService {
 
     @Transactional
     public ResponseDTO reservePaymentAdd(ReqPaymentInfoAdd req){
+
         reservationService.changeReserveStatus(req.getUser_sid(),ReservationType.COMPLETED.getStatus());
         int result = paymentMapper.reservePaymentAdd(req);
 

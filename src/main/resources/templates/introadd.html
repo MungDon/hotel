@@ -14,7 +14,7 @@
 	<form id="introForm" action="/hotel/management/intro/add" method="post" onsubmit="return sessionChk()">
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid">
 	<input type="hidden" id="user_role" th:value="${session.role_user}"/>
-		<div>대표 제목 : <input type="text" name="title" required="required"/></div>
+		<div class="introTitle"><input type="text" name="title" required="required" placeholder="소개글 제목을 입력하세요"/></div>
 		<div class="editorBox">
 			<div id="editor"></div>
 		</div>

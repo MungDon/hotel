@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>소개글 상세보기</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/hotel_intro_detail.css">
+</head>
+<body>
+    <header th:replace="~{manageheader :: manageheader}"></header>
+    <main class="introDetailMain">
+    <div class="introDetailBox">
+          <div class="detailTop">
+              <div class="detailInfo">
+                <span class="detailTitle" th:text="'제목 : '+${detail.title}"></span>
+                <span class="detailCreatedDate" th:text="'작성일 : '+${#temporals.format(detail.created_date , 'yyyy-MM-dd HH:mm')}"></span>
+              </div>
+              <div class="detailDate">
+                <span class="detailWriter" th:text="'작성자 : '+${detail.user_name}"></span>
+                <span class="detailModifiedDate" th:text="'수정일 : '+${#temporals.format(detail.modified_date , 'yyyy-MM-dd HH:mm')}"></span>
+              </div>
+          </div>
+
+          <div class="detailContent" th:utext="${detail.content}"></div>
+            <div class="detailBtnBox">
+                <button type="button" class="goIntroList">목록으로</button>
+                <button type="button" class="introUpdate" th:value="${detail.hotel_sid}">수정하기</button>
+                <button type="button" class="introDelete" th:value="${detail.hotel_sid}">삭제하기</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

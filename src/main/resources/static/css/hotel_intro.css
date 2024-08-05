@@ -1,0 +1,17 @@
+
+.hotelIntroMain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.hotelIntroTop{
+    margin-top : 20px;
+    width: 90%;
+    font-weight: bolder;
+    font-size: 30px;
+}
+.underLine{
+    width: 100%;
+    border : 2px solid black;
+}

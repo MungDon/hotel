@@ -1,13 +1,14 @@
 package com.example.demo.mapper;
 
-import java.util.List;
-
+import com.example.demo.dto.request.hotel.ReqHotelImg;
+import com.example.demo.dto.request.hotel.ReqIntroAdd;
+import com.example.demo.dto.response.hotel.ResHotelIntro;
+import com.example.demo.dto.response.hotel.ResIntroDetail;
+import com.example.demo.dto.response.hotel.ResIntroList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.example.demo.dto.request.hotel.ReqHotelImg;
-import com.example.demo.dto.request.hotel.ReqIntroAdd;
-import com.example.demo.dto.response.hotel.ResIntroList;
+import java.util.List;
 
 @Mapper
 public interface HotelMapper {
@@ -16,7 +17,7 @@ public interface HotelMapper {
 	void introAdd(ReqIntroAdd req);
 	
 	/*소개등록 내용 가져오기*/
-	String findByContent(@Param(value = "hotel_sid")Long hotel_sid) ;
+	ResIntroDetail findIntroDetailByHotelSid(@Param(value = "hotel_sid")Long hotel_sid);
 	
 	/*소개글 시퀀스삽입*/
 	void insertHotelSid(@Param(value = "imgFileName")String imgFileName, @Param(value = "hotel_sid")Long hotel_sid);
@@ -35,4 +36,7 @@ public interface HotelMapper {
 	
 	/*대표 소개글 설정*/
 	int changeStatus(@Param(value = "hotel_sid")Long hotel_sid);
+
+	/*대표로 설정된 소개글 가져오기*/
+	ResHotelIntro hotelIntro();
 }

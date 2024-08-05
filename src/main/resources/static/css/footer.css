@@ -1,19 +1,19 @@
 @charset "UTF-8";
+body{
+	margin: 0;
+	padding: 0;
+}
 .footer{
 	display : flex;
 	align-items: center;
-	justify-content : center;
+	justify-content : space-around;
 	width : 100%;
+	background-color: rgb(228, 226, 223);
 }
-.footerTable{
-	margin-top : 100px;
-	width: 1400px;
-	text-align: center;
-}
-.ftd1{
-	width: 30%;
+.footerBox{
+	font-size: 15px;
+	color: dimgrey;
 }
 .footerLogo{
-	width: 100px;
-	height: 100px;
+	padding: 10px;
 }

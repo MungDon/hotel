@@ -25,13 +25,13 @@
 		UPDATE 	tb_reservation
 		SET		reserve_status = #{reserveStatus}
 		WHERE
-		    	user_sid = ${user_sid}
+		    	user_sid = #{user_sid}
 	</update>
 
 	<delete id="deleteTemporaryReserve">
 		DELETE
 		FROM tb_reservation
 		WHERE
-		    user_sid = user_sid
+		    user_sid = #{user_sid}
 	</delete>
 </mapper>

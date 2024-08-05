@@ -1,67 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/hotelintro.css"> 
-<link rel="stylesheet" href="/css/header.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/hotel_intro_list.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="/js/common.js"></script>
+    <script src="/js/sessionChk.js"></script>
+    <script src="/js/intro_list.js"></script>
 </head>
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
-	<main class="mainCon">		
-	<input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
-	<input type="hidden" id="user_role" th:value="${session.role_user}"/>
-	<table class="introTable">
-		<tr class="introTr">
-			<th class="introTh">No.</th>
-			<th class="introTh">제목</th>
-			<th class="introTh">등록일</th>
-			<th class="introTh">공개/비공개</th>
-			<th class="introTh">대표 소개글 선택</th>
-		</tr>
-		<tr class="introTr" th:each="intro, loop : ${intros}">
-			<td class="introTd" th:text="${loop.count}"></td>
-			<td class="introTd">
-				<a href="/hotel/intro/detail" th:text="${intro.title}"></a>
-			</td>
-			<td class="introTd" th:text="${#temporals.format(intro.created_date, 'yyyy-MM-dd HH:mm')}"></td>
-			<td class="introTd" th:text="${intro.status}"></td>
-			<td class="introTd">
-				<input type="radio" name="chk" th:value="${intro.hotel_sid}" th:checked="${intro.status == '공개'}" class="chk">
-			</td>
-		</tr>
-	</table>
-	<div class="btn">
-		<button type="button" class="introButton" onclick="location.href='/hotel/management/intro/add'">소개 등록하기</button>
-	</div>		
-	</main>
-	
-	<script src="/js/common.js"></script>
-	<script src="/js/sessionChk.js"></script>
-	<script>
-		$(function(){
-			$(document).on("change", ".chk", function(){
-				if(!confirm('해당 소개글을 대표소개글로 선택하시겠습니까?')){
-					this.checked = false;
-					location.reload();
-					return false;
-				}
-				const chkBoxValue = $(this).val();
-				console.log(chkBoxValue);
-				ajaxCall("/hotel/select/intro", "post", {chkBoxValue}, 
-					function (data){
-						if(data == '성공'){
-							alert('해당 소개글이 대표소개글로 등록되었습니다.');
-							location.reload();
-						}
-					},
-					function (){
-						alert('대표소개글 등록이 실패하였습니다.');
-					}
-				);
-			});
-	});
-	</script>
+<main class="mainCon">
+    <input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
+    <input type="hidden" id="user_role" th:value="${session.role_user}"/>
+    <table class="introTable">
+        <tr class="introTr">
+            <th class="introTh">No.</th>
+            <th class="introTh">제목</th>
+            <th class="introTh">등록일</th>
+            <th class="introTh">공개/비공개</th>
+            <th class="introTh">대표 소개글 선택</th>
+        </tr>
+        <tr class="introTr" th:each="intro, loop : ${intros}">
+            <td class="introTd" th:text="${loop.count}"></td>
+            <td class="introTd">
+                <span class="introListTitle" th:data-intro-sid="${intro.hotel_sid}" th:text="${intro.title}"></span>
+            </td>
+            <td class="introTd" th:text="${#temporals.format(intro.created_date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td class="introTd" th:text="${intro.status}"></td>
+            <td class="introTd">
+                <input type="radio" name="chk" th:value="${intro.hotel_sid}" th:checked="${intro.status == '공개'}"
+                       class="chk">
+            </td>
+        </tr>
+    </table>
+    <div class="btn">
+        <button type="button" class="introButton" th:value="${intros.size()}">소개 등록하기</button>
+    </div>
+</main>
+
+
+<script>
+
+</script>
 </body>
 </html>

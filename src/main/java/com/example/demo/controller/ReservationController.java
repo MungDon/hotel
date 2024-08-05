@@ -24,7 +24,6 @@ public class ReservationController {
 	@PostMapping("")
 	@ResponseBody
 	public ResponseEntity<ResponseDTO> temporaryReserve(@ModelAttribute ReqReservationAdd req) {
-		log.info("asd"+req.getRoom_sid());
 		ResponseDTO response =  reservationService.pencilIn(req);
 		return ResponseEntity.ok(response);
 	}

@@ -23,11 +23,14 @@ const API_LIST = {
     CANCEL_RESERVATION : "/reserve/cancel",
     PAYMENT_VALID : "/payment/valid",
     PAYMENT : "/reserve/payment",
-    MAIN_PAGE : "/hotel"
+    SELECT_INTRO : "/hotel/select/intro"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
-    LOGIN_PAGE : "/user/login"
+    LOGIN_PAGE : "/user/login",
+    MAIN_PAGE : "/hotel",
+    INTRO_ADD : "/hotel/management/intro/add",
+    INTRO_DETAIL : "/hotel/management/intro/detail/"
 
 };
 

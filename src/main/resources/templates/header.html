@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>header</title>
 <link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 	<header class="header" th:fragment="header">
@@ -14,8 +15,9 @@
 		<table class="headerTable">
 			<tr>
 				<td class="td1"></td>
-				<td class="td2" th:if="${session.user_sid!=null && (session.role_user =='STAFF'||session.role_user =='ADMIN')}"><a
-					href="/hotel/management">호텔 관리</a></td>
+				<td class="td2" th:if="${session.user_sid!=null && (session.role_user =='STAFF'||session.role_user =='ADMIN')}">
+					<a class="headerLink" href="/hotel/management">호텔 관리</a>
+				</td>
 				<td class="td2" th:if="${session.user_sid == null || session.role_user =='USER'}"></td>
 				<td class="td3"></td>
 				<td class="td4"></td>
@@ -23,25 +25,23 @@
 				<td class="td6" rowspan="2"><a href="/hotel"><img class="hotelLogo"
 						src="../images/hotelLogo.png"></a></td>
 				<td class="td7"></td>
-				<td class="td8">
+				<td class="td8"></td>
+				<td class="td9">
 					<div class="user_info" th:if="${session.user_sid != null}">
-						<a href="/user/logout" class="logout">로그아웃</a>
+						<a href="/user/logout" class="logout headerLink">로그아웃</a>
 					</div>
-					<a href="/user/login" class="login" th:if="${session.user_sid == null}">로그인</a>
-				</td>
-
-				<td class="td9"><a href="#">예약확인</a></td>
+						<a href="/user/login" class="login headerLink" th:if="${session.user_sid == null}">로그인</a></a></td>
 			</tr>
 			<tr class="tr2">
 				<td class="utd1"></td>
-				<td><a
-					href="#">호텔 소개</a></td>
+				<td><a class="headerLink"
+					href="/hotel/intro">호텔 소개</a></td>
 				<td></td>
-				<td><a href="/room">객실예약</a></td>
+				<td><a class="headerLink" href="/room">객실예약</a></td>
 				<td></td>
 				<td></td>
-				<td><a href="#">고객 문의</a></td>
-				<td><a href="#">멤버십 패키지</a></td>
+				<td><a class="headerLink" href="#">고객 문의</a></td>
+				<td><a class="headerLink" href="#">예약확인</a></td>
 			</tr>
 		</table>
 
