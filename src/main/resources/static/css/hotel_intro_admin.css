@@ -7,7 +7,7 @@
 }
 .introDetailBox{
     padding: 20px;
-    width: 40%;
+    width: 80%;
     background-color: #F8F9FA;
     border-radius: 10px;
     border-style: none;
@@ -28,9 +28,9 @@
     justify-content: space-between;
 }
 .detailBtnBox{
-    width: 100%;
+    width: 90%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 .detailBtnBox> button{
     cursor: pointer;
@@ -40,9 +40,19 @@
     background-color: #E9ECEF;
     font-size : 20px;
     font-weight  : bold;
-    width: 20%;
+    width: 15%;
     height: 50px;
 }
 .detailBtnBox> button:hover{
     background-color: white;
+}
+.detailContentBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin :20px 0;
+    border-style: none;
+    background-color: white;
+    border-radius: 10px;
 }

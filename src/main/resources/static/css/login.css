@@ -13,14 +13,13 @@
 	justify-content: center;	
 }
 .loginForm{
-	background-color:#FEFDFD;
+	background-color: #F8F9FA;
 	align-items: center;	
 	justify-content: center;
 	display: flex;
 	flex-direction: column;
 	width  : 450px;
 	height : 400px;
-	border : 1px solid #f1f1f1;
 	border-radius: 10px;
 }
 .loginText{
@@ -39,9 +38,13 @@
 	font-size : 17px;
 	width: 300px;
 	height : 40px;
-	border : 1px solid #f1f1f1;
 	border-radius: 10px;
-	margin-bottom : 10px;
+	border-style: none;
+	margin-bottom : 5px;
+}
+.inputElement> input::placeholder{
+	padding-left : 10px;
+	color : darkgray;
 }
 .btns{
 	display : flex;
@@ -51,14 +54,18 @@
 	margin-top : 20px;
 }
 .btns > button{
-	font-weight : bold;
+	cursor: pointer;
+	color: #8D94A2;
+	border-style: none;
+	border-radius: 10px;
+	background-color: #E9ECEF;
 	font-size : 20px;
-	color : white;
-	background-color : #feb602;
+	font-weight  : bold;
 	height : 40px;
-	border-style : none;
-	border-radius : 10px;
 	width: 145px;
+}
+.btns > button:hover{
+	background-color: white;
 }
 .welcomeImg{
 	width: 200px;

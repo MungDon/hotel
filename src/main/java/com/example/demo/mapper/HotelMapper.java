@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.request.hotel.ReqHotelImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
+import com.example.demo.dto.request.hotel.ReqIntroUpdate;
 import com.example.demo.dto.response.hotel.ResHotelIntro;
 import com.example.demo.dto.response.hotel.ResIntroDetail;
 import com.example.demo.dto.response.hotel.ResIntroList;
@@ -21,7 +22,11 @@ public interface HotelMapper {
 	
 	/*소개글 시퀀스삽입*/
 	void insertHotelSid(@Param(value = "imgFileName")String imgFileName, @Param(value = "hotel_sid")Long hotel_sid);
-	
+
+	/*소개글 수정*/
+	void introUpdate(ReqIntroUpdate req);
+
+	int introDelete(@Param(value = "hotel_sid")Long hotel_sid);
 	/*에디터 이미지 등록*/
 	void uploadFile(ReqHotelImg img);
 	
@@ -29,7 +34,7 @@ public interface HotelMapper {
 	int deleteFile(@Param(value="fileName")String fileName);
 	
 	/*소개 글 목록*/
-	List<ResIntroList> findByIntro();
+	List<ResIntroList> findIntro();
 	
 	/*상태 리셋*/
 	void resetStatus();

@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>소개글 상세보기</title>
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/hotel_intro_detail.css">
+    <link rel="stylesheet" href="/css/hotel_intro_admin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/intro_detail.js"></script>
 </head>
 <body>
     <header th:replace="~{manageheader :: manageheader}"></header>
@@ -20,8 +23,9 @@
                 <span class="detailModifiedDate" th:text="'수정일 : '+${#temporals.format(detail.modified_date , 'yyyy-MM-dd HH:mm')}"></span>
               </div>
           </div>
-
-          <div class="detailContent" th:utext="${detail.content}"></div>
+            <div class="detailContentBox">
+            <div class="detailContent" th:utext="${detail.content}"></div>
+            </div>
             <div class="detailBtnBox">
                 <button type="button" class="goIntroList">목록으로</button>
                 <button type="button" class="introUpdate" th:value="${detail.hotel_sid}">수정하기</button>

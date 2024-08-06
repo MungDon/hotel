@@ -36,14 +36,14 @@
 	WHERE img_name = #{fileName}
 </delete>
 
-<select id="findByIntro" resultType="com.example.demo.dto.response.hotel.ResIntroList">
+<select id="findIntro" resultType="com.example.demo.dto.response.hotel.ResIntroList">
 	SELECT 		*
 	FROM		tb_hotel
 	WHERE		delete_yn = 'N'
 	ORDER BY	created_date DESC
 </select>
 
-<select id="findIntroDetailByHotelSid" parameterType="Long" resultType="ResIntroDetail">
+<select id="findIntroDetailByHotelSid" parameterType="Long" resultType="com.example.demo.dto.response.hotel.ResIntroDetail">
 	SELECT	TH.*, TU.user_name
 	FROM	tb_hotel as TH
 	left outer join tb_user as TU
@@ -57,6 +57,14 @@
 	WHERE 	status = '공개'
 
 </select>
+<update id="introUpdate" parameterType="ReqIntroUpdate">
+	UPDATE 	tb_hotel
+	SET 	title = #{title},
+	     	status = #{status},
+	     	content = #{content}
+	WHERE
+	    	hotel_sid = #{hotel_sid}
+</update>
 
 <update id="insertHotelSid">
 	UPDATE 	tb_hotel_img
@@ -73,5 +81,13 @@
 	UPDATE	tb_hotel
 	SET		status = '공개'
 	WHERE	hotel_sid = #{hotel_sid}
+</update>
+
+<update id="introDelete" >
+	UPDATE 	tb_hotel
+	SET 	delete_yn = 'Y'
+	WHERE
+	    	hotel_sid = #{hotel_sid}
+
 </update>
 </mapper>

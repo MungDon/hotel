@@ -1,10 +1,10 @@
  package com.example.demo.service;
 
- import com.example.demo.Exception.CustomException;
  import com.example.demo.Exception.ErrorCode;
  import com.example.demo.dto.request.hotel.ReqEdtorImg;
  import com.example.demo.dto.request.hotel.ReqHotelImg;
  import com.example.demo.dto.request.hotel.ReqIntroAdd;
+ import com.example.demo.dto.request.hotel.ReqIntroUpdate;
  import com.example.demo.dto.response.ResponseDTO;
  import com.example.demo.dto.response.hotel.ResHotelIntro;
  import com.example.demo.dto.response.hotel.ResIntroDetail;
@@ -42,22 +42,41 @@ public class HotelService {
 	
 	private final HotelMapper hotelMapper;
 	
+	/*소개글 상태 처리*/
+	@Transactional
+	public String introStatusProvider(String status){
+		if(status.equals(IntroStatus.SELECTED_INTRODUCTION.getCode())) {
+			hotelMapper.resetStatus();
+		}
+		return IntroStatus.statusCodeToName(status);
+	}
 
 	 /*호텔 소개 등록*/
 	@Transactional
 	public void introAdd(ReqIntroAdd req) {
-		if(req.getStatus().equals(IntroStatus.SELECTED_INTRODUCTION.getCode())) {
-			hotelMapper.resetStatus();
-		}
-		String statusName = IntroStatus.statusCodeToName(req.getStatus());
+		String statusName = introStatusProvider(req.getStatus());
 		req.setStatus(statusName);
 		hotelMapper.introAdd(req);
 		insertHotelSid(req.getHotel_sid());
 	}
-
+	/*소개글 상세보기*/
 	@Transactional(readOnly = true)
 	public ResIntroDetail introDetail(Long hotel_sid){
 		return hotelMapper.findIntroDetailByHotelSid(hotel_sid);
+	}
+
+	/*소개글 수정*/
+	@Transactional
+	public void introUpdate(ReqIntroUpdate req){
+		String statusName = introStatusProvider(req.getStatus());
+		req.setStatus(statusName);
+		hotelMapper.introUpdate(req);
+	}
+
+	@Transactional
+	public ResponseDTO introDelete(Long hotel_sid){
+		int result = hotelMapper.introDelete(hotel_sid);
+		return CommonUtils.successResponse(result,"소개글이 삭제되었습니다",ErrorCode.DELETE_OPERATION_FAILED);
 	}
 
 	/*이미지 테이블에 호텔소개 시퀀스 삽입*/
@@ -171,37 +190,31 @@ public class HotelService {
 	 
 	 /*에디터 작성취소 시 이미지 삭제*/
 	 @Transactional
-	 public int deleteImg(List<String> fileNames) {
+	 public ResponseDTO deleteImg(List<String> fileNames) {
 		 int result = 0;
-		 int count = 0;
-		 
+
 		 for(String fileName : fileNames) {
 			 result += hotelMapper.deleteFile(fileName);
-			 count++;
 		 }
-		 if(result == count) {
+		 if(result == fileNames.size()) {
+			 result = 1;
 			 removeImgFromPath(fileNames);
-			 
-		 }else {
-			 throw new CustomException(ErrorCode.DB_DELETE_FAILED);
 		 }
-		 return result ;
+		 return CommonUtils.successResponse(result,"이미지 삭제완료", ErrorCode.DELETE_OPERATION_FAILED);
 	 }
 	 
 	 /*실제 경로에서 이미지 삭제*/
 	 private void removeImgFromPath(List<String> fileNames) {
 		 for(String fileName : fileNames) {
 			 File file = new File(path, fileName);
-			 if(file != null) {
-				 file.delete();
-			 }
+			 file.delete();
 		 }
 	 }
 	 
 	 /*에디터 내용 불러오기*/
 	 @Transactional(readOnly = true)
-	 public List<ResIntroList> findByIntro() {
-		 List<ResIntroList> intros =  hotelMapper.findByIntro();
+	 public List<ResIntroList> findIntro() {
+		 List<ResIntroList> intros =  hotelMapper.findIntro();
 		 return intros;
 	 }
 	 
@@ -213,6 +226,7 @@ public class HotelService {
 		 return CommonUtils.successResponse(result,"대표글이 설정되었습니다.",ErrorCode.UPDATE_OPERATION_FAILED);
 	 }
 
+	/* 유저 페이지 소개글 불러오기*/
 	 @Transactional(readOnly = true)
 	 public ResHotelIntro hotelIntro(){
 		 return hotelMapper.hotelIntro();

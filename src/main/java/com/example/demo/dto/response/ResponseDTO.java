@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @Builder
 public class ResponseDTO {
 
-    private boolean isSuccess;  // 성공 여부
+    private boolean success;  // 성공 여부
     private HttpStatus status;  // 상태코드
     private String message;     // 응답 메세지
 }

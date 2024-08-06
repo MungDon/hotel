@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
+import com.example.demo.dto.request.hotel.ReqIntroUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.hotel.ResHotelIntro;
 import com.example.demo.dto.response.hotel.ResIntroDetail;
@@ -11,7 +12,6 @@ import com.example.demo.service.HotelService;
 import com.example.demo.util.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +43,7 @@ public class HotelController {
 	/* 호텔소개 등록 현황 목록 */
 	@GetMapping("/management/intro")
 	public String hotelIntroManagement(Model model) {
-		List<ResIntroList> intros = hotelService.findByIntro();
+		List<ResIntroList> intros = hotelService.findIntro();
 		model.addAttribute("intros", intros);
 		return "introlist";
 	}
@@ -51,7 +51,7 @@ public class HotelController {
 	/* 호텔 소개 등록 폼 */
 	@GetMapping("/management/intro/add")
 	public String introManagementAddForm() {
-		return "introadd";
+		return "intro_add";
 	}
 
 	/* 호텔 소개 등록 */
@@ -61,12 +61,40 @@ public class HotelController {
 		hotelService.introAdd(req);
 		return "redirect:/hotel/management/intro";
 	}
+	/* 소개글 작성 취소 */
+	@PostMapping("/management/intro/add/cancel")
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> writeCancel(@RequestBody List<String> fileNames) {
+		ResponseDTO response = hotelService.deleteImg(fileNames);
+		return ResponseEntity.ok(response);
+	}
+	
 	/*호텔 소개 상세보기*/
 	@GetMapping("/management/intro/detail/{hotel_sid}")
 	public String introDetail(@PathVariable(value = "hotel_sid")Long hotel_sid,Model model){
 		ResIntroDetail detail =  hotelService.introDetail(hotel_sid);
 		model.addAttribute("detail", detail);
 		return "intro_detail";
+	}
+	/*소개글 업데이트*/
+	@GetMapping("/management/intro/update/{hotel_sid}")
+	public String introUpdateForm(@PathVariable(value = "hotel_sid")Long hotel_sid,Model model){
+		ResIntroDetail detail =  hotelService.introDetail(hotel_sid);
+		model.addAttribute("detail", detail);
+		return "intro_update";
+	}
+	@PostMapping("/management/intro/update")
+	public String introUpdate(ReqIntroUpdate req){
+		hotelService.introUpdate(req);
+		return "redirect:/hotel/management/intro";
+	}
+
+	/*소개글 삭제*/
+	@DeleteMapping("/management/intro/delete")
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> introDelete(@RequestParam(value = "hotel_sid")Long hotel_sid){
+		ResponseDTO response = hotelService.introDelete(hotel_sid);
+		return ResponseEntity.ok(response);
 	}
 
 	/* 에디터 사진 업로드 */
@@ -92,15 +120,13 @@ public class HotelController {
 		String fileName = hotelService.uploadBase64Img(req);
 		return fileName;
 	}
-
-	@PostMapping("/file/cancel")
+	
+	/*에디터 내 사진 삭제*/
+	@PostMapping("/delete/img")
 	@ResponseBody
-	public ResponseEntity<String> writeCancel(@RequestBody List<String> fileNames) {
-		int result = hotelService.deleteImg(fileNames);
-		if (result == 1) {
-			return ResponseEntity.ok("등록현황페이지로 넘어갑니다");
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("실패");
+	public ResponseEntity<ResponseDTO> deleteEditorImg(@RequestBody List<String> removeImages){
+		ResponseDTO response = hotelService.deleteImg(removeImages);
+		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/select/intro")
@@ -109,7 +135,7 @@ public class HotelController {
 		ResponseDTO response = hotelService.changeStatus(hotel_sid);
 		return ResponseEntity.ok(response);
 	}
-
+	/* 유저 페이지 소개글 불러오기*/
 	@GetMapping("/intro")
 	public String hotelIntro(Model model){
 		ResHotelIntro intro = hotelService.hotelIntro();

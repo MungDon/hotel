@@ -23,15 +23,20 @@ const API_LIST = {
     CANCEL_RESERVATION : "/reserve/cancel",
     PAYMENT_VALID : "/payment/valid",
     PAYMENT : "/reserve/payment",
-    SELECT_INTRO : "/hotel/select/intro"
+    SELECT_INTRO : "/hotel/select/intro",
+    LOGOUT : "/user/logout",
+    INTRO_ADD_CANCEL : "/management/intro/add/cancel",
+    INTRO_DELETE : "/hotel/management/intro/delete",
+    DELETE_IMG : "/hotel/delete/img"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
     LOGIN_PAGE : "/user/login",
     MAIN_PAGE : "/hotel",
     INTRO_ADD : "/hotel/management/intro/add",
-    INTRO_DETAIL : "/hotel/management/intro/detail/"
-
+    INTRO_DETAIL : "/hotel/management/intro/detail/",
+    INTRO_LIST : "/hotel/management/intro",
+    INTRO_UPDATE : "/hotel/management/intro/update/",
 };
 
 const defaultErrorFn = (errorResponse) => {
@@ -76,4 +81,18 @@ const swalCall = (title, text, icon, thenFn = defaultThenFn, confirmButtonText =
         }
     });
 };
-
+$(function(){
+    $(".logout").click(() => {
+        const ajaxObj = {
+            url : API_LIST.LOGOUT,
+            method : "delete",
+            successFn : () => {
+                const thenFn = () => {
+                    location.href=PAGE_LIST.MAIN_PAGE;
+                }
+                swalCall("로그아웃","로그아웃되었습니다.","success",thenFn);
+            }
+        }
+        ajaxCall(ajaxObj);
+    });
+})

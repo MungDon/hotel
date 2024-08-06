@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .editorBox{
 	margin-top : 50px;
-	width: 1000px;	
+	width: 80%;
 }
 #editor{
 	height: 700px;
@@ -15,7 +15,7 @@
 .Btns{
 	display: flex;
 	justify-content : flex-end;
-	width : 1000px;
+	width: 80%;
 	margin-top : 40px;
 }
 .Btns>button{
@@ -24,6 +24,9 @@
 	width: 100px;
 	height: 40px;
 	border-radius: 10px;
+	font-weight: bold;
+	font-size: 18px;
+	color: #8D94A2;
 }
 .introTitle{
 	margin-top : 40px;
@@ -32,7 +35,7 @@
 	justify-content: center;
 }
 .introTitle > input{
-	width: 66%;
+	width: 80%;
 	border : 1px solid #ddd;
 	height: 40px;
 	font-size: 25px;

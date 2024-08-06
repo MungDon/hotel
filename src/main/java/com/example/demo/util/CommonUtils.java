@@ -57,7 +57,7 @@ public class CommonUtils {
         if(result < 1){
             throw new RestCustomException(errorCode);
         }
-        return ResponseDTO.builder().status(HttpStatus.OK).message(message).isSuccess(true).build();
+        return ResponseDTO.builder().status(HttpStatus.OK).message(message).success(true).build();
     }
 
 }

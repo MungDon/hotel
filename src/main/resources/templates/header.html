@@ -4,8 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>header</title>
-<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/header.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
 	<header class="header" th:fragment="header">
@@ -28,9 +29,9 @@
 				<td class="td8"></td>
 				<td class="td9">
 					<div class="user_info" th:if="${session.user_sid != null}">
-						<a href="/user/logout" class="logout headerLink">로그아웃</a>
+						<button type="button" class="logout headerLink">로그아웃</button>
 					</div>
-						<a href="/user/login" class="login headerLink" th:if="${session.user_sid == null}">로그인</a></a></td>
+						<a href="/user/login" class="login headerLink" th:if="${session.user_sid == null}">로그인</a></td>
 			</tr>
 			<tr class="tr2">
 				<td class="utd1"></td>
