@@ -27,7 +27,10 @@ const API_LIST = {
     LOGOUT : "/user/logout",
     INTRO_ADD_CANCEL : "/management/intro/add/cancel",
     INTRO_DELETE : "/hotel/management/intro/delete",
-    DELETE_IMG : "/hotel/delete/img"
+    DELETE_IMG : "/hotel/delete/img",
+    ROOM_TYPE_ADD : "/type/add",
+    ROOM_TYPE_UPDATE : "/type/update",
+    ROOM_TYPE_DELETE : "/type/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
@@ -37,6 +40,7 @@ const PAGE_LIST = {
     INTRO_DETAIL : "/hotel/management/intro/detail/",
     INTRO_LIST : "/hotel/management/intro",
     INTRO_UPDATE : "/hotel/management/intro/update/",
+    ROOM_TYPE_LIST : "/type"
 };
 
 const defaultErrorFn = (errorResponse) => {

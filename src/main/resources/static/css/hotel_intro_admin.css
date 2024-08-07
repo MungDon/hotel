@@ -56,3 +56,7 @@
     background-color: white;
     border-radius: 10px;
 }
+.detailContent *{
+    max-width: 100%;
+    height: auto;
+}

@@ -11,6 +11,7 @@ import com.example.demo.dto.response.hotel.ResIntroList;
 import com.example.demo.service.HotelService;
 import com.example.demo.util.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ import java.util.List;
 public class HotelController {
 
 	private final HotelService hotelService;
+	private int introCnt;		// 소개글 게시물 수
 
 	/* 호텔 메인페이지 */
 	@GetMapping("")
@@ -45,19 +47,21 @@ public class HotelController {
 	@GetMapping("/management/intro")
 	public String hotelIntroManagement(Model model) {
 		List<ResIntroList> intros = hotelService.findIntro();
+		introCnt = intros.size();
 		model.addAttribute("intros", intros);
 		return "introlist";
 	}
 
 	/* 호텔 소개 등록 폼 */
 	@GetMapping("/management/intro/add")
-	public String introManagementAddForm() {
+	public String introManagementAddForm(Model model) {
+		model.addAttribute("introCnt", introCnt);
 		return "intro_add";
 	}
 
 	/* 호텔 소개 등록 */
 	@PostMapping("/management/intro/add")
-	public String introAdd(ReqIntroAdd req, HttpServletRequest request) {
+	public String introAdd(@Valid ReqIntroAdd req, HttpServletRequest request) {
 		req.setUser_sid(CommonUtils.getUserSid(request));
 		hotelService.introAdd(req);
 		return "redirect:/hotel/management/intro";
@@ -75,6 +79,7 @@ public class HotelController {
 	public String introDetail(@PathVariable(value = "hotel_sid")Long hotel_sid,Model model){
 		ResIntroDetail detail =  hotelService.introDetail(hotel_sid);
 		model.addAttribute("detail", detail);
+		model.addAttribute("introCnt", introCnt);
 		return "intro_detail";
 	}
 	/*소개글 업데이트*/
@@ -84,7 +89,7 @@ public class HotelController {
 		model.addAttribute("detail", detail);
 		return "intro_update";
 	}
-	@PostMapping("/management/intro/update")
+	@PutMapping ("/management/intro/update")
 	public String introUpdate(ReqIntroUpdate req){
 		hotelService.introUpdate(req);
 		return "redirect:/hotel/management/intro";

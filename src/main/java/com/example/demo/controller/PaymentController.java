@@ -7,6 +7,7 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -29,20 +30,13 @@ public class PaymentController {
     @PostMapping("/payment/valid")
     @ResponseBody
     public IamportResponse<Payment> validateIamport(@RequestParam(value = "imp_uid")String imp_uid) throws IamportResponseException, IOException {
-        log.info("오긴오니?");
         IamportResponse<Payment> payment = iamportClient.paymentByImpUid(imp_uid);
         return payment;
     }
 
     @PostMapping("/reserve/payment")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> reservePaymentAdd(@ModelAttribute ReqPaymentInfoAdd req){
-        log.info("오긴오니?2");
-        log.info("유저"+req.getUser_sid());
-        log.info("유저"+req.getReserveNumber());
-        log.info("유저"+req.getPhone());
-        log.info("유저"+req.getPrice());
-        log.info("유저"+req.getRoomName());
+    public ResponseEntity<ResponseDTO> reservePaymentAdd(@ModelAttribute @Valid ReqPaymentInfoAdd req){
         ResponseDTO response = paymentService.reservePaymentAdd(req);
         return ResponseEntity.ok(response);
     }

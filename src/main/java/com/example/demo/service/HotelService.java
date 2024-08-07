@@ -85,9 +85,11 @@ public class HotelService {
 	public void insertHotelSid(Long hotel_sid) {
 		// 저장된 소개글 내용중 이미지 파일명만 가져옴
 		List<String> imgFileNames = extractImgFileName(hotel_sid);
-		deleteNotUseImages(imgFileNames,hotel_sid);
-		for(String imgFileName : imgFileNames) {
-			hotelMapper.insertHotelSid(imgFileName, hotel_sid);
+		if(!CommonUtils.isEmpty(imgFileNames)) {
+			deleteNotUseImages(imgFileNames, hotel_sid);
+			for (String imgFileName : imgFileNames) {
+				hotelMapper.insertHotelSid(imgFileName, hotel_sid);
+			}
 		}
 	}
 
@@ -244,6 +246,12 @@ public class HotelService {
 	 @Transactional(readOnly = true)
 	 public ResHotelIntro hotelIntro(){
 		 return hotelMapper.hotelIntro();
+	 }
 
+	 /*이미지 삭제 스케쥴러*/
+	 @Transactional
+	 public void deleteImageWithoutHotelSid(){
+		 List<String> orphanImages = hotelMapper.findOrphanImages();
+		 deleteImg(orphanImages);
 	 }
 }

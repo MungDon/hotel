@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RoomTypeMapper">
+    <insert id="roomTypeAdd" parameterType="ReqRoomTypeAdd">
+        INSERT INTO tb_room_type(
+            type_name,
+            room_size,
+            bed_size
+        )   VALUES  (
+            #{type_name},
+            #{room_size},
+            #{bed_size}
+        )
+
+    </insert>
+
+    <select id="findAllRoomType" resultType="ResRoomTypeList">
+        SELECT * FROM tb_room_type
+    </select>
+
+    <update id="roomTypeUpdate" parameterType="ReqRoomTypeUpdate">
+        UPDATE  tb_room_type
+        SET     type_name = #{type_name},
+                room_size = #{room_size},
+                bed_size = #{bed_size}
+        WHERE
+                room_type_sid = #{room_type_sid}
+
+    </update>
+    <delete id="roomTypeDelete">
+        DELETE
+        FROM    tb_room_type
+        WHERE
+                room_type_sid = #{room_type_sid}
+
+    </delete>
+</mapper>

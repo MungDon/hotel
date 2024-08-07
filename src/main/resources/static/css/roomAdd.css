@@ -29,10 +29,11 @@
 }
 .i1{
 	font-size : 17px;
-	width : 25%;
+	width : 50%;
 	border : 1px solid darkgray;
 	border-radius : 8px;
 	height: 50%;
+	text-align: center;
 }
 .i2{
 	width : 10%;

@@ -22,41 +22,9 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="s2">문의 전화</th>
-						<td class="s2">
-							<select name="local_num"  class="i2" >
-								<option value="02">02</option>
-								<option value="031">031</option>
-								<option value="032">032</option>
-								<option value="033">033</option>
-								<option value="041">041</option>
-								<option value="042">042</option>
-								<option value="043">043</option>
-								<option value="044">044</option>
-								<option value="051">051</option>
-								<option value="052">052</option>
-								<option value="053">053</option>
-								<option value="054">054</option>
-								<option value="055">055</option>
-								<option value="061">061</option>
-								<option value="062">062</option>
-								<option value="063">063</option>
-								<option value="064">064</option>
-							</select> 
-							- <input  class="i2"  type="text" name="middle_num" required="required">
-							- <input  class="i2"  type="text" name="last_num" required="required">
-						</td>
-					</tr>
-					<tr>
 						<th class="s3">방가격(1박)</th>
 						<td class="s3">
 							 <input class="i1" type="number" name="price" min="0" required="required"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="s4">객실 수</th>
-						<td class="s4">
-							<input class="i1" type="number" name="room_count" min="0" required="required"/>
 						</td>
 					</tr>
 					<tr>
@@ -71,19 +39,17 @@
 							<input class="i1"  type="number" name="child_limit" min="0" max="4" required="required"/>
 						</td>
 					</tr>
-					<tr>
-						<th class="s7">예약가능기간</th>
-						<td class="s7">
-							<input  class="i3" id="startDate" type="date" name="start_date" required="required"/>
-							~ <input  class="i3" id="endDate"  type="date" name="end_date" required="required"/>
-						</td>
-					</tr>
 				</table>
 				<div class="roomInfo">
 				<div class="optionText">
 					<h2>옵션</h2>
 				</div>
-					<h3>방 정보 옵션</h3>※ 객실크기, 침대타입 필수 입력! ※<br><br>
+					<h3>방 정보 옵션</h3>
+					<div class="roomTypeOption">
+						<select name="roomType">
+							<option></option>
+						</select>
+					</div>
 					<div id="plusOptions">
 						<div class="options">
 							옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name" placeholder="ex)전망">&nbsp;

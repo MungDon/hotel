@@ -5,29 +5,19 @@
 	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
         INSERT INTO tb_room (
         room_name,
-        local_num,
-        middle_num,
-        last_num,
         price,
         room_count,
         adult_limit,
         child_limit,
-        start_date,
-        end_date,
         delete_yn,
         created_date,
         modified_date
         ) VALUES (
         #{room_name},
-        #{local_num},
-        #{middle_num},
-        #{last_num},
         #{price},
         #{room_count},
         #{adult_limit},
         #{child_limit},
-        #{start_date},
-        #{end_date},
         'N',
         now(),
         now()
@@ -84,7 +74,6 @@
 		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
 		WHERE	
 				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail' AND (OP.option_name like '%객실크%' OR OP.option_name like '%침대%')
-                	AND TR.start_date &lt;= #{end_date} AND TR.end_date &gt;= #{start_date}
                     AND TR.adult_limit &gt;= #{adult_cnt}
                     AND TR.child_limit &gt;= #{child_cnt}
 		ORDER BY

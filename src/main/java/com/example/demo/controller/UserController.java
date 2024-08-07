@@ -48,7 +48,7 @@ public class UserController {
 		return "login";
 	}
 	@PostMapping("/login")
-	public String userLogin(ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
+	public String userLogin(@Valid ReqUserLogin reqLogin, HttpServletRequest httpServletRequest) {
 		ResUserLogin resLogin = userService.userLogin(reqLogin);			//서비스로 넘겨받은로그인정보 resLogin 대입
 		httpServletRequest.getSession().invalidate();						//세션생성전 세션파기
 		HttpSession session = httpServletRequest.getSession(true);	//기존 세션반환

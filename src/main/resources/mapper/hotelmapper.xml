@@ -68,6 +68,14 @@
 		AND hotel_sid = #{hotel_sid}
 	</select>
 
+	<select id="findOrphanImages" resultType="String">
+		SELECT 	img_name
+		FROM 	tb_hotel_img
+		WHERE
+		    	hotel_sid is null
+	</select>
+
+
 	<update id="introUpdate" parameterType="ReqIntroUpdate">
 		UPDATE 	tb_hotel
 		SET 	title = #{title},

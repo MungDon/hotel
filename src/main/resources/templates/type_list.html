@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>객실 타입 목록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+</head>
+<body>
+<header th:replace="~{manageheader :: manageheader}"></header>
+<main class="typeListMain">
+    <div class="typeListBox">
+        <table class="typeListTable">
+            <tr>
+                <th>번호</th>
+                <th>객실 유형</th>
+                <th>객실 크기</th>
+                <th>침대 크기</th>
+                <th>관리</th>
+            </tr>
+            <tr th:if="${#lists.isEmpty(typeList)}">
+                <td colspan="5">
+                    <h1>등록된 객실 타입이 없습니다, 등록해주세요.</h1>
+                </td>
+            </tr>
+            <tr th:each="typeObj, loop : ${typeList}">
+                <td th:text="${loop.count}"></td>
+                <td>
+                    <input type="text" class="typeName" th:value="${typeObj.type_name}"readonly>
+                </td>
+                <td th:text="${typeObj.room_size}">
+                    <input type="text" class="roomSize" th:value="${typeObj.room_size}"readonly>
+                </td>
+                <td th:text="${typeObj.bed_size}">
+                    <input type="text" class="bedSize" th:value="${typeObj.bed_size}"readonly>
+                </td>
+                <td>
+                     <div class="typeManageBtnBox">
+                        <button type="button" class="roomTypeUpdateSetBtn" th:value="${typeObj.room_type_sid}">수정</button>
+                        <button type="button" class="roomTypeDeleteBtn" th:value="${typeObj.room_type_sid}">삭제</button>
+                     </div>
+                </td>
+            </tr>
+        </table>
+        <div class="typeAddBtnBox">
+            <button type="button" class="typeAddBtn">등록하기</button>
+        </div>
+    </div>
+
+
+</main>
+</body>
+</html>

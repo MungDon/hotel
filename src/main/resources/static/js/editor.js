@@ -113,9 +113,30 @@
 			return extension;
 		}
 	};
-	
+
+    const introAddValidate = () =>{
+        const introCnt = document.getElementById('introCnt').value;
+        const noChk = document.getElementById('no');
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        if(introCnt == 0 && noChk.checked){
+            swalCall("경고","최초 소개글은 반드시 대표글로 설정해야합니다.","warning");
+            return false;
+        }
+        if(isNull(title)){
+            swalCall("경고","제목은 필수 입니다.","warning");
+            return false;
+        }
+        if(isNull(content)){
+            swalCall("경고","내용은 필수 입니다.","warning");
+            return false;
+        }
+    }
    	function submit(){
-		   
+		   const isValid = introAddValidate();
+           if(!isValid){
+                return;
+           }
 		   	const form = document.getElementById("introForm");
 		   	
 		   	// 이미지 태그들을 모두 가져옴(에디터에 추가한 모든 사진들)

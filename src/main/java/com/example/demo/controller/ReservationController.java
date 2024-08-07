@@ -4,6 +4,7 @@ import com.example.demo.dto.request.reservation.ReqReservationAdd;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.service.ReservationService;
 import com.example.demo.service.RoomService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ReservationController {
 	/*임시예약*/
 	@PostMapping("")
 	@ResponseBody
-	public ResponseEntity<ResponseDTO> temporaryReserve(@ModelAttribute ReqReservationAdd req) {
+	public ResponseEntity<ResponseDTO> temporaryReserve(@ModelAttribute @Valid ReqReservationAdd req) {
 		ResponseDTO response =  reservationService.pencilIn(req);
 		return ResponseEntity.ok(response);
 	}

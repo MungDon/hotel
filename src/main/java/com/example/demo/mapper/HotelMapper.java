@@ -48,4 +48,7 @@ public interface HotelMapper {
 	
 	/*사용되지않는 이미지 가져오기*/
 	List<String> selectFilesNotInList(Map<String,Object> inUserData);
+	
+	/*hotel_sid 가 지정(바인딩) 되지않은 이미지명 추출*/
+	List<String> findOrphanImages();
 }

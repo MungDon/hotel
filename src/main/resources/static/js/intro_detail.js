@@ -11,9 +11,28 @@ $(function (){
         location.href = PAGE_LIST.INTRO_UPDATE + hotelSid;
     });
 
+    const deleteIntroValidate = () => {
+        const introCnt = $("#introCnt").val();
+        const status = $("#status").val();
+
+        if(introCnt == 1){
+            swalCall("경고","최소 한개의 소개글은 존재해야합니다.","warning");
+            return false;
+        }
+        if(status == '공개'){
+            swalCall("경고","해당 소개글은 공개 소개글입니다, 변경 후 삭제해주세요.","warning");
+            return false;
+        }
+        return true;
+    }
+
     //삭제하기
     $(".introDelete").click((event)=>{
         const hotelSid = $(event.target).val();
+        const isValid =  deleteIntroValidate();
+        if(!isValid){
+            return;
+        }
         const thenFn = (result) => {
             if(result.isConfirmed){
                 const ajaxObj = {
