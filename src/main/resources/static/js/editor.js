@@ -23,61 +23,15 @@
         };
 
         quill = new Quill('#editor', option);
-        let content = $("#content").val();
+        let content = document.getElementById('content').value;
         if(content!==null){
             quill.clipboard.dangerouslyPasteHTML(content);
         }
         // 에디터의 내용에 변동이 있을시 바로 textarea에 반영
         quill.on('text-change', function() {
-          content = quill.root.innerHTML;
+            console.log("변화감지");
+            document.getElementById('content').value = quill.root.innerHTML;
         });
-
-        // 현재 이미지 목록을 추적하기 위한 배열
-        let previousImages = [];
-
-        // 이미지 삭제 감지를 위한 함수
-        function getImagesFromEditor() {
-            const images = new Set();
-            quill.root.querySelectorAll('img').forEach(img => images.add(img.src));
-            return images;
-        }
-
-        // 이미지 삭제 감지
-        quill.on('text-change', function(delta, oldDelta, source) {
-            const currentImages = getImagesFromEditor();
-
-            const extractFileName = (url) => {
-                const urlObj = new URL(url);
-                return urlObj.pathname.split('/').pop();
-            };
-
-            // 감지된 이미지 목록과 이전 이미지 목록을 비교하여 삭제된 이미지 찾기
-            const removedImages = [...previousImages].filter(src => !currentImages.has(src));
-
-            const removedImageFileNames = removedImages.map(url => extractFileName(url));
-
-            if (removedImageFileNames.length > 0) {
-                console.log('Images removed:', removedImageFileNames);
-                const ajaxObj = {
-                    url : API_LIST.DELETE_IMG,
-                    method : "post",
-                    contentType : 'application/json',
-                    param :JSON.stringify(removedImageFileNames),
-                    successFn : (resultResponse) =>{
-                        if(resultResponse.success){
-                            console.log(resultResponse.message);
-                        }else{
-                            console.log("삭제 실패");
-                        }
-                    }
-                }
-                ajaxCall(ajaxObj);
-            }
-
-            // 다음 비교를 위해 이전 이미지 목록 업데이트
-            previousImages = [...currentImages];
-        });
-
 
         quill.getModule('toolbar').addHandler('image', function () {
             selectLocalImage();

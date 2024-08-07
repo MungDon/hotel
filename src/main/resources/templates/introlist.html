@@ -25,6 +25,11 @@
             <th class="introTh">공개/비공개</th>
             <th class="introTh">대표 소개글 선택</th>
         </tr>
+        <tr th:if="${#lists.isEmpty(intros)}">
+            <td colspan="5">
+                <h1>등록된 소개글이 없어요</h1>
+            </td>
+        </tr>
         <tr class="introTr" th:each="intro, loop : ${intros}">
             <td class="introTd" th:text="${loop.count}"></td>
             <td class="introTd">

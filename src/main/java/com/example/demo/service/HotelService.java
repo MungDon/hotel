@@ -71,6 +71,7 @@ public class HotelService {
 		String statusName = introStatusProvider(req.getStatus());
 		req.setStatus(statusName);
 		hotelMapper.introUpdate(req);
+		insertHotelSid(req.getHotel_sid());
 	}
 
 	@Transactional
@@ -79,18 +80,31 @@ public class HotelService {
 		return CommonUtils.successResponse(result,"소개글이 삭제되었습니다",ErrorCode.DELETE_OPERATION_FAILED);
 	}
 
+	@Transactional
 	/*이미지 테이블에 호텔소개 시퀀스 삽입*/
-	private void insertHotelSid(Long hotel_sid) {
+	public void insertHotelSid(Long hotel_sid) {
 		// 저장된 소개글 내용중 이미지 파일명만 가져옴
 		List<String> imgFileNames = extractImgFileName(hotel_sid);
+		deleteNotUseImages(imgFileNames,hotel_sid);
 		for(String imgFileName : imgFileNames) {
 			hotelMapper.insertHotelSid(imgFileName, hotel_sid);
 		}
 	}
-	
-	
+
+	@Transactional
+	public void deleteNotUseImages(List<String> images, Long hotel_sid){
+		Map<String,Object> inUseData = new HashMap<>();
+		inUseData.put("images",images);
+		inUseData.put("hotel_sid", hotel_sid);
+		List<String> notUserImages = hotelMapper.selectFilesNotInList(inUseData);
+		if(!CommonUtils.isEmpty(notUserImages)) {
+			deleteImg(notUserImages);
+		}
+	}
+
+	@Transactional(readOnly = true)
 	/*소개 등록 내용중 파일명 추출 */
-	private List<String> extractImgFileName(Long hotel_sid) {
+	public List<String> extractImgFileName(Long hotel_sid) {
 		ResIntroDetail detail = hotelMapper.findIntroDetailByHotelSid(hotel_sid);
 		   List<String> imgFileNames = new ArrayList<String>();
 	        // 정규 표현식을 사용하여 이미지 파일 이름 추출

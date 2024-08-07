@@ -12,6 +12,7 @@ import com.example.demo.service.HotelService;
 import com.example.demo.util.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/hotel")
@@ -119,14 +120,6 @@ public class HotelController {
 	public String uploadBase64Img(@RequestBody ReqEdtorImg req) {
 		String fileName = hotelService.uploadBase64Img(req);
 		return fileName;
-	}
-	
-	/*에디터 내 사진 삭제*/
-	@PostMapping("/delete/img")
-	@ResponseBody
-	public ResponseEntity<ResponseDTO> deleteEditorImg(@RequestBody List<String> removeImages){
-		ResponseDTO response = hotelService.deleteImg(removeImages);
-		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/select/intro")

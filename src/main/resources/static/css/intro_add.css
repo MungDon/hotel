@@ -27,6 +27,10 @@
 	font-weight: bold;
 	font-size: 18px;
 	color: #8D94A2;
+	cursor : pointer;
+}
+.Btns>button:hover{
+	background-color: white;
 }
 .introTitle{
 	margin-top : 40px;

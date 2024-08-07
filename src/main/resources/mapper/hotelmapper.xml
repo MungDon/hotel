@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.HotelMapper">
-<insert id="uploadFile" parameterType="ReqHotelImg">
-	INSERT INTO tb_hotel_img(
-		original_name,
-		img_name,
-		extension
-	) VALUES (
-		#{original_name},
-		#{img_name},
-		#{extension}
-	)
-</insert>
-<insert id="introAdd" parameterType="ReqIntroAdd" useGeneratedKeys="true" keyColumn="hotel_sid" keyProperty="hotel_sid">
-	INSERT INTO tb_hotel( 
-		user_sid,
-		title,
-		content,
-		delete_yn,
-		status,
-		created_date,
-		modified_date
-	) VALUES (
-		#{user_sid},
-		#{title},
-		#{content},
-		'N',
-		#{status},
-		now(),
-		now()
-	)
-</insert>
-<delete id="deleteFile" parameterType="String">
-	DELETE FROM tb_hotel_img
-	WHERE img_name = #{fileName}
-</delete>
+	<insert id="uploadFile" parameterType="ReqHotelImg">
+		INSERT INTO tb_hotel_img(
+			original_name,
+			img_name,
+			extension
+		) VALUES (
+			#{original_name},
+			#{img_name},
+			#{extension}
+		)
+	</insert>
+	<insert id="introAdd" parameterType="ReqIntroAdd" useGeneratedKeys="true" keyColumn="hotel_sid" keyProperty="hotel_sid">
+		INSERT INTO tb_hotel(
+			user_sid,
+			title,
+			content,
+			delete_yn,
+			status,
+			created_date,
+			modified_date
+		) VALUES (
+			#{user_sid},
+			#{title},
+			#{content},
+			'N',
+			#{status},
+			now(),
+			now()
+		)
+	</insert>
+	<delete id="deleteFile" parameterType="String">
+		DELETE FROM tb_hotel_img
+		WHERE img_name = #{fileName}
+	</delete>
 
-<select id="findIntro" resultType="com.example.demo.dto.response.hotel.ResIntroList">
-	SELECT 		*
-	FROM		tb_hotel
-	WHERE		delete_yn = 'N'
-	ORDER BY	created_date DESC
-</select>
+	<select id="findIntro" resultType="com.example.demo.dto.response.hotel.ResIntroList">
+		SELECT 		*
+		FROM		tb_hotel
+		WHERE		delete_yn = 'N'
+		ORDER BY	created_date DESC
+	</select>
 
-<select id="findIntroDetailByHotelSid" parameterType="Long" resultType="com.example.demo.dto.response.hotel.ResIntroDetail">
-	SELECT	TH.*, TU.user_name
-	FROM	tb_hotel as TH
-	left outer join tb_user as TU
-	on TH.user_sid = TU.user_sid
-	WHERE	hotel_sid = #{hotel_sid}
-</select>
-	
-<select id="hotelIntro" resultType="com.example.demo.dto.response.hotel.ResHotelIntro">
-	SELECT 	*
-	FROM	tb_hotel
-	WHERE 	status = '공개'
+	<select id="findIntroDetailByHotelSid" parameterType="Long" resultType="com.example.demo.dto.response.hotel.ResIntroDetail">
+		SELECT	TH.*, TU.user_name
+		FROM	tb_hotel as TH
+		left outer join tb_user as TU
+		on TH.user_sid = TU.user_sid
+		WHERE	hotel_sid = #{hotel_sid}
+	</select>
 
-</select>
-<update id="introUpdate" parameterType="ReqIntroUpdate">
-	UPDATE 	tb_hotel
-	SET 	title = #{title},
-	     	status = #{status},
-	     	content = #{content}
-	WHERE
-	    	hotel_sid = #{hotel_sid}
-</update>
+	<select id="hotelIntro" resultType="com.example.demo.dto.response.hotel.ResHotelIntro">
+		SELECT 	*
+		FROM	tb_hotel
+		WHERE 	status = '공개'
 
-<update id="insertHotelSid">
-	UPDATE 	tb_hotel_img
-	SET		hotel_sid = #{hotel_sid}
-	WHERE	img_name = #{imgFileName}
-</update>
+	</select>
 
-<update id="resetStatus">
-	UPDATE	tb_hotel
-	SET		status = '비공개'
-</update>
+	<select id="selectFilesNotInList" parameterType="map" resultType="String">
+		SELECT img_name
+		FROM tb_hotel_img
+		WHERE img_name NOT IN
+		<foreach item="image" collection="images" open="(" separator="," close=")">
+			#{image}
+		</foreach>
+		AND hotel_sid = #{hotel_sid}
+	</select>
 
-<update id="changeStatus" parameterType="Long">
-	UPDATE	tb_hotel
-	SET		status = '공개'
-	WHERE	hotel_sid = #{hotel_sid}
-</update>
+	<update id="introUpdate" parameterType="ReqIntroUpdate">
+		UPDATE 	tb_hotel
+		SET 	title = #{title},
+				status = #{status},
+				content = #{content},
+				modified_date = now()
+		WHERE
+				hotel_sid = #{hotel_sid}
+	</update>
 
-<update id="introDelete" >
-	UPDATE 	tb_hotel
-	SET 	delete_yn = 'Y'
-	WHERE
-	    	hotel_sid = #{hotel_sid}
+	<update id="insertHotelSid">
+		UPDATE 	tb_hotel_img
+		SET		hotel_sid = #{hotel_sid}
+		WHERE	img_name = #{imgFileName}
+	</update>
 
-</update>
+	<update id="resetStatus">
+		UPDATE	tb_hotel
+		SET		status = '비공개'
+	</update>
+
+	<update id="changeStatus" parameterType="Long">
+		UPDATE	tb_hotel
+		SET		status = '공개'
+		WHERE	hotel_sid = #{hotel_sid}
+	</update>
+
+	<update id="introDelete" >
+		UPDATE 	tb_hotel
+		SET 	delete_yn = 'Y'
+		WHERE
+				hotel_sid = #{hotel_sid}
+
+	</update>
 </mapper>

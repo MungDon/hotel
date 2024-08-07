@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface HotelMapper {
@@ -44,4 +45,7 @@ public interface HotelMapper {
 
 	/*대표로 설정된 소개글 가져오기*/
 	ResHotelIntro hotelIntro();
+	
+	/*사용되지않는 이미지 가져오기*/
+	List<String> selectFilesNotInList(Map<String,Object> inUserData);
 }
