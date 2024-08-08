@@ -3,6 +3,7 @@ $(function(){
         const typeSid = $(event.target).val();
         const thisTr = $(event.target).closest('tr');
         thisTr.find('input').prop('readonly',false);
+        thisTr.find('input').css('outline',"1px solid black");
         const btnBox = thisTr.find(".typeManageBtnBox");
         btnBox.empty();
         const createUpdateBtns = `
@@ -48,6 +49,7 @@ $(function(){
         const thisTr = $(event.target).closest('tr');
         thisTr.find('input').prop('readonly',true);
         const btnBox = thisTr.find(".typeManageBtnBox");
+        btnBox.empty();
         const createUpdateBtns = `
              <button type="button" class="roomTypeUpdateSetBtn" value="${typeSid}">수정</button>
              <button type="button" class="roomTypeDeleteBtn" value="${typeSid}">삭제</button>
@@ -82,6 +84,9 @@ $(function(){
                 return;
             }
         }
-        swalCall("객실 유형 삭제", "해당 객실 유형을 삭제하시겠습니까?","question",thenFn);
+        swalCall("객실 유형 삭제", "해당 객실 유형을 삭제하시겠습니까?","question",thenFn,"예",true);
+    });
+    $(".typeAddBtn").click(() => {
+        location.href = PAGE_LIST.ROOM_TYPE_ADD_FORM;
     });
 });

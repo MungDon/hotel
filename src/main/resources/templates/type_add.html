@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>객실 타입 등록</title>
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/type_add.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
@@ -13,19 +14,18 @@
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
   <main class="typeAddMain">
+      <div class="manageTitleBox">
+          <span class="manageTitle">객실 타입 등록</span>
+      </div>
       <div class="typeAddCon">
-          <div class="manageTitleBox">
-              <span class="manageTitle">객실 타입 등록</span>
-          </div>
           <div class="typeAddBtnBox">
             <button type="button" class="saveBtn">저장</button>
             <button type="button" class="listBtn">목록으로</button>
-
           </div>
           <div class="typeAddBox">
-            <span>객실 타입 명 : </span><input type="text" name="type_name" class="typeName">
-            <span>객실 크기 : </span><input type="text" name="room_size" class="roomSize">
-            <span>침대 크기 : </span><input type="text" name="bed_size" class="bedSize">
+            <input type="text" name="type_name" class="typeName" placeholder="객실 타입 명">
+            <input type="text" name="room_size" class="roomSize" placeholder="객실 크기">
+            <input type="text" name="bed_size" class="bedSize" placeholder="침대 크기">
             <button type="button" class="insertOption">+</button>
           </div>
       </div>

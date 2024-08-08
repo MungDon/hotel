@@ -16,6 +16,7 @@
 
     <select id="findAllRoomType" resultType="ResRoomTypeList">
         SELECT * FROM tb_room_type
+        ORDER BY room_type_sid DESC
     </select>
 
     <update id="roomTypeUpdate" parameterType="ReqRoomTypeUpdate">

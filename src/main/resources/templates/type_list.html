@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <title>객실 타입 목록</title>
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/type_list.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/type_list.js"></script>
 </head>
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
 <main class="typeListMain">
+    <div class="manageTitleBox">
+        <span class="manageTitle">객실 타입 목록</span>
+    </div>
     <div class="typeListBox">
         <table class="typeListTable">
-            <tr>
-                <th>번호</th>
-                <th>객실 유형</th>
-                <th>객실 크기</th>
-                <th>침대 크기</th>
-                <th>관리</th>
+            <tr class="tp_list_tr_1">
+                <th class="tp_list_th_1 line_1">번호</th>
+                <th class="tp_list_th_2 line_2">객실 유형</th>
+                <th class="tp_list_th_3 line_3">객실 크기</th>
+                <th class="tp_list_th_4 line_4">침대 크기</th>
+                <th class="tp_list_th_5 line_5">관리</th>
             </tr>
             <tr th:if="${#lists.isEmpty(typeList)}">
                 <td colspan="5">
                     <h1>등록된 객실 타입이 없습니다, 등록해주세요.</h1>
                 </td>
             </tr>
-            <tr th:each="typeObj, loop : ${typeList}">
-                <td th:text="${loop.count}"></td>
-                <td>
+            <tr class="tp_list_tr_2" th:each="typeObj, loop : ${typeList}">
+                <td class="tp_list_td_1 line_1" th:text="${loop.count}"></td>
+                <td class="tp_list_td_2 line_2">
                     <input type="text" class="typeName" th:value="${typeObj.type_name}"readonly>
                 </td>
-                <td th:text="${typeObj.room_size}">
-                    <input type="text" class="roomSize" th:value="${typeObj.room_size}"readonly>
+                <td class="tp_list_td_3 line_3">
+                    <input type="text" class="roomSize" th:value="${typeObj.room_size}+'㎡'"readonly>
                 </td>
-                <td th:text="${typeObj.bed_size}">
+                <td class="tp_list_td_4 line_4">
                     <input type="text" class="bedSize" th:value="${typeObj.bed_size}"readonly>
                 </td>
-                <td>
+                <td class="tp_list_td_5 line_5">
                      <div class="typeManageBtnBox">
                         <button type="button" class="roomTypeUpdateSetBtn" th:value="${typeObj.room_type_sid}">수정</button>
                         <button type="button" class="roomTypeDeleteBtn" th:value="${typeObj.room_type_sid}">삭제</button>

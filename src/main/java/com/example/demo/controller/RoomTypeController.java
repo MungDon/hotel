@@ -37,7 +37,7 @@ public class RoomTypeController {
     /*객실 타입 등록*/
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> roomTypeAdd(List<ReqRoomTypeAdd> addList){
+    public ResponseEntity<ResponseDTO> roomTypeAdd(@RequestBody List<ReqRoomTypeAdd> addList){
         ResponseDTO response = roomTypeService.roomTypeAdd(addList);
         return ResponseEntity.ok(response);
     }

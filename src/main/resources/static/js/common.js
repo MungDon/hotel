@@ -40,7 +40,8 @@ const PAGE_LIST = {
     INTRO_DETAIL : "/hotel/management/intro/detail/",
     INTRO_LIST : "/hotel/management/intro",
     INTRO_UPDATE : "/hotel/management/intro/update/",
-    ROOM_TYPE_LIST : "/type"
+    ROOM_TYPE_LIST : "/type",
+    ROOM_TYPE_ADD_FORM : "/type/add"
 };
 
 const defaultErrorFn = (errorResponse) => {

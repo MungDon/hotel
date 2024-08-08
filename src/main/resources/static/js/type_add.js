@@ -2,9 +2,9 @@ $(function () {
     $(".insertOption").click(() => {
         const typeOptionHTML = `
           <div class="typeAddBox">
-            <span>객실 타입 명 : </span><input type="text" name="type_name" class="typeName">
-            <span>객실 크기 : </span><input type="text" name="room_size" class="roomSize">
-            <span>침대 크기 : </span><input type="text" name="bed_size" class="bedSize">
+           <input type="text" name="type_name" class="typeName" placeholder="객실 타입 명">
+            <input type="text" name="room_size" class="roomSize" placeholder="객실 크기">
+            <input type="text" name="bed_size" class="bedSize" placeholder="침대 크기">
             <button type="button" class="removeOptionBtn">-</button>
           </div>
         `
@@ -17,7 +17,8 @@ $(function () {
 
     $(".saveBtn").click(() => {
         const roomTypeObjs = [];
-        $(".typeAddBox").each((index,obj) => {
+        $(".typeAddBox").each((index,objDOM) => {
+            const obj = $(objDOM);
             const typeName = obj.find(".typeName").val();
             const roomSize = obj.find(".roomSize").val();
             const bedSize = obj.find(".bedSize").val();
@@ -30,7 +31,8 @@ $(function () {
             const ajaxObj = {
                 url : API_LIST.ROOM_TYPE_ADD,
                 method : "post",
-                param : roomTypeObjs,
+                contentType : "application/json",
+                param :JSON.stringify(roomTypeObjs),
                 successFn : (resultResponse) =>{
                     if(resultResponse.success){
                         const thenFn = () => {
@@ -41,6 +43,10 @@ $(function () {
                 }
             }
             ajaxCall(ajaxObj);
-        })
-    })
+        });
+    });
+
+    $(".listBtn").click(()=>{
+        location.href = PAGE_LIST.ROOM_TYPE_LIST;
+    });
 });
