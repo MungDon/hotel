@@ -4,7 +4,15 @@ $(function () {
           <div class="typeAddBox">
            <input type="text" name="type_name" class="typeName" placeholder="객실 타입 명">
             <input type="text" name="room_size" class="roomSize" placeholder="객실 크기">
-            <input type="text" name="bed_size" class="bedSize" placeholder="침대 크기">
+                        <select class="bedSize"  name="bed_size">
+                <option value="">==< 침대크기 >==</option>
+                <option value="싱글">싱글</option>
+                <option value="슈퍼싱글">슈퍼싱글</option>
+                <option value="더블">더블</option>
+                <option value="퀸">퀸</option>
+                <option value="킹">킹</option>
+                <option value="슈퍼킹">슈퍼킹</option>
+            </select>
             <button type="button" class="removeOptionBtn">-</button>
           </div>
         `

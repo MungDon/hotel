@@ -20,3 +20,33 @@
 .typeAddBtnBox > button:hover{
     background-color: white;
 }
+.typeAddBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.typeName,.roomSize{
+    border : 1px solid gray;
+    border-radius: 8px;
+    width: 27%;
+    height: 29px;
+}
+.bedSize{
+    border : 1px solid gray;
+    border-radius: 8px;
+    width: 27%;
+    height: 34px;
+}
+.insertOption,.removeOptionBtn{
+    width: 20px;
+    border-style: none;
+    font-size: 30px;
+    font-weight: bolder;
+    background-color: white;
+    color: darkgray;
+    height: 34px;
+    cursor : pointer;
+}
