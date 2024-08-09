@@ -24,37 +24,37 @@ $(function () {
     })
 
     $(".saveBtn").click(() => {
-        const roomTypeObjs = [];
-        $(".typeAddBox").each((index,objDOM) => {
+        const formData = new FormData();
+        $(".typeAddBox").each((index, objDOM) => {
             const obj = $(objDOM);
             const typeName = obj.find(".typeName").val();
             const roomSize = obj.find(".roomSize").val();
             const bedSize = obj.find(".bedSize").val();
-            roomTypeObjs.push({
-                type_name : typeName,
-                room_size : roomSize,
-                bed_size : bedSize
-            })
+            const typeImg = obj.find(".typeImg")[0].files[0];
 
-            const ajaxObj = {
-                url : API_LIST.ROOM_TYPE_ADD,
-                method : "post",
-                contentType : "application/json",
-                param :JSON.stringify(roomTypeObjs),
-                successFn : (resultResponse) =>{
-                    if(resultResponse.success){
-                        const thenFn = () => {
-                            location.href = PAGE_LIST.ROOM_TYPE_LIST;
-                        }
-                        swalCall("성공", resultResponse.message,"success",thenFn);
+            formData.append(`typeAdd[${index}].type_name`, typeName);
+            formData.append(`typeAdd[${index}].room_size`, roomSize);
+            formData.append(`typeAdd[${index}].bed_size`, bedSize);
+            formData.append(`typeAdd[${index}].typeImg`, typeImg);
+        });
+        const ajaxObj = {
+            url: API_LIST.ROOM_TYPE_ADD,
+            method: "post",
+            contentType: false,
+            param: formData,
+            successFn: (resultResponse) => {
+                if (resultResponse.success) {
+                    const thenFn = () => {
+                        location.href = PAGE_LIST.ROOM_TYPE_LIST;
                     }
+                    swalCall("성공", resultResponse.message, "success", thenFn);
                 }
             }
-            ajaxCall(ajaxObj);
-        });
+        }
+        ajaxCall(ajaxObj);
     });
 
-    $(".listBtn").click(()=>{
+    $(".listBtn").click(() => {
         location.href = PAGE_LIST.ROOM_TYPE_LIST;
     });
 });

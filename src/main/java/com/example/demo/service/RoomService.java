@@ -119,9 +119,9 @@ public class RoomService {
 	@Transactional
 	public void roomUpdate(ReqRoomAdd reqeust) throws IOException {
 		roomMapper.roomUpdate(reqeust);
-		
-		addOptions(reqeust.getOptions(), reqeust.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
-		addOptions(reqeust.getUseOptions(), reqeust.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
+
+		updateOptions(reqeust.getOptions(), reqeust.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
+		updateOptions(reqeust.getUseOptions(), reqeust.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
 		
 	 	fileUpload(reqeust.getImages(),  ImgType.roomImg.name() ,reqeust.getRoom_sid());
 	 	fileUpload(reqeust.getThumbnail(), ImgType.thumbnail.name(), reqeust.getRoom_sid());

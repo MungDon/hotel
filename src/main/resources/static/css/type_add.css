@@ -1,4 +1,5 @@
 .typeAddMain{
+    margin-top : 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,16 +29,18 @@
     margin-bottom: 5px;
     width: 100%;
 }
-.typeName,.roomSize{
+.typeName,.roomSize,.typeImg{
+    font-size: 20px;
     border : 1px solid gray;
     border-radius: 8px;
-    width: 27%;
+    width: 20%;
     height: 29px;
 }
 .bedSize{
+    font-size: 20px;
     border : 1px solid gray;
     border-radius: 8px;
-    width: 27%;
+    width: 20%;
     height: 34px;
 }
 .insertOption,.removeOptionBtn{

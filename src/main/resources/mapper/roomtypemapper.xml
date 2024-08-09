@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.RoomTypeMapper">
-    <insert id="roomTypeAdd" parameterType="ReqRoomTypeAdd">
+    <insert id="roomTypeAdd" parameterType="ReqRoomTypeAdd" useGeneratedKeys="true" keyColumn="room_type_sid" keyProperty="room_type_sid">
         INSERT INTO tb_room_type(
             type_name,
             room_size,

@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.request.roomtype.ReqRoomTypeAdd;
 import com.example.demo.dto.request.roomtype.ReqRoomTypeUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
@@ -10,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -37,8 +39,8 @@ public class RoomTypeController {
     /*객실 타입 등록*/
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> roomTypeAdd(@RequestBody List<ReqRoomTypeAdd> addList){
-        ResponseDTO response = roomTypeService.roomTypeAdd(addList);
+    public ResponseEntity<ResponseDTO> roomTypeAdd(@RequestParam Map<String, String> params, @RequestParam Map<String, MultipartFile> files) throws IOException {
+        ResponseDTO response = roomTypeService.roomTypeAdd(params, files);
         return ResponseEntity.ok(response);
     }
 
