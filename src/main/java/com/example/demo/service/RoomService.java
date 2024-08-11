@@ -153,9 +153,11 @@ public class RoomService {
 
 	/* 방 이미지 삭제 */
 	@Transactional
-	public void roomImgRemove(Long room_img_sid) {
+	public void roomImgRemove(Long room_img_sid,String current_img) {
 		roomMapper.roomImgRemove(room_img_sid);
-		// TODO - 파일까지 삭제하는 로직 추가예정
+		File file = new File(path, current_img);
+		file.delete();
+
 	}
 	/*방 삭제(논리)*/
 	@Transactional

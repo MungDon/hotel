@@ -12,4 +12,6 @@ public class ResRoomTypeList {
     private String room_size;
 
     private String bed_size;
+
+    private String img_name;
 }

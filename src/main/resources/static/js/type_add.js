@@ -2,9 +2,10 @@ $(function () {
     $(".insertOption").click(() => {
         const typeOptionHTML = `
           <div class="typeAddBox">
-           <input type="text" name="type_name" class="typeName" placeholder="객실 타입 명">
+            <input type="file" name="type_img" class="typeImg">
+            <input type="text" name="type_name" class="typeName" placeholder="객실 타입 명">
             <input type="text" name="room_size" class="roomSize" placeholder="객실 크기">
-                        <select class="bedSize"  name="bed_size">
+            <select class="bedSize"  name="bed_size">
                 <option value="">==< 침대크기 >==</option>
                 <option value="싱글">싱글</option>
                 <option value="슈퍼싱글">슈퍼싱글</option>
@@ -35,12 +36,14 @@ $(function () {
             formData.append(`typeAdd[${index}].type_name`, typeName);
             formData.append(`typeAdd[${index}].room_size`, roomSize);
             formData.append(`typeAdd[${index}].bed_size`, bedSize);
-            formData.append(`typeAdd[${index}].typeImg`, typeImg);
+            formData.append(`typeAdd[${index}].type_img`, typeImg);
+        console.log(typeImg);
         });
         const ajaxObj = {
             url: API_LIST.ROOM_TYPE_ADD,
             method: "post",
             contentType: false,
+            processData : false,
             param: formData,
             successFn: (resultResponse) => {
                 if (resultResponse.success) {

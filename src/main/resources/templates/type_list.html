@@ -21,6 +21,7 @@
         <table class="typeListTable">
             <tr class="tp_list_tr_1">
                 <th class="tp_list_th_1 line_1">번호</th>
+                <th class="tp_list_th_1 line_1">이미지</th>
                 <th class="tp_list_th_2 line_2">객실 유형</th>
                 <th class="tp_list_th_3 line_3">객실 크기</th>
                 <th class="tp_list_th_4 line_4">침대 크기</th>
@@ -34,15 +35,19 @@
             <tr class="tp_list_tr_2" th:each="typeObj, loop : ${typeList}">
                 <td class="tp_list_td_1 line_1" th:text="${loop.count}"></td>
                 <td class="tp_list_td_2 line_2">
-                    <input type="text" class="typeName" th:value="${typeObj.type_name}"readonly>
+                    <img class="type_img" th:src="@{|/img/${typeObj.img_name}|}"><br/>
+                    <input type="hidden" class="currentImg" th:value="${typeObj.img_name}">
                 </td>
                 <td class="tp_list_td_3 line_3">
-                    <input type="text" class="roomSize" th:value="${typeObj.room_size}+'㎡'"readonly>
+                    <input type="text" class="typeName" th:value="${typeObj.type_name}"readonly>
                 </td>
                 <td class="tp_list_td_4 line_4">
-                    <input type="text" class="bedSize" th:value="${typeObj.bed_size}"readonly>
+                    <input type="text" class="roomSize" th:value="${typeObj.room_size}+'㎡'"readonly>
                 </td>
                 <td class="tp_list_td_5 line_5">
+                    <input type="text" class="bedSize" th:value="${typeObj.bed_size}"readonly>
+                </td>
+                <td class="tp_list_td_6 line_6">
                      <div class="typeManageBtnBox">
                         <button type="button" class="roomTypeUpdateSetBtn" th:value="${typeObj.room_type_sid}">수정</button>
                         <button type="button" class="roomTypeDeleteBtn" th:value="${typeObj.room_type_sid}">삭제</button>

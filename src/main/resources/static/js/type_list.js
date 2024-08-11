@@ -5,6 +5,10 @@ $(function(){
         thisTr.find('input').prop('readonly',false);
         thisTr.find('input').css('outline',"1px solid black");
         const btnBox = thisTr.find(".typeManageBtnBox");
+        const line2 = thisTr.find(".line_2");
+        line2.append(`
+            <input type="file" name="typeImg" class="type_img_input">
+        `);
         btnBox.empty();
         const createUpdateBtns = `
              <button type="button" class="roomTypeUpdateBtn" value="${typeSid}">수정</button>
@@ -14,22 +18,29 @@ $(function(){
     });
 
     $(document).on("click",".roomTypeUpdateBtn", (event) =>{
+        const formData = new FormData();
         const thisTr = $(event.target).closest('tr');
         const typeSid = $(event.target).val();
         const typeName = thisTr.find('.typeName').val();
         const roomSize = thisTr.find('.roomSize').val();
         const bedSize = thisTr.find('.bedSize').val();
-        const roomTypeObj = {
-            room_type_sid : typeSid,
-            type_name : typeName,
-            room_size : roomSize,
-            bed_size : bedSize
-        };
-
+        const currentImg = thisTr.find('.currentImg').val();
+        const typeImg = thisTr.find(".type_img_input")[0].files[0];
+        formData.append('type_name', typeName);
+        formData.append('typeSid', typeSid);
+        formData.append('room_size', roomSize);
+        formData.append('bed_size', bedSize);
+        formData.append('current_img', currentImg);
+        if(!isNull(typeImg)){
+            formData.append('type_img', typeImg);
+        }
+        console.log(typeImg);
         const ajaxObj = {
             url : API_LIST.ROOM_TYPE_UPDATE,
             method : "put",
-            param : roomTypeObj,
+            param : formData,
+            contentType: false,
+            processData : false,
             successFn : (resultResponse) =>{
                 if(resultResponse.success){
                     const thenFn = () => {
@@ -48,6 +59,9 @@ $(function(){
         const typeSid = $(event.target).val();
         const thisTr = $(event.target).closest('tr');
         thisTr.find('input').prop('readonly',true);
+        thisTr.find('input').css('outline',"none");
+        thisTr.find(".type_img_box").css("display","none");
+        thisTr.find(".type_img_input").remove();
         const btnBox = thisTr.find(".typeManageBtnBox");
         btnBox.empty();
         const createUpdateBtns = `

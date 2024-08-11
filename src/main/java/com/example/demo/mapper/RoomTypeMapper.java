@@ -21,4 +21,7 @@ public interface RoomTypeMapper {
     int roomTypeDelete(@Param(value = "room_type_sid")Long room_type_sid);
 
     void saveImg(ReqTypeImg req);
+
+    int deleteImg(@Param(value = "current_img")String current_img,@Param(value = "room_type_sid")Long room_type_sid);
+
 }

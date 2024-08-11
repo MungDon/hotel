@@ -14,8 +14,24 @@
 
     </insert>
 
+    <insert id="saveImg" parameterType="ReqTypeImg">
+        INSERT INTO tb_type_img(
+            room_type_sid,
+            original_name,
+            img_name,
+            extension
+        )   VALUES  (
+            #{roomTypeSid},
+            #{originalName},
+            #{imgName},
+            #{extension}
+        )
+    </insert>
     <select id="findAllRoomType" resultType="ResRoomTypeList">
-        SELECT * FROM tb_room_type
+        SELECT RT.*,TI.img_name
+        FROM tb_room_type as RT
+        LEFT OUTER JOIN tb_type_img as TI
+        ON RT.room_type_sid = TI.room_type_sid
         ORDER BY room_type_sid DESC
     </select>
 
@@ -33,6 +49,15 @@
         FROM    tb_room_type
         WHERE
                 room_type_sid = #{room_type_sid}
+
+    </delete>
+    <delete id="deleteImg">
+        DELETE
+        FROM    tb_type_img
+        WHERE
+                img_name = #{current_img}
+          AND   room_type_sid = #{room_type_sid}
+
 
     </delete>
 </mapper>

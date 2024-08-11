@@ -64,13 +64,22 @@ public class RoomTypeService {
     }
 
     @Transactional
+    public void deleteImg(String current_img,Long room_type_sid){
+        int result = roomTypeMapper.deleteImg(current_img,room_type_sid);
+        File file = new File(path, current_img);
+        file.delete();
+        CommonUtils.throwRestCustomExceptionIf(result!= 1,ErrorCode.DELETE_OPERATION_FAILED);
+    }
+
+
+    @Transactional
     public ResponseDTO roomTypeAdd (Map<String, String> param, Map<String, MultipartFile> files) throws IOException {
         int index = 0;
         int result = 0;
         while(param.containsKey("typeAdd["+index+"].type_name")){
             ReqRoomTypeAdd roomTypeAdd = createReqRoomTypeAdd(param,index);
             result += roomTypeMapper.roomTypeAdd(roomTypeAdd);
-            MultipartFile typeImg = files.get("typeAdd["+index+"]type_img");
+            MultipartFile typeImg = files.get("typeAdd["+index+"].type_img");
             saveImg(typeImg,roomTypeAdd.getRoom_type_sid());
             index ++;
         }
@@ -78,8 +87,12 @@ public class RoomTypeService {
     }
 
     @Transactional
-    public ResponseDTO roomTypeUpdate(ReqRoomTypeUpdate req){
+    public ResponseDTO roomTypeUpdate(ReqRoomTypeUpdate req) throws IOException {
         int result = roomTypeMapper.roomTypeUpdate(req);
+        if(!CommonUtils.isEmpty(req.getType_img())){
+            deleteImg(req.getCurrent_img(),req.getRoom_type_sid());
+            saveImg(req.getType_img(),req.getRoom_type_sid());
+        }
         return CommonUtils.successResponse(result,"객실타입 수정 성공", ErrorCode.UPDATE_OPERATION_FAILED);
     }
 

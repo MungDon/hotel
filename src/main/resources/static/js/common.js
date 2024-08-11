@@ -20,12 +20,13 @@ const API_LIST = {
     RESERVE_ROOM_FORM : "/reserve",
     DELETE_ROOM : "/room/delete",
     DELETE_ROOM_LIST : "/room/delete/list",
+    DELETE_ROOM_IMG  : "/room/img/delete",
     CANCEL_RESERVATION : "/reserve/cancel",
     PAYMENT_VALID : "/payment/valid",
     PAYMENT : "/reserve/payment",
     SELECT_INTRO : "/hotel/select/intro",
     LOGOUT : "/user/logout",
-    INTRO_ADD_CANCEL : "/management/intro/add/cancel",
+    INTRO_ADD_CANCEL : "/hotel/management/intro/add/cancel",
     INTRO_DELETE : "/hotel/management/intro/delete",
     DELETE_IMG : "/hotel/delete/img",
     ROOM_TYPE_ADD : "/type/add",
@@ -49,11 +50,12 @@ const defaultErrorFn = (errorResponse) => {
     swalCall("경고", error.message, "error");
 }
 
-const ajaxCall = ({url, method, successFn,contentType = "application/x-www-form-urlencoded; charset=UTF-8", param = null, errorFn = defaultErrorFn}) => {
+const ajaxCall = ({url, method, successFn,contentType = "application/x-www-form-urlencoded; charset=UTF-8",processData=true, param = null, errorFn = defaultErrorFn}) => {
     $.ajax({
         url: url,
         method: method,
         contentType:contentType ,
+        processData: processData,
         data: param,
         success: (data) => {
             if (typeof successFn == "function") {

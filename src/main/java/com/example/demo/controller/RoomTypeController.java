@@ -5,6 +5,7 @@ import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import com.example.demo.service.RoomTypeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/type")
@@ -47,7 +49,7 @@ public class RoomTypeController {
     /*객실 타입 수정*/
     @PutMapping("/update")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> roomTypeUpdate(@ModelAttribute ReqRoomTypeUpdate req){
+    public ResponseEntity<ResponseDTO> roomTypeUpdate(@ModelAttribute ReqRoomTypeUpdate req) throws IOException {
         ResponseDTO response = roomTypeService.roomTypeUpdate(req);
         return ResponseEntity.ok(response);
     }

@@ -69,8 +69,8 @@ public class RoomController {
 	/*이미지 삭제*/
 	@DeleteMapping("/img/delete")
 	@ResponseBody
-	public void roomImgRemove(@RequestBody Long room_img_sid) {
-		roomService.roomImgRemove(room_img_sid);
+	public void roomImgRemove(@RequestParam(value = "room_img_sid") Long room_img_sid,@RequestParam(value = "current_img")String current_img) {
+		roomService.roomImgRemove(room_img_sid,current_img);
 	}
 	
 	/*방 삭제(논리)*/
