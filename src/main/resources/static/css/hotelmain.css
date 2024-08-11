@@ -76,16 +76,16 @@ input[type=date]::-webkit-calendar-picker-indicator{
 	width: 30px;
 	height: 30px;
 }
+.packageTable>td{
+	padding: 0;
+}
 .packageTable{
 	margin-top : 30px;
 	width: 1160px;
 	height: 600px;
 	border-spacing: 20px;
 }
-.ptd1,.ptd2,.ptd3,.ptd4,.ptd5{
-	border : 1px solid black;
-	
-}
+
 .ptr1,.ptr2{
 	height: 30%;
 }
@@ -122,3 +122,24 @@ input[type=date]::-webkit-calendar-picker-indicator{
 	justify-content : center;
 	width: 100%;
 }
+.room_type_img_1{
+	border : 1px solid darkgray;
+	width: 736px;
+	height: 328px;
+}
+.room_type_img_2{
+	border : 1px solid darkgray;
+	width: 360px;
+	height: 154px;
+}
+.room_type_img_3{
+	border : 1px solid darkgray;
+	width: 360px;
+	height: 383px;
+}
+.room_type_img_4,.room_type_img_5{
+	border : 1px solid darkgray;
+	width: 356px;
+	height: 208px;
+}
+

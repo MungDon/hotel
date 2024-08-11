@@ -8,7 +8,9 @@ import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.hotel.ResHotelIntro;
 import com.example.demo.dto.response.hotel.ResIntroDetail;
 import com.example.demo.dto.response.hotel.ResIntroList;
+import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import com.example.demo.service.HotelService;
+import com.example.demo.service.RoomTypeService;
 import com.example.demo.util.CommonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -29,11 +31,14 @@ import java.util.List;
 public class HotelController {
 
 	private final HotelService hotelService;
+	private final RoomTypeService roomTypeService;
 	private int introCnt;		// 소개글 게시물 수
 
 	/* 호텔 메인페이지 */
 	@GetMapping("")
-	public String hotelMain(@ModelAttribute("search") SearchDto search) {
+	public String hotelMain(@ModelAttribute("search") SearchDto search,Model model) {
+		List<ResRoomTypeList> roomTypeList = roomTypeService.findAllRoomType();
+		model.addAttribute("typeList",roomTypeList);
 		return "hotelmain";
 	}
 
