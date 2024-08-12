@@ -38,3 +38,6 @@
     font-weight: bold;
     cursor: pointer;
 }
+.cancelBtn:hover{
+    color: red;
+}

@@ -35,7 +35,6 @@ $(function () {
 
     // 객실 상세정보
     const createRoomDetailModal = (detailData) => {
-        innerElement.empty();
         const imagesHTML = detailData.images.map(img =>
             `<div class="slider" role="group" aria-label="5/5">
             <img src="/img/${img.img_name}">
@@ -110,12 +109,6 @@ $(function () {
         innerElement.append(modalContent);
         openModal(modal);
     };
-
-    // 모달 끄기
-    $(document).on("click", ".closeBtn, .cancelBtn", () => {
-        innerElement.empty();
-        closeModal(modal);
-    });
 
     //객실삭제(물리) - 휴지통 연결
     $(document).on("click", ".removeRoom", (event) => {

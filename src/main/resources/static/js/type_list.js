@@ -72,6 +72,12 @@ $(function(){
     });
 
     $(document).on("click",".roomTypeDeleteBtn", (event) => {
+        const typeListSize = $("#typeListSize").val();
+
+        if(typeListSize == 1){
+            swalCall("경고","객실타입은 1개 이상 등록해야합니다","warning");
+            return;
+        }
         const typeSid = $(event.target).val();
         const thenFn = (result) => {
             if(result.isConfirmed){

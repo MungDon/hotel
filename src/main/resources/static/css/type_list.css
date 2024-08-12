@@ -3,7 +3,6 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top : 30px;
 }
 .typeListTable{
     text-align: center;
@@ -68,6 +67,7 @@
     display: none;
 }
 .type_img{
+    margin-top: 4px;
     width: 100px;
     height: 100px;
 }

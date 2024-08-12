@@ -1,0 +1,26 @@
+.type_detail_top{
+    background-color: #dddddd;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom : 20px;
+}
+.type_detail_type_name{
+    padding: 10px;
+    color: white;
+    font-weight: bolder;
+    font-size: 30px;
+}
+.type_detail_img{
+    width: 100%;
+    height: 400px;
+}
+.type_detail_info{
+    display: flex;
+    flex-direction: column;
+}
+.type_detail_info > span{
+    color : #333333;
+    font-weight: bold;
+    font-size: 25px;
+}

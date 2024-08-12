@@ -17,6 +17,9 @@
 </head>
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
+	<div class="manageTitleBox">
+		<span class="manageTitle">객실 소개 등록</span>
+	</div>
 	<input type="hidden" id="introCnt" th:value="${introCnt}">
 
 	<form id="introForm" action="/hotel/management/intro/add" method="post">

@@ -122,6 +122,9 @@ input[type=date]::-webkit-calendar-picker-indicator{
 	justify-content : center;
 	width: 100%;
 }
+.type_img{
+	cursor: pointer;
+}
 .room_type_img_1{
 	border : 1px solid darkgray;
 	width: 736px;
