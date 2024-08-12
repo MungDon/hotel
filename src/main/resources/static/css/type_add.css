@@ -1,13 +1,19 @@
-.typeAddMain{
+.typeAddMain,.banner_add_main{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.typeAddBtnBox{
+.typeAddCon{
+    width: 80%;
+}
+.banner_add_con{
+    width: 60%;
+}
+.typeAddBtnBox,.banner_add_btn_box{
     margin-bottom : 20px;
 }
-.typeAddBtnBox > button{
+.typeAddBtnBox > button,.banner_add_btn_box > button{
     border-style: none;
     width: 100px;
     height: 40px;
@@ -17,10 +23,10 @@
     color: #8D94A2;
     cursor : pointer;
 }
-.typeAddBtnBox > button:hover{
+.typeAddBtnBox > button:hover,.banner_add_btn_box > button:hover{
     background-color: white;
 }
-.typeAddBox {
+.typeAddBox,.banner_add_box {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -28,7 +34,7 @@
     margin-bottom: 5px;
     width: 100%;
 }
-.typeName,.roomSize,.typeImg{
+.typeName,.roomSize,.typeImg,.banner_img,.banner_name,.banner_url{
     font-size: 20px;
     border : 1px solid gray;
     border-radius: 8px;

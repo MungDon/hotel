@@ -1,44 +1,49 @@
-.typeListMain{
+.banner_list_main{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.typeListTable{
+.banner_list_Con{
+    width: 65%;
+}
+.banner_list_table{
     text-align: center;
     width: 100%;
     border-collapse: collapse;
     margin-bottom : 30px;
 }
-.typeName,.roomSize,.bedSize{
+
+
+.banner_name,.banner_url{
     width: 60%;
     font-size: 17px;
     font-weight: bold;
     text-align: center;
     border-style: none;
 }
-.typeName,.roomSize,.bedSize:focus{
+.banner_name,.banner_url{
     outline: none;
 }
-.tp_list_tr_1{
+.banner_list_tr_1{
     height: 50px;
 }
-.tp_list_tr_2{
+.banner_list_tr_2{
     height: 40px;
 }
-.tp_list_tr_1 >th {
+.banner_list_tr_1 >th {
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     font-size: 20px;
 }
-.tp_list_tr_2 > td{
+.banner_list_tr_2 > td{
     border-bottom: 1px solid #ddd;
 }
-.typeAddBtnBox{
+.banner_list_btn_box{
     display: flex;
     justify-content: flex-end;
 }
-.typeAddBtn{
+.banner_list_btn_box > button{
     margin-left : 10px;
     border-style: none;
     width: 100px;
@@ -49,10 +54,10 @@
     color: #8D94A2;
     cursor : pointer;
 }
-.typeAddBtn:hover{
+.banner_list_btn_box:hover{
     background-color: white;
 }
-.typeManageBtnBox > button{
+.banner_list_manage_btn_box > button{
     padding: 5px;
     border-style: none;
     font-weight: bold;
@@ -60,11 +65,11 @@
     border-radius: 7px;
     cursor : pointer;
 }
-.typeManageBtnBox > button:hover{
+.banner_list_manage_btn_box > button:hover{
     background-color: white;
 }
 
-.type_img{
+.banner_list_img{
     margin-top: 4px;
     width: 100px;
     height: 100px;

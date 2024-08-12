@@ -23,7 +23,8 @@ import java.util.Map;
 public class RoomTypeController {
 
     private final RoomTypeService roomTypeService;
-    
+
+
     /*객실 타입 목록*/
     @GetMapping("")
     public String roomTypeList(Model model){

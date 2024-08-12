@@ -2,24 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>배너 목록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/banner_list.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/banner_list.js"></script>
 </head>
 <body>
+<header th:replace="~{manageheader :: manageheader}"></header>
     <main class="banner_list_main">
+        <div class="manageTitleBox">
+            <span class="manageTitle">배너 목록</span>
+        </div>
         <div class="banner_list_Con">
             <table class="banner_list_table">
                 <tr class="banner_list_tr_1">
-                    <th class="banner_list_th_1">번호</th>
-                    <th class="banner_list_th_2"></th>
-                    <th class="banner_list_th_3"></th>
-                    <th class="banner_list_th_4"></th>
+                    <th class="banner_list_th_1 line1">번호</th>
+                    <th class="banner_list_th_2 line2">배너이미지</th>
+                    <th class="banner_list_th_3 line3">배너명</th>
+                    <th class="banner_list_th_4 line4">배너링크</th>
+                    <th class="banner_list_th_5 line5">등록일/수정일</th>
+                    <th class="banner_list_th_6 line6">관리</th>
                 </tr>
-                <tr class="banner_list_tr_1">
-
+                <tr class="banner_list_tr_2" th:each="bannerList, loop : ${bannerList}" draggable="true">
+                    <td class="banner_list_td_1" th:text="${loop.count}"></td>
+                    <td class="banner_list_td_2">
+                        <img class="banner_list_img" th:src="@{|/img/${bannerList.img_name}|}">
+                        <input type="hidden" name="currentBannerImg" th:value="${bannerList.img_name}">
+                    </td>
+                    <td class="banner_list_td_3">
+                        <input type="text" class="banner_name" th:value="${bannerList.banner_name}" readonly>
+                    </td>
+                    <td class="banner_list_td_4">
+                        <input type="text" class="banner_url" th:value="${bannerList.banner_url}" readonly>
+                    </td>
+                    <td class="banner_list_td_5" th:text="${#temporals.format(bannerList.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(bannerList.modified_date, 'yyyy-MM-dd')}"></td>
+                    <td class="banner_list_td_6">
+                        <div class="banner_list_manage_btn_box">
+                            <button type="button" class="update_btn" th:value="${bannerList.banner_sid}">수정</button>
+                            <button type="button" class="delete_btn" th:value="${bannerList.banner_sid}">삭제</button>
+                        </div>
+                    </td>
                 </tr>
             </table>
+            <div class="banner_list_btn_box">
+                <button type="button" class="banner_add_btn">등록하기</button>
+            </div>
         </div>
-
     </main>
 </body>
 </html>

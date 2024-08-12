@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.BannerMapper">
+    <insert id="bannerAdd" parameterType="ReqBannerAdd" useGeneratedKeys="true" keyProperty="banner_sid" keyColumn="banner_sid">
+        INSERT INTO tb_banner(
+            banner_name,
+            banner_url,
+            created_date,
+            modified_date
+        )   VALUES   (
+            #{banner_name},
+            #{banner_url},
+            now(),
+            now()
+        )
+    </insert>
+    <insert id="bannerImgSave" parameterType="ReqBannerImg">
+        INSERT INTO tb_banner_img(
+            banner_sid,
+            original_name,
+            img_name,
+            extension
+        )   VALUES   (
+            #{banner_sid},
+            #{original_name},
+            #{img_name},
+            #{extension}
+        )
+    </insert>
+
+    <select id="findAllBanner" resultType="ResBannerList">
+        SELECT TB.*,BI.img_name
+        FROM    tb_banner as TB
+        LEFT OUTER JOIN tb_banner_img as BI
+        ON TB.banner_sid = BI.banner_sid
+        ORDER BY    TB.banner_sid   DESC
+
+    </select>
+
+</mapper>

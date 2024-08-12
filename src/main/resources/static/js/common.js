@@ -31,7 +31,8 @@ const API_LIST = {
     DELETE_IMG : "/hotel/delete/img",
     ROOM_TYPE_ADD : "/type/add",
     ROOM_TYPE_UPDATE : "/type/update",
-    ROOM_TYPE_DELETE : "/type/delete"
+    ROOM_TYPE_DELETE : "/type/delete",
+    BANNER_ADD : "/banner/add"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
@@ -42,7 +43,9 @@ const PAGE_LIST = {
     INTRO_LIST : "/hotel/management/intro",
     INTRO_UPDATE : "/hotel/management/intro/update/",
     ROOM_TYPE_LIST : "/type",
-    ROOM_TYPE_ADD_FORM : "/type/add"
+    ROOM_TYPE_ADD_FORM : "/type/add",
+    BANNER_LIST : "/banner",
+    BANNER_ADD_FORM : "/banner/add"
 };
 
 const defaultErrorFn = (errorResponse) => {
