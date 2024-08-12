@@ -21,7 +21,7 @@ $(function () {
     $(".moveBtn.prev").on("click", () => moveSlide(-1));
     $(".moveBtn.next").on("click", () => moveSlide(1));
 
-    function moveSlide(direction) {
+    const moveSlide = (direction) => {
         if (isAnimating) return;
 
         isAnimating = true;
@@ -57,13 +57,13 @@ $(function () {
         }
     }
 
-    function startAutoSlide() {
+    const startAutoSlide= () => {
         autoSlideInterval = setInterval(() => {
             moveSlide(1);
         }, 3500);
     }
 
-    function stopAutoSlide() {
+    const stopAutoSlide = () => {
         clearInterval(autoSlideInterval);
     }
 
