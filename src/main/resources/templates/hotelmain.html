@@ -7,10 +7,12 @@
 	<link rel="stylesheet" href="/css/footer.css">
 	<link rel="stylesheet" href="/css/hotelmain.css">
 	<link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/banner_img_slide.css">
 	<link rel="stylesheet" href="/css/type_detail.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/common.js"></script>
 	<script type="text/javascript" src="/js/modal.js"></script>
+	<script type="text/javascript" src="/js/banner_img_slide.js"></script>
 	<script type="text/javascript" src="/js/hotel_main.js"></script>
 	<script type="text/javascript" src="/js/reserveSearch.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
@@ -22,7 +24,15 @@
 <main class="hotelMain">
 	<!-- 메인배너 -->
 	<div class="banner">
-		<a href="#"><img class="img" src="#" alt="배너이미지 들어갈예정(패키지등록시에 배너 등록체크)"></a>
+		<div class="slider_wrapper">
+			<div class="slider_inner">
+				<div class="slider" th:each="bannerImg : ${bannerList}">
+					<img class="banner_img" th:src="@{|/img/${bannerImg.img_name}|}">
+				</div>
+			</div>
+		</div>
+	<button type="button" class="moveBtn prev"> < </button>
+	<button type="button" class="moveBtn next"> > </button>
 	</div>
 	<!-- 예약검색 -->
 	<div th:replace="~{reserveSearch :: reserveSearch}"></div>

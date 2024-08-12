@@ -5,10 +5,12 @@ import com.example.demo.dto.request.hotel.ReqEdtorImg;
 import com.example.demo.dto.request.hotel.ReqIntroAdd;
 import com.example.demo.dto.request.hotel.ReqIntroUpdate;
 import com.example.demo.dto.response.ResponseDTO;
+import com.example.demo.dto.response.banner.ResBannerList;
 import com.example.demo.dto.response.hotel.ResHotelIntro;
 import com.example.demo.dto.response.hotel.ResIntroDetail;
 import com.example.demo.dto.response.hotel.ResIntroList;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
+import com.example.demo.service.BannerService;
 import com.example.demo.service.HotelService;
 import com.example.demo.service.RoomTypeService;
 import com.example.demo.util.CommonUtils;
@@ -32,13 +34,16 @@ public class HotelController {
 
 	private final HotelService hotelService;
 	private final RoomTypeService roomTypeService;
+	private final BannerService bannerService;
 	private int introCnt;		// 소개글 게시물 수
 
 	/* 호텔 메인페이지 */
 	@GetMapping("")
 	public String hotelMain(@ModelAttribute("search") SearchDto search,Model model) {
 		List<ResRoomTypeList> roomTypeList = roomTypeService.findAllRoomType();
+		List<ResBannerList> bannerList = bannerService.findAllBanner();
 		model.addAttribute("typeList",roomTypeList);
+		model.addAttribute("bannerList",bannerList);
 		return "hotelmain";
 	}
 
