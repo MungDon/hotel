@@ -12,6 +12,7 @@ public enum ErrorCode {
 	ID_DUPLICATE ( HttpStatus.CONFLICT, "이미 있는 아이디입니다 로그인해주세요"),
 	USER_NAME_DUPLICATE(HttpStatus.CONFLICT, "중복된 닉네임입니다"),
 	PASS_DONT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 서로 일치하지 않습니다"),
+	AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED,"고객전용 서비스입니다. 로그인 후 이용가능합니다."),
 	NO_ACCOUNT(HttpStatus.NO_CONTENT,"없는 계정입니다, 계정을 생성해주세요"),
 	NO_OPTION_NAME(HttpStatus.NO_CONTENT,"옵션명을 적지않았습니다, 옵션명을 적어주세요"),
 	NO_OPTION_VALUE(HttpStatus.NO_CONTENT,"옵션 내용을 적지않았습니다, 옵션내용을 입력해 주세요"),
