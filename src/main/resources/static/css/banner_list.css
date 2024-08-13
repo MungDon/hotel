@@ -13,10 +13,23 @@
     border-collapse: collapse;
     margin-bottom : 30px;
 }
-
+.line1{
+    width: 5%;
+}
+.line2{
+    width: 20%;
+}
+.line3,.line4{
+    width: 20%;
+}
+.line5{
+    width: 25%;
+}.line6{
+    width: 10%;
+}
 
 .banner_name,.banner_url{
-    width: 60%;
+    width: 80%;
     font-size: 17px;
     font-weight: bold;
     text-align: center;
@@ -70,7 +83,16 @@
 }
 
 .banner_list_img{
-    margin-top: 4px;
+    margin: 4px 0;
     width: 100px;
     height: 100px;
+}
+.banner_img_input{
+    width: 50%;
+    display: none;
+}
+.banner_img_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

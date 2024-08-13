@@ -12,6 +12,7 @@ const isNull = (chkData) => {
 }
 // ajaxCall에서 사용할 api 주소를 상수로 관리
 const API_LIST = {
+    LOGOUT : "/user/logout",
     SEND_AUTH_CODE: "/user/send/code",
     USERNAME_VALIDATE: "/user/name/valid",
     AUTH_CODE_VALIDATE: "/user/code/valid",
@@ -25,14 +26,15 @@ const API_LIST = {
     PAYMENT_VALID : "/payment/valid",
     PAYMENT : "/reserve/payment",
     SELECT_INTRO : "/hotel/select/intro",
-    LOGOUT : "/user/logout",
     INTRO_ADD_CANCEL : "/hotel/management/intro/add/cancel",
     INTRO_DELETE : "/hotel/management/intro/delete",
     DELETE_IMG : "/hotel/delete/img",
     ROOM_TYPE_ADD : "/type/add",
     ROOM_TYPE_UPDATE : "/type/update",
     ROOM_TYPE_DELETE : "/type/delete",
-    BANNER_ADD : "/banner/add"
+    BANNER_ADD : "/banner/add",
+    BANNER_UPDATE : "/banner/update",
+    DELETE_BANNER : "/banner/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

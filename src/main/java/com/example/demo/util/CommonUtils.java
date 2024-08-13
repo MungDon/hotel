@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
@@ -58,6 +59,11 @@ public class CommonUtils {
             throw new RestCustomException(errorCode);
         }
         return ResponseDTO.builder().status(HttpStatus.OK).message(message).success(true).build();
+    }
+    /*이미지 삭제*/
+    public static void deleteImg(String path,String current_img){
+        File file = new File(path,current_img);
+        file.delete();
     }
 
 }

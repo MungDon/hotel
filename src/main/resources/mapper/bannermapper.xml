@@ -37,4 +37,27 @@
 
     </select>
 
+    <update id="bannerUpdate" parameterType="ReqBannerUpdate">
+        UPDATE  tb_banner
+        SET     banner_name = #{banner_name},
+                banner_url = #{banner_url},
+                modified_date = now()
+        WHERE
+                banner_sid = #{banner_sid}
+
+    </update>
+
+    <delete id="deleteImg">
+        DELETE
+        FROM    tb_banner_img
+        WHERE
+                banner_sid = #{banner_sid}
+    </delete>
+
+    <delete id="bannerDelete">
+        DELETE
+        FROM    tb_banner
+        WHERE
+                banner_sid = #{banner_sid}
+    </delete>
 </mapper>

@@ -22,12 +22,12 @@ $(function(){
         const thisTr = $(event.target).closest('tr');
         const typeSid = $(event.target).val();
         const typeName = thisTr.find('.typeName').val();
-        const roomSize = thisTr.find('.roomSize').val();
+        const roomSize = thisTr.find('.roomSize').val().split('㎡')[0];
         const bedSize = thisTr.find('.bedSize').val();
         const currentImg = thisTr.find('.currentImg').val();
         const typeImg = thisTr.find(".type_img_input")[0].files[0];
         formData.append('type_name', typeName);
-        formData.append('typeSid', typeSid);
+        formData.append('room_type_sid', typeSid);
         formData.append('room_size', roomSize);
         formData.append('bed_size', bedSize);
         formData.append('current_img', currentImg);
@@ -44,12 +44,14 @@ $(function(){
             successFn : (resultResponse) =>{
                 if(resultResponse.success){
                     const thenFn = () => {
-                        thisTr.find('input').prop("readonly",true);
+                        location.reload();
                     }
                     swalCall("성공",resultResponse.message,"success",thenFn);
                 } else{
-                    swalCall("수정 실패","수정실패","error");
-                    return;
+                    const thenFn = () => {
+                        location.reload();
+                    }
+                    swalCall("수정 실패","수정실패","error",thenFn);
                 }
             }
         }
@@ -73,19 +75,21 @@ $(function(){
 
     $(document).on("click",".roomTypeDeleteBtn", (event) => {
         const typeListSize = $("#typeListSize").val();
-
+        const thisTr = $(event.target).closest('tr');
+        const currentImg = thisTr.find(".currentImg").val();
+        const typeSid = $(event.target).val();
         if(typeListSize == 1){
             swalCall("경고","객실타입은 1개 이상 등록해야합니다","warning");
             return;
         }
-        const typeSid = $(event.target).val();
         const thenFn = (result) => {
             if(result.isConfirmed){
                 const ajaxObj = {
                     url : API_LIST.ROOM_TYPE_DELETE,
                     method : "delete",
                     param : {
-                        room_type_sid : typeSid
+                        room_type_sid : typeSid,
+                        current_img : currentImg
                     },
                     successFn : (resultResponse) => {
                         if(resultResponse.success){

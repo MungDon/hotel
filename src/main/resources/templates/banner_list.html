@@ -14,6 +14,8 @@
 <body>
 <header th:replace="~{manageheader :: manageheader}"></header>
     <main class="banner_list_main">
+        <input type="hidden" id="bannerListCnt" th:value="${bannerList.size()}">
+
         <div class="manageTitleBox">
             <span class="manageTitle">배너 목록</span>
         </div>
@@ -27,11 +29,19 @@
                     <th class="banner_list_th_5 line5">등록일/수정일</th>
                     <th class="banner_list_th_6 line6">관리</th>
                 </tr>
+                <tr th:if="${#lists.isEmpty(bannerList)}">
+                    <td colspan="6">
+                        <h1>등록된 배너가 없습니다.</h1>
+                    </td>
+                </tr>
                 <tr class="banner_list_tr_2" th:each="bannerList, loop : ${bannerList}" draggable="true">
                     <td class="banner_list_td_1" th:text="${loop.count}"></td>
                     <td class="banner_list_td_2">
-                        <img class="banner_list_img" th:src="@{|/img/${bannerList.img_name}|}">
-                        <input type="hidden" name="currentBannerImg" th:value="${bannerList.img_name}">
+                        <div class="banner_img_box">
+                            <img class="banner_list_img" th:src="@{|/img/${bannerList.img_name}|}">
+                            <input type="hidden" class="currentImg" th:value="${bannerList.img_name}">
+                            <input type="file" class="banner_img_input">
+                        </div>
                     </td>
                     <td class="banner_list_td_3">
                         <input type="text" class="banner_name" th:value="${bannerList.banner_name}" readonly>
@@ -42,7 +52,7 @@
                     <td class="banner_list_td_5" th:text="${#temporals.format(bannerList.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(bannerList.modified_date, 'yyyy-MM-dd')}"></td>
                     <td class="banner_list_td_6">
                         <div class="banner_list_manage_btn_box">
-                            <button type="button" class="update_btn" th:value="${bannerList.banner_sid}">수정</button>
+                            <button type="button" class="update_set_btn" th:value="${bannerList.banner_sid}">수정</button>
                             <button type="button" class="delete_btn" th:value="${bannerList.banner_sid}">삭제</button>
                         </div>
                     </td>

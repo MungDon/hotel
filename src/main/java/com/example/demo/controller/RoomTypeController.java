@@ -58,8 +58,10 @@ public class RoomTypeController {
     /*객실 타입 삭제*/
     @DeleteMapping("/delete")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> roomTypeDelete(@RequestParam(value = "room_type_sid")Long room_type_sid){
-        ResponseDTO response = roomTypeService.roomTypeDelete(room_type_sid);
+    public ResponseEntity<ResponseDTO> roomTypeDelete(@RequestParam(value = "room_type_sid")Long room_type_sid,
+                                                      @RequestParam(value = "current_img")String current_img){
+        ResponseDTO response = roomTypeService.roomTypeDelete(room_type_sid,current_img);
         return ResponseEntity.ok(response);
     }
+
 }

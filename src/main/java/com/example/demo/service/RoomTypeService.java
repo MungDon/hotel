@@ -9,6 +9,7 @@ import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import com.example.demo.mapper.RoomTypeMapper;
 import com.example.demo.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoomTypeService {
@@ -63,14 +65,6 @@ public class RoomTypeService {
         roomTypeMapper.saveImg(reqTypeImg);
     }
 
-    @Transactional
-    public void deleteImg(String current_img,Long room_type_sid){
-        int result = roomTypeMapper.deleteImg(current_img,room_type_sid);
-        File file = new File(path, current_img);
-        file.delete();
-        CommonUtils.throwRestCustomExceptionIf(result!= 1,ErrorCode.DELETE_OPERATION_FAILED);
-    }
-
 
     @Transactional
     public ResponseDTO roomTypeAdd (Map<String, String> param, Map<String, MultipartFile> files) throws IOException {
@@ -90,16 +84,26 @@ public class RoomTypeService {
     public ResponseDTO roomTypeUpdate(ReqRoomTypeUpdate req) throws IOException {
         int result = roomTypeMapper.roomTypeUpdate(req);
         if(!CommonUtils.isEmpty(req.getType_img())){
-            deleteImg(req.getCurrent_img(),req.getRoom_type_sid());
+            CommonUtils.deleteImg(path,req.getCurrent_img());
+            roomTypeMapper.deleteImg(req.getCurrent_img(), req.getRoom_type_sid());
             saveImg(req.getType_img(),req.getRoom_type_sid());
         }
+        log.info("1"+req.getRoom_type_sid());
+        log.info("2"+req.getType_img());
+        log.info("3"+req.getRoom_size());
+        log.info("4"+req.getType_name());
+        log.info("5"+req.getCurrent_img());
+        log.info("6"+req.getBed_size());
         return CommonUtils.successResponse(result,"객실타입 수정 성공", ErrorCode.UPDATE_OPERATION_FAILED);
     }
 
 
     @Transactional
-    public ResponseDTO roomTypeDelete(Long room_type_sid){
+    public ResponseDTO roomTypeDelete(Long room_type_sid, String current_img){
         int result = roomTypeMapper.roomTypeDelete(room_type_sid);
+        if(result > 0){
+            CommonUtils.deleteImg(path,current_img);
+        }
         return CommonUtils.successResponse(result,"객실타입 삭제 성공",ErrorCode.DELETE_OPERATION_FAILED);
     }
 }

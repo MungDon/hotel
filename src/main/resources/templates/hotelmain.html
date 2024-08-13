@@ -26,13 +26,13 @@
 	<div class="banner">
 		<div class="slider_wrapper">
 			<div class="slider_inner">
-				<div class="slider" th:each="bannerImg : ${bannerList}">
-					<img class="banner_img" th:src="@{|/img/${bannerImg.img_name}|}">
+				<div class="slider" th:each="banner : ${bannerList}">
+					<a th:href="@{|${banner.banner_url}|}"><img class="banner_img" th:src="@{|/img/${banner.img_name}|}"></a>
 				</div>
 			</div>
 		</div>
-	<button type="button" class="moveBtn prev"> < </button>
-	<button type="button" class="moveBtn next"> > </button>
+	<button type="button" class="moveBtn prev"> 〈 </button>
+	<button type="button" class="moveBtn next"> 〉 </button>
 	</div>
 	<!-- 예약검색 -->
 	<div th:replace="~{reserveSearch :: reserveSearch}"></div>
