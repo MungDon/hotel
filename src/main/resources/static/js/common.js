@@ -34,7 +34,10 @@ const API_LIST = {
     ROOM_TYPE_DELETE : "/type/delete",
     BANNER_ADD : "/banner/add",
     BANNER_UPDATE : "/banner/update",
-    DELETE_BANNER : "/banner/delete"
+    DELETE_BANNER : "/banner/delete",
+    QUESTION_TYPE_ADD :"/question/type/add",
+    QUESTION_TYPE_UPDATE : "/question/type/update",
+    QUESTION_TYPE_DELETE : "/question/type/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
@@ -47,7 +50,8 @@ const PAGE_LIST = {
     ROOM_TYPE_LIST : "/type",
     ROOM_TYPE_ADD_FORM : "/type/add",
     BANNER_LIST : "/banner",
-    BANNER_ADD_FORM : "/banner/add"
+    BANNER_ADD_FORM : "/banner/add",
+    QUESTION_TYPE_LIST : "/question/type"
 };
 
 const defaultErrorFn = (errorResponse) => {

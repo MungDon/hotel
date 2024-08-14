@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.QuestionTypeMapper">
+    <insert id="questionTypeAdd" parameterType="ReqQuestionTypeAdd">
+        INSERT INTO tb_question_type(
+            type_name,
+            created_date,
+            modified_date
+        )   VALUES   (
+            #{type_name},
+            now(),
+            now()
+        )
+    </insert>
+
+    <select id="findAllQuestionType" resultType="ResQuestionTypeList">
+        SELECT *
+        FROM tb_question_type
+        ORDER BY    questionn_type_sid  DESC
+
+    </select>
+
+    <update id="questionTypeUpdate" parameterType="ReqQuestionTypeUpdate">
+        UPDATE  tb_question_type
+        SET     type_name = #{questionTypeName},
+                modified_date = now()
+        WHERE
+                question_type_sid = #{questionTypeSid}
+
+    </update>
+
+    <delete id="questionTypeDelete">
+        DELETE
+        FROM    tb_question_type
+        WHERE
+                question_type_sid = #{questionTypeSid}
+    </delete>
+</mapper>
