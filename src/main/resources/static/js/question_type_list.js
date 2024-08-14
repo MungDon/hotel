@@ -1,6 +1,6 @@
 $(function () {
     $(".question_type_add_btn").click(() => {
-        location.href = PAGE_LIST.QUESTION_TYPE_LIST;
+        location.href = PAGE_LIST.QUESTION_TYPE_ADD_FORM;
     });
 
     $(document).on("click", ".update_set_btn", (event) => {

@@ -67,7 +67,7 @@
     color: #8D94A2;
     cursor : pointer;
 }
-.banner_list_btn_box:hover{
+.banner_list_btn_box>button:hover{
     background-color: white;
 }
 .banner_list_manage_btn_box > button{

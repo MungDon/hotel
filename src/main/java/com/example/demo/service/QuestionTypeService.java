@@ -25,8 +25,11 @@ public class QuestionTypeService {
     }
 
     @Transactional
-    public ResponseDTO questionTypeAdd(ReqQuestionTypeAdd req){
-        int result = questionTypeMapper.questionTypeAdd(req);
+    public ResponseDTO questionTypeAdd(List<ReqQuestionTypeAdd> addList){
+        int result = 0;
+        for(ReqQuestionTypeAdd req : addList) {
+            result += questionTypeMapper.questionTypeAdd(req);
+        }
         return CommonUtils.successResponse(result, "문의 타입 저장 성공" , ErrorCode.INSERT_OPERATION_FAILED);
     }
 

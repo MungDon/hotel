@@ -7,7 +7,7 @@
             created_date,
             modified_date
         )   VALUES   (
-            #{type_name},
+            #{typeName},
             now(),
             now()
         )
@@ -16,7 +16,7 @@
     <select id="findAllQuestionType" resultType="ResQuestionTypeList">
         SELECT *
         FROM tb_question_type
-        ORDER BY    questionn_type_sid  DESC
+        ORDER BY    question_type_sid  DESC
 
     </select>
 

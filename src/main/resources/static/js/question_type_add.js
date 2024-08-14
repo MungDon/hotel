@@ -3,7 +3,7 @@ $(function(){
         const questionTypeOptionHTML = `
         <div class="question_type_add_box">
             <input type="text" name="type_name" class="question_type_name" placeholder="문의 타입명">
-            <button type="button" class="insertOption">+</button>
+            <button type="button" class="removeOptionBtn">-</button>
         </div>
         `
         $(".question_type_add_con").append(questionTypeOptionHTML);
@@ -14,19 +14,20 @@ $(function(){
     });
 
     $(".saveBtn").click(() => {
-        const formData = new FormData();
+        const addList = [];
         $(".question_type_add_box").each((index, objDOM) => {
             const obj = $(objDOM);
-            const type_name = obj.find(".type_name").val();
-
-            formData.append(`type_name`, type_name);
+            const typeName = obj.find(".question_type_name").val();
+            const addObj = {
+                typeName :typeName
+            }
+            addList.push(addObj);
         });
         const ajaxObj = {
             url: API_LIST.QUESTION_TYPE_ADD,
             method: "post",
-            contentType: false,
-            processData : false,
-            param: formData,
+            contentType : "application/json",
+            param: JSON.stringify(addList),
             successFn: (resultResponse) => {
                 if (resultResponse.success) {
                     const thenFn = () => {

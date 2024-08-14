@@ -34,8 +34,8 @@ public class QuestionTypeController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> questionTypeAdd(ReqQuestionTypeAdd req){
-        ResponseDTO response = questionTypeService.questionTypeAdd(req);
+    public ResponseEntity<ResponseDTO> questionTypeAdd(@RequestBody List<ReqQuestionTypeAdd> addList){
+        ResponseDTO response = questionTypeService.questionTypeAdd(addList);
         return ResponseEntity.ok(response);
     }
 

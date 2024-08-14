@@ -51,7 +51,8 @@ const PAGE_LIST = {
     ROOM_TYPE_ADD_FORM : "/type/add",
     BANNER_LIST : "/banner",
     BANNER_ADD_FORM : "/banner/add",
-    QUESTION_TYPE_LIST : "/question/type"
+    QUESTION_TYPE_LIST : "/question/type",
+    QUESTION_TYPE_ADD_FORM : "/question/type/add"
 };
 
 const defaultErrorFn = (errorResponse) => {
