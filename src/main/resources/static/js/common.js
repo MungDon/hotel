@@ -37,7 +37,8 @@ const API_LIST = {
     DELETE_BANNER : "/banner/delete",
     QUESTION_TYPE_ADD :"/question/type/add",
     QUESTION_TYPE_UPDATE : "/question/type/update",
-    QUESTION_TYPE_DELETE : "/question/type/delete"
+    QUESTION_TYPE_DELETE : "/question/type/delete",
+    QUESTION_ADD : "/question/add"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
@@ -52,7 +53,9 @@ const PAGE_LIST = {
     BANNER_LIST : "/banner",
     BANNER_ADD_FORM : "/banner/add",
     QUESTION_TYPE_LIST : "/question/type",
-    QUESTION_TYPE_ADD_FORM : "/question/type/add"
+    QUESTION_TYPE_ADD_FORM : "/question/type/add",
+    QUESTION_ADD_FORM : "/question/add",
+    QUESTION_LIST : "/question"
 };
 
 const defaultErrorFn = (errorResponse) => {

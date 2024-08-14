@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>문의 목록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/question_list.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/question_list.js"></script>
+
+</head>
+<body>
+    <header th:replace="~{header :: header}"></header>
+    <main class="question_list_main">
+        <div class="question_list_top user_top">
+            <span class="question_list_text">나의 고객 문의</span>
+            <hr class="underLine">
+        </div>
+            <table class="question_list_table">
+                <tr class="question_list_tr_1">
+                    <th class="question_list_th_1 line1">번호</th>
+                    <th class="question_list_th_2 line2">문의 제목</th>
+                    <th class="question_list_th_3 line3">등록일/수정일</th>
+                </tr>
+                <tr th:if="${#lists.isEmpty(questionList)}">
+                    <td colspan="3">
+                        <h1>등록된 문의가 없습니다.</h1>
+                    </td>
+                </tr>
+                <tr class="question_list_tr_2" th:each="questionData, loop: ${questionList}">
+                    <td class="question_list_td_1" th:text="${loop.count}"></td>
+                    <td class="question_list_td_2">
+                        <span th:text="${questionData.title}" th:data-question-sid="${questionData.question_sid}" class="question_title"></span>
+                        <input type="hidden" class="question_content" th:value="${questionData.content}">
+                    </td>
+                    <td class="question_list_td_3" th:text="${#temporals.format(questionData.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(questionData.modified_date, 'yyyy-MM-dd')}"></td>
+                </tr>
+            </table>
+            <div class="question_list_add_btn_box">
+                <button type="button" class="question_add_btn">문의하기</button>
+            </div>
+        <div th:replace="~{modal :: modal}"></div>
+    </main>
+    <footer th:replace="~{footer :: footer}"></footer>
+</body>
+</html>

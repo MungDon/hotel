@@ -7,7 +7,6 @@
             question_type_sid,
             title,
             content,
-            is_secret,
             created_date,
             modified_date
         )   VALUES  (
@@ -15,10 +14,17 @@
             #{questionTypeSid},
             #{title},
             #{content},
-            #{isSecret},
             now(),
             now()
         )
     </insert>
 
+    <select id="findQuestion" resultType="ResQuestionList">
+        SELECT  *
+        FROM    tb_question
+        WHERE
+                user_sid = #{userSid}
+        ORDER BY
+                question_sid    DESC
+    </select>
 </mapper>

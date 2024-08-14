@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="/css/hotelmain.css">
 	<link rel="stylesheet" href="/css/imgsilde.css">
 	<link rel="stylesheet" href="/css/roomdetail.css">
+	<link rel="stylesheet" href="/css/footer.css">
 </head>
 <body>
 	<!-- 검색(예약) 데이터 hidden -->
@@ -86,10 +87,10 @@
 		<div class="paging"></div>
 		<div th:replace="~{modal :: modal}"></div>
 	</main>
+	<footer th:replace="~{footer :: footer}"></footer>
 
-	<!-- 스크립트 -->
 
-<script th:inline="javascript">
+<!--<script th:inline="javascript">
 $(function() {
 
 	pagination();
@@ -154,6 +155,6 @@ $(function() {
 		location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
 	}
 });
-</script>
+</script>-->
 </body>
 </html>
