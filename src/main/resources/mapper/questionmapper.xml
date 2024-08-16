@@ -20,11 +20,21 @@
     </insert>
 
     <select id="findQuestion" resultType="ResQuestionList">
-        SELECT  *
-        FROM    tb_question
+        SELECT  TQ.*, QT.type_name
+        FROM    tb_question as TQ
+        LEFT OUTER JOIN tb_question_type as QT
+        ON TQ.question_type_sid = QT.question_type_sid
         WHERE
                 user_sid = #{userSid}
         ORDER BY
                 question_sid    DESC
     </select>
+    
+    <update id="questionUpdate" parameterType="ReqQuestionUpdate">
+        UPDATE  tb_question
+        SET     title = #{title},
+                content = #{content}
+        WHERE
+                question_sid = #{questionSid}
+    </update>
 </mapper>

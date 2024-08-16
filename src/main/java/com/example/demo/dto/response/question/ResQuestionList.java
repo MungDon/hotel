@@ -13,6 +13,8 @@ public class ResQuestionList {
 
     private String content;
 
+    private String type_name;
+
     private LocalDateTime created_date;
 
     private LocalDateTime modified_date;

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.question.ReqQuestionAdd;
+import com.example.demo.dto.request.question.ReqQuestionUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.question.ResQuestionList;
 import com.example.demo.dto.response.questiontype.ResQuestionTypeList;
@@ -49,6 +50,22 @@ public class QuestionController {
     @ResponseBody
     public ResponseEntity<ResponseDTO> questionAdd(@RequestBody @Valid ReqQuestionAdd req){
         ResponseDTO response = questionService.questionAdd(req);
+        return ResponseEntity.ok(response);
+    }
+
+    /*고객 문의 수정*/
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> questionUpdate(@RequestBody @Valid ReqQuestionUpdate req){
+        ResponseDTO response = questionService.questionUpdate(req);
+        return ResponseEntity.ok(response);
+    }
+    
+    /*고객 문의 삭제*/
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> questionDelete(@RequestParam(value = "questionSid")Long questionSid){
+        ResponseDTO response = questionService.questionDelete(questionSid);
         return ResponseEntity.ok(response);
     }
 }

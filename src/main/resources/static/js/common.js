@@ -38,7 +38,9 @@ const API_LIST = {
     QUESTION_TYPE_ADD :"/question/type/add",
     QUESTION_TYPE_UPDATE : "/question/type/update",
     QUESTION_TYPE_DELETE : "/question/type/delete",
-    QUESTION_ADD : "/question/add"
+    QUESTION_ADD : "/question/add",
+    QUESTION_UPDATE : "/question/update",
+    QUESTION_DELETE : "/question/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {
