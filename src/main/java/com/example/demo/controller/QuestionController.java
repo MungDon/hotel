@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.Exception.ErrorCode;
+import com.example.demo.dto.ResPaging;
+import com.example.demo.dto.request.question.QuestionSearchDTO;
 import com.example.demo.dto.request.question.ReqQuestionAdd;
 import com.example.demo.dto.request.question.ReqQuestionUpdate;
 import com.example.demo.dto.response.ResponseDTO;
@@ -67,5 +69,13 @@ public class QuestionController {
     public ResponseEntity<ResponseDTO> questionDelete(@RequestParam(value = "questionSid")Long questionSid){
         ResponseDTO response = questionService.questionDelete(questionSid);
         return ResponseEntity.ok(response);
+    }
+
+    /*고객 문의 목록(관리자)*/
+    @GetMapping("/management")
+    public String questionManageList(Model model, @ModelAttribute("search") QuestionSearchDTO dto){
+        ResPaging<ResQuestionList> questionList = questionService.questionManageList(dto);
+        model.addAttribute("questionList",questionList);
+        return "question_manage_list";
     }
 }

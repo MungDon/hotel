@@ -26,6 +26,8 @@
 	<input type="hidden" class="end_date" th:value="${search.end_date}"/>
 	<input type="hidden" class="adult_cnt" th:value="${search.adult_cnt}"/>
 	<input type="hidden" class="child_cnt" th:value="${search.child_cnt}"/>
+	<input type="hidden" class="pagination" th:value="${rooms.pagination}"/>
+	<input type="hidden" class="search" th:value="${search}"/>
 	<!-- 세션체크 -->
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
 	<input type="hidden" th:value="${session.role_user}" id="role_user" />
@@ -90,23 +92,17 @@
 	<footer th:replace="~{footer :: footer}"></footer>
 
 
-<!--<script th:inline="javascript">
+<script th:inline="javascript">
 $(function() {
 
 	pagination();
 	function pagination() {
 
-		//ResPaging의 멤버인 List<T> 타입의 list 를 의미
-		const list = /*[[${rooms.list}]]*/[];
-
 		// Respaging 의 멤버인 pagination을 의미
-		const pagination = /*[[${rooms.pagination}]]*/{};
+		const pagination = $(".pagination").val();
 
 		// @ModelAttribute를 이용해서 뷰로 전달한 searchDto 타입의 객체인 search 를 의미
-		const search = /*[[${search}]]*/{};
-
-		// 리스트에 출력되는 게시글 번호를 처리하기 위해 사용되는 변수 (리스트에서 번호는 페이지 정보를 이용해서 계산해야함)
-		let num = pagination.totalRecordCount - ((search.page - 1) * search.recordSize);
+		const search = $(".search").val();
 
 		// 페이지 렌더링
 		drawPage(pagination, search);
@@ -155,6 +151,6 @@ $(function() {
 		location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
 	}
 });
-</script>-->
+</script>
 </body>
 </html>

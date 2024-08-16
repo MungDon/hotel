@@ -19,12 +19,12 @@ public class Pagination {
 	
 	private boolean existNextPage;	// 다음 페이지 여부
 	
-	public Pagination(int totalRecordCount, SearchDto dto) {
+	public Pagination(int totalRecordCount, Search dto) {
 		this.totalRecordCount = totalRecordCount;
 		calculation(dto);
 	}
 	
-	public void calculation(SearchDto dto) {
+	public void calculation(Search dto) {
 		
 		// 전체 페이지 수 계산
 		totalPageCount = ((totalRecordCount - 1) / dto.getPageSize())+1;

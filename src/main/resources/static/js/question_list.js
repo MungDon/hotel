@@ -19,7 +19,7 @@ $(function(){
         modalInnerElement.empty();
         const questionDetailHTML = `
             <div class="question_detail_top">
-                <h1>${questionType}</h1>
+                <span class="question_detail_type">${questionType}</span>
             </div>
             <div class="question_detail_main">
                 <div class="question_detail_box">
@@ -28,7 +28,7 @@ $(function(){
                     <textarea class="question_detail_content" readonly>${content}</textarea>
                 </div>
                 <div class="question_detail_answer_box">
-                    <span class="question_detail_answer">답변 칸</span>
+                    ⤷<span class="question_detail_answer">임시 답변 칸</span>
                 </div>
                 <div class="question_detail_btn_box">
                     <button type="button" class="update_set_btn" value="${questionSid}">수정</button>
@@ -44,10 +44,10 @@ $(function(){
     $(document).on("click", ".update_set_btn", (event) => {
         const questionSid = $(event.target).val();
         const btnBox = $(".question_detail_btn_box");
-        const titleInput = $(".question_title");
+        const titleInput = $(".question_detail_title");
         titleInput.prop("readonly", false);
         titleInput.css("outline", "1px solid black");
-        $(".question_content").prop("readonly", false);
+        $(".question_detail_content").prop("readonly", false);
         btnBox.empty();
         const changeBtnBox = `
              <button type="button" class="update_btn" value="${questionSid}">수정</button>
@@ -59,10 +59,10 @@ $(function(){
     // 수정취소 시 버튼 구성 복구
     const createBtnBoxForCancel = (questionSid) => {
         const btnBox = $(".question_detail_btn_box");
-        const titleInput = $(".question_title");
+        const titleInput = $(".question_detail_title");
         titleInput.prop("readonly", true);
         titleInput.css("outline", "none");
-        $(".question_content").prop("readonly", true);
+        $(".question_detail_content").prop("readonly", true);
         btnBox.empty();
         const changeBtnBox =
             `
@@ -98,7 +98,7 @@ $(function(){
             successFn : (resultResponse) => {
                 if(resultResponse.success){
                     const thenFn = () => {
-                        createBtnBoxForCancel(questionSid);
+                        location.reload();
                     }
                     swalCall("수정 성공", resultResponse.message, "success",thenFn);
                 }else{
@@ -109,32 +109,37 @@ $(function(){
                 }
             }
         }
-
         ajaxCall(ajaxObj);
     });
 
     // 삭제하기
     $(document).on("click", ".delete_btn", (event) => {
         const questionSid = $(event.target).val();
-
-        const ajaxObj = {
-            url : API_LIST.QUESTION_DELETE,
-            method : "delete",
-            param : {
-                questionSid : questionSid
-            },
-            successFn : (resultResponse) => {
-                if(resultResponse.success){
-                    const thenFn = () => {
-                        location.reload();
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                const ajaxObj = {
+                    url : API_LIST.QUESTION_DELETE,
+                    method : "delete",
+                    param : {
+                        questionSid : questionSid
+                    },
+                    successFn : (resultResponse) => {
+                        if(resultResponse.success){
+                            const thenFn = () => {
+                                location.reload();
+                            }
+                            swalCall("삭제 성공", resultResponse.message,"success",thenFn);
+                        } else {
+                            swalCall("삭제 실패", "문의 삭제에 실패하였습니다.","error");
+                            return;
+                        }
                     }
-                    swalCall("삭제 성공", resultResponse.message,"success",thenFn);
-                } else {
-                    swalCall("삭제 실패", "문의 삭제에 실패하였습니다.","error");
-                    return;
                 }
+                ajaxCall(ajaxObj);
+            }else {
+                return;
             }
         }
-        ajaxCall(ajaxObj);
+        swalCall("문의 삭제","해당 문의를 삭제하시겠습니까?", "question",thenFn,"예",true);
     });
 });

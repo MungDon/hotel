@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>고객문의 관리자</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <!--<link rel="stylesheet" href="/css/question_manage_list.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/pagination.js"></script>
+ <!--   <script type="text/javascript" src="/js/question_manage_list.js"></script>-->
+</head>
+<body>
+<header th:replace="~{manageheader :: manageheader}"></header>
+  <main class="question_manage_list_main">
+      <!--페이징변수-->
+      <input type="hidden" class="existPrevPage" th:value="${questionList.pagination.existPrevPage}">
+      <input type="hidden" class="existNextPage" th:value="${questionList.pagination.existNextPage}">
+      <input type="hidden" class="startPage" th:value="${questionList.pagination.startPage}">
+      <input type="hidden" class="endPage" th:value="${questionList.pagination.endPage}">
+      <input type="hidden" class="totalPageCount" th:value="${questionList.pagination.totalPageCount}">
+      <input type="hidden" class="totalRecordCount" th:value="${questionList.pagination.totalRecordCount}">
+      <input type="hidden" class="page" th:value="${search.page}">
+      <input type="hidden" class="recordSize" th:value="${search.recordSize}">
+
+    <div class="question_manage_list_box">
+      <table class="question_manage_list_table">
+        <tr class="question_manage_list_tr_1">
+            <th class="question_manage_list_th_1">번호</th>
+            <th class="question_manage_list_th_2">문의 제목</th>
+            <th class="question_manage_list_th_3">문의 고객</th>
+            <th class="question_manage_list_th_4">문의 유형</th>
+            <th class="question_manage_list_th_5">등록일/수정일</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(questionList)}">
+            <td>
+                <h1>등록된 문의내역이 없습니다.</h1>
+            </td>
+        </tr>
+        <tr class="question_manage_list_tr_2" th:each="question: ${questionList.list}">
+            <td class="question_manage_list_td_1"></td>
+            <td class="question_manage_list_td_2">
+                <span class="question_manage_list_title" th:text="${question.title}"></span>
+                <input type="hidden" class="question_manage_list_content" th:value="${question.content}">
+            </td>
+            <td class="question_manage_list_td_3" th:text="${question.user_name}"></td>
+            <td class="question_manage_list_td_4" th:text="${question.type_name}"></td>
+            <td class="question_manage_list_td_5" th:text="${#temporals.format(question.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(question.modified_date, 'yyyy-MM-dd')}"></td>
+        </tr>
+      </table>
+        <div class="pagination"></div>
+    </div>
+  </main>
+</body>
+</html>

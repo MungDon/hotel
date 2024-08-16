@@ -32,4 +32,8 @@ $(function(){
         }
         ajaxCall(ajaxObj);
     });
+
+    $(".question_add_cancel_btn").click(() => {
+        location.href= PAGE_LIST.QUESTION_LIST;
+    });
 });

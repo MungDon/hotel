@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.Exception.ErrorCode;
+import com.example.demo.dto.Pagination;
+import com.example.demo.dto.ResPaging;
+import com.example.demo.dto.request.question.QuestionSearchDTO;
 import com.example.demo.dto.request.question.ReqQuestionAdd;
 import com.example.demo.dto.request.question.ReqQuestionUpdate;
 import com.example.demo.dto.response.ResponseDTO;
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -41,6 +45,21 @@ public class QuestionService {
     public ResponseDTO questionDelete(Long questionSid){
         int result = questionMapper.questionDelete(questionSid);
         return CommonUtils.successResponse(result, "문의 삭제 성공", ErrorCode.DELETE_OPERATION_FAILED);
+    }
+
+    @Transactional(readOnly = true)
+    public ResPaging<ResQuestionList> questionManageList(QuestionSearchDTO dto){
+        int listCount = questionMapper.questionListCnt(dto);
+        if(listCount < 1){
+            return new ResPaging<>(Collections.emptyList(),null);
+        }
+        Pagination pagination = new Pagination(listCount,dto);
+        dto.setPagination(pagination);
+
+        List<ResQuestionList> questionManageList = questionMapper.questionManageList(dto);
+
+        return new ResPaging<>(questionManageList, pagination);
+
     }
 
 }

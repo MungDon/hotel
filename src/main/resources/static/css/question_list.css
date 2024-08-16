@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top : 150px;
 }
 
 .question_list_add_btn_box{
     display: flex;
-    width: 90%;
+    width: 60%;
     justify-content: flex-end;
 }
 .question_add_btn{
