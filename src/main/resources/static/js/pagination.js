@@ -1,6 +1,6 @@
 $(function () {
-    const existPrevPage = $(".existPrevPage").val();
-    const existNextPage = $(".existNextPage").val();
+    const existPrevPage= $(".existPrevPage").val() === "true";
+    const existNextPage = $(".existNextPage").val()=== "true";
     const startPage = $(".startPage").val();
     const endPage = $(".endPage").val();
     const totalPageCount = $(".totalPageCount").val();
@@ -30,15 +30,15 @@ $(function () {
 
         if (existNextPage) {
             pageHTML += `
-                <button type="button" class="next_page_btn all_page_btn" value="${endPage + 1}">다음 페이지</button>
+                <button type="button" class="next_page_btn all_page_btn" value="${parseInt(endPage) + 1}">다음 페이지</button>
                 <button type="button" class="end_page_btn all_page_btn" value="${totalPageCount}">마지막 페이지</button>
             `;
         }
         $(".pagination").append(pageHTML);
 
-        $(".question_manage_list_tr_2").each(function(index) {
+        $(".content_tr").each(function(index) {
             const itemNumber = calculateItemNumber(page, index);
-            $(this).find(".question_manage_list_td_1").text(itemNumber);
+            $(this).find(".content_num").text(itemNumber);
         });
     }
     createPagination();
@@ -47,11 +47,20 @@ $(function () {
         if (isNull(pageData)) {
             pageData = 1;
         }
+
         const pageParams = {
             page: pageData,
             recodeSize: 10,
             pageSize: 10
         }
+
+        const urlObj = new URL(location.href);
+        const searchParams = new URLSearchParams(urlObj.search);
+        searchParams.forEach((value, key) => {
+            if (key !== 'page') { // 페이지 번호는 덮어쓰고, 나머지 쿼리 파라미터는 유지
+                pageParams[key] = value;
+            }
+        });
         location.href = location.pathname + '?' + new URLSearchParams(pageParams);
     });
 });

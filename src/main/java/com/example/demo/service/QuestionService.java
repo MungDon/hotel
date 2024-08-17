@@ -49,15 +49,19 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public ResPaging<ResQuestionList> questionManageList(QuestionSearchDTO dto){
+        // 검색 조건에 맞는 데이터가 없을 경우 빈 리스트, null 반환
         int listCount = questionMapper.questionListCnt(dto);
         if(listCount < 1){
             return new ResPaging<>(Collections.emptyList(),null);
         }
+        // 페이징 객체 생성과 동시에 페이징 계산
         Pagination pagination = new Pagination(listCount,dto);
         dto.setPagination(pagination);
-
+        
+        // 계산완료 후 해당 변수들로 offset 정해서 데이터 가져옴
         List<ResQuestionList> questionManageList = questionMapper.questionManageList(dto);
 
+        // 응답 객체 안에 리스트와 페이징 객체 담음
         return new ResPaging<>(questionManageList, pagination);
 
     }

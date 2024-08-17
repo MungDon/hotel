@@ -75,6 +75,8 @@ public class QuestionController {
     @GetMapping("/management")
     public String questionManageList(Model model, @ModelAttribute("search") QuestionSearchDTO dto){
         ResPaging<ResQuestionList> questionList = questionService.questionManageList(dto);
+        List<ResQuestionTypeList> questionTypeList = questionTypeService.findAllQuestionType();
+        model.addAttribute("questionTypeList",questionTypeList);
         model.addAttribute("questionList",questionList);
         return "question_manage_list";
     }

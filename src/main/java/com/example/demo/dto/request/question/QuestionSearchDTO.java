@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 public class QuestionSearchDTO extends Search {
 
-    private String questionType;   // 문의 타입
+    private Long questionType;   // 문의 타입
 }
