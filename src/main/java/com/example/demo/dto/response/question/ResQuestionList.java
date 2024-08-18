@@ -17,6 +17,8 @@ public class ResQuestionList {
 
     private String user_name;
 
+    private String question_status;
+
     private LocalDateTime created_date;
 
     private LocalDateTime modified_date;

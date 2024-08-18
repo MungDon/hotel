@@ -12,6 +12,7 @@ import com.example.demo.enums.ImgType;
 import com.example.demo.enums.OptionType;
 import com.example.demo.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -136,7 +138,6 @@ public class RoomService {
 		if(count < 1) {
 			return new ResPaging<>(Collections.emptyList(), null);
 		}
-		
 		// Pagination 객체를 생성해서 페이지 정보 계산 후 SearchDto 타입의 객체인 search 에 계산된 페이지 정보 저장
 		Pagination Pagination = new Pagination(count, search);
 		

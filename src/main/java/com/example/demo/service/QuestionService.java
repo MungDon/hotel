@@ -8,6 +8,7 @@ import com.example.demo.dto.request.question.ReqQuestionAdd;
 import com.example.demo.dto.request.question.ReqQuestionUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.question.ResQuestionList;
+import com.example.demo.enums.QuestionStatus;
 import com.example.demo.mapper.QuestionMapper;
 import com.example.demo.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,7 @@ public class QuestionService {
 
     @Transactional
     public ResponseDTO questionAdd(ReqQuestionAdd req){
+        req.bindingQuestionStatus(QuestionStatus.ANSWER_WAITING.getStatus());
         int result = questionMapper.questionAdd(req);
         return CommonUtils.successResponse(result, "질문 등록 성공!", ErrorCode.INSERT_OPERATION_FAILED);
     }

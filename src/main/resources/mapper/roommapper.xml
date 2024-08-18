@@ -82,13 +82,15 @@
 	</select>
 	
 	<!-- 방 수 카운트 -->
-	<select id="count" parameterType="com.example.demo.dto.SearchDto" resultType="int">
+	<select id="count" parameterType="com.example.demo.dto.SearchDto">
 		SELECT
 			count(*)
 		FROM
 			tb_room
 		WHERE
-			delete_yn = 'N'	
+			delete_yn = 'N'
+			AND adult_limit &gt;= #{adult_cnt}
+		  	AND child_limit &gt;= #{child_cnt}
 	</select>
 	
 	<!-- 삭제된 글목록 -->

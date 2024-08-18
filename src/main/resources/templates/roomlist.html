@@ -29,29 +29,27 @@
 	<input type="hidden" class="child_cnt" th:value="${search.child_cnt}"/>
 
 	<!--페이징변수-->
-	<input type="hidden" class="existPrevPage" th:value="${rooms.pagination.existPrevPage}">
-	<input type="hidden" class="existNextPage" th:value="${rooms.pagination.existNextPage}">
-	<input type="hidden" class="startPage" th:value="${rooms.pagination.startPage}">
-	<input type="hidden" class="endPage" th:value="${rooms.pagination.endPage}">
-	<input type="hidden" class="totalPageCount" th:value="${rooms.pagination.totalPageCount}">
-	<input type="hidden" class="totalRecordCount" th:value="${rooms.pagination.totalRecordCount}">
-	<input type="hidden" class="page" th:value="${search.page}">
-	<input type="hidden" class="recordSize" th:value="${search.recordSize}">
+	<input type="hidden" class="existPrevPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.existPrevPage}">
+	<input type="hidden" class="existNextPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.existNextPage}">
+	<input type="hidden" class="startPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.startPage}">
+	<input type="hidden" class="endPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.endPage}">
+	<input type="hidden" class="totalPageCount" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.totalPageCount}">
+	<input type="hidden" class="totalRecordCount" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.totalRecordCount}">
+	<input type="hidden" class="page" th:value="${#lists.isEmpty(rooms.list)? '' : search.page}">
+	<input type="hidden" class="recordSize" th:value="${#lists.isEmpty(rooms.list)? '' :  search.recordSize}">
 
 	<!-- 세션체크 -->
 	<input type="hidden" th:value="${session.user_sid}" id="user_sid" />
 	<input type="hidden" th:value="${session.role_user}" id="role_user" />
 
 	<!-- 헤더 -->
-	<div th:if="${session.user_sid == null ||session.role_user == 'USER'}">
-		<header th:replace="~{header :: header}"></header>
-	</div>
+    <header th:replace="~{header :: header}"></header>
 	<main class="main">
 	<!-- 객실 검색 -->
 	<div class="searchBox" th:replace="~{reserveSearch :: reserveSearch}"></div>
 	<!-- 메인 -->
 		<div class="container">
-				<table class="listTable" th:if="${!#lists.isEmpty(rooms)}"
+				<table class="listTable" th:if="${!#lists.isEmpty(rooms.list)}"
 					th:each="rooms:${rooms.list}">
 					<tr class="listTr1">
 						<td class="listTd0" rowspan="3">
@@ -69,7 +67,7 @@
 									<span  th:text="${option.option_name} +' : '"></span>
 									<span  th:text="${option.option_value} + '㎡'"></span>
 								</div>
-								<div th:if="${option.option_name.indexOf('침대') != -1}">	
+								<div th:if="${option.option_name.indexOf('침대') != -1}">
 									<span th:text="${option.option_name} +' : '"></span>
 									<span th:text="${option.option_value}"></span>
 								</div>

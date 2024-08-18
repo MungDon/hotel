@@ -19,4 +19,11 @@ public class ReqQuestionAdd {
 
     @NotBlank(message = "문의 내용은 필수 입니다.")
     private String content;
+
+    private String questionStatus;
+
+
+    public void bindingQuestionStatus(String status){
+        this.questionStatus = status;
+    }
 }

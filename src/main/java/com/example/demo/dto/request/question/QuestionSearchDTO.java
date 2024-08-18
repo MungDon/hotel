@@ -9,4 +9,6 @@ import lombok.Setter;
 public class QuestionSearchDTO extends Search {
 
     private Long questionType;   // 문의 타입
+
+    private String questionStatus; // 답변상태
 }

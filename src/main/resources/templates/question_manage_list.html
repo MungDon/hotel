@@ -33,6 +33,11 @@
                     <option value="">==문의유형==</option>
                     <option  th:each="questionType: ${questionTypeList}" th:value="${questionType.question_type_sid}" th:text="${questionType.type_name}" th:selected="${search.questionType==questionType.question_type_sid}" ></option>
                 </select>
+                <select class="question_status">
+                    <option value="">==답변상태==</option>
+                    <option  th:selected="${search.questionStatus == '답변완료'}" value="답변완료">답변완료</option>
+                    <option th:selected="${search.questionStatus == '답변대기'}" value="답변대기">답변대기</option>
+                </select>
             </div>
             <table class="question_manage_list_table">
                 <tr class="question_manage_list_tr_1">
@@ -41,9 +46,10 @@
                     <th class="question_manage_list_th_3 line3">문의 고객</th>
                     <th class="question_manage_list_th_4 line4">문의 유형</th>
                     <th class="question_manage_list_th_5 line5">등록일/수정일</th>
+                    <th class="question_manage_list_th_6 line6">답변</th>
                 </tr>
                 <tr th:if="${#lists.isEmpty(questionList.list)}">
-                    <td colspan="5">
+                    <td colspan="6">
                         <h1>등록된 문의내역이 없습니다.</h1>
                     </td>
                 </tr>
@@ -56,9 +62,13 @@
                     <td class="question_manage_list_td_3" th:text="${question.user_name}"></td>
                     <td class="question_manage_list_td_4" th:text="${question.type_name}"></td>
                     <td class="question_manage_list_td_5" th:text="${#temporals.format(question.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(question.modified_date, 'yyyy-MM-dd')}"></td>
+                    <td class="question_manage_list_td_6">
+                        <button type="button" class="answer_btn" th:if="${question.question_status == '답변대기'}">답변작성</button>
+                        <span th:if="${question.question_status == '답변완료'}">답변완료</span>
+                    </td>
                 </tr>
             </table>
-          <div class="pagination"></div>
+          <div class="pagination" th:if="${#lists.isEmpty(questionList.list)}"></div>
         </main>
 </body>
 </html>

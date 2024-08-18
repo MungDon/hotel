@@ -15,7 +15,7 @@
     width: 10%;
 }
 .line2{
-    width: 25%;
+    width: 20%;
 }
 .line3{
     width: 15%;
@@ -24,7 +24,10 @@
     width: 15%;
 }
 .line5{
-    width: 35%;
+    width: 30%;
+}
+.line6{
+    width: 10%;
 }
 
 .question_manage_list_tr_1{
@@ -63,7 +66,7 @@
     justify-content: flex-end;
     margin-bottom : 20px;
 }
-.question_type{
+.question_type,.question_status{
     text-align: center;
     width: 15%;
     height: 30px;
@@ -72,5 +75,6 @@
     color: #8D94A2;
     border-radius: 5px;
     border : 1px solid #8D94A2;
+    margin-left: 10px;
 }
 

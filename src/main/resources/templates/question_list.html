@@ -29,9 +29,10 @@
                     <th class="question_list_th_1 line1">번호</th>
                     <th class="question_list_th_2 line2">문의 제목</th>
                     <th class="question_list_th_3 line3">등록일/수정일</th>
+                    <th class="question_list_th_4 line4">답변상태</th>
                 </tr>
                 <tr th:if="${#lists.isEmpty(questionList)}">
-                    <td colspan="3">
+                    <td colspan="4">
                         <h1>등록된 문의가 없습니다.</h1>
                     </td>
                 </tr>
@@ -43,6 +44,7 @@
                         <span th:text="${questionData.title}" th:data-question-sid="${questionData.question_sid}" class="question_title"></span>
                     </td>
                     <td class="question_list_td_3" th:text="${#temporals.format(questionData.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(questionData.modified_date, 'yyyy-MM-dd')}"></td>
+                    <td class="question_list_td_4" th:text="${questionData.question_status}"></td>
                 </tr>
             </table>
             <div class="question_list_add_btn_box">

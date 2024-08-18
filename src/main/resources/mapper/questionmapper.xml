@@ -7,6 +7,7 @@
             question_type_sid,
             title,
             content,
+            question_status,
             created_date,
             modified_date
         )   VALUES  (
@@ -14,6 +15,7 @@
             #{questionTypeSid},
             #{title},
             #{content},
+            #{questionStatus},
             now(),
             now()
         )
@@ -33,9 +35,14 @@
     <select id="questionListCnt" parameterType="QuestionSearchDTO">
         SELECT  COUNT(*)
         FROM    tb_question
-        <if test="questionType != null and questionType != ''">
-            WHERE question_type_sid = #{questionType}
-        </if>
+        <where>
+            <if test="questionType != null and questionType != ''">
+                question_type_sid = #{questionType}
+            </if>
+            <if test="questionStatus != null and questionStatus != ''">
+                 AND question_status = #{questionStatus}
+            </if>
+        </where>
     </select>
     
     <select id="questionManageList" parameterType="QuestionSearchDTO" resultType="ResQuestionList">
@@ -43,9 +50,14 @@
         FROM    tb_question AS TQ
         LEFT OUTER JOIN tb_question_type AS QT  ON TQ.question_type_sid = QT.question_type_sid
         LEFT OUTER JOIN tb_user AS TU ON TQ.user_sid = TU.user_sid
-        <if test="questionType != null and questionType != ''">
-            WHERE TQ.question_type_sid = #{questionType}
-        </if>
+        <where>
+            <if test="questionType != null and questionType != ''">
+                TQ.question_type_sid = #{questionType}
+            </if>
+            <if test="questionStatus != null and questionStatus != ''">
+                AND TQ.question_status = #{questionStatus}
+            </if>
+        </where>
         ORDER BY TQ.question_sid    DESC
         LIMIT #{recordSize} offset #{pagination.limitStart}
     </select>
