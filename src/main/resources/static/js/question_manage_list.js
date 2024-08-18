@@ -13,9 +13,10 @@ $(function(){
             location.href = removeQueryParam(location.href, "questionStatus");
             return;
         }
-        const url= updateQueryParam(location.href, "questionStatus",questionStatus);
+        location.href = updateQueryParam(location.href, "questionStatus",questionStatus);
+    });
+    $(".answer_btn").click(()=>{
 
-        location.href = url;
     });
     const removeQueryParam =(url, paramName) => {
         // URL 객체 생성
