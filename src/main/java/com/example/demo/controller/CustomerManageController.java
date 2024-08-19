@@ -7,11 +7,14 @@ import com.example.demo.dto.response.user.CustomerSearchDTO;
 import com.example.demo.dto.response.user.ResCustomerManageList;
 import com.example.demo.enums.Role;
 import com.example.demo.service.CustomerManageService;
+import com.example.demo.user.EmpDecisionSignup;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/customer/manage")
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerManageController {
 
     private final CustomerManageService customerManageService;
+    private final Map<String , EmpDecisionSignup> empDecisionSignup;
 
     @GetMapping("")
     public String customerManageList(Model model, @ModelAttribute("search") CustomerSearchDTO dto){
@@ -31,7 +35,8 @@ public class CustomerManageController {
     @PutMapping("/emp/decide")
     @ResponseBody
     public ResponseEntity<ResponseDTO> decideEmpSignup(ReqEmpApproval req){
-        ResponseDTO response = customerManageService.decideEmpSignup(req);
+        EmpDecisionSignup empDecision = empDecisionSignup.get(req.getDecisionMessage());
+        ResponseDTO response = empDecision.empDecisionSignup(req.getUserSid());
         return ResponseEntity.ok(response);
     }
 }

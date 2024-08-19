@@ -29,5 +29,11 @@
         ORDER BY user_sid    DESC
         LIMIT #{recordSize} offset #{pagination.limitStart}
     </select>
-
+    
+    <update id="empDecisionSignup">
+        UPDATE  tb_user
+        SET     role = #{roleType}
+        WHERE
+                user_sid = #{userSid}
+    </update>
 </mapper>
