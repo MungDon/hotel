@@ -46,7 +46,6 @@
 }
 .question_manage_list_title{
     font-weight: bold;
-    cursor : pointer;
 }
 .pagination>button{
     font-size: 15px;
@@ -78,5 +77,35 @@
     margin-left: 10px;
 }
 .answer_btn{
-
+    font-weight: bolder;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+    height: auto;
+    background-color: darkgray;
+    cursor : pointer;
+}
+.answer_btn:hover{
+    opacity: 0.5;
+}
+.answer_manage_btn{
+    font-weight: bolder;
+    font-size: 18px;
+    color: darkgray;
+    border-radius: 5px;
+    border : 1px solid darkgray;
+    height: auto;
+    background-color: white;
+    cursor : pointer;
+}
+.answer_manage_btn:hover{
+    font-weight: bolder;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+    height: auto;
+    background-color: darkgray;
+    cursor : pointer;
 }

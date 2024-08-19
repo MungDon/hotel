@@ -33,6 +33,7 @@
     color : #333333;
     height: 300px;
     font-size: 20px;
+    font-weight: bold;
     border-radius: 8px;
     outline: none;
     margin-bottom : 10px;
@@ -62,12 +63,38 @@
     height: 40px;
     border-style: none;
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 17px;
     color: white;
     border-radius: 8px;
     background-color: #dddddd;
     cursor : pointer;
-}
-.delete_btn,.update_cancel_btn{
     margin-left: 10px;
+}
+.question_detail_btn_box > button:hover{
+    opacity: 0.5;
+}
+.question_detail_answer_top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom : 5px;
+}
+/*답변*/
+.question_detail_answer{
+    font-weight: bold;
+    font-size: 20px;
+    color: #333333;
+    border-style: none;
+    resize : none;
+    width: 100%;
+}
+.question_detail_answer:read-only{
+    user-select: none;
+    cursor : default;
+}
+.question_detail_answer:focus{
+    outline: none;
+}
+.answer_date{
+    align-self: flex-end;
 }

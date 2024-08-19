@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.AnswerMapper">
+    <insert id="answerAdd" parameterType="ReqAnswerAdd">
+        INSERT INTO tb_answer(
+            question_sid,
+            user_sid,
+            content,
+            created_date,
+            modified_date
+        )   VALUES (
+            #{questionSid},
+            #{userSid},
+            #{content},
+            now(),
+            now()
+        )
+    </insert>
+
+    <update id="answerUpdate" parameterType="ReqAnswerUpdate">
+        UPDATE  tb_answer
+        SET     content = #{content},
+                modified_date = now()
+        WHERE
+                question_sid = #{questionSid}
+    </update>
+
+    <delete id="answerDelete">
+        DELETE
+        FROM    tb_answer
+        WHERE
+                question_sid = #{questionSid}
+
+
+    </delete>
+</mapper>

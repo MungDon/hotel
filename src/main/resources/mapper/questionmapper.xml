@@ -22,12 +22,13 @@
     </insert>
 
     <select id="findQuestion" resultType="ResQuestionList">
-        SELECT  TQ.*, QT.type_name
+        SELECT  TQ.*, QT.type_name,TA.content as answer_content,TA.created_date as answer_created_date,TA.modified_date as answer_modified_date,TU.user_name as admin_name
         FROM    tb_question as TQ
-        LEFT OUTER JOIN tb_question_type as QT
-        ON TQ.question_type_sid = QT.question_type_sid
+        LEFT OUTER JOIN tb_question_type as QT ON TQ.question_type_sid = QT.question_type_sid
+        LEFT OUTER JOIN tb_answer as TA ON TQ.question_sid = TA.question_sid
+        LEFT OUTER JOIN tb_user as  TU ON TA.user_sid = TU.user_sid
         WHERE
-                user_sid = #{userSid}
+                TQ.user_sid = #{userSid}
         ORDER BY
                 question_sid    DESC
     </select>
@@ -46,10 +47,11 @@
     </select>
     
     <select id="questionManageList" parameterType="QuestionSearchDTO" resultType="ResQuestionList">
-        SELECT  TQ.*, QT.type_name,TU.user_name
+        SELECT  TQ.*, QT.type_name,TU.user_name,TA.content as answer_content
         FROM    tb_question AS TQ
         LEFT OUTER JOIN tb_question_type AS QT  ON TQ.question_type_sid = QT.question_type_sid
         LEFT OUTER JOIN tb_user AS TU ON TQ.user_sid = TU.user_sid
+        LEFT OUTER JOIN tb_answer AS TA ON TQ.question_sid = TA.question_sid
         <where>
             <if test="questionType != null and questionType != ''">
                 TQ.question_type_sid = #{questionType}
@@ -69,6 +71,13 @@
                 modified_date = now()
         WHERE
                 question_sid = #{questionSid}
+    </update>
+    <update id="changeQuestionStatus">
+        UPDATE  tb_question
+        SET     question_status = #{questionStatus}
+        WHERE
+                question_sid = #{questionSid}
+
     </update>
 
     <delete id="questionDelete">

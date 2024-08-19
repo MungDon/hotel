@@ -1,6 +1,16 @@
 $(function(){
     const modalInnerElement = $(".innerElement");   // 모달 내용 요소
     const modal = $("#modalCon");                   // 모달 요소
+    const questionStatus = $(".question_list_td_4");
+    questionStatus.each((index, text) => {
+        const $text = $(text).text();
+        if($text == '답변완료'){
+            $(text).css("color","green");
+        }else{
+            $(text).css("color","red");
+        }
+    });
+
 
     // 문의등록하기폼
     $(".question_add_btn").click(()=>{
@@ -15,7 +25,12 @@ $(function(){
         const content = thisTr.find(".question_content").val();
         const questionType = thisTr.find(".question_type").val();
         const questionDate = thisTr.find(".question_list_td_3").text();
+        const answerContent = thisTr.find(".answer_content").val();
+        const adminName = thisTr.find(".admin_name").val();
+        const answerCreatedDate = thisTr.find(".answer_created_date").val();
+        const answerModifiedDate = thisTr.find(".answer_modified_date").val();
 
+        const answerDate = new Date(answerCreatedDate) == new Date(answerModifiedDate) ?answerCreatedDate : answerModifiedDate;
         modalInnerElement.empty();
         const questionDetailHTML = `
             <div class="question_detail_top">
@@ -28,7 +43,11 @@ $(function(){
                     <textarea class="question_detail_content" readonly>${content}</textarea>
                 </div>
                 <div class="question_detail_answer_box">
-                    ⤷<span class="question_detail_answer">임시 답변 칸</span>
+                    <div class="question_detail_answer_top">
+                        <span class="question_detail_answer">${adminName}</span>
+                        <span  class="answer_date">${answerDate}</span>
+                    </div>
+                    ⤷ <span class="answer">${answerContent}</span>
                 </div>
                 <div class="question_detail_btn_box">
                     <button type="button" class="update_set_btn" value="${questionSid}">수정</button>
@@ -37,6 +56,11 @@ $(function(){
             </div>
         `;
         modalInnerElement.append(questionDetailHTML);
+        if(isNull(answerContent)){
+            $(".question_detail_answer_box").css("display","none");
+        } else {
+            $(".update_set_btn").remove();
+        }
         openModal(modal);
     });
 

@@ -23,4 +23,6 @@ public interface QuestionMapper {
     int questionListCnt(QuestionSearchDTO dto);
 
     List<ResQuestionList> questionManageList(QuestionSearchDTO dto);
+
+    int changeQuestionStatus(@Param(value = "questionSid")Long questionSid,@Param(value = "questionStatus")String questionStatus);
 }

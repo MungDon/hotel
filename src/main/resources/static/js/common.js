@@ -40,7 +40,10 @@ const API_LIST = {
     QUESTION_TYPE_DELETE : "/question/type/delete",
     QUESTION_ADD : "/question/add",
     QUESTION_UPDATE : "/question/update",
-    QUESTION_DELETE : "/question/delete"
+    QUESTION_DELETE : "/question/delete",
+    ANSWER_ADD : "/answer/add",
+    ANSWER_UPDATE : "/answer/update",
+    ANSWER_DELETE : "/answer/delete"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

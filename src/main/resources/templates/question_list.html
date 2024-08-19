@@ -39,6 +39,10 @@
                 <tr class="question_list_tr_2" th:each="questionData, loop: ${questionList}">
                     <input type="hidden" class="question_content" th:value="${questionData.content}">
                     <input type="hidden" class="question_type" th:value="${questionData.type_name}">
+                    <input type="hidden" class="answer_content" th:value="${questionData.answer_content}">
+                    <input type="hidden" class="answer_created_date" th:value="${#temporals.format(questionData.answer_created_date,'yy/MM/dd')}">
+                    <input type="hidden" class="answer_modified_date" th:value="${#temporals.format(questionData.answer_modified_date,'yy/MM/dd')}">
+                    <input type="hidden" class="admin_name" th:value="${questionData.admin_name}">
                     <td class="question_list_td_1" th:text="${loop.count}"></td>
                     <td class="question_list_td_2">
                         <span th:text="${questionData.title}" th:data-question-sid="${questionData.question_sid}" class="question_title"></span>

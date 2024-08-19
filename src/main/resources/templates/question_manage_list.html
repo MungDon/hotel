@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/question_manage_list.css">
     <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/question_detail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
@@ -24,6 +25,10 @@
     <input type="hidden" class="totalRecordCount" th:value="${#lists.isEmpty(questionList.list) ? '' :questionList.pagination.totalRecordCount}">
     <input type="hidden" class="page" th:value="${#lists.isEmpty(questionList.list) ? '' :search.page}">
     <input type="hidden" class="recordSize" th:value="${#lists.isEmpty(questionList.list) ? '' :search.recordSize}">
+
+    <!--유저 세션-->
+    <input type="hidden" class="user_session" th:value="${session.user_sid}">
+
     <!--메인 요소-->
     <header th:replace="~{manageheader :: manageheader}"></header>
         <main class="question_manage_list_main">
@@ -60,18 +65,19 @@
                     <td class="question_manage_list_td_2">
                         <span class="question_manage_list_title" th:text="${question.title}"></span>
                         <input type="hidden" class="question_manage_list_content" th:value="${question.content}">
+                        <input type="hidden" class="question_manage_list_answer_content" th:value="${question.answer_content}">
                     </td>
                     <td class="question_manage_list_td_3" th:text="${question.user_name}"></td>
                     <td class="question_manage_list_td_4" th:text="${question.type_name}"></td>
                     <td class="question_manage_list_td_5" th:text="${#temporals.format(question.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(question.modified_date, 'yyyy-MM-dd')}"></td>
                     <td class="question_manage_list_td_6">
-                        <button type="button" class="answer_btn" th:if="${question.question_status == '답변대기'}">답변작성</button>
-                        <span th:if="${question.question_status == '답변완료'}">답변완료</span>
+                        <button type="button" class="answer_btn" th:if="${question.question_status == '답변대기'}" th:value="${question.question_sid}">답변작성</button>
+                        <button type="button" class="answer_manage_btn" th:if="${question.question_status == '답변완료'}" th:value="${question.question_sid}">답변관리</button>
                     </td>
                 </tr>
             </table>
             <div th:replace="~{modal :: modal}"></div>
-          <div class="pagination" th:if="${#lists.isEmpty(questionList.list)}"></div>
+          <div class="pagination" th:if="${!#lists.isEmpty(questionList.list)}"></div>
         </main>
 </body>
 </html>
