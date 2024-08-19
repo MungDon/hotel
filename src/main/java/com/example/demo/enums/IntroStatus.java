@@ -1,18 +1,18 @@
 package com.example.demo.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum IntroStatus {
 	
 	SELECTED_INTRODUCTION("1", "공개"),
 	UNSELECTED_INTRODUCTION("0", "비공개");
 	
-	private String code;
+	private final String code;
 	
-	private String name;
+	private final String name;
 	
 	public static String statusCodeToName(String code) {
 		for(IntroStatus introEnum  : IntroStatus.values()) {

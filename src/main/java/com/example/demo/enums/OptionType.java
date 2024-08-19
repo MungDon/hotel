@@ -1,16 +1,16 @@
 package com.example.demo.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public enum OptionType {
 	
 	ROOM_INFO_OPTION("1","객실정보"),
 	ROOM_USE_OPTION("2","객실이용");
 	
 	
-	private String code;	
-	private String name;
+	private final String code;
+	private final String name;
 }

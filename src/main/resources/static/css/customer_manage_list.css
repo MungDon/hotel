@@ -1,0 +1,98 @@
+.customer_manage_list_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.customer_manage_list_table{
+    text-align: center;
+    width: 60%;
+    border-collapse: collapse;
+    margin-bottom : 30px;
+}
+.line1{
+    width: 10%;
+}
+.line2{
+    width: 20%;
+}
+.line3{
+    width: 15%;
+}
+.line4{
+    width: 15%;
+}
+.line5{
+    width: 30%;
+}
+.line6{
+    width: 10%;
+}
+
+.customer_manage_list_tr_1{
+    height: 50px;
+}
+.customer_manage_list_tr_2{
+    height: 40px;
+}
+.customer_manage_list_tr_1 >th {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    font-size: 20px;
+}
+.customer_manage_list_tr_2 > td{
+    border-bottom: 1px solid #ddd;
+}
+.customer_manage_list_title{
+    font-weight: bold;
+}
+.pagination>button{
+    font-size: 15px;
+    background-color: white;
+    border-style: none;
+    font-weight: bold;
+    color: #333333;
+    cursor: pointer;
+}
+.target_num{
+    color: #8D94A2;
+    text-decoration-line: underline;
+}
+.role_type_box{
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom : 20px;
+}
+.role_type,.delete_status{
+    text-align: center;
+    width: 15%;
+    height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #8D94A2;
+    border-radius: 5px;
+    border : 1px solid #8D94A2;
+    margin-left: 10px;
+}
+.customer_manage_btn{
+    font-weight: bolder;
+    font-size: 18px;
+    color: darkgray;
+    border-radius: 5px;
+    border : 1px solid darkgray;
+    height: auto;
+    background-color: white;
+    cursor : pointer;
+}
+.customer_manage_btn:hover{
+    font-weight: bolder;
+    font-size: 18px;
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+    height: auto;
+    background-color: darkgray;
+    cursor : pointer;
+}

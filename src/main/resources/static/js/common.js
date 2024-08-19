@@ -43,7 +43,8 @@ const API_LIST = {
     QUESTION_DELETE : "/question/delete",
     ANSWER_ADD : "/answer/add",
     ANSWER_UPDATE : "/answer/update",
-    ANSWER_DELETE : "/answer/delete"
+    ANSWER_DELETE : "/answer/delete",
+    EMP_SIGNUP_DECIDE : "/customer/manage/emp/decide"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

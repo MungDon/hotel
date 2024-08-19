@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>유저관리</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/customer_manage_list.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/customer_detail.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/modal.js"></script>
+    <script type="text/javascript" src="/js/pagination.js"></script>
+    <script type="text/javascript" src="/js/customer_manage_list.js"></script>
+</head>
+<body>
+<!--페이징 데이터-->
+<input type="hidden" class="existPrevPage" th:value="${#lists.isEmpty(customerManageList.list) ? '' : customerManageList.pagination.existPrevPage}">
+<input type="hidden" class="existNextPage" th:value="${#lists.isEmpty(customerManageList.list) ? '' :customerManageList.pagination.existNextPage}">
+<input type="hidden" class="startPage" th:value="${#lists.isEmpty(customerManageList.list) ? '' :customerManageList.pagination.startPage}">
+<input type="hidden" class="endPage" th:value="${#lists.isEmpty(customerManageList.list) ? '' :customerManageList.pagination.endPage}">
+<input type="hidden" class="totalPageCount" th:value="${#lists.isEmpty(customerManageList.list) ? '' :customerManageList.pagination.totalPageCount}">
+<input type="hidden" class="totalRecordCount" th:value="${#lists.isEmpty(customerManageList.list) ? '' :customerManageList.pagination.totalRecordCount}">
+<input type="hidden" class="page" th:value="${#lists.isEmpty(customerManageList.list) ? '' :search.page}">
+<input type="hidden" class="recordSize" th:value="${#lists.isEmpty(customerManageList.list) ? '' :search.recordSize}">
+
+<!--유저 세션-->
+<input type="hidden" class="user_session" th:value="${session.user_sid}">
+
+<!--메인 요소-->
+<header th:replace="~{manageheader :: manageheader}"></header>
+<main class="customer_manage_list_main">
+    <div class="manageTitleBox">
+        <span class="manageTitle">전체 회원 목록</span>
+    </div>
+    <div class="role_type_box">
+        <select class="role_type">
+            <option value="">==권한 유형==</option>
+            <option  th:each="roleType: ${role}" th:value="${roleType.type}" th:text="${roleType.name}" th:selected="${search.role ==roleType.type}" ></option>
+        </select>
+        <select class="delete_status">
+            <option value="">==탈퇴상태==</option>
+            <option  th:selected="${search.deleteYN == 'Y'}" value="Y">탈퇴회원</option>
+            <option th:selected="${search.deleteYN == 'N'}" value="N">회원</option>
+        </select>
+    </div>
+    <table class="customer_manage_list_table">
+        <tr class="customer_manage_list_tr_1">
+            <th class="customer_manage_list_th_1 line1">번호</th>
+            <th class="customer_manage_list_th_2 line2">유저명</th>
+            <th class="customer_manage_list_th_3 line3">탈퇴여부</th>
+            <th class="customer_manage_list_th_4 line4">권한</th>
+            <th class="customer_manage_list_th_5 line5">가입일/수정일</th>
+            <th class="customer_manage_list_th_6 line6">관리</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(customerManageList.list)}">
+            <td colspan="6">
+                <h1>조건에 맞는 회원이 없습니다.</h1>
+            </td>
+        </tr>
+        <tr class="customer_manage_list_tr_2 content_tr" th:each="customer: ${customerManageList.list}">
+            <td class="customer_manage_list_td_1 content_num"></td>
+            <td class="customer_manage_list_td_2">
+                <span class="customer_manage_list_username" th:text="${customer.user_name}"></span>
+                <input type="hidden" class="customer_manage_list_user_email" th:value="${customer.user_email}">
+                <input type="hidden" class="customer_manage_list_emp_number" th:value="${customer.emp_number}">
+            </td>
+            <td class="customer_manage_list_td_3" th:text="${customer.delete_yn}"></td>
+            <td class="customer_manage_list_td_4" th:text="${customer.role}"></td>
+            <td class="customer_manage_list_td_5" th:text="${#temporals.format(customer.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(customer.modified_date, 'yyyy-MM-dd')}"></td>
+            <td class="customer_manage_list_td_6">
+                <button type="button" class="customer_manage_btn" th:if="${customer.role != '관리자'}" th:value="${customer.user_sid}">회원관리</button>
+            </td>
+        </tr>
+    </table>
+    <div th:replace="~{modal :: modal}"></div>
+    <div class="pagination" th:if="${!#lists.isEmpty(customerManageList.list)}"></div>
+</main>
+</body>
+</html>

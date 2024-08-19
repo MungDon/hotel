@@ -1,3 +1,4 @@
+
 $(function(){
     const modalInnerElement = $(".innerElement");   // 모달 내용 요소
     const modal = $("#modalCon");                   // 모달 요소
@@ -106,7 +107,7 @@ $(function(){
             `;
         detailBtnBox.append(updateBtnBoxHTML);
     });
-    
+
     /*답변 삭제*/
     $(document).on("click", ".answer_delete_btn", (event)=>{
         const questionSid = $(event.target).val();
