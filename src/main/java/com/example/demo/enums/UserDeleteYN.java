@@ -13,6 +13,7 @@ public enum UserDeleteYN {
     private final String type;
 
     private final String name;
+
     public static String typeToName(String type) {
         for(UserDeleteYN userDeleteYNEnum  : UserDeleteYN.values()) {
             if(userDeleteYNEnum.getType().equals(type)) {

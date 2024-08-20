@@ -36,4 +36,18 @@
         WHERE
                 user_sid = #{userSid}
     </update>
+
+    <update id="customerDelete" >
+        UPDATE  tb_user
+        SET     delete_yn = 'Y'
+        WHERE
+            user_sid = #{userSid}
+    </update>
+
+    <update id="customerRestore" >
+        UPDATE  tb_user
+        SET     delete_yn = 'N'
+        WHERE
+            user_sid = #{userSid}
+    </update>
 </mapper>

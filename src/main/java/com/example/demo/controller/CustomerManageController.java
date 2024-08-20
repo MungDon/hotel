@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.ResPaging;
+import com.example.demo.dto.request.user.ReqCustomerStatusUpdate;
 import com.example.demo.dto.request.user.ReqEmpApproval;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.user.CustomerSearchDTO;
 import com.example.demo.dto.response.user.ResCustomerManageList;
 import com.example.demo.enums.Role;
+import com.example.demo.enums.UserManageCode;
 import com.example.demo.service.CustomerManageService;
 import com.example.demo.user.EmpDecisionSignup;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +36,16 @@ public class CustomerManageController {
 
     @PutMapping("/emp/decide")
     @ResponseBody
-    public ResponseEntity<ResponseDTO> decideEmpSignup(ReqEmpApproval req){
+    public ResponseEntity<ResponseDTO> decideEmpSignup(@RequestBody ReqEmpApproval req){
         EmpDecisionSignup empDecision = empDecisionSignup.get(req.getDecisionMessage());
         ResponseDTO response = empDecision.empDecisionSignup(req.getUserSid());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/update/status")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> customerManageStatus(@RequestBody ReqCustomerStatusUpdate req){
+        ResponseDTO response = UserManageCode.findCodeByStatusCode(customerManageService,req.getStatusCode(),req.getUserSid());
         return ResponseEntity.ok(response);
     }
 }

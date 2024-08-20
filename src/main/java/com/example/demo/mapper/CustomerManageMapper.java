@@ -15,4 +15,7 @@ public interface CustomerManageMapper {
     List<ResCustomerManageList> customerManageList(CustomerSearchDTO dto);
 
     int empDecisionSignup(@Param(value = "userSid")Long userSid,@Param(value = "roleType")String roleType);
+
+    int customerDelete(@Param(value = "userSid")Long userSid);
+    int customerRestore(@Param(value = "userSid")Long userSid);
 }
