@@ -99,4 +99,11 @@ public class RoomController {
 	public void removeRoom(@RequestBody Long room_sid) {
 		roomService.removeRoom(room_sid);
 	}
+	
+	/*객실 목록(관리자)*/
+	@GetMapping("/manage")
+	public String roomManageList(Model model){
+		List<ResRoomList> roomManageList = roomService.roomManageList();
+		return "room_manage_list";
+	};
 }

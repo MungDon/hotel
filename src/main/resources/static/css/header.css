@@ -10,6 +10,7 @@ body {
 	user-select: none;
 }
 .logout{
+	cursor : pointer;
 	border-style: none;
 	background-color: white;
 	font-size: 19px;

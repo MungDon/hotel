@@ -16,6 +16,6 @@ public class empApproveSignup implements EmpDecisionSignup{
     @Override
     public ResponseDTO empDecisionSignup(Long userSid) {
         int result = customerManageService.empDecisionSignup(userSid, Role.STAFF.getType());
-        return CommonUtils.successResponse(result,"가입 거절 성공", ErrorCode.UPDATE_OPERATION_FAILED);
+        return CommonUtils.successResponse(result,"가입 승인 성공", ErrorCode.UPDATE_OPERATION_FAILED);
     }
 }

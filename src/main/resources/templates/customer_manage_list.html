@@ -5,6 +5,7 @@
     <title>유저관리</title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/customer_manage_list.css">
+    <link rel="stylesheet" href="/css/customer_detail.css">
     <link rel="stylesheet" href="/css/modal.css">
     <link rel="stylesheet" href="/css/customer_detail.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -70,8 +71,8 @@
             <td class="customer_manage_list_td_3" th:text="${customer.delete_yn}"></td>
             <td class="customer_manage_list_td_4" th:text="${customer.role}"></td>
             <td class="customer_manage_list_td_5" th:text="${#temporals.format(customer.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(customer.modified_date, 'yyyy-MM-dd')}"></td>
-            <td class="customer_manage_list_td_6">
-                <button type="button" class="customer_manage_btn" th:if="${customer.role != '관리자'}" th:value="${customer.user_sid}">회원관리</button>
+            <td class="customer_manage_list_td_6" >
+                <button type="button" class="customer_manage_btn" th:if="${customer.role != '관리자' and session.user_sid != customer.user_sid}"  th:value="${customer.user_sid}">회원관리</button>
             </td>
         </tr>
     </table>

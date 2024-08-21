@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 객실 목록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/room_manage_list.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/room_manage_list.js"></script>
+</head>
+<body>
+    <header th:replace="~{manageheader :: manageheader}"></header>
+    <main class="room_manage_list_main">
+        <div class="manageTitleBox">
+            <span class="manageTitle">객실 목록</span>
+        </div>
+        <div class="room_manage_list_add_btn_box">
+            <button type="button" class="room_add_btn">등록하기</button>
+        </div>
+        <table class="room_manage_list_table">
+            <tr class="room_manage_list_tr_1">
+                <th class="room_manage_list_th_1 line1">No.</th>
+                <th class="room_manage_list_th_2 line2">객실</th>
+                <th class="room_manage_list_th_3 line3">등록일/수정일</th>
+                <th class="room_manage_list_th_4 line4">관리</th>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <h1>등록된 객실이 없어요</h1>
+                </td>
+            </tr>
+            <tr class="room_manage_list_tr_2">
+                <td class="room_manage_list_td_1"></td>
+                <td class="room_manage_list_td_2"></td>
+                <td class="room_manage_list_td_3"></td>
+                <td class="room_manage_list_td_4">
+                    <div class="room_manage_btn_box">
+                        <button type="button" class="room_manage_btn">객실관리</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </main>
+</body>
+</html>

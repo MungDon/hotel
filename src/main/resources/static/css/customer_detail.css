@@ -1,0 +1,32 @@
+.customer_detail_type{
+    font-size: 30px;
+    font-weight: bolder;
+}
+.customer_detail_top{
+    margin-bottom : 20px;
+}
+.customer_detail_box{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    margin-bottom : 20px;
+}
+.customer_detail_btn_box{
+    display: flex;
+    justify-content: flex-end;
+}
+.customer_detail_btn_box> button{
+    width: 20%;
+    height: 40px;
+    border-style: none;
+    font-weight: bolder;
+    font-size: 17px;
+    color: white;
+    border-radius: 8px;
+    background-color: #dddddd;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.customer_detail_btn_box> button:hover{
+    opacity: 0.5;
+}

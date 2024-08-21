@@ -1,45 +1,60 @@
-.typeListMain{
+.room_manage_list_main {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.typeListTable{
+
+.room_manage_list_table {
     text-align: center;
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom : 30px;
-}
-.typeName,.roomSize,.bedSize{
     width: 60%;
-    font-size: 17px;
-    font-weight: bold;
-    text-align: center;
-    border-style: none;
+    border-collapse: collapse;
+    margin-bottom: 30px;
 }
-.typeName,.roomSize,.bedSize:focus{
-    outline: none;
+
+.line1 {
+    width: 20%;
 }
-.tp_list_tr_1{
+
+.line2 {
+    width: 30%;
+}
+
+.line3 {
+    width: 30%;
+}
+
+.line4 {
+    width: 20%;
+}
+
+.room_manage_list_tr_1 {
     height: 50px;
 }
-.tp_list_tr_2{
+
+.room_manage_list_tr_2 {
     height: 40px;
 }
-.tp_list_tr_1 >th {
+
+.room_manage_list_tr_1 > th {
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     font-size: 20px;
 }
-.tp_list_tr_2 > td{
+
+.room_manage_list_tr_2 > td {
     border-bottom: 1px solid #ddd;
 }
-.typeAddBtnBox{
+
+.room_manage_list_add_btn_box {
+    width: 60%;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 20px;
 }
-.typeAddBtn{
-    margin-left : 10px;
+
+.room_manage_list_add_btn_box > button {
+    margin-left: 10px;
     border-style: none;
     width: 100px;
     height: 40px;
@@ -47,28 +62,22 @@
     font-weight: bold;
     font-size: 18px;
     color: #8D94A2;
-    cursor : pointer;
+    cursor: pointer;
 }
-.typeAddBtn:hover{
+
+.room_manage_list_add_btn_box > button:hover {
     background-color: white;
 }
-.typeManageBtnBox > button{
+
+.room_manage_btn_box > button {
     padding: 5px;
     border-style: none;
     font-weight: bold;
     color: gray;
     border-radius: 7px;
-    cursor : pointer;
-}
-.typeManageBtnBox > button:hover{
-    background-color: white;
+    cursor: pointer;
 }
 
-.type_img{
-    margin-top: 4px;
-    width: 100px;
-    height: 100px;
-}
-.type_img_input {
-    width: 101px;
+.room_manage_btn_box > button:hover {
+    background-color: white;
 }

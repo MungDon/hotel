@@ -29,14 +29,29 @@ $(function () {
     $(document).on("click", ".signup_reject_btn", (event) => {
         const userSid = $(event.target).val();
         const decisionMessage = "reject";
-        sendEmpDecisionData(userSid, decisionMessage);
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                sendEmpDecisionData(userSid, decisionMessage);
+            }else{
+                return;
+            }
+        }
+        swalCall("직원 회원 승인 거절","가입 거절 시키겠습니까?","question",thenFn,"예",true);
     });
 
     /*가입 승인*/
     $(document).on("click", ".signup_approve_btn", (event) => {
         const userSid = $(event.target).val();
         const decisionMessage = "approve";
-        sendEmpDecisionData(userSid, decisionMessage);
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                sendEmpDecisionData(userSid, decisionMessage);
+            }else{
+                return;
+            }
+        }
+        swalCall("직원 회원 승인","가입 승인 시키겠습니까?","question",thenFn,"예",true);
+
 
     });
 
@@ -44,13 +59,28 @@ $(function () {
     $(document).on("click", ".customer_delete_btn", (event) => {
         const userSid = $(event.target).val();
         const statusCode = "delete";
-        sendUserManageData(userSid, statusCode);
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                sendUserManageData(userSid, statusCode);
+            }else{
+                return;
+            }
+        }
+        swalCall("회원 강제 탈퇴","해당 회원을 강제 탈퇴 시키겠습니까?","question",thenFn,"예",true);
     });
+
     /*회원 복구*/
     $(document).on("click", ".customer_restore_btn", (event) => {
         const userSid = $(event.target).val();
         const statusCode = "restore";
-        sendUserManageData(userSid, statusCode);
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                sendUserManageData(userSid, statusCode);
+            }else{
+                return;
+            }
+        }
+        swalCall("회원 복구","해당 회원을 복구 시키겠습니까?","question",thenFn,"예",true);
     });
 
     /*회원 복구 및 강퇴 데이터 전송*/
@@ -64,7 +94,7 @@ $(function () {
             url : API_LIST.CUSTOMER_UPDATE_STATUS,
             method : "put",
             contentType : "application/json",
-            param : userManageObj,
+            param : JSON.stringify(userManageObj),
             successFn : (resultResponse) => {
                 if(resultResponse.success){
                     const thenFn = () => {
@@ -102,7 +132,7 @@ $(function () {
                 <div class="customer_detail_box">
                     <span class="customer_detail_username">유저명 : ${userName}</span>
                     <span class="customer_detail_user_email">${userEmail}</span>
-                    <span class="delete_status">탈퇴여부 : ${deleteStatus}</span> 
+                    <span class="customer_detail_delete_status">탈퇴여부 : ${deleteStatus}</span> 
                     <span class="emp_number">사원번호 : ${empNumber}</span> 
                     <span class="customer_date">가입/수정 일자 : ${userDate}</span> 
                 </div>
