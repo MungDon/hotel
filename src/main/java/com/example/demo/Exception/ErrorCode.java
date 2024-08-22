@@ -10,6 +10,7 @@ import lombok.Getter;
 public enum ErrorCode {
 	
 	ID_DUPLICATE ( HttpStatus.CONFLICT, "이미 있는 아이디입니다 로그인해주세요"),
+	DUPLICATE_ROOM_DATA( HttpStatus.CONFLICT, "이미 등록된 객실입니다"),
 	USER_NAME_DUPLICATE(HttpStatus.CONFLICT, "중복된 닉네임입니다"),
 	PASS_DONT_MATCH(HttpStatus.BAD_REQUEST, "비밀번호가 서로 일치하지 않습니다"),
 	AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED,"고객전용 서비스입니다. 로그인 후 이용가능합니다."),

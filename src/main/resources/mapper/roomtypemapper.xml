@@ -35,6 +35,11 @@
         ORDER BY room_type_sid DESC
     </select>
 
+    <select id="findRoomTypeDetail" resultType="ResRoomTypeDetail">
+        SELECT  *
+        FROM    tb_room_type
+        WHERE   room_type_sid = #{roomTypeSid}
+    </select>
     <update id="roomTypeUpdate" parameterType="ReqRoomTypeUpdate">
         UPDATE  tb_room_type
         SET     type_name = #{type_name},

@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import com.example.demo.dto.request.roomtype.ReqRoomTypeAdd;
 import com.example.demo.dto.request.roomtype.ReqRoomTypeUpdate;
 import com.example.demo.dto.request.roomtype.ReqTypeImg;
+import com.example.demo.dto.response.roomtype.ResRoomTypeDetail;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,5 @@ public interface RoomTypeMapper {
 
     int deleteImg(@Param(value = "current_img")String current_img,@Param(value = "room_type_sid")Long room_type_sid);
 
+    ResRoomTypeDetail findRoomTypeDetail(@Param(value = "roomTypeSid")Long roomTypeSid);
 }

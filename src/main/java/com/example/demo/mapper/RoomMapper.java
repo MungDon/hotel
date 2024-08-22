@@ -52,6 +52,8 @@ public interface RoomMapper {
 	
 	/*방 복구하기*/
 	void restoreRoom(@Param(value="room_sid")Long room_sid);
+	
+	int chkDuplicateRoom(@Param(value="roomTypeSid")Long roomTypeSid);
 
 
 }

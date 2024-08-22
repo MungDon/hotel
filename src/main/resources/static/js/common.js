@@ -32,6 +32,7 @@ const API_LIST = {
     ROOM_TYPE_ADD : "/type/add",
     ROOM_TYPE_UPDATE : "/type/update",
     ROOM_TYPE_DELETE : "/type/delete",
+    FIND_ROOM_TYPE_DATA: "/type/find/detail",
     BANNER_ADD : "/banner/add",
     BANNER_UPDATE : "/banner/update",
     DELETE_BANNER : "/banner/delete",
@@ -62,7 +63,8 @@ const PAGE_LIST = {
     QUESTION_TYPE_LIST : "/question/type",
     QUESTION_TYPE_ADD_FORM : "/question/type/add",
     QUESTION_ADD_FORM : "/question/add",
-    QUESTION_LIST : "/question"
+    QUESTION_LIST : "/question",
+    ROOM_ADD_FORM : "/room/add"
 };
 
 const defaultErrorFn = (errorResponse) => {

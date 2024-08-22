@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>hotel insert</title>
+    <link rel="stylesheet" href="/css/roomAdd.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/room_add.js"></script>
+    <script src="/js/dragAndDrop.js"></script>
+    <script src="/js/common.js"></script>
+</head>
+<body>
+<header th:replace="~{manageheader :: manageheader}"></header>
+<main class="roomAddMain">
+    <form class="roomAddForm" action="/room/add" method="post" enctype="multipart/form-data">
+        <div class="infoText">
+            <h2>기본정보</h2>
+        </div>
+        <table class="roomAddTable">
+            <tr>
+                <th class="s1">객실 유형</th>
+                <td class="s1">
+                    <div class="room_type_box">
+                        <select name="room_type_sid" class="room_type">
+                            <option value="">====객실 유형====</option>
+                            <option class="room_type_option" th:each="roomType : ${roomTypeList}" th:value="${roomType.room_type_sid}"
+                                th:text="${roomType.type_name}"></option>
+                        </select>
+                        <div class="preview_room_option"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="s2">객실 소개</th>
+                <td class="s2">
+                    <textarea class="i2" name="room_info" required="required"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th class="s3">방가격(1박)</th>
+                <td class="s3">
+                    <input class="i1" type="number" name="price" min="0" required="required"/> 원
+                </td>
+            </tr>
+            <tr>
+                <th class="s5">객실 인원 제한(성인)</th>
+                <td class="s5">
+                    <input class="i1" type="number" name="adult_limit" min="0" max="4" required="required"/> 명
+                </td>
+            </tr>
+            <tr>
+                <th class="s6">객실 인원 제한(소아)</th>
+                <td class="s6">
+                    <input class="i1" type="number" name="child_limit" min="0" max="4" required="required"/> 명
+                </td>
+            </tr>
+        </table>
+        <div class="roomInfo">
+            <div class="optionText">
+                <h2>옵션</h2>
+            </div>
+            <h3>방 정보 옵션</h3>
+            <div id="plusOptions">
+                <div class="options">
+                    옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name"
+                                    placeholder="ex)전망">&nbsp;
+                    내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value"
+                                   placeholder="ex)시티뷰">&nbsp;
+                    <button class="addoptionBtn" type="button" onclick="room_add()">옵션 추가하기</button>
+                    <br>
+                </div>
+            </div>
+
+            <h3>방 이용 옵션</h3>
+            <div id="plusUseOptions">
+                <div class="UseOptions">
+                    옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name"
+                                    name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
+                    내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value"
+                                      rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
+                    <button type="button" class="addoptionBtn" onclick="addUseOption()">옵션 추가하기</button>
+                    <br>
+                </div>
+            </div>
+
+
+            <h3>객실 이미지</h3>
+            <div class="imgInfo">
+                <div>
+                    <b>대표 이미지</b>
+                    <br>
+                    <input type="file" name="thumbnail"/><br/>
+                </div>
+                <div>
+                    <b>방 이미지</b>
+                    <br>
+                    <div id="drop_zone">
+                        <p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
+                        <input id="input" class="input" type="file" accept="image/*" name="images" hidden="hidden"
+                               multiple>
+                    </div>
+                    <div id="preview"></div>
+                </div>
+            </div>
+        </div>
+        <div class="addBtns">
+            <button type="button" class="room_add_btn">등록</button>
+            <button type="button" onclick="backList()">목록으로</button>
+        </div>
+    </form>
+</main>
+
+</body>
+</html>

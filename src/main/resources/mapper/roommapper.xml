@@ -4,18 +4,18 @@
 	<!-- 방 정보 추가 -->
 	<insert id="roomAdd" parameterType="ReqRoomAdd" useGeneratedKeys="true" keyColumn="room_sid" keyProperty="room_sid" >
         INSERT INTO tb_room (
-        room_name,
+        room_type_sid,
+        room_info,
         price,
-        room_count,
         adult_limit,
         child_limit,
         delete_yn,
         created_date,
         modified_date
         ) VALUES (
-        #{room_name},
+    	#{room_type_sid},
+        #{room_info},
         #{price},
-        #{room_count},
         #{adult_limit},
         #{child_limit},
         'N',
@@ -64,20 +64,20 @@
 		&amp;  ===  &
 -->
 	<select id="roomList" parameterType="com.example.demo.dto.SearchDto" resultMap="resultList">
-		SELECT 	
-				TR.* ,
-				OP.option_name ,	OP.option_value,
-				TI.img_name,TI.original_name
-		FROM	
-				tb_room AS TR
-		LEFT OUTER JOIN 	tb_options	AS	OP	ON 	TR.room_sid = OP.room_sid
-		LEFT OUTER JOIN 	tb_room_img	AS	TI	ON 	TR.room_sid = TI.room_sid
-		WHERE	
-				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail' AND (OP.option_name like '%객실크%' OR OP.option_name like '%침대%')
-                    AND TR.adult_limit &gt;= #{adult_cnt}
-                    AND TR.child_limit &gt;= #{child_cnt}
+		SELECT 	TR.* ,
+				OP.option_name, OP.option_value,
+				TI.img_name, TI.original_name,
+				RT.type_name
+		FROM	tb_room AS TR
+		LEFT OUTER JOIN tb_options	 AS	OP	ON 	TR.room_sid = OP.room_sid
+		LEFT OUTER JOIN tb_room_img	 AS	TI	ON 	TR.room_sid = TI.room_sid
+		LEFT OUTER JOIN tb_room_type AS	RT	ON 	TR.room_type_sid = RT.room_type_sid
+		WHERE
+				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail'
+                AND TR.adult_limit &gt;= #{adult_cnt}
+                AND TR.child_limit &gt;= #{child_cnt}
 		ORDER BY
-				TR.room_sid DESC , OP.option_name ASC
+				TR.room_sid DESC
 		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
 	
@@ -122,7 +122,13 @@
 		WHERE
 				TR.room_sid = #{room_sid}
 	</select>
-	
+	<select id="chkDuplicateRoom">
+		SELECT	COUNT(*)
+		FROM	tb_room
+		WHERE	room_type_sid = #{roomTypeSid}
+	</select>
+
+
 	<!-- 이미지삭제 -->
 	<delete id="roomImgRemove" parameterType="Long">
 		DELETE FROM tb_room_img
@@ -170,6 +176,9 @@
 		<id property="room_sid" column="room_sid" />
 		<result property="room_name" column="room_name" />
 		<result property="price" column="price" />
+		<result property="created_date" column="created_date" />
+		<result property="modified_date" column="modified_date" />
+		<result property="room_name" column="type_name" />
 		<collection property="options" resultMap="optionsMap"></collection>
 		<collection property="thumbnail" resultMap="imagesMap"></collection>
 	</resultMap>

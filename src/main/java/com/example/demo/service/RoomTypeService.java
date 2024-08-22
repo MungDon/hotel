@@ -5,7 +5,9 @@ import com.example.demo.dto.request.roomtype.ReqRoomTypeAdd;
 import com.example.demo.dto.request.roomtype.ReqRoomTypeUpdate;
 import com.example.demo.dto.request.roomtype.ReqTypeImg;
 import com.example.demo.dto.response.ResponseDTO;
+import com.example.demo.dto.response.roomtype.ResRoomTypeDetail;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
+import com.example.demo.mapper.RoomMapper;
 import com.example.demo.mapper.RoomTypeMapper;
 import com.example.demo.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class RoomTypeService {
 
     private final RoomTypeMapper roomTypeMapper;
+    private final RoomMapper roomMapper;
 
     @Value("${file.Upimg}")
     private String path;
@@ -105,5 +108,12 @@ public class RoomTypeService {
             CommonUtils.deleteImg(path,current_img);
         }
         return CommonUtils.successResponse(result,"객실타입 삭제 성공",ErrorCode.DELETE_OPERATION_FAILED);
+    }
+
+    @Transactional(readOnly = true)
+    public ResRoomTypeDetail findRoomDetail(Long roomTypeSid){
+        int result = roomMapper.chkDuplicateRoom(roomTypeSid);
+        CommonUtils.throwRestCustomExceptionIf(result >= 1 ,ErrorCode.DUPLICATE_ROOM_DATA);
+        return roomTypeMapper.findRoomTypeDetail(roomTypeSid);
     }
 }

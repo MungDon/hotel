@@ -13,11 +13,11 @@
 }
 
 .line1 {
-    width: 20%;
+    width: 15%;
 }
 
 .line2 {
-    width: 30%;
+    width: 20%;
 }
 
 .line3 {
@@ -26,6 +26,9 @@
 
 .line4 {
     width: 20%;
+}
+.line5 {
+    width: 15%;
 }
 
 .room_manage_list_tr_1 {
@@ -80,4 +83,9 @@
 
 .room_manage_btn_box > button:hover {
     background-color: white;
+}
+.thumbnail{
+    margin-top : 5px;
+    width: 100px;
+    height: 100px;
 }

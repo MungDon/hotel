@@ -23,20 +23,24 @@
         <table class="room_manage_list_table">
             <tr class="room_manage_list_tr_1">
                 <th class="room_manage_list_th_1 line1">No.</th>
-                <th class="room_manage_list_th_2 line2">객실</th>
-                <th class="room_manage_list_th_3 line3">등록일/수정일</th>
-                <th class="room_manage_list_th_4 line4">관리</th>
+                <th class="room_manage_list_th_1 line2">대표 이미지</th>
+                <th class="room_manage_list_th_2 line3">객실</th>
+                <th class="room_manage_list_th_3 line4">등록일/수정일</th>
+                <th class="room_manage_list_th_4 line5">관리</th>
             </tr>
-            <tr>
+            <tr th:if="${#lists.isEmpty(roomManageList.list)}">
                 <td colspan="4">
                     <h1>등록된 객실이 없어요</h1>
                 </td>
             </tr>
-            <tr class="room_manage_list_tr_2">
-                <td class="room_manage_list_td_1"></td>
-                <td class="room_manage_list_td_2"></td>
-                <td class="room_manage_list_td_3"></td>
-                <td class="room_manage_list_td_4">
+            <tr class="room_manage_list_tr_2"  th:each="room, loop : ${roomManageList.list}">
+                <td class="room_manage_list_td_1" th:text="${loop.count}"></td>
+                <td class="room_manage_list_td_2" >
+                    <img class="thumbnail" th:src="@{|/img/${room.thumbnail.img_name}|}">
+                </td>
+                <td class="room_manage_list_td_3" th:text="${room.room_name}"></td>
+                <td class="room_manage_list_td_4" th:text="${#temporals.format(room.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(room.modified_date, 'yyyy-MM-dd')}"></td>
+                <td class="room_manage_list_td_5">
                     <div class="room_manage_btn_box">
                         <button type="button" class="room_manage_btn">객실관리</button>
                     </div>

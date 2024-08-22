@@ -1,3 +1,5 @@
+$(function(){
+
 	const dropZone = document.getElementById("drop_zone");
 	const input = document.getElementById("input");
 	const preview = document.getElementById("preview");
@@ -42,3 +44,4 @@
 	        	reader.readAsDataURL(file);
 	    	};
 	    };
+});

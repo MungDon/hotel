@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.request.roomtype.ReqRoomTypeUpdate;
 import com.example.demo.dto.response.ResponseDTO;
+import com.example.demo.dto.response.roomtype.ResRoomTypeDetail;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import com.example.demo.service.RoomTypeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +64,13 @@ public class RoomTypeController {
                                                       @RequestParam(value = "current_img")String current_img){
         ResponseDTO response = roomTypeService.roomTypeDelete(room_type_sid,current_img);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/find/detail")
+    @ResponseBody
+    public ResponseEntity<ResRoomTypeDetail> findRoomDetail(@Param(value = "roomTypeSid")Long roomTypeSid){
+        ResRoomTypeDetail roomTypeDetail = roomTypeService.findRoomDetail(roomTypeSid);
+        return ResponseEntity.ok(roomTypeDetail);
     }
 
 }
