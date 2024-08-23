@@ -110,15 +110,17 @@
 	</select>
 	
 	<!-- 방 상세보기-->
-	<select id="roomDetail" parameterType="Long" resultMap="resultDetail">
+	<select id="roomDetail" resultMap="resultDetail">
 		SELECT
 				TR.*,
 				OP.option_name,	OP.option_value,OP.option_type,
-				TI.img_name,TI.original_name,TI.room_img_sid  
+				TI.img_name,TI.original_name,TI.room_img_sid,
+				RT.type_name,RT.bed_size,RT.room_size
 		FROM
 				tb_room	AS TR
 		LEFT OUTER JOIN		tb_options 	AS	OP ON	TR.room_sid = OP.room_sid		
 		LEFT OUTER JOIN 	tb_room_img AS	TI ON	TR.room_sid = TI.room_sid
+		LEFT OUTER JOIN 	tb_room_type AS	RT	ON 	TR.room_type_sid = RT.room_type_sid
 		WHERE
 				TR.room_sid = #{room_sid}
 	</select>
@@ -128,13 +130,12 @@
 		WHERE	room_type_sid = #{roomTypeSid}
 	</select>
 
-
 	<!-- 이미지삭제 -->
 	<delete id="roomImgRemove" parameterType="Long">
 		DELETE FROM tb_room_img
 		WHERE room_img_sid = #{room_img_sid}
 	</delete>
-	
+
 	<!-- 방 삭제(논리) -->
 	<delete id ="roomDelete" parameterType="Long">
 		UPDATE tb_room
@@ -186,16 +187,13 @@
 	<!-- 방 상세보기 resultMap -->
 	<resultMap type="ResRoomDetail" id="resultDetail">
 		<id property="room_sid" column="room_sid" />
-		<result property="room_name" column="room_name" />
+		<result property="room_info" column="room_info" />
 		<result property="price" column="price" />
-		<result property="room_count" column="room_count"/>
 		<result property="adult_limit" column="adult_limit" />
 		<result property="child_limit" column="child_limit" />
-		<result property="local_num" column="local_num" />
-		<result property="middle_num" column="middle_num" />
-		<result property="last_num" column="last_num" />
-		<result property="start_date" column="start_date" />
-		<result property="end_date" column="end_date" />
+		<result property="room_name" column="type_name"/>
+		<result property="room_size" column="room_size"/>
+		<result property="bed_size" column="bed_size"/>
 		<result property="created_date" column="created_date"/>
 		<result property="modified_date" column="modified_date"/>
 		<collection property="options" resultMap="optionsMap"></collection>

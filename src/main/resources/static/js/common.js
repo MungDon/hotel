@@ -64,7 +64,8 @@ const PAGE_LIST = {
     QUESTION_TYPE_ADD_FORM : "/question/type/add",
     QUESTION_ADD_FORM : "/question/add",
     QUESTION_LIST : "/question",
-    ROOM_ADD_FORM : "/room/add"
+    ROOM_ADD_FORM : "/room/add",
+    ROOM_MANAGE_LIST : "/room/manage"
 };
 
 const defaultErrorFn = (errorResponse) => {

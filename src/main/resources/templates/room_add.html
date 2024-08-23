@@ -69,7 +69,7 @@
                                     placeholder="ex)전망">&nbsp;
                     내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value"
                                    placeholder="ex)시티뷰">&nbsp;
-                    <button class="addoptionBtn" type="button" onclick="room_add()">옵션 추가하기</button>
+                    <button class="add_info_option" type="button" >옵션 추가하기</button>
                     <br>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                                     name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
                     내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value"
                                       rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
-                    <button type="button" class="addoptionBtn" onclick="addUseOption()">옵션 추가하기</button>
+                    <button type="button" class="add_use_option">옵션 추가하기</button>
                     <br>
                 </div>
             </div>
@@ -96,19 +96,19 @@
                 </div>
                 <div>
                     <b>방 이미지</b>
-                    <br>
-                    <div id="drop_zone">
-                        <p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
-                        <input id="input" class="input" type="file" accept="image/*" name="images" hidden="hidden"
-                               multiple>
+                    <div class="room_img_add_box">
+                        <div id="drop_zone">
+                            <p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
+                            <input id="input" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
+                        </div>
+                        <div id="preview"></div>
                     </div>
-                    <div id="preview"></div>
                 </div>
             </div>
         </div>
         <div class="addBtns">
             <button type="button" class="room_add_btn">등록</button>
-            <button type="button" onclick="backList()">목록으로</button>
+            <button type="button" class="back_list_btn">목록으로</button>
         </div>
     </form>
 </main>

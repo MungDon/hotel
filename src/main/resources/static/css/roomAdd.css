@@ -21,11 +21,12 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	width: 60%;
 }
 .roomAddTable{
 	border-collapse : collapse;
 	height :400px;
-	width: 1000px;	
+	width: 100%;
 }
 .i1{
 	font-size : 17px;
@@ -58,16 +59,18 @@
 	border-top : 2px solid black;
 }
 .infoText,.optionText{
-	width : 1000px;
+	width: 100%;
 	text-align: left;
 }
 .roomInfo{
 	margin-top : 40px;
+	margin-bottom : 40px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	height :auto;
-	width: 1000px;		
+	width: 100%;
+	border-bottom : 1px solid darkgray;
 }
 .optionText{
 	border-bottom : 2px solid black;
@@ -94,7 +97,15 @@
 	border-radius : 8px;
 	height: 30px;
 }
-.addoptionBtn,.addBtns>button{
+.addBtns{
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+.back_list_btn{
+	margin-left: 10px;
+}
+.remove_option_btn,.add_info_option,.add_use_option,.addBtns>button{
 	color : white;
 	font-size : 17px;
 	font-weight : bold;
@@ -103,6 +114,17 @@
 	background-color: #feb602;
 	border-radius: 10px;
 	border-style : none;
+	cursor : pointer;
+}
+.room_img_add_box{
+	display: flex;
+}
+#preview{
+	margin-left: 20px;
+}
+#preview>img{
+	width: 100px;
+	height: 100px;
 }
 #drop_zone{
 	display: flex;

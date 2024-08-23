@@ -1,60 +1,29 @@
 $(function () {
-    const $sliderInner = $(".slider_inner");
-    const $slides = $(".slider");
-    const slideWidth = $slides.first().outerWidth();
-    const slidesCount = $slides.length;
 
-    // Clone slides and append to the slider_inner
-    $slides.each(function () {
-        const $clone = $(this).clone();
-        $sliderInner.append($clone);
+    $(document).on("click", ".moveBtn", (event) => {
+        event.preventDefault();
+        const sliders = $(".slider");
+        const sliderCount = sliders.length;
+        const slideWidth = sliders.first().outerWidth();
+        let currentIndex = Math.abs(parseInt($(".slider_inner").css('transform').split(',')[4]) / slideWidth);
+
+
+        if ($(this).hasClass("prev")) {
+            currentIndex = (currentIndex - 1 + sliderCount) % sliderCount;
+        } else {
+            currentIndex = (currentIndex + 1) % sliderCount;
+        }
+
+        gotoSlider(currentIndex);
     });
 
-    // Set the width of the slider_inner to accommodate all slides
-    const totalSlides = slidesCount * 2; // Number of total slides after cloning
-    $sliderInner.css('width', `${totalSlides * slideWidth}px`);
-
-    let currentIndex = 0;
-    let isAnimating = false; // Flag to check if animation is in progress
-
-    $(".moveBtn.prev").on("click", () => moveSlide(-1));
-    $(".moveBtn.next").on("click", () => moveSlide(1));
-
-    function moveSlide(direction) {
-        if (isAnimating) return; // Prevent further clicks while animating
-
-        isAnimating = true; // Set animation flag
-        const newIndex = (currentIndex + direction + slidesCount) % slidesCount;
-        $sliderInner.css({
-            transition: 'transform 0.8s ease',
-            transform: `translateX(-${(currentIndex + direction) * slideWidth}px)`
-        });
-
-        if (newIndex === 0 && direction === 1) {
-            setTimeout(() => {
-                $sliderInner.css({
-                    transition: 'none',
-                    transform: `translateX(0px)`
-                });
-                currentIndex = 0;
-                isAnimating = false; // Reset animation flag
-            }, 800);
-        } else if (newIndex === slidesCount - 1 && direction === -1) {
-            setTimeout(() => {
-                $sliderInner.css({
-                    transition: 'none',
-                    transform: `translateX(-${(slidesCount - 1) * slideWidth}px)`
-                });
-                currentIndex = slidesCount - 1;
-                isAnimating = false; // Reset animation flag
-            }, 800);
-        } else {
-            currentIndex = newIndex;
-            setTimeout(() => {
-                isAnimating = false; // Reset animation flag
-            }, 800); // Matches the duration of the transition
-        }
-    }
+    const gotoSlider = (index) => {
+        const sliders = $(".slider");
+        const sliderInner = $(".slider_inner");
+        const slideWidth = sliders.first().outerWidth();
+        const newTransform = `translateX(-${index * slideWidth}px)`;
+        sliderInner.css('transform', newTransform);
+    };
 
     // 객실 삭제 (논리) - 객실 상세보기 연결
     $(document).on("click", ".deleteRoom", (event)=> {
