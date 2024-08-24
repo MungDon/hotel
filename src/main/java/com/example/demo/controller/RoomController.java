@@ -72,7 +72,7 @@ public class RoomController {
     @PutMapping("/update")
     public String roomUpdate(@Valid @ModelAttribute ReqRoomUpdate req) throws IOException {
         roomService.roomUpdate(req);
-        return "redirect:/room";
+        return "redirect:/room/manage";
     }
 
     /*이미지 삭제*/

@@ -167,10 +167,14 @@
 	
 	<!-- 방 수정 -->
 	<update id="roomUpdate" parameterType="ReqRoomUpdate">
-		UPDATE tb_room
-		SET	room_name = #{room_name},
-			modified_date = now()
-		WHERE	room_sid = #{room_sid}
+		UPDATE 	tb_room
+		SET		room_info = #{room_info},
+				price = #{price},
+				adult_limit = #{adult_limit},
+				child_limit = #{child_limit},
+				modified_date = now()
+		WHERE
+		    	room_sid = #{room_sid}
 	</update>
 	
 	<!-- 옵션 수정 -->

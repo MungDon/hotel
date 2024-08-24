@@ -93,26 +93,14 @@ public class RoomService {
 	@Transactional
 	public void addOptions(List<ReqOptions> options, Long room_sid,String optionType) {
 		for (ReqOptions option : options) {
-			if(option.getOption_name() == null && option.getOption_value() ==null) {
-				continue;
-			}
 			option.setOption_type(optionType);
 			option.setRoom_sid(room_sid);
-			roomMapper.addOptions(option);
-		}
-	}
-	/*옵션 수정*/
-	@Transactional
-	public void updateOptions(List<ReqOptions> options, Long room_sid,String optionType) {
-		for (ReqOptions option : options) {
-			if(option.getOption_name() == null && option.getOption_value() ==null) {
-				continue;
+			if(!CommonUtils.isEmpty(option.getOption_name()) || !CommonUtils.isEmpty(option.getOption_value())) {
+				roomMapper.addOptions(option);
 			}
-			option.setOption_type(optionType);
-			option.setRoom_sid(room_sid);
-			roomMapper.optionUpdate(option);
 		}
 	}
+
 
 	/* 방 등록 */
 	@Transactional
@@ -129,12 +117,12 @@ public class RoomService {
 	@Transactional
 	public void roomUpdate(ReqRoomUpdate req) throws IOException {
 		roomMapper.roomUpdate(req);
-		if(!CommonUtils.isEmpty(req.getThumbnail())){
+		if(!CommonUtils.isEmpty(req.getThumbnail().get(0).getOriginalFilename())){
 			deleteCurrentThumbnail(req.getRoom_sid());
 			fileUpload(req.getThumbnail(), ImgType.thumbnail.getType(), req.getRoom_sid());
 		}
-		updateOptions(req.getOptions(), req.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
-		updateOptions(req.getUseOptions(), req.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
+		addOptions(req.getOptions(), req.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
+		addOptions(req.getUseOptions(), req.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
 		
 	 	fileUpload(req.getImages(),  ImgType.roomImg.getType() ,req.getRoom_sid());
 

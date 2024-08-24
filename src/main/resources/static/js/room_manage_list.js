@@ -32,7 +32,13 @@ $(function(){
             </div>`
         ).join("");
 
-        const optionsHTML = detailData.totalOptions.map(option => {
+        const infoOptionsHTML = detailData.infoOptions.map(option => {
+                return `<div class="roomInfo">
+                        <span><b class="optionName">${option.option_name}</b></span> 
+                        <span class="optionValue">${option.option_value}</span>
+                    </div>`;
+        }).join("");
+        const useOptionsHTML = detailData.useOptions.map(option => {
                 return `<div class="roomInfo">
                         <span><b class="optionName">${option.option_name}</b></span> 
                         <span class="optionValue">${option.option_value}</span>
@@ -60,7 +66,8 @@ $(function(){
         <div class="roomDetailInfo">
             <span><b>객실 크기</b> ${detailData.room_size}㎡</span>
             <span><b>침대 크기</b> ${detailData.bed_size}</span>
-            ${optionsHTML}
+            ${infoOptionsHTML}
+            ${useOptionsHTML}
         </div>
         <div class="personLimit">
             <div class="totalLimit">

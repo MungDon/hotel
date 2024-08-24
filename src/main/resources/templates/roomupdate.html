@@ -18,6 +18,7 @@
 <header th:replace="~{manageheader :: manageheader}"></header>
 <main class="roomAddMain">
 	<form class="roomUpdateForm" action="/room/update" th:method="put" enctype="multipart/form-data">
+		<input type="hidden" name="room_sid" th:value="${update.room_sid}">
 		<div class="infoText">
 			<h2>기본정보</h2>
 		</div>
@@ -80,7 +81,7 @@
 			<h3>현재 방 이용 옵션</h3>
 				<div class="useOptions"  th:each="useOption, loop :  ${update.useOptions}" th:if="${useOption.option_type == '객실이용'}">
 					옵션명&nbsp;<input type="text" class="o2" th:name="${'useOptions['+loop.count+'].option_name'}" th:value="${useOption.option_name}" placeholder="ex)객실이용">&nbsp;
-					내용&nbsp;<textarea class="o2"  th:name="${'useOptions['+loop.count+'].option_name'}"
+					내용&nbsp;<textarea class="o2"  th:name="${'useOptions['+loop.count+'].option_value'}"
 									  th:text="${useOption.option_value}" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
 					<button type="button" class="add_use_option">옵션 추가하기</button>
 					<br>
