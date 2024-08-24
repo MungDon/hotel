@@ -24,13 +24,15 @@ $(function(){
     });
     // 객실 상세정보
     const createRoomDetailModal = (detailData) => {
-        const imagesHTML = detailData.images.map(img =>
+        const imagesHTML = detailData.images
+            .filter(img => img.img_type !== 'thumbnail')
+            .map(img =>
             `<div class="slider" role="group" aria-label="5/5">
             <img src="/img/${img.img_name}">
             </div>`
         ).join("");
 
-        const optionsHTML = detailData.options.map(option => {
+        const optionsHTML = detailData.totalOptions.map(option => {
                 return `<div class="roomInfo">
                         <span><b class="optionName">${option.option_name}</b></span> 
                         <span class="optionValue">${option.option_value}</span>
@@ -56,9 +58,9 @@ $(function(){
         </section>
         <h2>객실 상세 정보</h2>
         <div class="roomDetailInfo">
-            ${optionsHTML}
-            <span><b>객실 크기</b> ${detailData.room_size}</span>
+            <span><b>객실 크기</b> ${detailData.room_size}㎡</span>
             <span><b>침대 크기</b> ${detailData.bed_size}</span>
+            ${optionsHTML}
         </div>
         <div class="personLimit">
             <div class="totalLimit">
@@ -88,39 +90,5 @@ $(function(){
     `;
         innerElement.append(modalContent);
         openModal(modal);
-    };
-
-    $(document).on("click", ".moveBtn", (event) => {
-        event.preventDefault();
-        const sliders = $(".slider");
-        const sliderCount = sliders.length;
-        const sliderInner = $(".slider_inner");
-        const slideWidth = sliders.first().outerWidth();
-
-        let transform = sliderInner.css('transform');
-        let currentIndex = 0;
-
-        if (transform !== 'none') {
-            const matrix = transform.match(/matrix\(([^)]+)\)/);
-            if (matrix) {
-                currentIndex = -parseInt(matrix[1].split(',')[4]) / slideWidth;
-            }
-        }
-
-        if ($(event.target).hasClass("prev")) {
-            currentIndex = (currentIndex - 1 + sliderCount) % sliderCount;
-        } else {
-            currentIndex = (currentIndex + 1) % sliderCount;
-        }
-
-        gotoSlider(currentIndex);
-    });
-
-    const gotoSlider = (index) => {
-        const sliders = $(".slider");
-        const sliderInner = $(".slider_inner");
-        const slideWidth = sliders.first().outerWidth();
-        const newTransform = `translateX(-${index * slideWidth}px)`;
-        sliderInner.css('transform', newTransform);
     };
 });

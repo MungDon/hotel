@@ -65,6 +65,7 @@ const PAGE_LIST = {
     QUESTION_ADD_FORM : "/question/add",
     QUESTION_LIST : "/question",
     ROOM_ADD_FORM : "/room/add",
+    ROOM_UPDATE_FORM : "/room/update/",
     ROOM_MANAGE_LIST : "/room/manage"
 };
 

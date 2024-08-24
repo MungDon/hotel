@@ -10,7 +10,7 @@ public class ResRoomList {
 	
 	private Long room_sid;				// 방 고유번호
 
-	private String room_name;			// 객실 유형이제 객실명
+	private String room_name;			// 객실 유형이자 객실명
 
 	private String room_info;			// 방 설명
 	

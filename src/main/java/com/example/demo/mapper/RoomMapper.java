@@ -4,7 +4,9 @@ import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqOptions;
 import com.example.demo.dto.request.room.ReqRoomAdd;
 import com.example.demo.dto.request.room.ReqRoomImg;
+import com.example.demo.dto.request.room.ReqRoomUpdate;
 import com.example.demo.dto.response.room.ResRoomDetail;
+import com.example.demo.dto.response.room.ResRoomImg;
 import com.example.demo.dto.response.room.ResRoomList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,7 +26,7 @@ public interface RoomMapper {
 	void uploadImg(ReqRoomImg uploadImg);
 	
 	/*방 수정*/
-	void roomUpdate(ReqRoomAdd request);
+	void roomUpdate(ReqRoomUpdate request);
 	
 	/*옵션 수정*/
 	void optionUpdate(ReqOptions options);
@@ -55,5 +57,6 @@ public interface RoomMapper {
 	
 	int chkDuplicateRoom(@Param(value="roomTypeSid")Long roomTypeSid);
 
+	ResRoomImg findCurrentThumbnail(@Param(value = "room_sid")Long room_sid);
 
 }

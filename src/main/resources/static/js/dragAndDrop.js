@@ -1,47 +1,36 @@
 $(function(){
+	const dropZone = $("#drop_zone");
+	const fileInput = $("#fileInput");
+	const preview = $("#preview");
 
-	const dropZone = document.getElementById("drop_zone");
-	const input = document.getElementById("input");
-	const preview = document.getElementById("preview");
-
-	dropZone.addEventListener("dragover", (e) => {
-		e.preventDefault();
+	dropZone.on("dragover", (event) => {
+		event.preventDefault();
 	});
 
-	dropZone.addEventListener("drop", (e) => {
-	    e.preventDefault();
+	dropZone.on("drop", (event) => {
+		event.preventDefault();
+		const files = event.originalEvent.dataTransfer.files; // 'e'가 아니라 'event'
+		if (files.length > 0) {
+			displayImage(files);
+			fileInput[0].files = files;
+		}
+	});
 
-	    const files = e.dataTransfer.files;
-	    if (files.length > 0) {
-	    	displayImage(files);
-	    	input.files = files;
-	    }
-	 });
+	dropZone.on("click", () => {
+		fileInput[0].click();
+	});
 
-	 dropZone.addEventListener("click", () => {
-	    input.click();
-	 });
-
-	 input.addEventListener("change", () => {
-	    const files = input.files;
-	    if (files.length > 0) {
-	       displayImage(files);
-	    }
-	 });
-
-	    function displayImage(files) {
-	    	console.log(files)
-	    	 for (let i = 0; i < files.length; i++) {
-	    		 const file = files[i];
-	        	const reader = new FileReader();
-	        	reader.onload = () => {
-	        		const imgElement = document.createElement("img");
-	        		imgElement.src = reader.result;
-	        		imgElement.style.display = "block";
-	            	imgElement.classList.add("preview-image");
-	            	preview.appendChild(imgElement);
-	       	 	};
-	        	reader.readAsDataURL(file);
-	    	};
-	    };
+	const displayImage = (files) => {
+		console.log(files);
+		$.each(files, (i, file) => {
+			const reader = new FileReader();
+			reader.onload = () => {
+				const $imgElement = $("<img>").attr("src", reader.result)
+					.css("display", "block")
+					.addClass("preview-image");
+				preview.append($imgElement);
+			};
+			reader.readAsDataURL(file);
+		});
+	};
 });

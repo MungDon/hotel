@@ -89,21 +89,19 @@
 
             <h3>객실 이미지</h3>
             <div class="imgInfo">
-                <div>
+                <div class="thumbnail_img_box">
                     <b>대표 이미지</b>
                     <br>
                     <input type="file" name="thumbnail"/><br/>
+                    <div id="thumbnail_preview"></div>
                 </div>
-                <div>
-                    <b>방 이미지</b>
-                    <div class="room_img_add_box">
+                    <div class="room_img_box">
                         <div id="drop_zone">
-                            <p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
-                            <input id="input" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
+                            <p>객실 이미지를 끌어와서 넣어보시거나<br>클릭하세요!</p>
+                            <input id="fileInput" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
                         </div>
                         <div id="preview"></div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="addBtns">

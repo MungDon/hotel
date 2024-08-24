@@ -114,7 +114,7 @@
 		SELECT
 				TR.*,
 				OP.option_name,	OP.option_value,OP.option_type,
-				TI.img_name,TI.original_name,TI.room_img_sid,
+				TI.img_name,TI.original_name,TI.room_img_sid,TI.img_type,
 				RT.type_name,RT.bed_size,RT.room_size
 		FROM
 				tb_room	AS TR
@@ -128,6 +128,16 @@
 		SELECT	COUNT(*)
 		FROM	tb_room
 		WHERE	room_type_sid = #{roomTypeSid}
+				AND delete_yn = 'N'
+
+	</select>
+
+	<select id="findCurrentThumbnail" resultType="ResRoomImg">
+		SELECT 	*
+		FROM 	tb_room_img
+		WHERE
+		    	room_sid = ${room_sid}
+				AND img_type = 'thumbnail'
 	</select>
 
 	<!-- 이미지삭제 -->
@@ -156,7 +166,7 @@
 	</update>
 	
 	<!-- 방 수정 -->
-	<update id="roomUpdate" parameterType="ReqRoomAdd">
+	<update id="roomUpdate" parameterType="ReqRoomUpdate">
 		UPDATE tb_room
 		SET	room_name = #{room_name},
 			modified_date = now()
@@ -196,7 +206,7 @@
 		<result property="bed_size" column="bed_size"/>
 		<result property="created_date" column="created_date"/>
 		<result property="modified_date" column="modified_date"/>
-		<collection property="options" resultMap="optionsMap"></collection>
+		<collection property="totalOptions" resultMap="optionsMap"></collection>
 		<collection property="images" resultMap="imagesMap"></collection>
 	</resultMap>
 	
@@ -205,6 +215,7 @@
 		<result property="room_sid" column="room_sid"/>
 		<result property="room_img_sid" column="room_img_sid"/>
 		<result property="img_name" column="img_name"/>
+		<result property="img_type" column="img_type"/>
 		<result property="original_name" column="img_name"/>
 	</resultMap>
 	

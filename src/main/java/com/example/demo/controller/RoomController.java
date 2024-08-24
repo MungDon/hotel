@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.SearchDto;
 import com.example.demo.dto.request.room.ReqRoomAdd;
+import com.example.demo.dto.request.room.ReqRoomUpdate;
 import com.example.demo.dto.response.room.ResRoomDetail;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
@@ -61,14 +62,16 @@ public class RoomController {
     @GetMapping("/update/{room_sid}")
     public String roomUpdateForm(@PathVariable(value = "room_sid") Long room_sid, Model model) {
         ResRoomDetail update = roomService.roomDetail(room_sid);
+        List<ResRoomTypeList> roomTypeList = roomTypeService.findAllRoomType();
+        model.addAttribute("roomTypeList",roomTypeList);
         model.addAttribute("update", update);
         return "roomupdate";
     }
 
     /*방 수정*/
     @PutMapping("/update")
-    public String roomUpdate(@Valid @ModelAttribute ReqRoomAdd request) throws IOException {
-        roomService.roomUpdate(request);
+    public String roomUpdate(@Valid @ModelAttribute ReqRoomUpdate req) throws IOException {
+        roomService.roomUpdate(req);
         return "redirect:/room";
     }
 

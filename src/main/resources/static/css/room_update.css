@@ -1,0 +1,27 @@
+.current_img_con{
+    display: flex;
+    flex-direction: row;
+}
+.current_img_box{
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.current_img_box>img,.current_thumbnail_img_box>img{
+    width: 100px;
+    height: 100px;
+}
+.removeImg{
+    cursor: pointer;
+    border-style: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.removeImg:hover{
+    opacity: 0.5;
+}

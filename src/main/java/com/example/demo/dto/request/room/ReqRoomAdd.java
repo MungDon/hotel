@@ -1,7 +1,7 @@
 package com.example.demo.dto.request.room;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +14,7 @@ public class ReqRoomAdd {
 	
 	private Long room_sid;					// 방 PK
 
-	@NotEmpty(message = "객실유형은 필수입니다.")
+	@NotNull(message = "객실유형은 필수입니다.")
 	private Long room_type_sid;				// 객실 유형 시퀀스
 
 	@NotBlank(message = "방 정보는 필수 입니다!")

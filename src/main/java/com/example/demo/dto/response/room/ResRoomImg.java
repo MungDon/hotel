@@ -12,4 +12,6 @@ public class ResRoomImg {
 	private String img_name;		// 이미지 명
 	
 	private String original_name;	// 원본 이미지 명
+
+	private String img_type;
 }

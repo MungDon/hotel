@@ -1,117 +1,140 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/roomAdd.css">
-<link rel="stylesheet" href="/css/header.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<title>hotel insert</title>
+	<link rel="stylesheet" href="/css/roomAdd.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/room_update.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+	<script type="text/javascript" src="/js/room_add.js"></script>
+	<script type="text/javascript" src="/js/roomUpdate.js"></script>
+	<script src="/js/dragAndDrop.js"></script>
+	<script src="/js/common.js"></script>
 </head>
 <body>
-	<header th:replace="~{manageheader :: manageheader}"></header>
-	<main class="roomAddMain">
-			<form class="roomUpdateForm" action="/room/update" th:method="put" enctype="multipart/form-data" onsubmit="return validateForm()">
-			<input type="hidden" name="room_sid" th:value="${update.room_sid}"/>
-				<div class="infoText">
-					<h2>기본정보</h2>
-				</div>
-				<table class="roomAddTable">
-					<tr>
-						<th class="s1">방 이름</th>
-						<td class="s1">
-							<input class="i1" type="text" name="room_name" th:value="${update.room_name}" required="required">
-						</td>
-					</tr>
-					<tr>
-						<th class="s3">방가격(1박)</th>
-						<td class="s3">
-							 <input class="i1" type="number" name="price" min="0" th:value="${update.price}" required="required"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="s4">객실 수</th>
-						<td class="s4">
-							<input class="i1" type="number" name="room_count" min="0" th:value="${update.room_count}" required="required"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="s5">객실 인원 제한(성인)</th>
-						<td class="s5">
-							 <input class="i1" type="number" name="adult_limit" min="0" max="4" th:value="${update.adult_limit}" required="required"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="s6">객실 인원 제한(소아)</th>
-						<td class="s6">
-							<input class="i1"  type="number" name="child_limit" min="0" max="4" th:value="${update.child_limit}" required="required"/>
-						</td>
-					</tr>
-					<tr>
-						<th class="s7">예약가능기간</th>
-						<td class="s7">
-							<input  class="i3" id="startDate" type="date" name="start_date" th:value="${update.start_date}" required="required"/>
-							~ <input  class="i3" id="endDate"  type="date" name="end_date" th:value="${update.end_date}" required="required"/>
-						</td>
-					</tr>
-				</table>
-				<div class="roomInfo">
-				<div class="optionText">
-					<h2>옵션</h2>
-				</div>
-					<h3>방 정보 옵션</h3>※ 객실크기, 침대타입 필수 입력! ※<br><br>
-					<div class="option" th:each="option,loop : ${update.options}">
-						<div id="plusOption">
-							<div class="options" th:if="${option.option_type.equals('객실정보')}">
-								옵션명&nbsp;<input type="text" class="o1" th:value="${option.option_name}"  th:id="|options[${loop.index}].option_name|" th:name="|options[${loop.index}].option_name|" placeholder="ex)전망">&nbsp;
-								내용&nbsp;<input type="text" class="o1" th:value="${option.option_value}" th:id="|options[${loop.index}].option_value|" th:name="|options[${loop.index}].option_value|"  placeholder="ex)시티뷰">&nbsp;	
-								<button class="addoptionBtn" type="button"  onclick="removeOption(this)">옵션 제거</button>
-							</div>
-						</div>
+<header th:replace="~{manageheader :: manageheader}"></header>
+<main class="roomAddMain">
+	<form class="roomUpdateForm" action="/room/update" th:method="put" enctype="multipart/form-data">
+		<div class="infoText">
+			<h2>기본정보</h2>
+		</div>
+		<table class="roomAddTable">
+			<tr>
+				<th class="s1">객실 유형</th>
+				<td class="s1">
+					<div class="room_type_box">
+						<span th:text="${update.room_name}" class="room_name"></span>
 					</div>
-					<h3>방 이용 옵션</h3>
-					<div class="option" th:each="option, loop: ${update.options}">
-						<div id="plusUseOption">
-							<div class="UseOptions" th:if="${option.option_type.equals('객실이용')}">
-								옵션명&nbsp;<input type="text" class="o2" th:value="${option.option_name}" th:id="|useOptions[${loop.index}].option_name|" th:name="|useOptions[${loop.index}].option_name|" placeholder="ex)객실이용">&nbsp;
-								내용&nbsp;<textarea class="o2" th:text="${option.option_value}" th:id="|useOptions[${loop.index}].option_value|" th:name="|useOptions[${loop.index}].option_value|" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;		
-								<button type="button" class="addoptionBtn"  onclick="removeOption(this)">옵션 제거</button>
-							</div>
-						</div>
-					</div>	
-					
-					<h3>객실 이미지</h3>
-					<div class="imgInfo">
-						<div>
-							<b>대표 이미지</b>
-							<br>
-							<input type="file" name="thumbnail"/><br/>
-						</div>
-						<div>
-							<b>방 이미지</b>
-							<br>
-							<div id="drop_zone">
-								<p>이미지를 드래그 앤 드롭 하거나<br> 클릭해주세요</p>
-								<input id="input" class="input"  type="file" accept="image/*" name="images"  hidden="hidden" multiple>
-							</div>
-							<div id="preview"></div>
-							<b>현재 등록된 이미지</b>
-							<div th:each="img:${update.images}">
-									<img th:src="|/img/${img.img_name}|" width="300px"/>
-									<input type="hidden" class="currentImg" th:value="${img.img_name}">
-								<button type="button" class="removeImg" th:value="${img.room_img_sid}">이미지 삭제</button>
-							</div>
-						</div>
-					</div>		
+				</td>
+			</tr>
+			<tr>
+				<th class="s2">객실 소개</th>
+				<td class="s2">
+					<textarea class="i2" name="room_info" required="required" th:text="${update.room_info}"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th class="s3">방가격(1박)</th>
+				<td class="s3">
+					<input class="i1" type="number" name="price" min="0" required="required" th:value="${update.price}"/> 원
+				</td>
+			</tr>
+			<tr>
+				<th class="s5">객실 인원 제한(성인)</th>
+				<td class="s5">
+					<input class="i1" type="number" name="adult_limit" min="0" max="4" required="required" th:value="${update.adult_limit}"/> 명
+				</td>
+			</tr>
+			<tr>
+				<th class="s6">객실 인원 제한(소아)</th>
+				<td class="s6">
+					<input class="i1" type="number" name="child_limit" min="0" max="4" required="required" th:value="${update.child_limit}"/> 명
+				</td>
+			</tr>
+		</table>
+		<div class="roomInfo">
+			<div class="optionText">
+				<h2>옵션</h2>
+			</div>
+			<h3>현재 방 정보 옵션</h3>
+				<div class="options" th:each="infoOption, loop :  ${update.infoOptions}" th:if="${infoOption.option_type == '객실정보'}">
+					옵션명&nbsp;<input type="text" class="o1" th:name="${'options['+loop.count+'].option_name'}" th:value="${infoOption.option_name}">&nbsp;
+					내용&nbsp;<input type="text" class="o1" th:name="${'options['+loop.count+'].option_value'}"  th:value="${infoOption.option_value}">&nbsp;
+					<button class="remove_option_btn"type="button" >옵션 제거</button>
 				</div>
-				<div class="addBtns">
-					<button type="submit" >수정</button>	
-					<button type="button" onclick="backList()">목록으로</button>
+			<h3>방 정보 옵션</h3>
+			<div id="plusOptions">
+				<div class="options">
+					옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name"
+									placeholder="ex)전망">&nbsp;
+					내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value"
+								   placeholder="ex)시티뷰">&nbsp;
+					<button class="add_info_option" type="button" >옵션 추가하기</button>
+					<br>
 				</div>
-			</form>
-	</main>
-		<script src="/js/room_add.js"></script>
-		<script src="/js/dragAndDrop.js"></script>	
-		<script src="/js/common.js"></script>
-		<script src="/js/update.js"></script>
+			</div>
+
+			<h3>현재 방 이용 옵션</h3>
+				<div class="useOptions"  th:each="useOption, loop :  ${update.useOptions}" th:if="${useOption.option_type == '객실이용'}">
+					옵션명&nbsp;<input type="text" class="o2" th:name="${'useOptions['+loop.count+'].option_name'}" th:value="${useOption.option_name}" placeholder="ex)객실이용">&nbsp;
+					내용&nbsp;<textarea class="o2"  th:name="${'useOptions['+loop.count+'].option_name'}"
+									  th:text="${useOption.option_value}" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
+					<button type="button" class="add_use_option">옵션 추가하기</button>
+					<br>
+				</div>
+			<h3>방 이용 옵션</h3>
+			<div id="plusUseOptions">
+				<div class="useOptions">
+					옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name"
+									name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
+					내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value"
+									  rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
+					<button type="button" class="add_use_option">옵션 추가하기</button>
+					<br>
+				</div>
+			</div>
+
+
+			<h3>객실 이미지</h3>
+			<div class="imgInfo">
+				<div class="thumbnail_img_box">
+					<b>현재 대표 이미지</b>
+					<div class="current_thumbnail_img_box" th:each="img:${update.images}">
+						<img th:src="|/img/${img.img_name}|" th:if="${img.img_type=='thumbnail'}"  width="300px"/>
+					</div>
+					<b>대표 이미지</b>
+					<br>
+					<span>대표 이미지 등록 시 등록한 이미지로 교체됩니다.</span>
+					<br>
+					<input type="file" name="thumbnail"/><br/>
+					<div id="thumbnail_preview"></div>
+				</div>
+				<div class="room_img_box">
+					<div id="drop_zone">
+						<p>객실 이미지를 끌어와서 넣어보시거나<br>클릭하세요!</p>
+						<input id="fileInput" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
+					</div>
+					<div id="preview"></div>
+				</div>
+				<b>현재 등록된 이미지</b>
+				<div class="current_img_con" >
+					<div class="current_img_box" th:each="img:${update.images}" th:if="${img.img_type=='roomImg'}">
+						<img th:src="|/img/${img.img_name}|"   width="300px"/>
+						<input type="hidden" class="currentImg"  th:value="${img.img_name}">
+						<button type="button" class="removeImg" th:value="${img.room_img_sid}">이미지 삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="addBtns">
+			<button type="button" class="room_update_btn">수정</button>
+			<button type="button" class="back_list_btn">목록으로</button>
+		</div>
+	</form>
+</main>
+
 </body>
 </html>
