@@ -26,10 +26,19 @@ $(function () {
             swalCall("경고", "객실 유형이 잘못되었습니다.", "warning");
             return;
         }
+
         // 유효성 검사 추가 작성
         addForm.submit();
     });
 
+/*    $('.textarea').on('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const text = $(event.target).val(); // textarea의 텍스트를 가져옴
+            const replaceContent = text.replace(/\n/g, '<br>'); // 줄바꿈을 <br>로 변환
+            $(event.target).val(replaceContent);
+            console.log(text);
+        }
+    });*/
     $(".room_type").change((event) => {
         const roomTypeSid = $(event.target).val();
 
@@ -89,8 +98,8 @@ $(function () {
         const addUseOptionHTML =
         `
             <div class="useOptions">
-                옵션명&nbsp;<input type="text" class="o2 id="useOptions[${useOptionCount}].option_name" name="useOptions[${useOptionCount}].option_name">&nbsp;
-                내용&nbsp;<textarea  class="o2 id="useOptions[${useOptionCount}].option_value" name="useOptions[${useOptionCount}].option_value"></textarea>&nbsp;
+                옵션명&nbsp;<input type="text" class="o2" id="useOptions[${useOptionCount}].option_name" name="useOptions[${useOptionCount}].option_name">&nbsp;
+                내용&nbsp;<textarea  class="o2 textarea" id="useOptions[${useOptionCount}].option_value" name="useOptions[${useOptionCount}].option_value"></textarea>&nbsp;
                 <button type="button" class="remove_option_btn">옵션 제거</button>
             </div>
         `;

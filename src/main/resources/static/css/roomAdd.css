@@ -112,12 +112,13 @@
 .thumbnail_img_box{
 	margin-bottom: 10px;
 	width: 100%;
+	display: flex;
 }
 .room_img_box{
 	width: 100%;
 	display: flex;
 }
-#preview{
+#preview,#thumbnail_preview{
 	margin-left: 20px;
 	width: 60%;
 	display: flex;

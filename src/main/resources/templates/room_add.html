@@ -76,10 +76,10 @@
 
             <h3>방 이용 옵션</h3>
             <div id="plusUseOptions">
-                <div class="UseOptions">
+                <div class="useOptions">
                     옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name"
                                     name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
-                    내용&nbsp;<textarea class="o2" id="useOptions[0].option_value" name="useOptions[0].option_value"
+                    내용&nbsp;<textarea class="o2 textarea" id="useOptions[0].option_value" name="useOptions[0].option_value"
                                       rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
                     <button type="button" class="add_use_option">옵션 추가하기</button>
                     <br>
@@ -92,16 +92,16 @@
                 <div class="thumbnail_img_box">
                     <b>대표 이미지</b>
                     <br>
-                    <input type="file" name="thumbnail"/><br/>
+                    <input type="file" class="thumbnail_input" name="thumbnail"/><br/>
                     <div id="thumbnail_preview"></div>
                 </div>
-                    <div class="room_img_box">
-                        <div id="drop_zone">
-                            <p>객실 이미지를 끌어와서 넣어보시거나<br>클릭하세요!</p>
-                            <input id="fileInput" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
-                        </div>
-                        <div id="preview"></div>
+                <div class="room_img_box">
+                    <div id="drop_zone">
+                        <p>객실 이미지를 끌어와서 넣어보시거나<br>클릭하세요!</p>
+                        <input id="fileInput" class="input" type="file" accept="image/*" name="images" hidden="hidden" multiple>
                     </div>
+                    <div id="preview"></div>
+                </div>
             </div>
         </div>
         <div class="addBtns">

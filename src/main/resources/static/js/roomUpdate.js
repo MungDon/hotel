@@ -14,7 +14,7 @@ $(function () {
                     },
                     successFn: () => {
                         const thenFn = () =>{
-                            location.reload();
+                            current_img_box.remove();
                         }
                         swalCall("성공", "이미지 삭제 완료", "success",thenFn);
                     }
@@ -29,7 +29,7 @@ $(function () {
 
     $(".room_update_btn").click(() => {
         const roomUpdateForm = $(".roomUpdateForm");
-
         roomUpdateForm.submit();
     });
+
 });

@@ -59,4 +59,6 @@ public interface RoomMapper {
 
 	ResRoomImg findCurrentThumbnail(@Param(value = "room_sid")Long room_sid);
 
+	void clearAllOption(@Param(value = "room_sid")Long room_sid);
+
 }

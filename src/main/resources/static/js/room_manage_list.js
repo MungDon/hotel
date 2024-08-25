@@ -39,9 +39,10 @@ $(function(){
                     </div>`;
         }).join("");
         const useOptionsHTML = detailData.useOptions.map(option => {
+            const formattedOptionValue = option.option_value.replace(/\n/g, '<br>');
                 return `<div class="roomInfo">
-                        <span><b class="optionName">${option.option_name}</b></span> 
-                        <span class="optionValue">${option.option_value}</span>
+                        <span><b class="optionName">${option.option_name}</b></span><br> 
+                        <span class="optionValue">${formattedOptionValue}</span>
                     </div>`;
         }).join("");
 

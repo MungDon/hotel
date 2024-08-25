@@ -157,7 +157,13 @@
 	<delete id="removeRoom" parameterType="Long">
 		DELETE FROM	tb_room 	WHERE	room_sid = #{room_sid}
 	</delete>
-	
+
+	<delete id="clearAllOption">
+		DELETE
+		FROM	tb_options
+		WHERE	room_sid = #{room_sid}
+	</delete>
+
 	<!-- 방 복구 -->
 	<update id="restoreRoom" parameterType="Long">
 		UPDATE tb_room

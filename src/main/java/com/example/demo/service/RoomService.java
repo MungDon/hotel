@@ -101,6 +101,11 @@ public class RoomService {
 		}
 	}
 
+	/*옵션 초기화*/
+	@Transactional
+	public void clearAllOption(Long room_sid){
+		roomMapper.clearAllOption(room_sid);
+	}
 
 	/* 방 등록 */
 	@Transactional
@@ -117,14 +122,18 @@ public class RoomService {
 	@Transactional
 	public void roomUpdate(ReqRoomUpdate req) throws IOException {
 		roomMapper.roomUpdate(req);
+		clearAllOption(req.getRoom_sid());
+
+		addOptions(req.getOptions(), req.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
+		addOptions(req.getUseOptions(), req.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
+		log.info("썸네일 ㅅㅇㅈ"+req.getThumbnail().get(0).getOriginalFilename());
 		if(!CommonUtils.isEmpty(req.getThumbnail().get(0).getOriginalFilename())){
+			log.info("썸네일 ㅅㅈ");
 			deleteCurrentThumbnail(req.getRoom_sid());
 			fileUpload(req.getThumbnail(), ImgType.thumbnail.getType(), req.getRoom_sid());
 		}
-		addOptions(req.getOptions(), req.getRoom_sid(),OptionType.ROOM_INFO_OPTION.getName());
-		addOptions(req.getUseOptions(), req.getRoom_sid(),OptionType.ROOM_USE_OPTION.getName());
-		
-	 	fileUpload(req.getImages(),  ImgType.roomImg.getType() ,req.getRoom_sid());
+
+	 	fileUpload(req.getImages(), ImgType.roomImg.getType() ,req.getRoom_sid());
 
 	}
 
