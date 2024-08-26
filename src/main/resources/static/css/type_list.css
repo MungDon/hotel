@@ -50,7 +50,7 @@
     cursor : pointer;
 }
 .typeAddBtn:hover{
-    background-color: white;
+    opacity: 0.5;
 }
 .typeManageBtnBox > button{
     padding: 5px;

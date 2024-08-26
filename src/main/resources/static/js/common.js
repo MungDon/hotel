@@ -66,7 +66,8 @@ const PAGE_LIST = {
     QUESTION_LIST : "/question",
     ROOM_ADD_FORM : "/room/add",
     ROOM_UPDATE_FORM : "/room/update/",
-    ROOM_MANAGE_LIST : "/room/manage"
+    ROOM_MANAGE_LIST : "/room/manage",
+    HOTEL_LAYOUT_LIST : "/hotel/layout"
 };
 
 const defaultErrorFn = (errorResponse) => {

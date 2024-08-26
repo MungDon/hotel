@@ -1,7 +1,5 @@
 $(function(){
     let floorCnt = 2;   // 층 카운트
-    const roomCount = $(".room").length;
-    console.log(roomCount);
     const roomList = initialRoomList;
     const roomSelectOption =  roomList.map(room => {
         return `
@@ -9,6 +7,11 @@ $(function(){
         `;
     }).join("");
 
+    /*목록으로*/
+    $(".go_layout_list").click(()=>{
+        location.href= PAGE_LIST.HOTEL_LAYOUT_LIST;
+    });
+    
     /*층 추가*/
     $(".floor_add").click(()=>{
         const layoutAddCon = $(".layout_add_con");
