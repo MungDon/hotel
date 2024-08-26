@@ -63,11 +63,16 @@ $(function(){
                 </div>
             </div>
         </section>
+        <h2>객실 설명</h2>
+        <div class="roomDetailIntro">
+            <h4>${detailData.room_info}</h4>
+        </div>
         <h2>객실 상세 정보</h2>
         <div class="roomDetailInfo">
             <span><b>객실 크기</b> ${detailData.room_size}㎡</span>
             <span><b>침대 크기</b> ${detailData.bed_size}</span>
             ${infoOptionsHTML}
+            <br>
             ${useOptionsHTML}
         </div>
         <div class="personLimit">

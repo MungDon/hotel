@@ -80,7 +80,17 @@
 				TR.room_sid DESC
 		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
-	
+
+	<!--호텔 레이아웃 방등록용 객실 목록-->
+	<select id="simpleRoomList" resultType="ResRoomList">
+		SELECT	TR.*, RT.type_name as room_name
+		FROM	tb_room as TR
+		LEFT OUTER JOIN tb_room_type AS	RT	ON 	TR.room_type_sid = RT.room_type_sid
+		WHERE	delete_yn = 'N'
+		ORDER BY
+		    	room_sid DESC
+	</select>
+
 	<!-- 방 수 카운트 -->
 	<select id="count" parameterType="com.example.demo.dto.SearchDto">
 		SELECT

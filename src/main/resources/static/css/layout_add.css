@@ -1,0 +1,40 @@
+.layout_add_main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.layout_add_con{
+    width: 80%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.layout_add_btn_box{
+    margin-bottom: 20px;
+}
+.layout_add_btn_box > button{
+
+}
+.floor_box{
+    display: flex;
+    width: 100%;
+}
+.floor_box> span{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.room{
+    width: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+.room_sid{
+    width: 90%;
+}
+.room_number{
+    width: 80%;
+}

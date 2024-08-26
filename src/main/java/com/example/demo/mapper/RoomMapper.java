@@ -60,5 +60,8 @@ public interface RoomMapper {
 	ResRoomImg findCurrentThumbnail(@Param(value = "room_sid")Long room_sid);
 
 	void clearAllOption(@Param(value = "room_sid")Long room_sid);
+	
+	/*호텔레이아웃 방등록용 객실목록*/
+	List<ResRoomList> simpleRoomList();
 
 }

@@ -215,4 +215,9 @@ public class RoomService {
 	public void restoreRoom(Long room_sid) {
 		roomMapper.restoreRoom(room_sid);
 	}
+
+	@Transactional(readOnly = true)
+	public List<ResRoomList> simpleRoomList(){
+		return roomMapper.simpleRoomList();
+	}
 }

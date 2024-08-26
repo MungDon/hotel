@@ -35,25 +35,26 @@ $(function () {
 
     // 객실 상세정보
     const createRoomDetailModal = (detailData) => {
-        const imagesHTML = detailData.images.map(img =>
-            `<div class="slider" role="group" aria-label="5/5">
+        const imagesHTML = detailData.images
+            .filter(img => img.img_type !== 'thumbnail')
+            .map(img =>
+                `<div class="slider" role="group" aria-label="5/5">
             <img src="/img/${img.img_name}">
             </div>`
-        ).join("");
+            ).join("");
 
-        const optionsHTML = detailData.options.map(option => {
-            if (option.option_type === '객실정보') {
-                return `<div class="roomInfo">
+        const infoOptionsHTML = detailData.infoOptions.map(option => {
+            return `<div class="roomInfo">
                         <span><b class="optionName">${option.option_name}</b></span> 
                         <span class="optionValue">${option.option_value}</span>
                     </div>`;
-            } else if (option.option_type === '객실이용') {
-                return `<div class="roomUse">
-                        <span class="UseName"><b>${option.option_name}</b></span>
-                        <span>○ ${option.option_value}</span>
+        }).join("");
+        const useOptionsHTML = detailData.useOptions.map(option => {
+            const formattedOptionValue = option.option_value.replace(/\n/g, '<br>');
+            return `<div class="roomInfo">
+                        <span><b class="optionName">${option.option_name}</b></span><br> 
+                        <span class="optionValue">${formattedOptionValue}</span>
                     </div>`;
-            }
-            return '';
         }).join("");
 
         const modalContent = `
@@ -68,14 +69,22 @@ $(function () {
                     </div>
                 </div>
                 <div class="slider_btn">
-                    <button type="button" class="prev moveBtn" >prev</button>
-                    <button type="button" class="next moveBtn" >next</button>
+                    <button type="button" class="moveBtn prev">prev</button>
+                    <button type="button" class="moveBtn next">next</button>
                 </div>
             </div>
         </section>
+        <h2>객실 설명</h2>
+        <div class="roomDetailIntro">
+            <h4>${detailData.room_info}</h4>
+        </div>
         <h2>객실 상세 정보</h2>
         <div class="roomDetailInfo">
-            ${optionsHTML}
+            <span><b>객실 크기</b> ${detailData.room_size}㎡</span>
+            <span><b>침대 크기</b> ${detailData.bed_size}</span>
+            ${infoOptionsHTML}
+            <br>
+            ${useOptionsHTML}
         </div>
         <div class="personLimit">
             <div class="totalLimit">
