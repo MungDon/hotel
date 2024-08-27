@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.request.layout.ReqLayoutAdd;
+import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.HotelLayoutService;
 import com.example.demo.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +27,16 @@ public class HotelLayoutController {
     }
 
     @GetMapping("/add")
-    public String hotelLayoutAdd(Model model){
+    public String hotelLayoutAddForm(Model model){
         List<ResRoomList> roomList = roomService.simpleRoomList();
         model.addAttribute("roomList",roomList);
         return "hotel_layout_add";
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> hotelLayoutAdd(@RequestBody List<ReqLayoutAdd> addList){
+        ResponseDTO response = hotelLayoutService.hotelLayoutAdd(addList);
+        return ResponseEntity.ok(response);
     }
 }

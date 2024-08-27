@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.HotelLayoutMapper">
+    <insert id="floorAdd" useGeneratedKeys="true" keyColumn="floor_sid" keyProperty="floorSid">
+        INSERT INTO tb_floor(
+            floor_name
+        )   VALUES  (
+            #{floorName}
+        )
+    </insert>
 
-
+    <insert id="hotelLayoutAdd" parameterType="ReqLayoutRoomAdd">
+        INSERT INTO tb_hotel_layout(
+            room_sid,
+            floor_sid,
+            room_number
+        )   VALUES    (
+            #{roomSid},
+            #{floorSid},
+            #{roomNumber}
+        )
+    </insert>
 </mapper>
