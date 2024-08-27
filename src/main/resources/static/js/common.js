@@ -47,7 +47,8 @@ const API_LIST = {
     ANSWER_DELETE : "/answer/delete",
     EMP_SIGNUP_DECIDE : "/customer/manage/emp/decide",
     CUSTOMER_UPDATE_STATUS : "/customer/manage/update/status",
-    HOTEL_LAYOUT_ADD : "/hotel/layout/add"
+    HOTEL_LAYOUT_ADD : "/hotel/layout/add",
+    HOTEL_LAYOUT_DELETE_ALL : "/hotel/layout/remove/all"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

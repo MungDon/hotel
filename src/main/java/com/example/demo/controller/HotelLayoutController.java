@@ -44,4 +44,11 @@ public class HotelLayoutController {
         ResponseDTO response = hotelLayoutService.hotelLayoutAdd(addList);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/remove/all")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> hotelLayoutRemoveAll(){
+        ResponseDTO response = hotelLayoutService.hotelLayoutRemoveAll();
+        return ResponseEntity.ok(response);
+    }
 }

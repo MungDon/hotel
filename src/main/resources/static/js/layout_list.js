@@ -45,8 +45,37 @@ $(function () {
             layoutUpdateCancelBtnBoxHTML =
                 `
                 <button type="button" class="layout_update_set">수정</button>
+                <button type="button" class="remove_all">초기화</button>
                 `;
         }
         layoutListBtnBox.append(layoutUpdateCancelBtnBoxHTML);
+    });
+
+    $(document).on("click",".remove_all",()=>{
+        const thenFn = (result) => {
+            if(result.isConfirmed){
+                const ajaxObj  = {
+                    url : API_LIST.HOTEL_LAYOUT_DELETE_ALL,
+                    method : "delete",
+                    successFn : (resultResponse) => {
+                        if(resultResponse.success){
+                            const thenFn = () =>{
+                                location.reload();
+                            }
+                            swalCall("성공", resultResponse.message,"success",thenFn);
+                        }else{
+                            const thenFn = () =>{
+                                location.reload();
+                            }
+                            swalCall("실패", "예기치 못한 에러로 <br> 삭제에 실패하였습니다.","error",thenFn);
+                        }
+                    }
+                }
+                ajaxCall(ajaxObj);
+            } else {
+                return;
+            }
+        }
+        swalCall("전체 삭제","모든 구성을 초기화시키겠습니까?","question",thenFn,"예",true);
     });
 });

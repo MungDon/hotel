@@ -29,7 +29,11 @@
         LEFT OUTER JOIN tb_room_type AS RT ON TR.room_type_sid = RT.room_type_sid
         WHERE   TR.delete_yn = 'N';
     </select>
-    
+
+    <delete id="hotelLayoutRemoveAll">
+        DELETE
+        FROM    tb_floor
+    </delete>
     <resultMap id="layoutList" type="ResLayoutList">
         <result property="floor_name" column="floor_name"></result>
         <collection property="rooms" resultMap="roomsMap"></collection>

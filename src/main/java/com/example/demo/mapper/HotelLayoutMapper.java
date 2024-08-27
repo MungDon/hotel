@@ -15,4 +15,6 @@ public interface HotelLayoutMapper {
     int hotelLayoutAdd(ReqLayoutRoomAdd req);
 
     List<ResLayoutList> layoutList();
+
+    int hotelLayoutRemoveAll();
 }

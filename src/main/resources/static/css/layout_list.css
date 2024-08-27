@@ -1,3 +1,10 @@
 .layout_list_add,.layout_list_delete{
     display: none;
 }
+.empty_list_box{
+    align-self: center;
+}
+.empty_list_box>h1{
+    color: #333333;
+    font-size: 40px;
+}

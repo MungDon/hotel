@@ -41,4 +41,11 @@ public class HotelLayoutService {
         result = 1; // 모든 작업이 성공적으로 완료되었다는 의미
         return CommonUtils.successResponse(result, "구조 등록 성공", ErrorCode.INSERT_OPERATION_FAILED);
     }
+
+    @Transactional
+    public ResponseDTO hotelLayoutRemoveAll(){
+        int result = 0;
+        result += hotelLayoutMapper.hotelLayoutRemoveAll();
+        return CommonUtils.successResponse(result,"전체 초기화 완료",ErrorCode.DELETE_OPERATION_FAILED);
+    }
 }
