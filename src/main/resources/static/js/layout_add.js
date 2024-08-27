@@ -12,7 +12,7 @@ $(function () {
         let layoutData = [];
         $(".floor_box").each((floorIndex, floorElement) => {
             let floorData = {
-                floorName: floorElement.find("span").text(),
+                floorName: $(floorElement).find("span").text(),
                 rooms: []
             }
             $(floorElement).find(".room").each((roomIndex, roomElement) => {

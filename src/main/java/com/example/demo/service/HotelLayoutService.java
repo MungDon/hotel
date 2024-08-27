@@ -24,12 +24,12 @@ public class HotelLayoutService {
         int layoutAddResult = 0;
         int result = 0;
         for (ReqLayoutAdd req : addList) {
-            floorAddResult += hotelLayoutMapper.floorAdd(req.getFloorName());
-            CommonUtils.throwRestCustomExceptionIf(floorAddResult!=addList.size(),ErrorCode.INSERT_OPERATION_FAILED);
-            for (ReqLayoutRoomAdd roomReq : req.getLayoutRoomAddList()) {
+            floorAddResult += hotelLayoutMapper.floorAdd(req);
+            //CommonUtils.throwRestCustomExceptionIf(floorAddResult!=addList.size(),ErrorCode.INSERT_OPERATION_FAILED);
+            for (ReqLayoutRoomAdd roomReq : req.getRooms()) {
                 roomReq.setFloorSid(req.getFloorSid());
                 layoutAddResult += hotelLayoutMapper.hotelLayoutAdd(roomReq);
-                CommonUtils.throwRestCustomExceptionIf(layoutAddResult!=req.getLayoutRoomAddList().size(),ErrorCode.INSERT_OPERATION_FAILED);
+               // CommonUtils.throwRestCustomExceptionIf(layoutAddResult!=req.getRooms().size(),ErrorCode.INSERT_OPERATION_FAILED);
             }
         }
         result = 1; // 모든 작업이 성공적으로 완료되었다는 의미

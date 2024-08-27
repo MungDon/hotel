@@ -13,5 +13,5 @@ public class ReqLayoutAdd {
 
     private String floorName;
 
-    private List<ReqLayoutRoomAdd> layoutRoomAddList;
+    private List<ReqLayoutRoomAdd> rooms;
 }
