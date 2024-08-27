@@ -19,9 +19,9 @@
     <div class="manageTitleBox">
         <span class="manageTitle">호텔 구성 목록</span>
     </div>
-    <div class="layout_list_btn_box">
+    <div class="layout_add_btn_box">
         <button type="button" class="layout_add_form" th:if="${#lists.isEmpty(layoutList)}">등록</button>
-        <button type="button" class="layout_add" th:unless="${#lists.isEmpty(layoutList)}">수정</button>
+        <button type="button" class="layout_update_set" th:unless="${#lists.isEmpty(layoutList)}">수정</button>
     </div>
     <div class="layout_list_con">
         <div class="floor_box" th:each="layout : ${layoutList}">
@@ -37,5 +37,10 @@
         </div>
     </div>
 </main>
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    const initialRoomList = [[${roomList}]];
+    /*]]>*/
+</script>
 </body>
 </html>
