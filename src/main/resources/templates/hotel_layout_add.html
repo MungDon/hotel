@@ -27,7 +27,7 @@
             <div class="floor_box">
                 <button type="button" class="room_add">객실 추가</button>
                 <button type="button" class="room_delete" disabled>객실 삭제</button>
-                <span class="floor_1">1F</span>
+                <span class="floor">1F</span>
                 <div class="room">
                     <select class="room_sid">
                         <option th:each="room : ${roomList}" th:value="${room.room_sid}" th:text="${room.room_name}"></option>

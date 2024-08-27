@@ -1,5 +1,6 @@
 $(function () {
-    let floorCnt = 2;   // 층 카운트
+    const lastFloorName = $(".floor").last().text();
+    let floorCnt = parseInt(lastFloorName.replace('F', ''),10)+1;
     const roomList = initialRoomList;
     const roomSelectOption = roomList.map(room => {
         return `
@@ -50,14 +51,14 @@ $(function () {
     });
 
     /*층 추가*/
-    $(".floor_add").click(() => {
+    $(document).on("click",".floor_add",() => {
         const layoutAddCon = $(".layout_add_con");
         const floorHTML =
             `
             <div class="floor_box">
                 <button type="button" class="room_add">객실 추가</button>
                 <button type="button" class="room_delete" disabled>객실 삭제</button>
-                <span class="floor_${floorCnt}">${floorCnt}F</span>
+                <span class="floor">${floorCnt}F</span>
                 <div class="room">
                     <select class="room_sid">
                         ${roomSelectOption}
@@ -70,7 +71,7 @@ $(function () {
         floorCnt++;
     });
     /*층 삭제*/
-    $(".floor_delete").click((event) => {
+    $(document).on("click",".floor_delete",(event) => {
         const layoutAddCon = $(".layout_add_con");
         const lastFloorBox = layoutAddCon.find(".floor_box").last();
         lastFloorBox.remove();

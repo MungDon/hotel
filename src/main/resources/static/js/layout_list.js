@@ -1,19 +1,52 @@
-$(function(){
-    
+$(function () {
+
     /*구조 등록하기 폼*/
-    $(".layout_add_form").click(()=>{
+    $(document).on("click", ".layout_add_form", () => {
         location.href = PAGE_LIST.HOTEL_ADD_FORM;
     });
 
-    $(".layout_update_set").click(()=>{
-        const layoutListBtnBox = $(".layout_list_btn_box");
-        $(".floor_box").find("button").css("display","block");
+    $(document).on("click",".layout_update_set",() => {
+        const layoutListBtnBox = $(".layout_add_btn_box");
+        const floorBox = $(".floor_box");
+        floorBox.find("button").css("display", "block");
+        const roomCount = floorBox.find(".room").length;
+        if (roomCount >= 1) {
+            floorBox.find(".room_delete").prop("disabled", false);
+        }
         $(".room").find("select").prop("disabled", false);
         layoutListBtnBox.empty();
 
         const layoutUpdateBtnBoxHTML =
             `
-                
+            <button type="button" class="layout_update">수정</button>
+            <button type="button" class="layout_update_cancel">취소</button>
+            <button type="button" class="floor_add">층 추가</button>
+            <button type="button" class="floor_delete">층 삭제</button>
+            <button type="button" class="reload">새로고침</button>
             `;
+        layoutListBtnBox.append(layoutUpdateBtnBoxHTML);
+    });
+
+    $(document).on("click", ".reload", () => {
+        location.reload();
+    });
+
+    $(document).on("click", ".layout_update_cancel", () => {
+        const layoutListBtnBox = $(".layout_add_btn_box");
+        layoutListBtnBox.empty();
+        const layoutListIsEmpty = layoutList.length === 0;
+        let layoutUpdateCancelBtnBoxHTML = '';
+        if (layoutListIsEmpty) {
+            layoutUpdateCancelBtnBoxHTML =
+                `
+                <button type="button" class="layout_add_form">등록</button>
+                `
+        } else {
+            layoutUpdateCancelBtnBoxHTML =
+                `
+                <button type="button" class="layout_update_set">수정</button>
+                `;
+        }
+        layoutListBtnBox.append(layoutUpdateCancelBtnBoxHTML);
     });
 });

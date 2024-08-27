@@ -23,10 +23,10 @@
         <button type="button" class="layout_add_form" th:if="${#lists.isEmpty(layoutList)}">등록</button>
         <button type="button" class="layout_update_set" th:unless="${#lists.isEmpty(layoutList)}">수정</button>
     </div>
-    <div class="layout_list_con">
+    <div class="layout_add_con">
         <div class="floor_box" th:each="layout : ${layoutList}">
-            <button type="button" class="room_add">객실 추가</button>
-            <button type="button" class="room_delete" disabled>객실 삭제</button>
+            <button type="button" class="room_add layout_list_add">객실 추가</button>
+            <button type="button" class="room_delete layout_list_delete" disabled>객실 삭제</button>
             <span class="floor" th:text="${layout.floor_name}"></span>
             <div class="room" th:each="roomLayout : ${layout.rooms}">
                 <select class="room_sid" disabled>
@@ -40,6 +40,7 @@
 <script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
     const initialRoomList = [[${roomList}]];
+    const layoutList =[[${layoutList}]];
     /*]]>*/
 </script>
 </body>
