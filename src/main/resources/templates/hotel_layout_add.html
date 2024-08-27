@@ -14,24 +14,27 @@
 <body>
     <header th:replace="~{manageheader :: manageheader}"></header>
     <main class="layout_add_main">
-            <div class="layout_add_btn_box">
-                <button type="button" class="layout_add">저장</button>
-                <button type="button" class="go_layout_list">목록으로</button>
-                <button type="button" class="floor_add">층 추가</button>
-                <button type="button" class="floor_delete">층 삭제</button>
-            </div>
-            <div class="layout_add_con">
-                <div class="floor_box">
-                    <button type="button" class="room_add">객실 추가</button>
-                    <button type="button" class="room_delete" disabled>객실 삭제</button>
-                    <span class="floor_1">1F</span>
-                    <div class="room">
-                        <select class="room_sid">
-                            <option th:each="room : ${roomList}" th:value="${room.room_sid}" th:text="${room.room_name}"></option>
-                        </select>
-                        <input type="text" class="room_number" placeholder="ex)101호" value="101호">
-                    </div>
+        <div class="manageTitleBox">
+            <span class="manageTitle">호텔 구성 관리</span>
+        </div>
+        <div class="layout_add_btn_box">
+            <button type="button" class="layout_add">저장</button>
+            <button type="button" class="go_layout_list">목록으로</button>
+            <button type="button" class="floor_add">층 추가</button>
+            <button type="button" class="floor_delete">층 삭제</button>
+        </div>
+        <div class="layout_add_con">
+            <div class="floor_box">
+                <button type="button" class="room_add">객실 추가</button>
+                <button type="button" class="room_delete" disabled>객실 삭제</button>
+                <span class="floor_1">1F</span>
+                <div class="room">
+                    <select class="room_sid">
+                        <option th:each="room : ${roomList}" th:value="${room.room_sid}" th:text="${room.room_name}"></option>
+                    </select>
+                    <input type="text" class="room_number" placeholder="ex)101호" value="101호">
                 </div>
+            </div>
         </div>
     </main>
     <script type="text/javascript" th:inline="javascript">

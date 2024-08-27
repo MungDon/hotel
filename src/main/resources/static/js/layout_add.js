@@ -51,6 +51,9 @@ $(function(){
         if (roomCount >= 1) {
             floorBox.find(".room_delete").prop("disabled", false);
         }
+        if (roomCount >= 9) {
+            floorBox.find(".room_add").prop("disabled", true);
+        }
 
         const nextNumber = parseInt(roomBox.find(".room_number").val())+1;
         const roomHTML =
@@ -73,6 +76,9 @@ $(function(){
         console.log(roomCount);
         if (roomCount <= 2) {
             floorBox.find(".room_delete").prop("disabled", true);
+        }
+        if (roomCount <= 10) {
+            floorBox.find(".room_add").prop("disabled", false);
         }
         lastRoomBox.remove();
 
