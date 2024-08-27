@@ -20,4 +20,25 @@
             #{roomNumber}
         )
     </insert>
+
+    <select id="layoutList" resultMap="layoutList">
+        SELECT TF.*,HL.room_sid,HL.room_number ,RT.type_name
+        FROM tb_floor AS TF
+        LEFT OUTER JOIN tb_hotel_layout AS HL ON TF.floor_sid = HL.floor_sid
+        LEFT OUTER JOIN tb_room AS TR ON HL.room_sid = TR.room_sid
+        LEFT OUTER JOIN tb_room_type AS RT ON TR.room_type_sid = RT.room_type_sid
+        WHERE   TR.delete_yn = 'N';
+    </select>
+    
+    <resultMap id="layoutList" type="ResLayoutList">
+        <result property="floor_name" column="floor_name"></result>
+        <collection property="rooms" resultMap="roomsMap"></collection>
+    </resultMap>
+    
+    <resultMap id="roomsMap" type="ResRoomLayout">
+        <id property="hotel_layout_sid" column="hotel_layout_sid"></id>
+        <result property="room_sid" column="room_sid"></result>
+        <result property="room_name" column="type_name"></result>
+        <result property="room_number" column="room_number"></result>
+    </resultMap>
 </mapper>

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.request.layout.ReqLayoutAdd;
 import com.example.demo.dto.response.ResponseDTO;
+import com.example.demo.dto.response.layout.ResLayoutList;
 import com.example.demo.dto.response.room.ResRoomList;
 import com.example.demo.service.HotelLayoutService;
 import com.example.demo.service.RoomService;
@@ -23,6 +24,10 @@ public class HotelLayoutController {
 
     @GetMapping("")
     public String hotelLayoutList(Model model){
+        List<ResLayoutList> layoutList = hotelLayoutService.layoutList();
+        List<ResRoomList> roomList = roomService.simpleRoomList();
+        model.addAttribute("roomList",roomList);
+        model.addAttribute("layoutList",layoutList);
         return "hotel_layout_list";
     }
 

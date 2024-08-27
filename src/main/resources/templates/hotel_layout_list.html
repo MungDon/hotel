@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>hotel_layout_list</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/layout_add.css">
+    <link rel="stylesheet" href="/css/layout_list.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.1/dist/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/layout_add.js"></script>
+    <script type="text/javascript" src="/js/layout_list.js"></script>
 </head>
 <body>
-
+<header th:replace="~{manageheader :: manageheader}"></header>
+<main class="layout_list_main">
+    <div class="manageTitleBox">
+        <span class="manageTitle">호텔 구성 목록</span>
+    </div>
+    <div class="layout_list_btn_box">
+        <button type="button" class="layout_add_form" th:if="${#lists.isEmpty(layoutList)}">등록</button>
+        <button type="button" class="layout_add" th:unless="${#lists.isEmpty(layoutList)}">수정</button>
+    </div>
+    <div class="layout_list_con">
+        <div class="floor_box" th:each="layout : ${layoutList}">
+            <button type="button" class="room_add">객실 추가</button>
+            <button type="button" class="room_delete" disabled>객실 삭제</button>
+            <span class="floor" th:text="${layout.floor_name}"></span>
+            <div class="room" th:each="roomLayout : ${layout.rooms}">
+                <select class="room_sid" disabled>
+                    <option th:each="room : ${roomList}" th:selected="${roomLayout.room_sid==room.room_sid}" th:value="${room.room_sid}" th:text="${room.room_name}"></option>
+                </select>
+                <input type="text" class="room_number" placeholder="ex)101호" th:value="${roomLayout.room_number}">
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>
