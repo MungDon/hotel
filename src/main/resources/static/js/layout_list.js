@@ -5,6 +5,44 @@ $(function () {
         location.href = PAGE_LIST.HOTEL_ADD_FORM;
     });
 
+    /*수정완료*/
+    $(document).on("click",".layout_update",() => {
+        let layoutData = [];
+        $(".floor_box").each((floorIndex, floorElement) => {
+            let floorData = {
+                floorName: $(floorElement).find("span").text(),
+                rooms: []
+            }
+            $(floorElement).find(".room").each((roomIndex, roomElement) => {
+                let roomData = {
+                    roomSid: $(roomElement).find(".room_sid").val(),
+                    roomNumber: $(roomElement).find(".room_number").val()
+                }
+                floorData.rooms.push(roomData);
+            });
+            layoutData.push(floorData);
+        });
+
+        const ajaxObj = {
+            url: API_LIST.HOTEL_LAYOUT_UPDATE,
+            method: "put",
+            contentType: "application/json",
+            param: JSON.stringify(layoutData),
+            successFn: (resultResponse) => {
+                if (resultResponse.success) {
+                    const thenFn = () => {
+                        location.href = PAGE_LIST.HOTEL_LAYOUT_LIST;
+                    }
+                    swalCall("성공", resultResponse.message, "success", thenFn);
+                } else {
+                    swalCall("실패", "예기치 못한 에러가 발생하였습니다.", "error");
+                }
+            }
+        }
+        ajaxCall(ajaxObj);
+    });
+
+
     $(document).on("click",".layout_update_set",() => {
         const layoutListBtnBox = $(".layout_add_btn_box");
         const floorBox = $(".floor_box");

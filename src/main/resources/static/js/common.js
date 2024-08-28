@@ -48,7 +48,8 @@ const API_LIST = {
     EMP_SIGNUP_DECIDE : "/customer/manage/emp/decide",
     CUSTOMER_UPDATE_STATUS : "/customer/manage/update/status",
     HOTEL_LAYOUT_ADD : "/hotel/layout/add",
-    HOTEL_LAYOUT_DELETE_ALL : "/hotel/layout/remove/all"
+    HOTEL_LAYOUT_DELETE_ALL : "/hotel/layout/remove/all",
+    HOTEL_LAYOUT_UPDATE:"/hotel/layout/update"
 }
 // 단순 페이지 이동 url 상수
 const PAGE_LIST = {

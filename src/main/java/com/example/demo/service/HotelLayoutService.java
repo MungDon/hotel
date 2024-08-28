@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.Exception.ErrorCode;
 import com.example.demo.dto.request.layout.ReqLayoutAdd;
 import com.example.demo.dto.request.layout.ReqLayoutRoomAdd;
+import com.example.demo.dto.request.layout.ReqLayoutUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.layout.ResLayoutList;
 import com.example.demo.mapper.HotelLayoutMapper;
@@ -25,13 +26,13 @@ public class HotelLayoutService {
     }
 
     @Transactional
-    public ResponseDTO hotelLayoutAdd(List<ReqLayoutAdd> addList) {
+    public<T extends ReqLayoutAdd> ResponseDTO hotelLayoutProcess(List<T> layoutList,String successMessage){
         int floorAddResult = 0;
         int layoutAddResult = 0;
         int result = 0;
-        for (ReqLayoutAdd req : addList) {
+        for (ReqLayoutAdd req : layoutList) {
             floorAddResult += hotelLayoutMapper.floorAdd(req);
-            CommonUtils.throwRestCustomExceptionIf(floorAddResult!=addList.size(),ErrorCode.INSERT_OPERATION_FAILED);
+            CommonUtils.throwRestCustomExceptionIf(floorAddResult!=layoutList.size(),ErrorCode.INSERT_OPERATION_FAILED);
             for (ReqLayoutRoomAdd roomReq : req.getRooms()) {
                 roomReq.setFloorSid(req.getFloorSid());
                 layoutAddResult += hotelLayoutMapper.hotelLayoutAdd(roomReq);
@@ -39,7 +40,12 @@ public class HotelLayoutService {
             }
         }
         result = 1; // 모든 작업이 성공적으로 완료되었다는 의미
-        return CommonUtils.successResponse(result, "구조 등록 성공", ErrorCode.INSERT_OPERATION_FAILED);
+        return CommonUtils.successResponse(result,successMessage, ErrorCode.INSERT_OPERATION_FAILED);
+    }
+
+    @Transactional
+    public ResponseDTO hotelLayoutAdd(List<ReqLayoutAdd> addList) {
+        return hotelLayoutProcess(addList, "구조 등록 성공");
     }
 
     @Transactional
@@ -47,5 +53,11 @@ public class HotelLayoutService {
         int result = 0;
         result += hotelLayoutMapper.hotelLayoutRemoveAll();
         return CommonUtils.successResponse(result,"전체 초기화 완료",ErrorCode.DELETE_OPERATION_FAILED);
+    }
+
+    @Transactional
+    public ResponseDTO hotelLayoutUpdate(List<ReqLayoutUpdate> updateList){
+        hotelLayoutMapper.hotelLayoutRemoveAll();
+        return hotelLayoutProcess(updateList,"구조 업데이트 완료");
     }
 }

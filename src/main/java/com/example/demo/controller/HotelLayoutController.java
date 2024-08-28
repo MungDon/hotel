@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.layout.ReqLayoutAdd;
+import com.example.demo.dto.request.layout.ReqLayoutUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.layout.ResLayoutList;
 import com.example.demo.dto.response.room.ResRoomList;
@@ -49,6 +50,13 @@ public class HotelLayoutController {
     @ResponseBody
     public ResponseEntity<ResponseDTO> hotelLayoutRemoveAll(){
         ResponseDTO response = hotelLayoutService.hotelLayoutRemoveAll();
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/update")
+    @ResponseBody
+    public ResponseEntity<ResponseDTO> hotelLayoutUpdate(@RequestBody List<ReqLayoutUpdate> updateList){
+        ResponseDTO response = hotelLayoutService.hotelLayoutUpdate(updateList);
         return ResponseEntity.ok(response);
     }
 }
