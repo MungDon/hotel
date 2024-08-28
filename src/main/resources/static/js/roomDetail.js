@@ -1,5 +1,9 @@
 $(function () {
-
+    const initSlider = () => {
+        const sliderInner = $(".slider_inner");
+        sliderInner.css('transform', 'translateX(0)');
+    }
+    initSlider();
     $(document).on("click", ".moveBtn", (event) => {
         event.preventDefault();
         const sliders = $(".slider");

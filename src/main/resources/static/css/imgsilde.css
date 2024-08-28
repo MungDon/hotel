@@ -42,8 +42,10 @@
     color:#000;
 }
 .slider_btn button.prev {
+    cursor: pointer;
     left: 0;
 }
 .slider_btn button.next {
+    cursor: pointer;
     right: 0;
 }

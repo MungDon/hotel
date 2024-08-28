@@ -286,7 +286,7 @@ $(function () {
             }
         );
     });
-    // 예약취소
+    // 예약 중 취소
     $(document).on("click", ".cancelReserveBtn", () => {
         console.log(user_sid.val());
         const ajaxObj = {

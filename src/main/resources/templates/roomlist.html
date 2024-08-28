@@ -50,19 +50,19 @@
 	<!-- 메인 -->
 		<div class="container">
 				<table class="listTable" th:if="${!#lists.isEmpty(rooms.list)}"
-					th:each="rooms:${rooms.list}">
+					th:each="room:${rooms.list}">
 					<tr class="listTr1">
 						<td class="listTd0" rowspan="3">
-								<img class="thumbnail roomDetail" th:src="@{|/img/${rooms.thumbnail.img_name}|}" th:attr="data-room-sid=${rooms.room_sid}">
+								<img class="thumbnail roomDetail" th:src="@{|/img/${room.thumbnail.img_name}|}" th:attr="data-room-sid=${room.room_sid}">
 						</td>
 						<td class="listTd1">
-							<h3 th:text="${rooms.room_name}"></h3>
+							<h3 th:text="${room.room_name}"></h3>
 						</td>
 						<td class="listTd3"></td>
 					</tr>
 					<tr class="listTr2">
 						<td class="listTd1" rowspan="2">
-							<div th:each="option : ${rooms.options}">
+							<div th:each="option : ${room.options}">
 								<div th:if="${option.option_name.indexOf('객실크기') != -1}">
 									<span  th:text="${option.option_name} +' : '"></span>
 									<span  th:text="${option.option_value} + '㎡'"></span>
@@ -74,14 +74,14 @@
 							</div>
 							<br>
 							<div class="detailText">
-								<a  class="roomDetail"  th:attr="data-room-sid=${rooms.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${rooms.room_sid}" src="/images/plus.png"></a>
+								<a  class="roomDetail"  th:attr="data-room-sid=${room.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${room.room_sid}" src="/images/plus.png"></a>
 							</div>
 						</td>
 						<td class="listTd3"></td>
 					</tr>
 					<tr class="listTr3">
-						<td class="listTd3" th:if="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(rooms.price, 3, 'COMMA')+' 원</b>'}"></td>
-						<td class="listTd3" th:unless="${rooms.price >=1000}" th:utext="'1박 '+'<br><b>'+${rooms.price+' 원</b>'}"></td>
+						<td class="listTd3" th:if="${room.price >=1000}" th:utext="'1박 '+'<br><b>'+${#numbers.formatInteger(room.price, 3, 'COMMA')+' 원</b>'}"></td>
+						<td class="listTd3" th:unless="${room.price >=1000}" th:utext="'1박 '+'<br><b>'+${room.price+' 원</b>'}"></td>
 					</tr>
 					<tr>
 						<td colspan="3"><br></td>
