@@ -88,7 +88,7 @@ $(function () {
         console.log(roomCount);
         if (roomCount >= 1) {
             floorBox.find(".room_delete").prop("disabled", false);
-        }   b
+        }
         if (roomCount >= 9) {
             floorBox.find(".room_add").prop("disabled", true);
         }
