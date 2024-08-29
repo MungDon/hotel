@@ -62,17 +62,10 @@
 					</tr>
 					<tr class="listTr2">
 						<td class="listTd1" rowspan="2">
-							<div th:each="option : ${room.options}">
-								<div th:if="${option.option_name.indexOf('객실크기') != -1}">
-									<span  th:text="${option.option_name} +' : '"></span>
-									<span  th:text="${option.option_value} + '㎡'"></span>
-								</div>
-								<div th:if="${option.option_name.indexOf('침대') != -1}">
-									<span th:text="${option.option_name} +' : '"></span>
-									<span th:text="${option.option_value}"></span>
-								</div>
-							</div>
-							<br>
+							<div>
+								<b>객실 크기 </b><span th:text="${room.room_size}+'㎡'"></span><br>
+								<b>침대 크기 </b><span th:text="${room.bed_size}"></span>
+							</div><br>
 							<div class="detailText">
 								<a  class="roomDetail"  th:attr="data-room-sid=${room.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${room.room_sid}" src="/images/plus.png"></a>
 							</div>

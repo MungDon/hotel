@@ -64,22 +64,32 @@
 		&amp;  ===  &
 -->
 	<select id="roomList" parameterType="com.example.demo.dto.SearchDto" resultMap="resultList">
-		SELECT 	TR.* ,
-				OP.option_name, OP.option_value,
-				TI.img_name, TI.original_name,
-				RT.type_name
-		FROM	tb_room AS TR
-		LEFT OUTER JOIN tb_options	 AS	OP	ON 	TR.room_sid = OP.room_sid
-		LEFT OUTER JOIN tb_room_img	 AS	TI	ON 	TR.room_sid = TI.room_sid
-		LEFT OUTER JOIN tb_room_type AS	RT	ON 	TR.room_type_sid = RT.room_type_sid
+		SELECT
+		R.*,
+		COUNT(CASE WHEN RES.reserve_sid IS NULL THEN 1 ELSE NULL END) AS available_rooms,
+		TI.img_name,TI.original_name,
+		RT.type_name,RT.bed_size,RT.room_size
+		FROM
+		tb_room AS R
+		LEFT OUTER JOIN tb_room_type AS RT ON R.room_type_sid = RT.room_type_sid
+		LEFT OUTER JOIN tb_hotel_layout AS RL ON R.room_sid = RL.room_sid
+		LEFT OUTER JOIN tb_room_img AS TI ON R.room_sid = TI.room_sid
+		LEFT OUTER JOIN tb_reservation RES ON RL.room_sid = RES.room_sid
+			AND (RES.start_date &lt;= #{start_date} AND RES.end_date >= #{end_date})
 		WHERE
-				TR.delete_yn = 'N' AND TI.img_type = 'thumbnail'
-                AND TR.adult_limit &gt;= #{adult_cnt}
-                AND TR.child_limit &gt;= #{child_cnt}
+		R.delete_yn = 'N'
+			AND TI.img_type = 'thumbnail'
+			AND R.adult_limit >= #{adult_cnt}
+			AND R.child_limit >= #{child_cnt}
+		GROUP BY
+			R.room_sid,
+			RT.type_name,RT.bed_size,RT.room_size,
+			TI.img_name,TI.original_name
 		ORDER BY
-				TR.room_sid DESC
-		LIMIT #{recordSize} offset #{pagination.limitStart}
+			R.room_sid DESC
+		LIMIT #{recordSize} OFFSET #{pagination.limitStart}
 	</select>
+
 
 	<!--호텔 레이아웃 방등록용 객실 목록-->
 	<select id="simpleRoomList" resultType="ResRoomList">
@@ -206,11 +216,12 @@
 	<resultMap type="ResRoomList" id="resultList">
 		<id property="room_sid" column="room_sid" />
 		<result property="room_name" column="type_name" />
+		<result property="room_size" column="room_size" />
+		<result property="bed_size" column="bed_size" />
 		<result property="price" column="price" />
 		<result property="created_date" column="created_date" />
 		<result property="modified_date" column="modified_date" />
 		<result property="room_name" column="type_name" />
-		<collection property="options" resultMap="optionsMap"></collection>
 		<collection property="thumbnail" resultMap="imagesMap"></collection>
 	</resultMap>
 	

@@ -107,10 +107,6 @@ $(function () {
             <span>${detailData.price.toLocaleString()} 원</span>
         </div>
         <div class="detailBtns">
-            ${user_sid.val() != null && (role_user.val() == 'STAFF' || role_user.val() == 'ADMIN') ?
-            `<button type="button" class="deleteRoom" value="${detailData.room_sid}">삭제하기</button>
-                <button type="button" class="updateRoom" value="${detailData.room_sid}">수정하기</button>` :
-            ''}
             <button type="button" class="closeBtn">닫기</button>
             <button type="button" class="reserveBtn" value="${detailData.room_sid}">예약하기</button>
         </div>
@@ -300,10 +296,6 @@ $(function () {
                 $(".reserveInfo").remove();
                 innerElement.append(
                     `<div class="detailBtns">
-                        ${user_sid.val() != null && (role_user.val() == 'STAFF' || role_user.val() == 'ADMIN') ?
-                        `<button type="button" class="deleteRoom" value="${reserveObj.room_sid}">삭제하기</button>
-                        <button type="button" class="updateRoom" value="${reserveObj.room_sid}">수정하기</button>` :
-                        ''}
                         <button type="button" class="closeBtn">닫기</button>
                         <button type="button" class="reserveBtn" value="${reserveObj.room_sid}">예약하기</button>
                     </div>`

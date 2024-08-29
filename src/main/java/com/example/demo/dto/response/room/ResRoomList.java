@@ -12,6 +12,12 @@ public class ResRoomList {
 
 	private String room_name;			// 객실 유형이자 객실명
 
+	private String room_size;			// 객실 크기
+
+	private String bed_size;			// 침대 크기
+
+	private String available_rooms;		// 예약가능 객실 카운트
+
 	private String room_info;			// 방 설명
 	
 	private int price;					// 방 가격
