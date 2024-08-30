@@ -112,3 +112,10 @@
 	width: 1000px;
 	height: 230px;	
 }
+.unavailable {
+	opacity: 0.5;
+	pointer-events: none; /* 클릭 불가 */
+}
+.unavailable .roomDetail {
+	cursor: not-allowed;
+}

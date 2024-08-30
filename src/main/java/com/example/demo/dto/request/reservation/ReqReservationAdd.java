@@ -30,5 +30,7 @@ public class ReqReservationAdd {
 	private int child_cnt;					// 어린이 수
 	
 	private String reserve_status;		// 예약상태
+	
+	private String room_number;			// 객실 호 번호
 
 }

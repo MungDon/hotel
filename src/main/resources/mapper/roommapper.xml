@@ -66,25 +66,33 @@
 	<select id="roomList" parameterType="com.example.demo.dto.SearchDto" resultMap="resultList">
 		SELECT
 			R.*,
-			COUNT(CASE WHEN RES.reserve_sid IS NULL THEN 1 ELSE NULL END) AS available_rooms,
-			TI.img_name,TI.original_name,
-			RT.type_name,RT.bed_size,RT.room_size
+			COUNT(RL.room_number) AS available_rooms,
+			TI.img_name,
+			TI.original_name,
+			RT.type_name,
+			RT.bed_size,
+			RT.room_size
 		FROM tb_room AS R
-		LEFT OUTER JOIN tb_room_type AS RT ON R.room_type_sid = RT.room_type_sid
-		LEFT OUTER JOIN tb_hotel_layout AS RL ON R.room_sid = RL.room_sid
-		LEFT OUTER JOIN tb_room_img AS TI ON R.room_sid = TI.room_sid
-		LEFT OUTER JOIN tb_reservation AS RES ON R.room_sid = RES.room_sid
-			AND (RES.start_date	between #{start_date} AND #{end_date})
-			OR (RES.end_date	between #{start_date} AND #{end_date})
+		LEFT JOIN tb_room_type AS RT ON R.room_type_sid = RT.room_type_sid
+		LEFT JOIN tb_hotel_layout AS RL ON R.room_sid = RL.room_sid
+		LEFT JOIN tb_room_img AS TI ON R.room_sid = TI.room_sid
+		LEFT JOIN tb_reservation AS RES
+			ON RL.room_number = RES.room_number
+			AND RES.start_date &lt;= #{end_date}
+			AND RES.end_date >= #{start_date}
 		WHERE
-		R.delete_yn = 'N'
+			R.delete_yn = 'N'
 			AND TI.img_type = 'thumbnail'
 			AND R.adult_limit >= #{adult_cnt}
 			AND R.child_limit >= #{child_cnt}
+			AND RES.room_number IS NULL
 		GROUP BY
 			R.room_sid,
-			RT.type_name,RT.bed_size,RT.room_size,
-			TI.img_name,TI.original_name
+			RT.type_name,
+			RT.bed_size,
+			RT.room_size,
+			TI.img_name,
+			TI.original_name
 		ORDER BY
 			R.room_sid DESC
 		LIMIT #{recordSize} OFFSET #{pagination.limitStart}

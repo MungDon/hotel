@@ -99,3 +99,21 @@
 .reserveBtnBox{
 	margin-top : 15px;
 }
+.buyer> button,.buyer_address>button{
+	border-radius: 4px;
+	border : 1px solid #dddddd;
+	font-size: 12px;
+
+}
+.buyer>input:read-only{
+	border-style: none;
+}
+.buyer>input,.phoneNumberBox>input{
+	border : 1px solid darkgray;
+	width: 10%;
+	border-radius: 4px;
+}
+.buyer_address>input{
+	border : 1px solid darkgray;
+	border-radius: 4px;
+}

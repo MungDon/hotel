@@ -9,7 +9,8 @@
 			end_date,
 			adult_cnt,
 			child_cnt,
-			reserve_status
+			reserve_status,
+		    room_number
 			) VALUES (
 			#{room_sid},
 			#{user_sid},
@@ -17,7 +18,8 @@
 			#{end_date},
 			#{adult_cnt},
 			#{child_cnt},
-			#{reserve_status}
+			#{reserve_status},
+			#{room_number}
 			)
 	</insert>
 
@@ -27,6 +29,17 @@
 		LEFT OUTER JOIN tb_user AS TU ON RES.user_sid = TU.user_sid
 		WHERE	RES.reserve_sid = #{reserveSid}
 
+	</select>
+
+	<select id="availableRoomNumbers" parameterType="ReqReservationAdd" resultType="String">
+		SELECT room_number
+		FROM tb_hotel_layout
+		WHERE room_sid = #{room_sid}
+		AND room_number NOT IN (
+			select room_number
+			from tb_reservation
+			where start_date &lt;= #{end_date}
+			  and end_date &gt;= #{start_date})
 	</select>
 
 	<select id="reserveListCnt" parameterType="ReserveSearchDTO">
@@ -70,6 +83,6 @@
 		DELETE
 		FROM tb_reservation
 		WHERE
-		    user_sid = #{user_sid}
+		    reserve_sid = #{reserveSid}
 	</delete>
 </mapper>

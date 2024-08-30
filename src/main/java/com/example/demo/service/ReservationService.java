@@ -29,16 +29,24 @@ public class ReservationService {
 	/*임시 예약*/
 	@Transactional
 	public Long pencilIn(ReqReservationAdd req) {
+		req.setRoom_number(randomRoomNumber(req));
 		req.setReserve_status(ReservationStatus.TEMPORARY.getStatus());
 		int result = reservationMapper.pencilIn(req);
 		CommonUtils.throwRestCustomExceptionIf(result != 1, ErrorCode.FAIL_TEMPORARY_RESERVATION);
 		return req.getReserve_sid();
 	}
 
+	@Transactional(readOnly = true)
+	public String randomRoomNumber(ReqReservationAdd req){
+		List<String> roomNumbers = reservationMapper.availableRoomNumbers(req);
+		CommonUtils.throwRestCustomExceptionIf(CommonUtils.isEmpty(roomNumbers),ErrorCode.NO_AVAILABLE_ROOMS);
+		return  roomNumbers.get(0);
+	}
+
 	/*임시예약 삭제*/
 	@Transactional
-	public ResponseDTO deleteTemporaryReserve(Long user_sid){
-		int result = reservationMapper.deleteTemporaryReserve(user_sid);
+	public ResponseDTO deleteTemporaryReserve(Long reserveSid){
+		int result = reservationMapper.deleteTemporaryReserve(reserveSid);
 		return CommonUtils.successResponse(result,"임시예약 삭제 완료",ErrorCode.DELETE_OPERATION_FAILED);
 	}
 

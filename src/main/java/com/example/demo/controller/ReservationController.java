@@ -37,8 +37,8 @@ public class ReservationController {
 	/*임시예약취소*/
 	@DeleteMapping("/cancel")
 	@ResponseBody
-	public ResponseEntity<ResponseDTO> deleteTemporaryReserve(@RequestParam(value = "user_sid")Long user_sid){
-		ResponseDTO response = reservationService.deleteTemporaryReserve(user_sid);
+	public ResponseEntity<ResponseDTO> deleteTemporaryReserve(@RequestParam(value = "reserveSid")Long reserveSid){
+		ResponseDTO response = reservationService.deleteTemporaryReserve(reserveSid);
 		return ResponseEntity.ok(response);
 	}
 

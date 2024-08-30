@@ -200,7 +200,7 @@ $(function () {
         innerElement.append(
             `<div class="reserveInfo">
                 <h2>예약 정보</h2>
-                <input type="hidden" class="reserve_sid" value="${detailData.reserve_sid}"
+                <input type="hidden" class="reserve_sid" value="${detailData.reserve_sid}">
                  <div class="stayPeriodBox">
                  <span class="stayPeriod">숙박 기간</span>
                     <div class="reserveDate">
@@ -224,13 +224,13 @@ $(function () {
                  </div>
                  <div class="buyer_address">
                     <input type="text" id="postcode" placeholder="우편번호">
-                    <button type="button" class="find_postcode">우편번호 찾기</button>
+                    <button type="button" class="find_postcode">우편번호 찾기</button><br>
                     <input type="text" id="address" placeholder="주소">
                     <input type="text" id="detail_address" placeholder="상세주소">
                  </div>
                  <span class="askText">위 예약정보로 진행됩니다.</span>
                  <div class="reserveBtnBox">
-                    <button type="button" class="cancelReserveBtn" value="${reserveObj.user_sid}">취소</button>
+                    <button type="button" class="cancelReserveBtn" value="${detailData.reserve_sid}">취소</button>
                     <button type="button" class="reserveCompleteBtn">신용카드 결제</button>
                  </div>
              </div>`
@@ -347,13 +347,13 @@ $(function () {
         );
     });
     // 예약 중 취소
-    $(document).on("click", ".cancelReserveBtn", () => {
-        console.log(user_sid.val());
+    $(document).on("click", ".cancelReserveBtn", (event) => {
+        const reserveSid = $(event.target).val();
         const ajaxObj = {
             url: API_LIST.CANCEL_RESERVATION,
             method: "delete",
             param: {
-                user_sid: user_sid.val()
+                reserveSid: reserveSid
             },
             successFn: (response) => {
                 console.log(response.message);

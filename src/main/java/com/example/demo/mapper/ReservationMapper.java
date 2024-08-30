@@ -16,7 +16,7 @@ public interface ReservationMapper {
 	int pencilIn(ReqReservationAdd req);
 
 	/*임시예약 삭제*/
-	int deleteTemporaryReserve(@Param(value = "user_sid")Long user_sid);
+	int deleteTemporaryReserve(@Param(value = "reserveSid")Long reserveSid);
 	
 	/*예약 상태 변경*/
 	int changeReserveStatus(@Param(value = "reserveSid")Long reserveSid,@Param(value = "reserveStatus")String reserveStatus);
@@ -28,4 +28,6 @@ public interface ReservationMapper {
 	int reserveListCnt(ReserveSearchDTO dto);
 
 	List<ResReserveList> reserveList(ReserveSearchDTO dto);
+
+	List<String> availableRoomNumbers(ReqReservationAdd req);
 }

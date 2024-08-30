@@ -13,8 +13,10 @@ $(document).on("click", ".closeBtn, .cancelBtn", () => {
 });
 // 모달 외부 클릭 이벤트
 $(document).on("click","#modalCon",(event) => {
-    $(".innerElement").empty();
-    closeModal($(event.target));
+    if (window.location.pathname !== '/room') {
+        $(".innerElement").empty();
+        closeModal($(event.target));
+    }
 });
 // 모달 내부 클릭 이벤트 방지
 $(document).on('click','.modalBox', (event) => {
