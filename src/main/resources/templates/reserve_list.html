@@ -57,13 +57,14 @@
         <tr class="reserve_list_tr_2" th:each="reserveData, loop: ${reserveList.list}">
             <td class="reserve_list_td_1" th:text="${loop.count}"></td>
             <td class="reserve_list_td_2">
-                <span class="room_name" th:text="${reserveData.room_name}"></span>
+                <span class="room_name" th:text="${reserveData.room_name}" th:data-reserve-sid="${reserveData.reserve_sid}"></span>
             </td>
             <td class="reserve_list_td_3" th:text="${reserveData.user_name}"></td>
             <td class="reserve_list_td_4" th:text="${#temporals.format(reserveData.start_date,'yyyy-MM-dd')} +' / '+${#temporals.format(reserveData.end_date, 'yyyy-MM-dd')}"></td>
         </tr>
     </table>
     <div class="pagination" th:if="${!#lists.isEmpty(reserveList.list)}"></div>
+    <div th:replace="~{modal :: modal}"></div>
 </main>
 <footer th:replace="~{footer :: footer}"></footer>
 </body>
