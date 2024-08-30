@@ -1,0 +1,59 @@
+.reserve_list_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top : 150px;
+}
+
+.reserve_list_table{
+    text-align: center;
+    width: 60%;
+    border-collapse: collapse;
+    margin-bottom : 30px;
+}
+.line1{
+    width: 20%;
+}
+.line2{
+    width: 20%;
+}
+.line3{
+    width: 20%;
+}
+.line4{
+    width: 40%;
+}
+
+.reserve_list_tr_1{
+    height: 50px;
+}
+.reserve_list_tr_2{
+    height: 40px;
+}
+.reserve_list_tr_1 >th {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    font-size: 20px;
+}
+.reserve_list_tr_2 > td{
+    border-bottom: 1px solid #ddd;
+}
+.room_name{
+    font-weight: bold;
+    cursor : pointer;
+}
+.reservation_type_box{
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom : 10px;
+}
+.reservation_type{
+    text-align: center;
+    font-size: 20px;
+    width: 20%;
+    height: 25px;
+    border : 1px solid #dddddd;
+    border-radius: 5px;
+}

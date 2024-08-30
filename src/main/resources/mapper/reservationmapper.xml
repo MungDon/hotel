@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.ReservationMapper">
-	<insert id="pencilIn" parameterType="ReqReservationAdd">
+	<insert id="pencilIn" parameterType="ReqReservationAdd" useGeneratedKeys="true" keyProperty="reserve_sid" keyColumn="reserve_sid">
 		INSERT INTO tb_reservation(
 			room_sid,
 			user_sid,
@@ -21,11 +21,49 @@
 			)
 	</insert>
 
+	<select id="reserveInfo" resultType="ResReserveInfo">
+		SELECT	RES.*, TU.user_name,TU.user_email
+		FROM	tb_reservation AS RES
+		LEFT OUTER JOIN tb_user AS TU ON RES.user_sid = TU.user_sid
+		WHERE	RES.reserve_sid = #{reserveSid}
+
+	</select>
+
+	<select id="reserveListCnt" parameterType="ReserveSearchDTO">
+		SELECT	COUNT(*)
+		FROM	tb_reservation
+		WHERE	reserve_status = '예약완료'
+				AND user_sid = #{user_sid}
+		<if test="reservationType=='진행중인 예약' and reservationType!=null">
+			AND	((CURRENT_TIMESTAMP between start_date AND end_date) OR (start_date > CURRENT_TIMESTAMP))
+		</if>
+		<if test="reservationType=='지난 예약' and reservationType!=null ">
+			AND	CURRENT_TIMESTAMP > end_date
+		</if>
+	</select>
+	<select id="reserveList"  parameterType="ReserveSearchDTO" resultType="ResReserveList">
+		SELECT	RES.*,TU.user_name,RT.type_name AS room_name
+		FROM	tb_reservation AS RES
+		LEFT OUTER JOIN tb_user AS TU ON RES.user_sid = TU.user_sid
+		LEFT OUTER JOIN tb_room AS TR ON RES.room_sid = TR.room_sid
+		LEFT OUTER JOIN tb_room_type AS RT ON TR.room_type_sid = RT.room_type_sid
+ 		WHERE	RES.reserve_status = '예약완료'
+ 		  		AND RES.user_sid = #{user_sid}
+			<if test="reservationType=='진행중인 예약' and reservationType!=null">
+				AND	((CURRENT_TIMESTAMP between RES.start_date AND RES.end_date) OR (RES.start_date > CURRENT_TIMESTAMP))
+			</if>
+			<if test="reservationType=='지난 예약' and reservationType!=null">
+				AND	CURRENT_TIMESTAMP > RES.end_date
+			</if>
+		ORDER BY RES.reserve_sid DESC
+		LIMIT #{recordSize} offset #{pagination.limitStart}
+	</select>
+
 	<update id="changeReserveStatus">
 		UPDATE 	tb_reservation
 		SET		reserve_status = #{reserveStatus}
 		WHERE
-		    	user_sid = #{user_sid}
+		    	reserve_sid = #{reserveSid}
 	</update>
 
 	<delete id="deleteTemporaryReserve">

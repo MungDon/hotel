@@ -3,19 +3,20 @@
 <mapper namespace="com.example.demo.mapper.PaymentMapper">
     <insert id="reservePaymentAdd" parameterType="ReqPaymentInfoAdd">
         INSERT INTO tb_payment(
+            reserve_sid,
             user_sid,
             reserve_number,
             price,
             room_name,
             phone
         )   VALUES  (
-            #{user_sid},
+            #{reserveSid},
+            #{userSid},
             #{reserveNumber},
             #{price},
             #{roomName},
             #{phone}
         )
-
     </insert>
 
 </mapper>

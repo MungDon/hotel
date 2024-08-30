@@ -19,6 +19,7 @@ const API_LIST = {
     ROOM_DETAIL : "/room/detail/",
     PERMANENTLY_DELETE : "/room/remove",
     RESERVE_ROOM_FORM : "/reserve",
+    RESERVE_DETAIL : "/reserve/detail",
     DELETE_ROOM : "/room/delete",
     DELETE_ROOM_LIST : "/room/delete/list",
     DELETE_ROOM_IMG  : "/room/img/delete",

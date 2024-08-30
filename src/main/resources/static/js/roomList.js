@@ -138,6 +138,9 @@ $(function () {
 
     //예약버튼
     $(document).on("click", ".reserveBtn", (event) => {
+        const startDate = $(".start_date").val();
+        const endDate = $(".end_date").val();
+
         if (isNull(user_sid.val())) {
             const thenFn = () => {
                 location.href = PAGE_LIST.LOGIN_PAGE
@@ -145,50 +148,87 @@ $(function () {
             swalCall("경고", "로그인이 필요한 서비스입니다", "warning", thenFn);
             return;
         }
-
+        if (isNull(startDate) || isNull(endDate)) {
+            const thenFn = () => {
+                location.reload()
+            }
+            swalCall("경고", "체크인/체크아웃 일자와<br>기타 예약조건을 검색해주세요", "warning", thenFn);
+            return;
+        }
 
         const ajaxObj = {
             url: API_LIST.RESERVE_ROOM_FORM,
             method: "post",
             param: reserveObj,
-            successFn: () => {
+            successFn: (reserveSid) => {
+
+                if (isNull(reserveSid)) {
+                    const thenFn = () => {
+                        location.reload();
+                    }
+                    swalCall("실패", "임시예약 실패", "error", thenFn);
+                }
+
                 $(".detailBtns").remove();
-                createReserveForm(reserveObj);
+                const ajaxObj = {
+                    url: API_LIST.RESERVE_DETAIL,
+                    method: "get",
+                    param: {
+                        reserveSid: reserveSid
+                    },
+                    successFn: (detailData) => {
+                        if (!isNull(detailData)) {
+                            createReserveForm(detailData);
+                            $("#firstNum").focus();
+                        }
+                    }
+                }
+                ajaxCall(ajaxObj);
             }
         };
         ajaxCall(ajaxObj); // AJAX 요청 호출 추가
     });
 
     // 예약정보 보여주기
-    const createReserveForm = (reserveObj) => {
+    const createReserveForm = (detailData) => {
         const personCntHTML =
             `<div class ="personCount">
                  <span class="personText">예약 인원</span>
-                 ${reserveObj.adult_cnt != null ? `<span>${reserveObj.adult_cnt} 성인</span>` : ''}
-                 ${reserveObj.child_cnt != null ? `<span>${reserveObj.child_cnt} 소아</span>` : ''}
+                 ${detailData.adult_cnt != null ? `<span>${detailData.adult_cnt} 성인</span>` : ''}
+                 ${detailData.child_cnt != null ? `<span>${detailData.child_cnt} 소아</span>` : ''}
              </div>`;
         innerElement.append(
             `<div class="reserveInfo">
                 <h2>예약 정보</h2>
+                <input type="hidden" class="reserve_sid" value="${detailData.reserve_sid}"
                  <div class="stayPeriodBox">
                  <span class="stayPeriod">숙박 기간</span>
                     <div class="reserveDate">
-                     <span>${reserveObj.start_date} ~ </span>
-                     <span>${reserveObj.end_date}</span>
+                     <span>${detailData.start_date} ~ </span>
+                     <span>${detailData.end_date}</span>
                     </div>
                  </div>
                  ${personCntHTML}
-                 <div class="buyerName">
+                 <div class="buyer">
                     <span>예약자 명</span>
-                    <input type="text" id="buyerName">
+                    <input type="text" id="buyerName" value="${detailData.user_name}" readonly>
+                    <button type="button" class="change_user_name">변경</button><br>
+                    <span>예약자 이메일</span><br>
+                    <span class="user_email">${detailData.user_email}</span>
                  </div>
                  <div class="phoneNumberBox">
                     <span>핸드폰</span>
-                    <span>010</span>
-                    <input type="text" id="firstNum">
+                    <span>010</span> -
+                    <input type="text" id="firstNum"> -
                     <input type="text" id="secondNum">
                  </div>
-                 <span class="askText">위 예약정보로 진행하시겠습니까?</span>
+                 <div class="buyer_address">
+                    <input type="text" id="postcode" placeholder="우편번호">
+                    <button type="button" class="find_postcode">우편번호 찾기</button>
+                    <input type="text" id="address" placeholder="주소">
+                    <input type="text" id="detail_address" placeholder="상세주소">
+                 </div>
+                 <span class="askText">위 예약정보로 진행됩니다.</span>
                  <div class="reserveBtnBox">
                     <button type="button" class="cancelReserveBtn" value="${reserveObj.user_sid}">취소</button>
                     <button type="button" class="reserveCompleteBtn">신용카드 결제</button>
@@ -196,6 +236,23 @@ $(function () {
              </div>`
         )
     }
+    $(document).on("click", ".find_postcode", () => {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                let addr = ''; // 주소 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+                $("#postcode").val(data.zonecode);
+                $("#address").val(addr);
+                $("#detail_address").focus();
+            }
+        }).open();
+    });
 
     // 주문번호 생성
     function createReserveNum() {
@@ -214,10 +271,16 @@ $(function () {
 
     //예약 진행
     $(document).on("click", ".reserveCompleteBtn", () => {
+        const reserveSid = $(".reserve_sid").val();
+        const userSid = user_sid.val();
+        const postcode = $("#postcode").val();
+        const addr = $("#address").val()+','+$("#detail_address").val();
+        console.log(addr);
         const reserveNumber = createReserveNum();
+        const userEmail = $(".user_email").text().trim();
         const roomName = $(".roomName").text().trim();
         const priceText = $(".price span").text();
-        const price = priceText.replace("원","").trim();
+        const price = priceText.replace("원", "").trim();
         const phone = "010-" + $("#firstNum").val() + "-" + $("#secondNum").val();
         const buyerName = $("#buyerName").val();
         console.log(reserveNumber);
@@ -226,7 +289,8 @@ $(function () {
             roomName: roomName,
             price: price,
             phone: phone,
-            user_sid: user_sid.val()
+            reserveSid: reserveSid,
+            userSid :userSid
         }
 
         IMP.init("imp41837584");
@@ -237,11 +301,11 @@ $(function () {
                 name: roomName,
                 amount: price,
                 buyer_name: buyerName,
-                buyer_email: "",
+                buyer_email: userEmail,
                 buyer_tel: phone,
-                buyer_addr: "서울특별시 강남구 신사동",
-                buyer_postcode: "01181"
-            }, function(response) {
+                buyer_addr: addr,
+                buyer_postcode: postcode
+            }, function (response) {
                 if (response.success) {
                     console.log("결제 성공 후 검사 진행");
 
@@ -261,7 +325,7 @@ $(function () {
                                     method: "post",
                                     param: paymentObj,
                                     successFn: (resultResponse) => {
-                                        if(resultResponse.isSuccess){
+                                        if (resultResponse.success) {
                                             const thenFn = () => {
                                                 location.href = PAGE_LIST.MAIN_PAGE;
                                             }

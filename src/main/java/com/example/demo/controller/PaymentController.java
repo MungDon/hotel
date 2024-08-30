@@ -37,6 +37,7 @@ public class PaymentController {
     @PostMapping("/reserve/payment")
     @ResponseBody
     public ResponseEntity<ResponseDTO> reservePaymentAdd(@ModelAttribute @Valid ReqPaymentInfoAdd req){
+        log.info("여기오지?");
         ResponseDTO response = paymentService.reservePaymentAdd(req);
         return ResponseEntity.ok(response);
     }

@@ -1,15 +1,25 @@
 package com.example.demo.service;
 
 import com.example.demo.Exception.ErrorCode;
+import com.example.demo.dto.Pagination;
+import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.request.reservation.ReqReservationAdd;
+import com.example.demo.dto.request.reservation.ReserveSearchDTO;
 import com.example.demo.dto.response.ResponseDTO;
-import com.example.demo.enums.ReservationType;
+import com.example.demo.dto.response.reservation.ResReserveInfo;
+import com.example.demo.dto.response.reservation.ResReserveList;
+import com.example.demo.enums.ReservationStatus;
 import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
@@ -18,10 +28,11 @@ public class ReservationService {
 	
 	/*임시 예약*/
 	@Transactional
-	public ResponseDTO pencilIn(ReqReservationAdd req) {
-		req.setReserve_status(ReservationType.TEMPORARY.getStatus());
+	public Long pencilIn(ReqReservationAdd req) {
+		req.setReserve_status(ReservationStatus.TEMPORARY.getStatus());
 		int result = reservationMapper.pencilIn(req);
-		return CommonUtils.successResponse(result,"임시예약 완료", ErrorCode.INSERT_OPERATION_FAILED);
+		CommonUtils.throwRestCustomExceptionIf(result != 1, ErrorCode.FAIL_TEMPORARY_RESERVATION);
+		return req.getReserve_sid();
 	}
 
 	/*임시예약 삭제*/
@@ -32,9 +43,34 @@ public class ReservationService {
 	}
 
 	@Transactional
-	public void changeReserveStatus(Long user_sid,String reserveStatus){
-		int result = reservationMapper.changeReserveStatus(user_sid,reserveStatus);
+	public void changeReserveStatus(Long reserveSid,String reserveStatus){
+		int result = reservationMapper.changeReserveStatus(reserveSid,reserveStatus);
 		CommonUtils.throwRestCustomExceptionIf(result != 1, ErrorCode.RESERVATION_STATUS_CHANGE_FAIL);
+	}
+
+	@Transactional(readOnly = true)
+	public ResReserveInfo reserveInfo(Long reserveSid){
+		return reservationMapper.reserveInfo(reserveSid);
+	}
+	
+	/*예약 리스트*/
+	@Transactional(readOnly = true)
+	public ResPaging<ResReserveList> reserveList(ReserveSearchDTO dto){
+		// 검색 조건에 맞는 데이터가 없을 경우 빈 리스트, null 반환
+		int listCount = reservationMapper.reserveListCnt(dto);
+		log.info("listCnt"+listCount);
+		if(listCount < 1){
+			return new ResPaging<>(Collections.emptyList(),null);
+		}
+		// 페이징 객체 생성과 동시에 페이징 계산
+		Pagination pagination = new Pagination(listCount,dto);
+		dto.setPagination(pagination);
+		log.info("여기오냐");
+		// 계산완료 후 해당 변수들로 offset 정해서 데이터 가져옴
+		List<ResReserveList> reserveList = reservationMapper.reserveList(dto);
+		log.info("여기오냐"+reserveList.size());
+		// 응답 객체 안에 리스트와 페이징 객체 담음
+		return new ResPaging<>(reserveList, pagination);
 	}
 
 }
