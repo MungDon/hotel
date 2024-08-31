@@ -11,7 +11,6 @@ public class ReqIntroAdd {
 
 	private Long hotel_sid; 	// 호텔PK
 
-	@NotBlank(message = "회원 FK 누락")
 	private Long user_sid; 	// 회원 FK	
 
 	@NotBlank(message = "제목은 필수 입력 사항입니다.")

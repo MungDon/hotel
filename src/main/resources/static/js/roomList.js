@@ -223,9 +223,9 @@ $(function () {
                     <input type="text" id="secondNum">
                  </div>
                  <div class="buyer_address">
-                    <input type="text" id="postcode" placeholder="우편번호">
+                    <input type="text" id="postcode" placeholder="우편번호" readonly>
                     <button type="button" class="find_postcode">우편번호 찾기</button><br>
-                    <input type="text" id="address" placeholder="주소">
+                    <input type="text" id="address" placeholder="주소" readonly>
                     <input type="text" id="detail_address" placeholder="상세주소">
                  </div>
                  <span class="askText">위 예약정보로 진행됩니다.</span>

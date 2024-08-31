@@ -43,8 +43,8 @@
         </select>
         <select class="delete_status">
             <option value="">==탈퇴상태==</option>
-            <option  th:selected="${search.deleteYN == 'Y'}" value="Y">탈퇴회원</option>
-            <option th:selected="${search.deleteYN == 'N'}" value="N">회원</option>
+            <option  th:selected="${search.deleteYN == 'Y'}" value="Y">탈퇴</option>
+            <option th:selected="${search.deleteYN == 'N'}" value="N">정상</option>
         </select>
     </div>
     <table class="customer_manage_list_table">

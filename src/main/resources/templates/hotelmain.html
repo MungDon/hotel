@@ -65,13 +65,13 @@
 			</td>	
 		</tr>
 		<tr class="ptr3">
-			<td class="ptd1" th:if="${typeList.size() > 3}">
+			<td class="ptd1" th:if="${typeList.size() > 4}">
 				<img class="room_type_img_5 type_img" th:src="@{|/img/${typeList[4].img_name}|}">
 				<input type="hidden" class="type_name" th:value="${typeList[4].type_name}">
 				<input type="hidden" class="bed_size" th:value="${typeList[4].bed_size}">
 				<input type="hidden" class="room_size" th:value="${typeList[4].room_size}">
 			</td>
-			<td class="ptd1" th:if="${typeList.size() > 4}">
+			<td class="ptd1" th:if="${typeList.size() > 3}">
 				<img class="room_type_img_4 type_img" th:src="@{|/img/${typeList[3].img_name}|}">
 				<input type="hidden" class="type_name" th:value="${typeList[3].type_name}">
 				<input type="hidden" class="bed_size" th:value="${typeList[3].bed_size}">

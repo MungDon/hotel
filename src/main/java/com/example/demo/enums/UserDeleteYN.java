@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum UserDeleteYN {
 
-    DELETE("Y","탈퇴회원"),
-    NOT_DELETE("N","회원");
+    DELETE("Y","탈퇴"),
+    NOT_DELETE("N","정상");
 
     private final String type;
 

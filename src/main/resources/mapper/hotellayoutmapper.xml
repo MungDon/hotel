@@ -27,7 +27,8 @@
         LEFT OUTER JOIN tb_hotel_layout AS HL ON TF.floor_sid = HL.floor_sid
         LEFT OUTER JOIN tb_room AS TR ON HL.room_sid = TR.room_sid
         LEFT OUTER JOIN tb_room_type AS RT ON TR.room_type_sid = RT.room_type_sid
-        WHERE   TR.delete_yn = 'N';
+        WHERE   TR.delete_yn = 'N'
+        ORDER BY HL.floor_sid ASC, HL.room_number ASC
     </select>
 
     <select id="retrieveTodayReservations" resultMap="todayReserveList">
@@ -44,6 +45,8 @@
                 left outer join tb_room as tr on hl.room_sid = tr.room_sid
                 left join tb_room_type as rt on tr.room_type_sid = rt.room_type_sid
                 left join tb_floor as tf on hl.floor_sid = tf.floor_sid
+        WHERE
+            tr.delete_yn = 'N'
         ORDER BY
             hl.floor_sid asc, hl.room_number asc;
     </select>
