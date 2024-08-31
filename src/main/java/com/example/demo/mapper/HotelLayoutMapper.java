@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import com.example.demo.dto.request.layout.ReqLayoutAdd;
 import com.example.demo.dto.request.layout.ReqLayoutRoomAdd;
 import com.example.demo.dto.response.layout.ResLayoutList;
+import com.example.demo.dto.response.layout.ResTodayReserveList;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface HotelLayoutMapper {
     List<ResLayoutList> layoutList();
 
     int hotelLayoutRemoveAll();
+
+    List<ResTodayReserveList> retrieveTodayReservations();
 }

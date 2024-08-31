@@ -89,28 +89,6 @@ public class RoomController {
         roomService.roomDelete(room_sid);
     }
 
-    /*삭제된 방목록(휴지통)*/
-    @GetMapping("/delete/list")
-    @ResponseBody
-    public List<ResRoomList> deleteRooms() {
-        List<ResRoomList> deleteRooms = roomService.deleteRooms();
-        return deleteRooms;
-    }
-
-    /*방복구하기*/
-    @PutMapping("/restore")
-    @ResponseBody
-    public void restoreRoom(@RequestParam(value = "room_sid") Long room_sid) {
-        roomService.restoreRoom(room_sid);
-    }
-
-    /*방 영구 삭제*/
-    @DeleteMapping("/remove")
-    @ResponseBody
-    public void removeRoom(@RequestBody Long room_sid) {
-        roomService.removeRoom(room_sid);
-    }
-
     /*객실 목록(관리자)*/
     @GetMapping("/manage")
     public String roomManageList(Model model, @ModelAttribute("search") SearchDto search) {

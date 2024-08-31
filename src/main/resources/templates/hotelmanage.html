@@ -3,12 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="/css/today_reserve_list.css">
+	<script src="/js/sessionChk.js"></script>
 </head>
 <body>
 	<header th:replace="~{manageheader :: manageheader}"></header>
 	<input type="hidden" id="user_sid" th:value="${session.user_sid}"/>
 	<input type="hidden" id="user_role" th:value="${session.role_user}"/>
-	<script src="/js/sessionChk.js"></script>
+	<main class="today_reserve_list_main">
+		<div class="manageTitleBox">
+			<span class="manageTitle">오늘 예약 현황</span>
+		</div>
+		<div class="today_reserve_list_con">
+			<div class="empty_list_box" th:if="${#lists.isEmpty(todayReserveList)}">
+				<h1>등록된 구성이 없습니다.</h1>
+			</div>
+			<div class="floor_box" th:each="reserve : ${todayReserveList}">
+				<span class="floor" th:text="${reserve.floor_name}"></span>
+				<div class="room" th:each="roomLayout : ${reserve.rooms}">
+					<span class="room_sid" th:text="${roomLayout.room_name}"></span>
+					<input type="text" class="room_number" placeholder="ex)101호" th:value="${roomLayout.room_number}">
+					<span th:text="${roomLayout.reserve_status}"></span>
+				</div>
+			</div>
+		</div>
+	</main>
 </body>
 </html>

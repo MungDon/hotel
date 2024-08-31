@@ -12,4 +12,6 @@ public class ResRoomLayout {
     private String room_name;
 
     private String room_number;
+
+    private String reserve_status;
 }

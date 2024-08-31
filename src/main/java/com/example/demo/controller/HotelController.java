@@ -9,8 +9,10 @@ import com.example.demo.dto.response.banner.ResBannerList;
 import com.example.demo.dto.response.hotel.ResHotelIntro;
 import com.example.demo.dto.response.hotel.ResIntroDetail;
 import com.example.demo.dto.response.hotel.ResIntroList;
+import com.example.demo.dto.response.layout.ResTodayReserveList;
 import com.example.demo.dto.response.roomtype.ResRoomTypeList;
 import com.example.demo.service.BannerService;
+import com.example.demo.service.HotelLayoutService;
 import com.example.demo.service.HotelService;
 import com.example.demo.service.RoomTypeService;
 import com.example.demo.util.CommonUtils;
@@ -35,6 +37,7 @@ public class HotelController {
 	private final HotelService hotelService;
 	private final RoomTypeService roomTypeService;
 	private final BannerService bannerService;
+	private final HotelLayoutService hotelLayoutService;
 	private int introCnt;		// 소개글 게시물 수
 
 	/* 호텔 메인페이지 */
@@ -49,7 +52,9 @@ public class HotelController {
 
 	/* 호텔 관리페이지 */
 	@GetMapping("/management")
-	public String hotelManagement() {
+	public String hotelManagement(Model model) {
+		List<ResTodayReserveList> todayReserveList =hotelLayoutService.retrieveTodayReservations();
+		model.addAttribute("todayReserveList",todayReserveList);
 		return "hotelmanage";
 	}
 

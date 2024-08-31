@@ -57,7 +57,6 @@
 								<img class="thumbnail roomDetail" th:src="@{|/img/${room.thumbnail.img_name}|}" th:attr="data-room-sid=${room.room_sid}">
 						</td>
 						<td class="listTd1">
-							<span th:if="${room.available_rooms} == 1">(객실이 하나 남았습니다.)</span>
 							<h3 th:text="${room.room_name}"></h3>
 						</td>
 						<td class="listTd3"></td>
@@ -70,8 +69,8 @@
 							</div><br>
 							<div class="detailText">
 								<a  class="roomDetail"  th:attr="data-room-sid=${room.room_sid}">객실 자세히 보기<img class="plusImg roomDetail"  th:attr="data-room-sid=${room.room_sid}" src="/images/plus.png"></a>
-							</div>
-
+							</div><br>
+							<span th:if="${room.available_rooms} == 1">(객실이 하나 남았습니다.)</span>
 						</td>
 						<td class="listTd3">
 						</td>

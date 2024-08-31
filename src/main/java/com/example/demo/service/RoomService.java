@@ -196,25 +196,6 @@ public class RoomService {
 	public void roomDelete(Long room_sid) {
 		roomMapper.roomDelete(room_sid);
 	}
-	
-	/*방삭제 (물리)*/
-	@Transactional
-	public void removeRoom(Long room_sid) {
-		roomMapper.removeRoom(room_sid);
-	}
-	
-	
-	/*방 삭제 목록*/
-	@Transactional(readOnly = true)
-	public List<ResRoomList> deleteRooms(){
-		return roomMapper.deleteRooms();
-	}
-
-	/*방 복구하기*/
-	@Transactional
-	public void restoreRoom(Long room_sid) {
-		roomMapper.restoreRoom(room_sid);
-	}
 
 	@Transactional(readOnly = true)
 	public List<ResRoomList> simpleRoomList(){

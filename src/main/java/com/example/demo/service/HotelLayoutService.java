@@ -6,6 +6,7 @@ import com.example.demo.dto.request.layout.ReqLayoutRoomAdd;
 import com.example.demo.dto.request.layout.ReqLayoutUpdate;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.layout.ResLayoutList;
+import com.example.demo.dto.response.layout.ResTodayReserveList;
 import com.example.demo.mapper.HotelLayoutMapper;
 import com.example.demo.util.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -60,5 +61,10 @@ public class HotelLayoutService {
     public ResponseDTO hotelLayoutUpdate(List<ReqLayoutUpdate> updateList){
         hotelLayoutMapper.hotelLayoutRemoveAll();
         return hotelLayoutProcess(updateList,"구조 업데이트 완료");
+    }
+
+    @Transactional(readOnly = true)
+    public List<ResTodayReserveList> retrieveTodayReservations(){
+        return hotelLayoutMapper.retrieveTodayReservations();
     }
 }

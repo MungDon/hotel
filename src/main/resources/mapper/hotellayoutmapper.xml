@@ -30,11 +30,32 @@
         WHERE   TR.delete_yn = 'N';
     </select>
 
+    <select id="retrieveTodayReservations" resultMap="todayReserveList">
+        SELECT
+            hl.*,
+            COALESCE(res.reserve_status,'공실') AS reserve_status,
+            rt.type_name as room_name,
+            tf.floor_name
+        FROM
+            tb_hotel_layout hl
+                LEFT JOIN
+            tb_reservation res ON hl.room_sid = res.room_sid
+                AND CURRENT_DATE BETWEEN res.start_date AND res.end_date
+                left outer join tb_room as tr on hl.room_sid = tr.room_sid
+                left join tb_room_type as rt on tr.room_type_sid = rt.room_type_sid
+                left join tb_floor as tf on hl.floor_sid = tf.floor_sid
+        ORDER BY
+            hl.floor_sid asc, hl.room_number asc;
+    </select>
     <delete id="hotelLayoutRemoveAll">
         DELETE
         FROM    tb_floor
     </delete>
     <resultMap id="layoutList" type="ResLayoutList">
+        <result property="floor_name" column="floor_name"></result>
+        <collection property="rooms" resultMap="roomsMap"></collection>
+    </resultMap>
+    <resultMap id="todayReserveList" type="ResTodayReserveList">
         <result property="floor_name" column="floor_name"></result>
         <collection property="rooms" resultMap="roomsMap"></collection>
     </resultMap>
@@ -44,5 +65,6 @@
         <result property="room_sid" column="room_sid"></result>
         <result property="room_name" column="type_name"></result>
         <result property="room_number" column="room_number"></result>
+        <result property="reserve_status" column="reserve_status"></result>
     </resultMap>
 </mapper>
