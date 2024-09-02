@@ -55,4 +55,6 @@ public interface RoomMapper {
 	/*호텔레이아웃 방등록용 객실목록*/
 	List<ResRoomList> simpleRoomList();
 
+	Long findAllByRoomTypeSid(@Param(value = "room_type_sid")Long room_type_sid);
+
 }

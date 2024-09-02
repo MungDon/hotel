@@ -41,6 +41,4 @@ public class PaymentController {
         ResponseDTO response = paymentService.reservePaymentAdd(req);
         return ResponseEntity.ok(response);
     }
-
-
 }

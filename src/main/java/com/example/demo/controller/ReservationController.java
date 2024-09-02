@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ResPaging;
 import com.example.demo.dto.request.reservation.ReqReservationAdd;
+import com.example.demo.dto.request.reservation.ReqReserveCancel;
 import com.example.demo.dto.request.reservation.ReserveSearchDTO;
 import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.dto.response.reservation.ResReserveInfo;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -54,9 +57,15 @@ public class ReservationController {
 	public String reserveList(@ModelAttribute("search")ReserveSearchDTO dto, Model model, HttpServletRequest request){
 		Long user_sid = CommonUtils.getUserSid(request);
 		dto.setUser_sid(user_sid);
-		log.info(""+dto.getUser_sid());
 		ResPaging<ResReserveList> reserveList = reservationService.reserveList(dto);
 		model.addAttribute("reserveList",reserveList);
 		return "reserve_list";
+	}
+
+	@DeleteMapping("/cancel")
+	@ResponseBody
+	public ResponseEntity<ResponseDTO> reserveCancel(ReqReserveCancel req) throws IOException, InterruptedException {
+		ResponseDTO response =  reservationService.cancelReservation(req.getReserveSid(), req.getReserveNumber());
+		return ResponseEntity.ok(response);
 	}
 }

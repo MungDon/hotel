@@ -50,7 +50,7 @@ $(function () {
                         room_sid : room_sid
                     },
                     successFn: () => {
-                        swalCall("성공", "삭제되었습니다, <br>삭제된 객실은 휴지통에서 복구가능합니다", "success", () => {
+                        swalCall("성공", "해당 객실이 삭제 되었습니다.", "success", () => {
                             location.reload();
                         });
                     }

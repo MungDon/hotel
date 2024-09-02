@@ -15,5 +15,4 @@ public class ResReserveList{
     private LocalDate start_date;       // 체크인 일자
 
     private LocalDate end_date;         // 체크 아웃 일자
-
 }

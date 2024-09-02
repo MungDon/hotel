@@ -68,7 +68,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
-.reserveBtn,.removeRoom,.updateRoom,.closeBtn,.deleteRoom,.cancelReserveBtn,.reserveCompleteBtn{
+.detailBtns>button,.reserveBtn,.removeRoom,.updateRoom,.closeBtn,.deleteRoom,.cancelReserveBtn,.reserveCompleteBtn{
 	cursor : pointer;
 	color: white;
 	font-size: 17px;

@@ -152,6 +152,13 @@
 				AND img_type = 'thumbnail'
 	</select>
 
+	<select id="findAllByRoomTypeSid" resultType="Long">
+		SELECT	room_sid
+		FROM	tb_room
+		WHERE	room_type_sid = #{room_type_sid}
+	</select>
+
+
 	<!-- 이미지삭제 -->
 	<delete id="roomImgRemove" parameterType="Long">
 		DELETE FROM tb_room_img
@@ -159,12 +166,11 @@
 	</delete>
 
 	<!-- 방 삭제(논리) -->
-	<delete id ="roomDelete" parameterType="Long">
+	<delete id ="roomDelete">
 		UPDATE tb_room
 		SET	delete_yn = 'Y'
 		WHERE	room_sid = #{room_sid}
 	</delete>
-
 
 	<delete id="clearAllOption">
 		DELETE

@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.request.reservation.ReqReservationAdd;
 import com.example.demo.dto.request.reservation.ReserveSearchDTO;
+import com.example.demo.dto.response.reservation.ResReserveCancel;
 import com.example.demo.dto.response.reservation.ResReserveInfo;
 import com.example.demo.dto.response.reservation.ResReserveList;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,8 +16,8 @@ public interface ReservationMapper {
 	/*임시 예약*/
 	int pencilIn(ReqReservationAdd req);
 
-	/*임시예약 삭제*/
-	int deleteTemporaryReserve(@Param(value = "reserveSid")Long reserveSid);
+	/*예약 삭제*/
+	int deleteReserve(@Param(value = "reserveSid")Long reserveSid);
 	
 	/*예약 상태 변경*/
 	int changeReserveStatus(@Param(value = "reserveSid")Long reserveSid,@Param(value = "reserveStatus")String reserveStatus);
@@ -30,4 +31,6 @@ public interface ReservationMapper {
 	List<ResReserveList> reserveList(ReserveSearchDTO dto);
 
 	List<String> availableRoomNumbers(ReqReservationAdd req);
+
+	List<ResReserveCancel> findReserveByRoomSid(@Param(value = "roomSid")Long roomSid);
 }

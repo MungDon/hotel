@@ -40,7 +40,7 @@
         FROM
             tb_hotel_layout hl
                 LEFT JOIN
-            tb_reservation res ON hl.room_sid = res.room_sid
+            tb_reservation res ON hl.room_number = res.room_number
                 AND CURRENT_DATE BETWEEN res.start_date AND res.end_date
                 left outer join tb_room as tr on hl.room_sid = tr.room_sid
                 left join tb_room_type as rt on tr.room_type_sid = rt.room_type_sid

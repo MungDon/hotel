@@ -24,9 +24,12 @@
 	</insert>
 
 	<select id="reserveInfo" resultType="ResReserveInfo">
-		SELECT	RES.*, TU.user_name,TU.user_email
+		SELECT	RES.*,TU.user_name,TU.user_email,TP.reserve_number, RT.type_name as room_name
 		FROM	tb_reservation AS RES
+		LEFT OUTER JOIN tb_room AS R ON RES.room_sid = R.room_sid
+		LEFT OUTER JOIN tb_room_type AS RT ON R.room_type_sid = RT.room_type_sid
 		LEFT OUTER JOIN tb_user AS TU ON RES.user_sid = TU.user_sid
+		LEFT OUTER JOIN tb_payment AS TP ON RES.reserve_sid = TP.reserve_sid
 		WHERE	RES.reserve_sid = #{reserveSid}
 
 	</select>
@@ -72,6 +75,11 @@
 		LIMIT #{recordSize} offset #{pagination.limitStart}
 	</select>
 
+	<select id="findReserveByRoomSid" resultType="ResReserveCancel">
+		SELECT	reserve_sid,reserve_number
+		FROM	tb_reservation
+		WHERE	room_sid = #{roomSid}
+	</select>
 	<update id="changeReserveStatus">
 		UPDATE 	tb_reservation
 		SET		reserve_status = #{reserveStatus}
@@ -85,4 +93,5 @@
 		WHERE
 		    reserve_sid = #{reserveSid}
 	</delete>
+
 </mapper>

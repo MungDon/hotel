@@ -1,20 +1,19 @@
 package com.example.demo.config;
 
+import com.example.demo.util.IamPortKeys;
 import com.siot.IamportRestClient.IamportClient;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class PaymentConfig {
-    @Value("${imp.api.key}")
-    private String apiKey;
 
-    @Value("${imp.api.secretkey}")
-    private String secretKey;
+    private final IamPortKeys iamPortKeys;
 
     @Bean
     public IamportClient iamportClient(){
-        return new IamportClient(apiKey,secretKey);
+        return new IamportClient(iamPortKeys.getApiKey(),iamPortKeys.getSecretKey());
     }
 }
