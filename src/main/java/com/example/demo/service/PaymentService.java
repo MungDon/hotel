@@ -30,6 +30,7 @@ public class PaymentService {
     private final ReservationService reservationService;
     private final IamPortKeys iamPortKeys;
 
+    /*결제 내역 저장*/
     @Transactional
     public ResponseDTO reservePaymentAdd(ReqPaymentInfoAdd req){
         reservationService.changeReserveStatus(req.getReserveSid(), ReservationStatus.COMPLETED.getStatus());

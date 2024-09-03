@@ -54,6 +54,12 @@
         DELETE
         FROM    tb_floor
     </delete>
+    <delete id="deleteHotelLayoutByRoomSid">
+        DELETE
+        FROM    tb_hotel_layout
+        WHERE   room_sid = #{roomSid}
+    </delete>
+    
     <resultMap id="layoutList" type="ResLayoutList">
         <result property="floor_name" column="floor_name"></result>
         <collection property="rooms" resultMap="roomsMap"></collection>

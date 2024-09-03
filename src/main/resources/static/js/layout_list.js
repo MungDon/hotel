@@ -2,6 +2,12 @@ $(function () {
 
     /*구조 등록하기 폼*/
     $(document).on("click", ".layout_add_form", () => {
+        if(initialRoomList.length == 0){
+            const thenFn = () => {
+                location.href = PAGE_LIST.HOTEL_LAYOUT_LIST;
+            }
+            swalCall("경고", "등록된 객실이 없습니다 객실 먼저 등록해주세요","warning",thenFn);
+        }
         location.href = PAGE_LIST.HOTEL_ADD_FORM;
     });
 

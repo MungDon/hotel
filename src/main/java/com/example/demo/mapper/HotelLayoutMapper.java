@@ -5,6 +5,7 @@ import com.example.demo.dto.request.layout.ReqLayoutRoomAdd;
 import com.example.demo.dto.response.layout.ResLayoutList;
 import com.example.demo.dto.response.layout.ResTodayReserveList;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface HotelLayoutMapper {
     int hotelLayoutRemoveAll();
 
     List<ResTodayReserveList> retrieveTodayReservations();
+
+    int deleteHotelLayoutByRoomSid(@Param(value = "roomSid")Long roomSid);
 }

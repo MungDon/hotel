@@ -61,7 +61,7 @@ public class RoomTypeController {
     @DeleteMapping("/delete")
     @ResponseBody
     public ResponseEntity<ResponseDTO> roomTypeDelete(@RequestParam(value = "room_type_sid")Long room_type_sid,
-                                                      @RequestParam(value = "current_img")String current_img){
+                                                      @RequestParam(value = "current_img")String current_img) throws IOException, InterruptedException {
         ResponseDTO response = roomTypeService.roomTypeDelete(room_type_sid,current_img);
         return ResponseEntity.ok(response);
     }

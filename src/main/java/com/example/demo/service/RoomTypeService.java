@@ -101,7 +101,7 @@ public class RoomTypeService {
 
 
     @Transactional
-    public ResponseDTO roomTypeDelete(Long room_type_sid, String current_img) {
+    public ResponseDTO roomTypeDelete(Long room_type_sid, String current_img) throws IOException, InterruptedException {
         int result = roomTypeMapper.roomTypeDelete(room_type_sid);
         if (result > 0) {
             deleteRoomTypeCascade(room_type_sid);

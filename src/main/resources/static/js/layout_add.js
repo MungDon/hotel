@@ -2,6 +2,12 @@ $(function () {
     const lastFloorName = $(".floor").last().text();
     let floorCnt = parseInt(lastFloorName.replace('F', ''),10)+1;
     const roomList = initialRoomList;
+    if(roomList.length == 0){
+        const thenFn = () => {
+            location.href = PAGE_LIST.HOTEL_LAYOUT_LIST;
+        }
+        swalCall("경고", "등록된 객실이 없습니다 객실 먼저 등록해주세요","warning",thenFn);
+    }
     const roomSelectOption = roomList.map(room => {
         return `
             <option value="${room.room_sid}">${room.room_name}</option>

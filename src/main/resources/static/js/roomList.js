@@ -87,7 +87,7 @@ $(function () {
             ${useOptionsHTML}
         </div>
         <div class="personLimit">
-            <div class="totalLimit">
+            <div class="totalLimit"> 
                 <h3>최대 투숙 가능인원</h3>
                 <span>${detailData.adult_limit + detailData.child_limit}명</span>
             </div>
@@ -191,6 +191,7 @@ $(function () {
 
     // 예약정보 보여주기
     const createReserveForm = (detailData) => {
+        const finalPrice =
         const personCntHTML =
             `<div class ="personCount">
                  <span class="personText">예약 인원</span>
@@ -228,6 +229,8 @@ $(function () {
                     <input type="text" id="address" placeholder="주소" readonly>
                     <input type="text" id="detail_address" placeholder="상세주소">
                  </div>
+                 <span class="askText">최종 결제 금액</span>
+                 <span class="final_price"></span>
                  <span class="askText">위 예약정보로 진행됩니다.</span>
                  <div class="reserveBtnBox">
                     <button type="button" class="cancelReserveBtn" value="${detailData.reserve_sid}">취소</button>
