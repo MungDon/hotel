@@ -228,6 +228,9 @@ $(function(){
         // URLSearchParams 객체를 가져옴
         let params = urlObj.searchParams;
 
+        if (params.has('page')) {
+            params.set('page', '1');
+        }
         // 기존 파라미터가 있는 경우 제거 후 추가
         params.set(paramName, paramValue);
 

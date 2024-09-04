@@ -1,8 +1,8 @@
 package com.example.demo.dto.response.hotel;
 
-import java.time.LocalDateTime;
-
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 @Getter
 public class ResIntroList {
@@ -16,4 +16,6 @@ public class ResIntroList {
 	private String status;	// 소개글 공개/비공개 상태
 	
 	private LocalDateTime created_date;	// 소개글 등록일시
+	
+	private LocalDateTime modified_date;	// 소개글 수정일시
 }

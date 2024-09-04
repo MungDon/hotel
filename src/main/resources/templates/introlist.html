@@ -24,7 +24,7 @@
         <tr class="introTr">
             <th class="introTh">No.</th>
             <th class="introTh">제목</th>
-            <th class="introTh">등록일</th>
+            <th class="introTh">등록일/수정일</th>
             <th class="introTh">공개/비공개</th>
             <th class="introTh">대표 소개글 선택</th>
         </tr>
@@ -38,7 +38,7 @@
             <td class="introTd">
                 <span class="introListTitle" th:data-intro-sid="${intro.hotel_sid}" th:text="${intro.title}"></span>
             </td>
-            <td class="introTd" th:text="${#temporals.format(intro.created_date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td class="introTd"  th:text="${#temporals.format(intro.created_date,'yyyy-MM-dd')} +' / '+${#temporals.format(intro.modified_date, 'yyyy-MM-dd')}"></td>
             <td class="introTd" th:text="${intro.status}"></td>
             <td class="introTd">
                 <input type="radio" name="chk" th:value="${intro.hotel_sid}" th:checked="${intro.status == '공개'}"

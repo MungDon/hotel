@@ -100,6 +100,11 @@ $(function () {
 
     $(document).on("click", ".remove_option_btn", (event) => {
         $(event.target).closest("div").remove();
+        if($(event.target).closest(".useOptions").length > 0){
+            useOptionCount--;
+        } else {
+            optionCount--;
+        }
     });
 
     $(".back_list_btn").click(() => {

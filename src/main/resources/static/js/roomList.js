@@ -243,7 +243,7 @@ $(function () {
                  </div>
                  <div class="price_notice">
                      <span class="askText">최종 결제 금액</span>
-                     <span class="final_price">${finalPrice}</span>
+                     <span class="final_price">${finalPrice}</span>원
                      <span class="askText">위 예약정보로 진행됩니다.</span>
                  </div>    
                  <div class="reserveBtnBox">
@@ -291,7 +291,7 @@ $(function () {
         const userSid = user_sid.val();
         const postcode = $("#postcode").val();
         const addr = $("#address").val()+','+$("#detail_address").val();
-        console.log(addr);
+        const price = $(".final_price").text().trim();
         const reserveNumber = createReserveNum();
         const userEmail = $(".user_email").text().trim();
         const roomName = $(".roomName").text().trim();

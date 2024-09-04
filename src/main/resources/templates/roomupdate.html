@@ -62,16 +62,16 @@
 			</div>
 			<h3>현재 방 정보 옵션</h3>
 				<div class="options" th:each="infoOption, loop :  ${update.infoOptions}" th:if="${infoOption.option_type == '객실정보'}">
-					옵션명&nbsp;<input type="text" class="o1" th:name="${'options['+loop.count+'].option_name'}" th:value="${infoOption.option_name}">&nbsp;
-					내용&nbsp;<input type="text" class="o1" th:name="${'options['+loop.count+'].option_value'}"  th:value="${infoOption.option_value}">&nbsp;
+					옵션명&nbsp;<input type="text" class="o1" th:name="${'options['+loop.index+'].option_name'}"  th:value="${infoOption.option_name}">&nbsp;
+					내용&nbsp;<input type="text" class="o1"  th:name="${'options['+loop.index+'].option_value'}"  th:value="${infoOption.option_value}">&nbsp;
 					<button class="remove_option_btn"type="button" >옵션 제거</button>
 				</div>
 			<h3>방 정보 옵션</h3>
 			<div id="plusOptions">
 				<div class="options">
-					옵션명&nbsp;<input type="text" class="o1" id="options[0].option_name" name="options[0].option_name"
+					옵션명&nbsp;<input type="text" class="o1" th:id="${'options['+update.infoOptions.size()+'].option_name'}" th:name="${'options['+update.infoOptions.size()+'].option_name'}"
 									placeholder="ex)전망">&nbsp;
-					내용&nbsp;<input type="text" class="o1" id="options[0].option_value" name="options[0].option_value"
+					내용&nbsp;<input type="text" class="o1" th:id="${'options['+update.infoOptions.size()+'].option_value'}" th:name="${'options['+update.infoOptions.size+'].option_value'}"
 								   placeholder="ex)시티뷰">&nbsp;
 					<button class="add_info_option" type="button" >옵션 추가하기</button>
 					<br>
@@ -80,8 +80,8 @@
 
 			<h3>현재 방 이용 옵션</h3>
 				<div class="useOptions"  th:each="useOption, loop :  ${update.useOptions}" th:if="${useOption.option_type == '객실이용'}">
-					옵션명&nbsp;<input type="text" class="o2" th:name="${'useOptions['+loop.count+'].option_name'}" th:value="${useOption.option_name}" placeholder="ex)객실이용">&nbsp;
-					내용&nbsp;<textarea class="o2 textarea"  th:name="${'useOptions['+loop.count+'].option_value'}"
+					옵션명&nbsp;<input type="text" class="o2" th:name="${'useOptions['+loop.index+'].option_name'}" th:value="${useOption.option_name}" placeholder="ex)객실이용">&nbsp;
+					내용&nbsp;<textarea class="o2 textarea"  th:name="${'useOptions['+loop.index+'].option_value'}"
 									  th:text="${useOption.option_value}" rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
 					<button type="button" class="remove_option_btn">옵션 제거</button>
 					<br>
@@ -89,9 +89,9 @@
 			<h3>방 이용 옵션</h3>
 			<div id="plusUseOptions">
 				<div class="useOptions">
-					옵션명&nbsp;<input type="text" class="o2" id="useOptions[0].option_name"
-									name="useOptions[0].option_name" placeholder="ex)객실이용">&nbsp;
-					내용&nbsp;<textarea class="o2 textarea" id="useOptions[0].option_value" name="useOptions[0].option_value"
+					옵션명&nbsp;<input type="text" class="o2" th:id="${'useOptions['+update.useOptions.size()+'].option_name'}" th:name="${'useOptions['+update.useOptions.size()+'].option_name'}"
+									 placeholder="ex)객실이용">&nbsp;
+					내용&nbsp;<textarea class="o2 textarea"  th:id="${'useOptions['+update.useOptions.size()+'].option_value'}" th:name="${'useOptions['+update.useOptions.size()+'].option_value'}"
 									  rows="4" placeholder="ex)커피 차 티백 "></textarea>&nbsp;
 					<button type="button" class="add_use_option">옵션 추가하기</button>
 					<br>
