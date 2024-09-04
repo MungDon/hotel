@@ -53,12 +53,6 @@ public class ReservationService {
 		return CommonUtils.successResponse(result,"임시예약 삭제 완료",ErrorCode.DELETE_OPERATION_FAILED);
 	}
 
-	@Transactional
-	public void changeReserveStatus(Long reserveSid,String reserveStatus){
-		int result = reservationMapper.changeReserveStatus(reserveSid,reserveStatus);
-		CommonUtils.throwRestCustomExceptionIf(result != 1, ErrorCode.RESERVATION_STATUS_CHANGE_FAIL);
-	}
-
 	@Transactional(readOnly = true)
 	public ResReserveInfo reserveInfo(Long reserveSid){
 		return reservationMapper.reserveInfo(reserveSid);

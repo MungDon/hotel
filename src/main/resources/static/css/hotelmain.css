@@ -148,4 +148,16 @@ input[type=date]::-webkit-calendar-picker-indicator{
 	width: 356px;
 	height: 208px;
 }
-
+.reserve_days{
+	border-style: none;
+	width: 100%;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+.reserve_days:focus{
+	outline: none;
+}
+.td2{
+	width: 10%;
+}

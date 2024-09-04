@@ -6,6 +6,7 @@ import com.example.demo.dto.response.ResponseDTO;
 import com.example.demo.enums.IamPortUrl;
 import com.example.demo.enums.ReservationStatus;
 import com.example.demo.mapper.PaymentMapper;
+import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.util.CommonUtils;
 import com.example.demo.util.IamPortKeys;
 import com.google.gson.Gson;
@@ -27,13 +28,14 @@ import java.net.http.HttpResponse;
 public class PaymentService {
 
     private final PaymentMapper paymentMapper;
-    private final ReservationService reservationService;
+    private final ReservationMapper reservationMapper;
     private final IamPortKeys iamPortKeys;
 
     /*결제 내역 저장*/
     @Transactional
     public ResponseDTO reservePaymentAdd(ReqPaymentInfoAdd req){
-        reservationService.changeReserveStatus(req.getReserveSid(), ReservationStatus.COMPLETED.getStatus());
+        int changeOperationResult = reservationMapper.changeReserveStatus(req.getReserveSid(), ReservationStatus.COMPLETED.getStatus());
+        CommonUtils.throwRestCustomExceptionIf(changeOperationResult < 0, ErrorCode.RESERVATION_STATUS_CHANGE_FAIL);
         int result = paymentMapper.reservePaymentAdd(req);
         return CommonUtils.successResponse(result,"결제 내역 저장 성공", ErrorCode.INSERT_OPERATION_FAILED);
     }

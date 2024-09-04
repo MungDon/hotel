@@ -16,7 +16,9 @@ public class SearchDto extends Search{
 	private int adult_cnt;				// 성인 수
 	
 	private int child_cnt;				// 어린이 수
-	
+
+	private String reserve_days;			// 예약 일 수
+
 
 
 }

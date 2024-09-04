@@ -1,3 +1,5 @@
+
+
 function reserveValidate(){
 	const startDateInput = document.getElementById("start_date");
 	const endDateInput = document.getElementById("end_date");
@@ -12,25 +14,38 @@ function reserveValidate(){
 	return true;
 }
 
+	$(document).ready(() => {
+		const today = new Date().toISOString().split('T')[0];
+		const reserveDays = $(".search_reserve_days").val();
+		document.getElementById("start_date").setAttribute('min', today);
+		document.getElementById("end_date").setAttribute('min', today);
+		if(!isNull(reserveDays)) {
+			document.getElementById("result").value = reserveDays;
+		} else {
+			document.getElementById("result").value = '박';
+		}
+	});
 	// 성인 인원 기본으로 1명 default 설정
-    $(document).ready(function() {
+    $(document).on("change",".search_date",() => {
 	    const startDate = $("#start_date").val();
         const endDate = $("#end_date").val();
         const start = new Date(startDate);
         const end = new Date(endDate);
+		if(isNull(startDate)||isNull(endDate)){
+			return;
+		}
         const $adultCntInput = $("#adult_cnt");
         if ($adultCntInput.val() === "0") {
             $adultCntInput.val(1);
         }
-       	const today = new Date().toISOString().split('T')[0];
-        document.getElementById("start_date").setAttribute('min', today);
-        document.getElementById("end_date").setAttribute('min', today);
+
             
         const differenceInTime = end.getTime() - start.getTime();
         const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+		const reserveDays = Math.ceil(differenceInDays);
         if(isNaN(differenceInDays)){
-			document.getElementById("result").innerText = `박`;
+			return;
 		}else{
-        	document.getElementById("result").innerText = `${Math.ceil(differenceInDays)} 박`;
+        	document.getElementById("result").value = `${reserveDays} 박`;
         }
     });

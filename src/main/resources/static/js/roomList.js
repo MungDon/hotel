@@ -189,9 +189,21 @@ $(function () {
         ajaxCall(ajaxObj); // AJAX 요청 호출 추가
     });
 
+    const calculateRoomPrice = () => {
+        const startDate = new Date($(".start_date").val());
+        const endDate = new Date($(".end_date").val());
+        const priceText = $(".price span").text();
+        const price = parseInt(priceText.replace("원", "").trim());
+        const differenceInTime = endDate.getTime() - startDate.getTime();
+        const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+        return differenceInDays * price;
+    }
     // 예약정보 보여주기
     const createReserveForm = (detailData) => {
-        const finalPrice =
+        let finalPrice = calculateRoomPrice();
+        if (isNull(finalPrice)|| finalPrice == 0){
+            finalPrice = 0;
+        }
         const personCntHTML =
             `<div class ="personCount">
                  <span class="personText">예약 인원</span>
@@ -229,9 +241,11 @@ $(function () {
                     <input type="text" id="address" placeholder="주소" readonly>
                     <input type="text" id="detail_address" placeholder="상세주소">
                  </div>
-                 <span class="askText">최종 결제 금액</span>
-                 <span class="final_price"></span>
-                 <span class="askText">위 예약정보로 진행됩니다.</span>
+                 <div class="price_notice">
+                     <span class="askText">최종 결제 금액</span>
+                     <span class="final_price">${finalPrice}</span>
+                     <span class="askText">위 예약정보로 진행됩니다.</span>
+                 </div>    
                  <div class="reserveBtnBox">
                     <button type="button" class="cancelReserveBtn" value="${detailData.reserve_sid}">취소</button>
                     <button type="button" class="reserveCompleteBtn">신용카드 결제</button>
@@ -263,7 +277,6 @@ $(function () {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
-
         let orderNum = year + month + day;
         for (let i = 0; i < 5; i++) {
             orderNum += Math.floor(Math.random() * 8);
@@ -282,8 +295,8 @@ $(function () {
         const reserveNumber = createReserveNum();
         const userEmail = $(".user_email").text().trim();
         const roomName = $(".roomName").text().trim();
-        const priceText = $(".price span").text();
-        const price = priceText.replace("원", "").trim();
+
+
         const phone = "010-" + $("#firstNum").val() + "-" + $("#secondNum").val();
         const buyerName = $("#buyerName").val();
         console.log(reserveNumber);

@@ -62,7 +62,7 @@ public class ReservationController {
 		return "reserve_list";
 	}
 
-	@DeleteMapping("/cancel")
+	@DeleteMapping("/delete")
 	@ResponseBody
 	public ResponseEntity<ResponseDTO> reserveCancel(ReqReserveCancel req) throws IOException, InterruptedException {
 		ResponseDTO response =  reservationService.cancelReservation(req.getReserveSid(), req.getReserveNumber());

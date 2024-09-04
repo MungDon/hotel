@@ -28,7 +28,7 @@
 	<input type="hidden" class="end_date" th:value="${search.end_date}"/>
 	<input type="hidden" class="adult_cnt" th:value="${search.adult_cnt}"/>
 	<input type="hidden" class="child_cnt" th:value="${search.child_cnt}"/>
-
+	<input type="hidden" name="reserve_days" class="search_reserve_days" th:value="${search.reserve_days}"/>
 	<!--페이징변수-->
 	<input type="hidden" class="existPrevPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.existPrevPage}">
 	<input type="hidden" class="existNextPage" th:value="${#lists.isEmpty(rooms.list)? '' : rooms.pagination.existNextPage}">

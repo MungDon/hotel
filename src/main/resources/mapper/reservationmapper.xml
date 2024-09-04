@@ -87,7 +87,7 @@
 		    	reserve_sid = #{reserveSid}
 	</update>
 
-	<delete id="deleteTemporaryReserve">
+	<delete id="deleteReserve">
 		DELETE
 		FROM tb_reservation
 		WHERE
