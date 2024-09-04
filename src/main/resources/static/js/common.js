@@ -133,4 +133,18 @@ $(function(){
         }
         ajaxCall(ajaxObj);
     });
+    $(document).on("click", "button", (event) => {
+        const $button = $(event.target);
+
+        // 버튼이 이미 비활성화된 상태라면, 더 이상 진행하지 않음
+        if ($button.data('clicked')) {
+            event.preventDefault(); // 클릭 이벤트를 취소
+            return;
+        }
+
+        // 일정 시간 후에 버튼을 다시 활성화
+        setTimeout(() => {
+            $button.data('clicked', false);
+        }, 3000); // 3초 후 다시 활성화
+    });
 })

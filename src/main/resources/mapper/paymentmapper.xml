@@ -19,4 +19,10 @@
         )
     </insert>
 
+    <delete id="deletePayment">
+        DELETE
+        FROM    tb_payment
+        WHERE   reserve_sid = #{reserveSid}
+    </delete>
+
 </mapper>

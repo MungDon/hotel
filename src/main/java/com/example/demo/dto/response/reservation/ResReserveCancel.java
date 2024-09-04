@@ -7,5 +7,5 @@ public class ResReserveCancel {
 
     private Long reserve_sid;        // 예약 시퀀스
 
-    private String reserve_number;   // 예약 번호
+    private String room_number;   // 예약 번호
 }

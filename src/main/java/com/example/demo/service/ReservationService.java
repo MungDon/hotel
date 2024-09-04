@@ -77,10 +77,10 @@ public class ReservationService {
 
 	/*사용자 예약 취소*/
 	@Transactional
-	public ResponseDTO cancelReservation(Long reserveSid, String reserveNumber) throws IOException, InterruptedException {
+	public ResponseDTO cancelReservation(Long reserveSid, String roomNumber) throws IOException, InterruptedException {
+		int refundResult =  paymentService.refundReserve(roomNumber,reserveSid);
 		int DBDeleteResult = reservationMapper.deleteReserve(reserveSid);
 		CommonUtils.throwRestCustomExceptionIf(DBDeleteResult < 0,ErrorCode.DB_DELETE_FAILED);
-		int refundResult =  paymentService.refundReserve(reserveNumber);
 		return CommonUtils.successResponse(refundResult,"예약이 취소되어 환불 처리되었습니다.",ErrorCode.DELETE_OPERATION_FAILED);
 	}
 	
@@ -89,7 +89,7 @@ public class ReservationService {
 	public void deleteReservation(Long roomSid) throws IOException, InterruptedException {
 		List<ResReserveCancel> targetReserveSids = reservationMapper.findReserveByRoomSid(roomSid);
 		for(ResReserveCancel res : targetReserveSids){
-			cancelReservation(res.getReserve_sid(),res.getReserve_number());
+			cancelReservation(res.getReserve_sid(),res.getRoom_number());
 		}
 	}
 

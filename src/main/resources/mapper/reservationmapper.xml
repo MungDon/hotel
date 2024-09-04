@@ -76,7 +76,7 @@
 	</select>
 
 	<select id="findReserveByRoomSid" resultType="ResReserveCancel">
-		SELECT	reserve_sid,reserve_number
+		SELECT	reserve_sid,room_number
 		FROM	tb_reservation
 		WHERE	room_sid = #{roomSid}
 	</select>

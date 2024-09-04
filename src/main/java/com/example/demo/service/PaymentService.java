@@ -40,12 +40,12 @@ public class PaymentService {
         return CommonUtils.successResponse(result,"결제 내역 저장 성공", ErrorCode.INSERT_OPERATION_FAILED);
     }
     @Transactional
-    public int refundReserve(String reserveNumber) throws IOException, InterruptedException {
+    public int refundReserve(String roomNumber,Long reserveSid) throws IOException, InterruptedException {
         String cancelToken = createToken(iamPortKeys.getApiKey(),iamPortKeys.getSecretKey());
         HttpClient client = HttpClient.newHttpClient();
 
         JsonObject json = new JsonObject();
-        json.addProperty("merchant_uid", reserveNumber);
+        json.addProperty("merchant_uid", roomNumber);
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(IamPortUrl.PAYMENT_CANCEL_REQUEST_URL.getUrl()))
@@ -58,6 +58,9 @@ public class PaymentService {
         HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
 
         int result = response.statusCode() == 200 ? 1 :0;
+        if(result==1){
+            paymentMapper.deletePayment(reserveSid);
+        }
         return result ;
     }
 
