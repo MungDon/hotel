@@ -51,4 +51,7 @@ public interface HotelMapper {
 	
 	/*hotel_sid 가 지정(바인딩) 되지않은 이미지명 추출*/
 	List<String> findOrphanImages();
+	
+	/*대표로 설정된 소개글 있는지 찾아오기*/
+	int findSelectedIntro(@Param(value = "hotelSid")Long hotelSid);
 }

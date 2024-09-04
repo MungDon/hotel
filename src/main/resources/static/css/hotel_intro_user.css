@@ -15,3 +15,9 @@
     width: 100%;
     border : 2px solid black;
 }
+.hotelIntroBox{
+    width: 90%;
+}
+.hotelIntroBox>p>img{
+    width: 100%;
+}

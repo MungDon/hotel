@@ -13,6 +13,7 @@
  import com.example.demo.mapper.HotelMapper;
  import com.example.demo.util.CommonUtils;
  import lombok.RequiredArgsConstructor;
+ import lombok.extern.slf4j.Slf4j;
  import org.springframework.beans.factory.annotation.Value;
  import org.springframework.http.HttpHeaders;
  import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@
  import java.util.Base64.Decoder;
  import java.util.regex.Matcher;
  import java.util.regex.Pattern;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HotelService {
@@ -69,6 +70,10 @@ public class HotelService {
 	@Transactional
 	public void introUpdate(ReqIntroUpdate req){
 		String statusName = introStatusProvider(req.getStatus());
+		if(IntroStatus.UNSELECTED_INTRODUCTION.getName().equals(statusName)){
+			int selectedIntroCnt = hotelMapper.findSelectedIntro(req.getHotel_sid());
+			CommonUtils.throwCustomExceptionIf(selectedIntroCnt <= 0 ,ErrorCode.FAIL_CHANGE_INTRO_STATUS);
+		}
 		req.setStatus(statusName);
 		hotelMapper.introUpdate(req);
 		insertHotelSid(req.getHotel_sid());

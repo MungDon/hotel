@@ -23,6 +23,7 @@ public enum ErrorCode {
 	DB_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"데이터 삭제 실패, 다시 시도해도 안될 시 운영자에게 문의 해주세요"),
 	FAIL_SEND_EMAIL(HttpStatus.INTERNAL_SERVER_ERROR,"이메일 전송 실패, 없는 이메일입니다."),
 	FAIL_AUTHENTICATION(HttpStatus.BAD_REQUEST,"인증실패"),
+	FAIL_CHANGE_INTRO_STATUS(HttpStatus.BAD_REQUEST,"대표글 해제를 위해서 다른 소개글에 대표글 설정을 해주세요"),
 	FAIL_TEMPORARY_RESERVATION(HttpStatus.INTERNAL_SERVER_ERROR,"임시예약 실패"),
 	INSERT_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"저장 작업 실패"),
 	UPDATE_OPERATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"수정 작업 실패"),

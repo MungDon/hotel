@@ -75,6 +75,12 @@
 		    	hotel_sid is null
 	</select>
 
+	<select id="findSelectedIntro">
+		SELECT 	COUNT(*)
+		FROM 	tb_hotel
+		where 	status = '공개'
+		  		and hotel_sid != #{hotelSid}
+	</select>
 
 	<update id="introUpdate" parameterType="ReqIntroUpdate">
 		UPDATE 	tb_hotel

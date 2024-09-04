@@ -23,7 +23,7 @@ $(function () {
                             const thenFn = () => {
                                 location.href = PAGE_LIST.INTRO_LIST;
                             }
-                            swalCall("성공","작성이 취소되었습니다", "success", thenFn);
+                            swalCall("성공", "작성이 취소되었습니다", "success", thenFn);
                         }
                     }
                 }
@@ -32,6 +32,32 @@ $(function () {
                 return;
             }
         }
-        swalCall("경고", "취소하면 내용이 사라집니다. 취소하시겠습니까?", "question", thenFn);
+        swalCall("경고", "취소하면 내용이 사라집니다. 취소하시겠습니까?", "question", thenFn,"예",true);
+    });
+
+    const validateIntroForm = () => {
+        const title = $("#title").val();
+        const content = $("#content").val();
+        const status = $("input[name='status']:checked").val();
+        if (isNull(title)) {
+            swalCall("경고", "제목은 필.수. 입니다", "warning");
+            return false;
+        }
+        if (isNull(content)) {
+            swalCall("경고", "내용은 필.수. 입니다", "warning");
+            return false;
+        }
+        if (isNull(status)) {
+            swalCall("경고", "대표소개글 설정은 필.수. 입니다", "warning");
+            return false;
+        }
+        return true;
+    }
+
+    $(".intro_add").click(() => {
+        const introAddForm = $("#introForm");
+        if(validateIntroForm()){
+            introAddForm.submit();
+        }
     });
 });
