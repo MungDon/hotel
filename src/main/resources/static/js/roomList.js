@@ -203,7 +203,7 @@ $(function () {
     }
     // 예약정보 보여주기
     const createReserveForm = (detailData) => {
-        let finalPrice = calculateRoomPrice();
+        let finalPrice = calculateRoomPrice() * (detailData.adult_cnt + detailData.child_cnt) ;
         if (isNull(finalPrice)|| finalPrice == 0){
             finalPrice = 0;
         }
