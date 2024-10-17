@@ -32,6 +32,9 @@
 .layout_list_btn_box>button:hover,.layout_add_btn_box > button:hover{
     opacity: 0.5;
 }
+.layout_add_btn_box > button:disabled{
+    cursor: no-drop;
+}
 .room_add,.room_delete{
     margin-left : 3px;
     border-style: none;

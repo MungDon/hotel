@@ -42,9 +42,8 @@
 	border-style: none;
 	margin-bottom : 5px;
 }
-.inputElement> input::placeholder{
+.inputElement> input::placeholder,.inputElement> input{
 	padding-left : 10px;
-	color : darkgray;
 }
 .btns{
 	display : flex;

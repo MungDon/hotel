@@ -59,6 +59,8 @@ $(function () {
     /*층 추가*/
     $(document).on("click",".floor_add",() => {
         const layoutAddCon = $(".layout_add_con");
+        const layoutAddBtnBox = $(".layout_add_btn_box");
+        layoutAddBtnBox.find(".floor_delete").prop("disabled", false);
         const floorHTML =
             `
             <div class="floor_box">
@@ -79,7 +81,12 @@ $(function () {
     /*층 삭제*/
     $(document).on("click",".floor_delete",(event) => {
         const layoutAddCon = $(".layout_add_con");
+        const layoutAddBtnBox = $(".layout_add_btn_box");
         const lastFloorBox = layoutAddCon.find(".floor_box").last();
+        const floorCount = layoutAddCon.find(".floor_box").length;
+        if (floorCount <= 2) {
+            layoutAddBtnBox.find(".floor_delete").prop("disabled", true);
+        }
         lastFloorBox.remove();
         floorCnt--;
     });
