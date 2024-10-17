@@ -193,9 +193,12 @@ $(function () {
         const startDate = new Date($(".start_date").val());
         const endDate = new Date($(".end_date").val());
         const priceText = $(".price span").text();
-        const price = parseInt(priceText.replace("원", "").trim());
+        const price = parseInt(priceText.replace("원", "").replace(",","").trim());
         const differenceInTime = endDate.getTime() - startDate.getTime();
         const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+        console.log(differenceInDays);
+        console.log(price);
+        console.log( parseInt(priceText.replace("원", "").replace(",","").trim()));
         return differenceInDays * price;
     }
     // 예약정보 보여주기
@@ -243,7 +246,7 @@ $(function () {
                  </div>
                  <div class="price_notice">
                      <span class="askText">최종 결제 금액</span>
-                     <span class="final_price">${finalPrice}</span>원
+                     <span class="final_price">${finalPrice.toLocaleString()}</span>원
                      <span class="askText">위 예약정보로 진행됩니다.</span>
                  </div>    
                  <div class="reserveBtnBox">

@@ -66,34 +66,22 @@ $(function () {
             <button type="button" class="layout_update_cancel">취소</button>
             <button type="button" class="floor_add">층 추가</button>
             <button type="button" class="floor_delete">층 삭제</button>
-            <button type="button" class="reload">새로고침</button>
             `;
         layoutListBtnBox.append(layoutUpdateBtnBoxHTML);
     });
 
-    $(document).on("click", ".reload", () => {
-        location.reload();
+    $(document).on("click", ".layout_update_cancel", () => {
+        const thenFn =(result)=>{
+            if(result.isConfirmed){
+                location.reload();
+            }else{
+                return;
+            }
+        }
+        swalCall("수정 취소","지금 취소하면 수정한 내용이 사라집니다,<br/>취소하시겠습니까?","question",thenFn,"예",true);
+
     });
 
-    $(document).on("click", ".layout_update_cancel", () => {
-        const layoutListBtnBox = $(".layout_add_btn_box");
-        layoutListBtnBox.empty();
-        const layoutListIsEmpty = layoutList.length === 0;
-        let layoutUpdateCancelBtnBoxHTML = '';
-        if (layoutListIsEmpty) {
-            layoutUpdateCancelBtnBoxHTML =
-                `
-                <button type="button" class="layout_add_form">등록</button>
-                `
-        } else {
-            layoutUpdateCancelBtnBoxHTML =
-                `
-                <button type="button" class="layout_update_set">수정</button>
-                <button type="button" class="remove_all">초기화</button>
-                `;
-        }
-        layoutListBtnBox.append(layoutUpdateCancelBtnBoxHTML);
-    });
 
     $(document).on("click",".remove_all",()=>{
         const thenFn = (result) => {

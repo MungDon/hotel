@@ -15,7 +15,10 @@
             <span class="hotelIntroText">MUNG LA HOTEL 소개</span>
             <hr class="underLine">
         </div>
-        <div class="hotelIntroBox" th:utext="${intro.content}"></div>
+        <div class="hotelIntroBox" th:if="${intro != null}" th:utext="${intro.content}"></div>
+        <div class="hotelIntroBox" th:if="${intro == null}">
+            <h1>소개글 준비중입니다~~</h1>
+        </div>
     </main>
     <footer th:replace="~{footer :: footer}"></footer>
 </body>
